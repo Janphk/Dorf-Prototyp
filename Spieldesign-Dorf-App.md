@@ -289,7 +289,7 @@ Die Musik wird **live im Browser erzeugt**, es gibt keine Audio-Dateien. Die Mel
 - **Abbrechen:** Rechtsklick oder Esc schließt Menüs, beendet Bauen oder Verschieben und hebt eine Auswahl auf.
 - **Tastenkürzel:** B Bauen, M Bearbeiten, R Gebäude drehen, Entf ins Lager, Q/E Ansicht drehen, WASD oder Pfeiltasten verschieben, +/− zoomen.
 - **Wege und Deko malen:** Maustaste oder Finger kurz gedrückt halten (ca. eine Viertelsekunde), dann über die Felder ziehen. Wer sofort zieht, verschiebt die Karte, auch wenn gerade ein Weg oder Deko „in der Hand“ ist. Ein kurzer Tipp setzt ein einzelnes Feld.
-- **Doppelklick auf ein Gebäude** öffnet es direkt im Bearbeiten-Modus. Im Bearbeiten-Modus werden Gebäude unter dem Mauszeiger hervorgehoben.
+- **Doppelklick (oder doppeltes Tippen) auf ein Gebäude oder Objekt** hebt es sofort zum Verschieben auf. Ein Tipp auf das Ziel setzt es ab, danach ist man wieder im normalen Modus. Damit der erste Tipp nicht schon etwas auslöst, reagiert ein einzelner Tipp auf ein Gebäude mit einer kurzen Verzögerung (0,3 Sekunden). Im Bearbeiten-Modus werden Gebäude unter dem Mauszeiger hervorgehoben.
 - **Kurze Übergänge** (unter 0,25 s) für Menüs, Leisten, Ansichten und das Übungsfenster sowie Klick-Feedback auf Knöpfen. Wer in den Systemeinstellungen reduzierte Bewegung eingestellt hat, sieht keine Animationen.
 - **Kleine Effekte:** Staubwölkchen beim Bauen, sanftes Schrumpfen beim Einlagern.
 - **Leise Klänge** beim Bauen, Belohnen, Tauschen und Wachsen des Dorfs. Ein Lautsprecher-Knopf neben dem Tag schaltet sie aus, auch den Klang der Ruhe-Übungen.
