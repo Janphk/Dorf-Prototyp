@@ -2267,14 +2267,14 @@ function renderList(){
 }
 function renderTasks(){
   const list = todaysTasks(), n = list.length;
-  $('tasks').innerHTML = list.map(t => {
-    const pr = Math.min(progressOf(t), t.goal), claimed = S.claimed.includes(t.id), done = isDone(t);
+  $('tasks').innerHTML = list.map(task => {
+    const pr = Math.min(progressOf(task), task.goal), claimed = S.claimed.includes(task.id), done = isDone(task);
     const right = claimed ? t('<span class="claimed">Abgeholt</span>')
-      : done ? tt`<button class="claim" data-claim="${t.id}">Abholen</button>` : `<span class="reward multi">${rewardHtml(t.reward)}</span>`;
-    return `<div class="task${claimed ? ' is-claimed' : ''}"><span class="ico">${TICON[t.kind]}</span>
-      <div><div class="title">${t.title}</div><div class="text">${t.text}</div>
-        <div class="bar" role="progressbar" aria-label="${t.title}" aria-valuemin="0" aria-valuemax="${t.goal}" aria-valuenow="${pr}"><i style="width:${pr / t.goal * 100}%"></i></div>
-        <div class="meta"><span>${fmt(pr)} / ${fmt(t.goal)}</span>${done && !claimed ? `<span>${rewardText(t.reward)}</span>` : ''}</div></div>${right}</div>`;
+      : done ? tt`<button class="claim" data-claim="${task.id}">Abholen</button>` : `<span class="reward multi">${rewardHtml(task.reward)}</span>`;
+    return `<div class="task${claimed ? ' is-claimed' : ''}"><span class="ico">${TICON[task.kind]}</span>
+      <div><div class="title">${task.title}</div><div class="text">${task.text}</div>
+        <div class="bar" role="progressbar" aria-label="${task.title}" aria-valuemin="0" aria-valuemax="${task.goal}" aria-valuenow="${pr}"><i style="width:${pr / task.goal * 100}%"></i></div>
+        <div class="meta"><span>${fmt(pr)} / ${fmt(task.goal)}</span>${done && !claimed ? `<span>${rewardText(task.reward)}</span>` : ''}</div></div>${right}</div>`;
   }).join('');
   const chestSvg = `<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="20" width="36" height="22" rx="3" fill="#A8693F"/><path d="M6 24c0-9 8-14 18-14s18 5 18 14Z" fill="${S.chest ? '#6E4329' : '#B97A4C'}"/><rect x="6" y="22" width="36" height="4" fill="#6E4329"/><rect x="20" y="20" width="8" height="10" rx="2" fill="#F2C14E"/></svg>`;
   $('chest').innerHTML = S.chest ? tt`${chestSvg}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>`
