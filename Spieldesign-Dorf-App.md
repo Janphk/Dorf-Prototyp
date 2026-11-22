@@ -294,7 +294,7 @@ Das Album ist ein aufgeschlagenes Buch mit farbigen Kapitel-Reitern: Gebäude, E
 ## Dorfküche (im Web-Prototyp umgesetzt)
 Gebäude der Stufe 2 (15.000 Münzen, 30 Holz, 20 Stein) mit der Köchin Marta. Antippen öffnet die Küche:
 - **3 × 3-Raster:** Man wählt eine Zutat und tippt auf Felder. Die **Anordnung zählt**, die Position im Raster nicht (ein Muster darf überall liegen).
-- **Zutaten:** Kisten aus dem Vorrat (Radieschen, Karotten, Kartoffeln, Kürbisse, Erdbeeren) und Kräuter werden verbraucht. Mehl (braucht die Windmühle), Eier (Bauernhof), Milch (Ziegenstall) und Honig (Bienenstöcke oder Honigstand) sind unbegrenzt da, sobald das Gebäude steht.
+- **Zutaten:** Kisten aus dem Vorrat (Radieschen, Karotten, Kartoffeln, Kürbisse, Erdbeeren), Kräuter sowie Mehl, Eier, Milch und Honig. Alles wird beim Kochen verbraucht. Mehl, Eier, Milch und Honig muss man erst erzeugen (siehe „Erzeugnisse“).
 - **Rezeptbuch:** 7 Rezepte sind von Anfang an bekannt und lassen sich mit „Ins Raster“ automatisch legen. 5 Rezepte sind geheim, dafür gibt es Hinweise von Bewohnern. Wer eines richtig nachkocht, schaltet es frei.
 - **Ein falsches Muster** verbraucht nichts („daraus wird leider nichts“).
 
@@ -304,18 +304,36 @@ Gebäude der Stufe 2 (15.000 Münzen, 30 Holz, 20 Stein) mit der Köchin Marta. 
 | Radieschensalat | R H R | 700 |
 | Karottensuppe | K K K / · H · | 1.800 |
 | Bratkartoffeln | Ka H Ka / · Ka · | 2.800 |
-| Pfannkuchen | Mehl Ei Mehl / · Milch · | 900 |
+| Pfannkuchen | Mehl Ei Mehl / · Milch · | 1.800 |
 | Kürbissuppe | · Kü · / H Kü H / · Milch · | 5.000 |
-| Erdbeerkuchen | E E E / Mehl Ei Mehl | 13.000 |
-| geheim: Kürbiskuchen | Kü Kü / Mehl Ei | 4.800 |
+| Erdbeerkuchen | E E E / Mehl Ei Mehl | 14.000 |
+| geheim: Kürbiskuchen | Kü Kü / Mehl Ei | 5.400 |
 | geheim: Gemüseeintopf | R K Ka / H H H | 2.200 |
-| geheim: Erdbeermilch | E / Milch / Honig (senkrecht) | 4.500 |
-| geheim: Honigbrot | Mehl Mehl Mehl / · Honig · | 800 |
-| geheim: Karottenkuchen | K Mehl K / Ei Honig Ei | 2.600 |
+| geheim: Erdbeermilch | E / Milch / Honig (senkrecht) | 5.200 |
+| geheim: Honigbrot | Mehl Mehl Mehl / · Honig · | 1.600 |
+| geheim: Karottenkuchen | K Mehl K / Ei Honig Ei | 3.600 |
 
 (R = Radieschen, K = Karotte, Ka = Kartoffel, Kü = Kürbis, E = Erdbeere, H = Kräuter)
 
 Gerichte kann man im **Hofladen verkaufen**. **Bewohner wünschen sich Gerichte** (ab gebauter Küche, etwa jeder dritte Wunsch). Dafür gibt es das 1,5-fache des Verkaufspreises, 5 Kräuter und **zwei Herzen** Freundschaft. Jedes gekochte Gericht kommt ins **Album** (Kapitel „Gerichte“).
+
+## Erzeugnisse: Mehl, Eier, Milch, Honig (im Web-Prototyp umgesetzt)
+Damit die Rezepte nicht zu leicht sind, muss man diese Zutaten selbst erzeugen:
+- **Mehl:** Auf den Äckern wächst jetzt auch **Weizen** (300 Münzen, 20 Minuten, Verkauf 250). In der **Windmühle** mahlt Anton ihn: 1 Kiste Weizen ergibt 3 Mehl und dauert 5 Minuten, bis zu 10 Kisten auf einmal. Danach holt man das Mehl ab.
+- **Eier:** im neuen **Hühnerstall** (Stufe 2, 6.000 Münzen, 15 Holz, mit zwei Hühnern). Alle 30 Minuten ein Ei, höchstens 6 warten.
+- **Milch:** bei Kuh Berta auf der neuen **Kuhweide** (Stufe 2, 9.000 Münzen, 20 Holz, 5 Stein). Alle 45 Minuten eine Milch, höchstens 4.
+- **Honig:** bei den **Bienenstöcken** (alle 60 Minuten, höchstens 4) und am **Honigstand** (alle 90 Minuten, höchstens 3).
+
+Ist etwas abholbereit, erscheint über dem Gebäude ein kleines Symbol mit der Anzahl. Antippen sammelt ein. Über der Mühle läuft während des Mahlens ein Timer. Alle Erzeugnisse stehen auch im Vorrat.
+
+## Bau-Menü (überarbeitet, im Web-Prototyp umgesetzt)
+- Oben gibt es Kategorien: Alle, Häuser, Deko, Wege & Zäune, Natur, Wahrzeichen.
+- Der Schalter **„Gebautes ausblenden“** blendet Gebäude aus, die schon stehen oder ihre Höchstzahl erreicht haben.
+- Die Einträge sind jetzt Kacheln in zwei Spalten. Kategorie und Schalter bleiben gespeichert, die Leiste bleibt beim Scrollen oben.
+
+## Kleinigkeiten
+- Das Album hat eine feste Seitenhöhe, damit nichts springt, wenn man zwischen den Reitern wechselt.
+- Regen ist deutlich sanfter: weniger, blassere Tropfen und eine etwas hellere Stimmung.
 
 ## Wanderungen (im Web-Prototyp umgesetzt)
 In der Kachel „Wanderungen“ wählt man ein Ziel. Ab dann zählen alle echten Schritte, eine kleine Wegkarte zeigt den Fortschritt. Es läuft immer nur eine Wanderung, Abbrechen ist jederzeit möglich (mit Rückfrage).
