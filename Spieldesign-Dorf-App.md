@@ -128,7 +128,7 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 
 Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erscheinen erst, wenn man mit der Maus darüberfährt oder es antippt. Einmal erschlossene Gebiete bleiben offen, auch wenn später Gebäude ins Lager wandern.
 
-**Äcker auf den Sonnenfeldern:** Auf den Sonnenfeldern kann man beliebig viele Äcker anlegen (300 Münzen je 2 × 2 Felder, auch durch Ziehen „malbar“). Ein leerer Acker wird angetippt, dann wählt man eine Pflanze. Pflanzen wachsen in **echter Zeit**, auch wenn das Spiel geschlossen ist, und zeigen drei Stadien: Keimling, wachsend, reif. Über reifen Äckern erscheint ein Korb-Symbol. Ein Tipp darauf (oder auf den Acker) erntet und bringt Kräuter. Im Acker-Menü gibt es „Alle bepflanzen“ und „Alles ernten“. Wandert ein bepflanzter Acker ins Lager, geht die Pflanze verloren. Im Testmodus spult „Äcker: +1 Std“ das Wachstum vor.
+**Äcker auf den Sonnenfeldern:** Auf den Sonnenfeldern kann man bis zu **14 Äcker** anlegen (300 Münzen je 2 × 2 Felder, auch durch Ziehen „malbar“). Ein leerer Acker wird angetippt, dann wählt man eine Pflanze. Pflanzen wachsen in **echter Zeit**, auch wenn das Spiel geschlossen ist, und zeigen drei Stadien: Keimling, wachsend, reif. Über reifen Äckern erscheint ein Korb-Symbol. Ein Tipp darauf (oder auf den Acker) erntet und bringt Kräuter. Im Acker-Menü gibt es „Alle bepflanzen“ und „Alles ernten“. Wandert ein bepflanzter Acker ins Lager, geht die Pflanze verloren. Im Testmodus spult „Äcker: +1 Std“ das Wachstum vor.
 
 | Pflanze | Kosten beim Pflanzen | Wachstum | Ernte |
 |---|---|---|---|
@@ -162,7 +162,9 @@ Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leich
 
 **Kristallmine im Gebirge:** Funktioniert wie das Angeln, dauert aber **20 Minuten**. Man findet eines von **12 Mineralien** und bekommt Stein und Münzen: Quarz 20 %, Glimmer 16 %, Feldspat 14 %, Bergkristall 12 %, Achat 9 %, Rosenquarz 8 %, Amethyst 7 %, Malachit 5,5 %, Topas 4 %, Smaragd 2,5 %, Goldnugget 1,6 %, Diamant 0,4 % (legendär, 15.000 Münzen + 30 Stein). Bergfrau Rike wohnt an der Mine. Im Testmodus spult „Zeit: +15 Min“ Äcker, Angeln und Mine vor.
 
-**Mehrfach baubar:** Wege, Zäune, Laternen, Holzbänke, Deko-Pflanzen, Äcker, Seerosen, Strandkörbe und Kanus kann man beliebig oft bauen. Alle anderen Gebäude gibt es nur einmal.
+**Bäume:** Im Bau-Menü gibt es eine eigene Gruppe „Bäume“, die überall gepflanzt werden können (je 1 Feld, beliebig oft): Apfelbaum (900, 3 Kräuter), Birke (900, 3 Kräuter), Eiche (1.400, 5 Kräuter), Kirschbaum (1.800, 6 Kräuter, blüht im Frühling rosa), Trauerweide (2.200, 8 Kräuter). Alle färben sich mit den Jahreszeiten.
+
+**Mehrfach baubar:** Wege, Zäune, Laternen, Holzbänke, Bäume, Deko-Pflanzen, Äcker (höchstens 14), Seerosen, Strandkörbe und Kanus kann man beliebig oft bauen. Alle anderen Gebäude gibt es nur einmal.
 
 **Wasser:** Der Waldsee ist hellblau, das Meer tiefer blau. Vom Seeufer zur Küste geht die Farbe weich ineinander über, und am Ufer, an der Insel und an den Klippen ist das Wasser heller, wie flaches Wasser.
 
