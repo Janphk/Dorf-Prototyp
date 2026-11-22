@@ -107,18 +107,30 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Seeufer | Osten, 8 × 16 | 6 Gebäude oder 20.000 ausgegeben | Sand, See am Rand | Schilf (400, Deko), Ruderboot (3.000), Bootssteg (6.000), Muschelstand (9.000), Fischerhütte (14.000) |
 | Waldrand | Norden, 24 × 8 | 11 Gebäude oder 60.000 ausgegeben | Moosgrün, alte Tannen | Tanne (700, Deko), Pilzkreis (2.500), Holzfällerhütte (18.000), Baumhaus (24.000), Försterhaus (30.000) |
 | Bergwiese | Westen, 8 × 24 | 16 Gebäude oder 150.000 ausgegeben | Helle Almwiese, Felsen | Lavendel (900, Deko), Aussichtsbank (4.000), Ziegenstall (20.000), Steinbruch (28.000), Bergkapelle (40.000) |
-| Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Weizen und Apfelbäume am Rand | Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
+| Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
 
 **Grundflächen:**
 
 | Größe | Gebäude |
 |---|---|
 | 1 × 1 | Pfad, Zaun, Laterne, Schilf, Tanne, Lavendel, Sonnenblumen |
-| 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen |
+| 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen, Acker |
 | 3 × 3 | Gemüsegarten, Hütte, Teich, Gästehaus, Fischerhütte, Holzfällerhütte, Baumhaus, Försterhaus, Ziegenstall, Steinbruch, Bergkapelle, Bauernhof, Windmühle |
 | 4 × 4 | Dein Zuhause |
 
 Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erscheinen erst, wenn man mit der Maus darüberfährt oder es antippt. Einmal erschlossene Gebiete bleiben offen, auch wenn später Gebäude ins Lager wandern.
+
+**Äcker auf den Sonnenfeldern:** Auf den Sonnenfeldern kann man beliebig viele Äcker anlegen (300 Münzen je 2 × 2 Felder, auch durch Ziehen „malbar“). Ein leerer Acker wird angetippt, dann wählt man eine Pflanze. Pflanzen wachsen in **echter Zeit**, auch wenn das Spiel geschlossen ist, und zeigen drei Stadien: Keimling, wachsend, reif. Über reifen Äckern erscheint ein Korb-Symbol. Ein Tipp darauf (oder auf den Acker) erntet und bringt Kräuter. Im Acker-Menü gibt es „Alle bepflanzen“ und „Alles ernten“. Wandert ein bepflanzter Acker ins Lager, geht die Pflanze verloren. Im Testmodus spult „Äcker: +1 Std“ das Wachstum vor.
+
+| Pflanze | Kosten beim Pflanzen | Wachstum | Ernte |
+|---|---|---|---|
+| Radieschen | 200 Münzen | 3 Minuten | 4 Kräuter |
+| Karotten | 500 Münzen | 15 Minuten | 8 Kräuter |
+| Kartoffeln | 4 Kräuter | 45 Minuten | 14 Kräuter |
+| Kürbisse | 10 Kräuter | 2 Stunden | 32 Kräuter |
+| Erdbeeren | 2.000 Münzen, 5 Kräuter | 6 Stunden | 60 Kräuter |
+
+Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leicht anpassen.
 
 **Dein Zuhause (4 × 4 Felder):** Es ist von Anfang an da und wird mit jedem neuen Gebiet gemütlicher: Zelt → Blockhütte (mit Seeufer) → Fachwerkhaus (mit Waldrand) → Landhaus (mit Bergwiese) → Gutshof (mit Sonnenfeldern). Die Stufe richtet sich nach der Zahl der erschlossenen Gebiete. Man kann es verschieben, aber nicht ins Lager legen.
 
