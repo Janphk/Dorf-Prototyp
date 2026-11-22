@@ -101,7 +101,7 @@ Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Da
 **Offenes Problem (teilweise gelöst durch Äcker, Hofladen, Wünsche der Bewohner und die Wahrzeichen im Web-Prototyp):** Zwischen Monat 2,5 und 7,5 fehlt ein Ziel, für das man Münzen ausgibt. Mögliche Lösungen dafür sind ein Deko-Shop mit Jahreszeiten-Sets, Wünsche der Bewohner (kleine Aufträge), Upgrades für bestehende Gebäude in 2–3 Stufen und Erweiterungen des Dorfgebiets. Die täglichen Aufgaben bringen zusätzliche Münzen ins Spiel. Dadurch wird diese Lücke etwas früher erreicht, und das sollte man bei der Balance berücksichtigen.
 
 ## Wachsende Dorffläche (im Web-Prototyp umgesetzt, 3D)
-Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 32 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
+Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 44 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
 
 | Gebiet | Lage und Größe | Kommt hinzu bei | Gestaltung | Eigene Gebäude (Münzen) |
 |---|---|---|---|---|
@@ -110,6 +110,8 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Waldrand | Norden, 24 × 8 | 11 Gebäude oder 60.000 ausgegeben | Moosgrün, alte Tannen | Tanne (700, Deko), Pilzkreis (2.500), Holzfällerhütte (18.000), Baumhaus (24.000), Försterhaus (30.000) |
 | Bergwiese | Westen, 8 × 24 | 16 Gebäude oder 150.000 ausgegeben | Helle Almwiese, Felsen | Lavendel (900, Deko), Aussichtsbank (4.000), Ziegenstall (20.000), Steinbruch (28.000), Bergkapelle (40.000) |
 | Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
+| Waldsee | Norden hinter dem Waldrand, 18 × 12 | 24 Gebäude oder 400.000 ausgegeben | Dichter Tannenwald rundherum, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume (vom Waldrand aus) | Seerosen (600, 3 Kräuter, Deko, im Wasser), Angelsteg (5.000, 30 Holz, im Wasser, mehrfach baubar), Hochsitz (2.500, 25 Holz), Picknickplatz (4.000, 10 Holz, 5 Kräuter, Ruheort „Waldbaden“) |
+| Gebirge | Nordwesten, hinter Bergwiese und Waldrand, 14 × 12 | 28 Gebäude oder 600.000 ausgegeben | Graugrüne Almfläche, schneebedeckte Gipfel am Rand, Felsen | Gipfelkreuz (3.000, 10 Holz, 20 Stein, Ruheort „Gipfelblick“), Kristallmine (25.000, 40 Holz, 30 Stein), Berghütte (30.000, 80 Holz, 40 Stein, mit Hüttenwirt Sepp und zwei Steinböcken), Seilbahn (45.000, 40 Holz, 80 Stein, Gondel fährt auf und ab) |
 
 **Grundflächen:**
 
@@ -133,6 +135,18 @@ Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. G
 | Erdbeeren | 2.000 Münzen, 5 Kräuter | 6 Stunden | 60 Kräuter |
 
 Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leicht anpassen.
+
+**Angeln am Waldsee:** Auf dem Angelsteg wirft man mit einem Tipp die Angel aus. Das Angeln dauert **15 Minuten in echter Zeit** (auch bei geschlossenem Spiel). Über dem Steg läuft ein Countdown, danach erscheint ein Fisch-Symbol. Ein Tipp zeigt den Fang: einer von **20 Fischen**, zufällig nach Wahrscheinlichkeit, mit zufälliger Länge. Jeder Fisch bringt Münzen, der Goldene Karpfen zusätzlich 50 Kräuter. Neue Fische und neue Längenrekorde werden hervorgehoben. Anglerin Greta wohnt am Steg.
+
+| Seltenheit | Fische (Wahrscheinlichkeit, Münzen) |
+|---|---|
+| Häufig | Rotauge 16 % (60), Barsch 14 % (80), Brasse 12 % (70), Rotfeder 10 % (70), Ukelei 10 % (50) |
+| Gelegentlich | Schleie 6 % (220), Karpfen 6 % (260), Forelle 5 % (300), Hecht 4 % (380), Zander 3,5 % (400), Aal 2,5 % (350) |
+| Selten | Wels 2,6 % (900), Saibling 2,2 % (800), Äsche 1,8 % (850), Stör 1,2 % (1.200), Huchen 0,9 % (1.300) |
+| Sehr selten | Koi 1,2 % (2.500), Albino-Wels 0,6 % (4.000), Silberhecht 0,4 % (6.000) |
+| Legendär | Goldener Karpfen 0,1 % (25.000 + 50 Kräuter) |
+
+**Kristallmine im Gebirge:** Funktioniert wie das Angeln, dauert aber **20 Minuten**. Man findet eines von **12 Mineralien** und bekommt Stein und Münzen: Quarz 20 %, Glimmer 16 %, Feldspat 14 %, Bergkristall 12 %, Achat 9 %, Rosenquarz 8 %, Amethyst 7 %, Malachit 5,5 %, Topas 4 %, Smaragd 2,5 %, Goldnugget 1,6 %, Diamant 0,4 % (legendär, 15.000 Münzen + 30 Stein). Bergfrau Rike wohnt an der Mine. Im Testmodus spult „Zeit: +15 Min“ Äcker, Angeln und Mine vor.
 
 **Hofladen und Kisten:** Jeder geerntete Acker ergibt zusätzlich zu den Kräutern eine Kiste der Pflanze im Vorrat. Lene im Hofladen kauft die Kisten (Antippen des Hofladens): Radieschen 150, Karotten 350, Kartoffeln 600, Kürbisse 1.500, Erdbeeren 3.000 Münzen pro Kiste. Ohne Hofladen sammeln sich die Kisten einfach an. Kisten kann man auch Bewohnern schenken (siehe Wünsche).
 
@@ -192,6 +206,7 @@ Unter den täglichen Aufgaben stehen drei Wochenziele. Eine Woche sind 7 Spielta
 | Dranbleiben (immer) | an 4 Tagen mindestens 5.000 Schritte | 2.000 Münzen + 15 Holz + 15 Stein |
 | Ruhige Woche (im Wechsel) | 5 Ruhe-Übungen | 1.200 Münzen + 15 Kräuter |
 | Erntewoche (im Wechsel, mit Äckern) | 10 Äcker ernten | 1.500 Münzen + 10 Holz |
+| Angelwoche (im Wechsel, mit Angelsteg) | 6 Fische fangen | 1.500 Münzen + 10 Kräuter |
 | Rätselwoche (im Wechsel, mit Dorfschule) | 6 Rätselspiele | 1.500 Münzen + 10 Stein |
 
 ## Wünsche der Bewohner (im Web-Prototyp umgesetzt)
@@ -203,8 +218,13 @@ Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Über ihrem Haus er
 - **Jahreszeiten:** Sie richten sich nach dem echten Monat. Im Frühling blühen die Apfelbäume rosa, im Herbst färbt sich das Laub orange, im Winter liegt Schnee auf Wiesen und Bäumen.
 - In den Einstellungen lässt sich das abschalten (dann immer Sommermittag bei Sonne). Im Testmodus kann man Tageszeit, Wetter und Jahreszeit durchschalten.
 
+## Uhr (im Web-Prototyp umgesetzt)
+Neben dem Spieltag steht eine kleine Uhr mit der echten Uhrzeit. Sie passt zu Tageszeit, Äckern, Angeln und Mine, die alle in echter Zeit laufen.
+
+**Kartenerweiterung:** Für Waldsee und Gebirge ist die Karte im Norden um 12 Reihen gewachsen. Bestehende Spielstände werden beim Laden automatisch umgerechnet, alle Gebäude bleiben an ihrem Platz.
+
 ## Album (im Web-Prototyp umgesetzt)
-Im Aufgaben-Tab gibt es ein Album. Es zeigt alle Gebäude (noch nicht gebaute als graue Umrisse), alle geernteten Pflanzen mit Anzahl, alle gelesenen Gedichte und die Freundschaften mit den Bewohnern. Oben steht, wie viel Prozent man schon gesammelt hat.
+Im Aufgaben-Tab gibt es ein Album. Es zeigt alle Gebäude (noch nicht gebaute als graue Umrisse), alle geernteten Pflanzen mit Anzahl, alle gefangenen Fische (Anzahl, längster Fang, Wahrscheinlichkeit), alle gefundenen Mineralien mit Anzahl, alle gelesenen Gedichte und die Freundschaften mit den Bewohnern. Oben steht, wie viel Prozent man schon gesammelt hat.
 
 ## Ruheorte (im Web-Prototyp umgesetzt)
 Jeden Tag lädt das Spiel an bis zu drei Orten im Dorf zu einer kurzen Übung ein. Dort schwebt dann ein Blatt-Symbol. Jede Übung wird geführt (animierter Atemkreis oder Schritt-für-Schritt-Text) und **läuft automatisch bis zu 3 Minuten**. Ein sanfter Klang markiert jede volle Minute und das Ende. So kann man die Augen geschlossen lassen. Beenden geht jederzeit, angerechnet werden die geschafften vollen Minuten: 3 Kräuter und 1 Achtsamkeitsminute pro Minute. Wer in der ersten Minute abbricht, bekommt nichts, aber auch keinen Hinweis oder eine Strafe, und der Ruheort bleibt offen. Ob man sie wirklich macht, prüft das Spiel nicht. Man spielt ja für sich. Später könnte die iOS-App diese Minuten selbst in Apple Health eintragen.
