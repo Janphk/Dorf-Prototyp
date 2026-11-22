@@ -90,7 +90,7 @@ Ein gemütliches Dorfaufbau-Spiel im Indie-Stil. Die Ressourcen zum Bauen kommen
 
 Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Dach → Fenster → Innenhof → Garten → Fahnen und Einweihungsfest. Jede Phase ist im Dorf sichtbar und bringt eine kleine Belohnung (Deko, Dialog oder Bewohner).
 
-**Umsetzung im Web-Prototyp:** Die Wahrzeichen stehen im Bau-Menü in einer eigenen Gruppe. Sie kosten nichts, wachsen aber nur mit den Lebensschritten, und zwar nacheinander: Leuchtturm bei 0–200.000, Uhrturm bei 200.000–600.000, Palast bei 600.000–1.600.000 Lebensschritten. Man kann sie schon früh als Baustelle platzieren. Jede neue Bauphase ist sofort am Modell zu sehen und bringt Rohstoffe und Münzen (Leuchtturm 1.000 Münzen + 10 Holz + 10 Stein, Uhrturm 1.500 + 12 Holz + 15 Stein, Palast 2.500 + 15 Holz + 20 Stein + 10 Kräuter je Phase). Ist ein Wahrzeichen fertig, zieht ein Bewohner ein: Leuchtturmwärter Hannes, Uhrmacherin Ida, Fürstin Amalia. Der Leuchtturm steht am Seeufer und hat ein drehendes Licht. Der Kleine Palast ist mit 5 × 5 Feldern das größte Bauwerk: Terrasse, Mauern mit Zinnen und Ecktürmchen, Torhaus mit zwei Rundtürmen, zwei hohe Haupttürme, Hauptgebäude mit Seitenflügeln und goldener Kuppel, beleuchtete Fenster mit Balkon, Innenhof mit zweistufigem Springbrunnen, Garten mit Hecken und Formschnitt-Bäumchen und zum Schluss Fahnen, Wimpelketten, roter Teppich und Festbeleuchtung. Ältere Paläste, die nicht mehr an ihren Platz passen, wandern automatisch ins Lager. Ist das Dorf voll erschlossen, zeigt der Text unter der Karte den Fortschritt des aktuellen Wahrzeichens.
+**Umsetzung im Web-Prototyp:** Die Wahrzeichen stehen im Bau-Menü in einer eigenen Gruppe. Sie kosten nichts, wachsen aber nur mit den Lebensschritten, und zwar nacheinander: Leuchtturm bei 0–200.000, Uhrturm bei 200.000–600.000, Palast bei 600.000–1.600.000 Lebensschritten. Man kann sie schon früh als Baustelle platzieren. Jede neue Bauphase ist sofort am Modell zu sehen und bringt Rohstoffe und Münzen (Leuchtturm 1.000 Münzen + 10 Holz + 10 Stein, Uhrturm 1.500 + 12 Holz + 15 Stein, Palast 2.500 + 15 Holz + 20 Stein + 10 Kräuter je Phase). Ist ein Wahrzeichen fertig, zieht ein Bewohner ein: Leuchtturmwärter Hannes, Uhrmacherin Ida, Fürstin Amalia. Der Leuchtturm steht auf dem 3 × 3 Felder großen Felsen der Insel im Meer an der Küste und hat ein drehendes Licht. Ein Leuchtturm, der schon an einer anderen Stelle stand, kommt automatisch ins Lager und kann kostenlos auf den Felsen gesetzt werden. Der Kleine Palast ist mit 5 × 5 Feldern das größte Bauwerk: Terrasse, Mauern mit Zinnen und Ecktürmchen, Torhaus mit zwei Rundtürmen, zwei hohe Haupttürme, Hauptgebäude mit Seitenflügeln und goldener Kuppel, beleuchtete Fenster mit Balkon, Innenhof mit zweistufigem Springbrunnen, Garten mit Hecken und Formschnitt-Bäumchen und zum Schluss Fahnen, Wimpelketten, roter Teppich und Festbeleuchtung. Ältere Paläste, die nicht mehr an ihren Platz passen, wandern automatisch ins Lager. Ist das Dorf voll erschlossen, zeigt der Text unter der Karte den Fortschritt des aktuellen Wahrzeichens.
 
 ## Gesamtrechnung (Referenzspieler)
 - Stufe 1: rund 6.000 Münzen, also etwa 1 Tag
@@ -101,7 +101,7 @@ Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Da
 **Offenes Problem (teilweise gelöst durch Äcker, Hofladen, Wünsche der Bewohner und die Wahrzeichen im Web-Prototyp):** Zwischen Monat 2,5 und 7,5 fehlt ein Ziel, für das man Münzen ausgibt. Mögliche Lösungen dafür sind ein Deko-Shop mit Jahreszeiten-Sets, Wünsche der Bewohner (kleine Aufträge), Upgrades für bestehende Gebäude in 2–3 Stufen und Erweiterungen des Dorfgebiets. Die täglichen Aufgaben bringen zusätzliche Münzen ins Spiel. Dadurch wird diese Lücke etwas früher erreicht, und das sollte man bei der Balance berücksichtigen.
 
 ## Wachsende Dorffläche (im Web-Prototyp umgesetzt, 3D)
-Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 44 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
+Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 44 × 44 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
 
 | Gebiet | Lage und Größe | Kommt hinzu bei | Gestaltung | Eigene Gebäude (Münzen) |
 |---|---|---|---|---|
@@ -112,6 +112,7 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
 | Waldsee | Norden hinter dem Waldrand, 18 × 12 | 24 Gebäude oder 400.000 ausgegeben | Dichter Tannenwald rundherum, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume (vom Waldrand aus) | Seerosen (600, 3 Kräuter, Deko, im Wasser), Angelsteg (5.000, 30 Holz, im Wasser, nur einmal baubar), Hochsitz (2.500, 25 Holz), Picknickplatz (4.000, 10 Holz, 5 Kräuter, Ruheort „Waldbaden“) |
 | Gebirge | Nordwesten, hinter Bergwiese und Waldrand, 14 × 12 | 28 Gebäude oder 600.000 ausgegeben | Graugrüne Almfläche, schneebedeckte Gipfel am Rand, Felsen | Gipfelkreuz (3.000, 10 Holz, 20 Stein, Ruheort „Gipfelblick“), Kristallmine (25.000, 40 Holz, 30 Stein), Berghütte (30.000, 80 Holz, 40 Stein, mit Hüttenwirt Sepp und zwei Steinböcken), Seilbahn (45.000, 40 Holz, 80 Stein, Gondel fährt auf und ab) |
+| Küste | Osten hinter Seewasser und Sonnenfeldern, 12 × 24 | 20 Gebäude oder 250.000 ausgegeben | Das Seewasser geht ins Meer über, neben den Sonnenfeldern liegt erst ein Sandstrand, im Meer eine Insel mit Felsen, dazu ein paar Klippen | Fischerboot (9.000, 50 Holz, im Meer, nur einmal baubar), Strandkorb (800, 4 Holz, 2 Kräuter, Deko), Leuchtturm (Wahrzeichen, nur auf dem Felsen der Insel) |
 
 **Grundflächen:**
 
@@ -146,6 +147,16 @@ Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leich
 | Selten | Wels 2,6 % (900), Saibling 2,2 % (800), Äsche 1,8 % (850), Stör 1,2 % (1.200), Huchen 0,9 % (1.300) |
 | Sehr selten | Koi 1,2 % (2.500), Albino-Wels 0,6 % (4.000), Silberhecht 0,4 % (6.000) |
 | Legendär | Goldener Karpfen 0,1 % (25.000 + 50 Kräuter) |
+
+**Angeln im Meer:** Vom Fischerboot an der Küste angelt man nach dem gleichen Prinzip 15 Minuten lang **20 Meeresfische**, die im Album eine eigene Seite haben.
+
+| Seltenheit | Meeresfische (Wahrscheinlichkeit, Münzen) |
+|---|---|
+| Häufig | Hering 15 % (70), Makrele 13 % (80), Sardine 12 % (50), Scholle 10 % (90), Dorsch 10 % (100) |
+| Gelegentlich | Wolfsbarsch 6 % (250), Seezunge 5 % (300), Seehecht 5 % (280), Rotbarbe 4 % (320), Hornhecht 3,5 % (360), Steinbutt 2,5 % (450) |
+| Selten | Seeteufel 3 % (900), Heilbutt 2,5 % (1.100), Thunfisch 2,2 % (1.300), Schwertfisch 1,6 % (1.500), Rochen 1,2 % (1.400) |
+| Sehr selten | Mondfisch 1,6 % (3.000), Segelfisch 1 % (4.500), Blauer Marlin 0,6 % (7.000) |
+| Legendär | Goldener Thunfisch 0,3 % (30.000 + 50 Kräuter) |
 
 **Kristallmine im Gebirge:** Funktioniert wie das Angeln, dauert aber **20 Minuten**. Man findet eines von **12 Mineralien** und bekommt Stein und Münzen: Quarz 20 %, Glimmer 16 %, Feldspat 14 %, Bergkristall 12 %, Achat 9 %, Rosenquarz 8 %, Amethyst 7 %, Malachit 5,5 %, Topas 4 %, Smaragd 2,5 %, Goldnugget 1,6 %, Diamant 0,4 % (legendär, 15.000 Münzen + 30 Stein). Bergfrau Rike wohnt an der Mine. Im Testmodus spult „Zeit: +15 Min“ Äcker, Angeln und Mine vor.
 
@@ -207,7 +218,7 @@ Unter den täglichen Aufgaben stehen drei Wochenziele. Eine Woche sind 7 Spielta
 | Dranbleiben (immer) | an 4 Tagen mindestens 5.000 Schritte | 2.000 Münzen + 15 Holz + 15 Stein |
 | Ruhige Woche (im Wechsel) | 5 Ruhe-Übungen | 1.200 Münzen + 15 Kräuter |
 | Erntewoche (im Wechsel, mit Äckern) | 10 Äcker ernten | 1.500 Münzen + 10 Holz |
-| Angelwoche (im Wechsel, mit Angelsteg) | 6 Fische fangen | 1.500 Münzen + 10 Kräuter |
+| Angelwoche (im Wechsel, mit Angelsteg oder Fischerboot) | 6 Fische fangen | 1.500 Münzen + 10 Kräuter |
 | Rätselwoche (im Wechsel, mit Dorfschule) | 6 Rätselspiele | 1.500 Münzen + 10 Stein |
 
 ## Wünsche der Bewohner (im Web-Prototyp umgesetzt)
