@@ -110,7 +110,7 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Waldrand | Norden, 24 × 8 | 11 Gebäude oder 60.000 ausgegeben | Moosgrün, alte Tannen | Tanne (700, Deko), Pilzkreis (2.500), Holzfällerhütte (18.000), Baumhaus (24.000), Försterhaus (30.000) |
 | Bergwiese | Westen, 8 × 24 | 16 Gebäude oder 150.000 ausgegeben | Helle Almwiese, Felsen | Lavendel (900, Deko), Aussichtsbank (4.000), Ziegenstall (20.000), Steinbruch (28.000), Bergkapelle (40.000) |
 | Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
-| Waldsee | Norden hinter dem Waldrand, 18 × 12 | 24 Gebäude oder 400.000 ausgegeben | Dichter Tannenwald rundherum, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume (vom Waldrand aus) | Seerosen (600, 3 Kräuter, Deko, im Wasser), Angelsteg (5.000, 30 Holz, im Wasser, mehrfach baubar), Hochsitz (2.500, 25 Holz), Picknickplatz (4.000, 10 Holz, 5 Kräuter, Ruheort „Waldbaden“) |
+| Waldsee | Norden hinter dem Waldrand, 18 × 12 | 24 Gebäude oder 400.000 ausgegeben | Dichter Tannenwald rundherum, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume (vom Waldrand aus) | Seerosen (600, 3 Kräuter, Deko, im Wasser), Angelsteg (5.000, 30 Holz, im Wasser, nur einmal baubar), Hochsitz (2.500, 25 Holz), Picknickplatz (4.000, 10 Holz, 5 Kräuter, Ruheort „Waldbaden“) |
 | Gebirge | Nordwesten, hinter Bergwiese und Waldrand, 14 × 12 | 28 Gebäude oder 600.000 ausgegeben | Graugrüne Almfläche, schneebedeckte Gipfel am Rand, Felsen | Gipfelkreuz (3.000, 10 Holz, 20 Stein, Ruheort „Gipfelblick“), Kristallmine (25.000, 40 Holz, 30 Stein), Berghütte (30.000, 80 Holz, 40 Stein, mit Hüttenwirt Sepp und zwei Steinböcken), Seilbahn (45.000, 40 Holz, 80 Stein, Gondel fährt auf und ab) |
 
 **Grundflächen:**
@@ -270,7 +270,7 @@ Die Musik wird **live im Browser erzeugt**, es gibt keine Audio-Dateien. Die Mel
 ## Komfort und Spielgefühl (im Web-Prototyp umgesetzt)
 - **Abbrechen:** Rechtsklick oder Esc schließt Menüs, beendet Bauen oder Verschieben und hebt eine Auswahl auf.
 - **Tastenkürzel:** B Bauen, M Bearbeiten, R Gebäude drehen, Entf ins Lager, Q/E Ansicht drehen, WASD oder Pfeiltasten verschieben, +/− zoomen.
-- **Wege und Deko malen:** Mit gedrückter Maustaste (oder dem Finger) über die Felder ziehen.
+- **Wege und Deko malen:** Maustaste oder Finger kurz gedrückt halten (ca. eine Viertelsekunde), dann über die Felder ziehen. Wer sofort zieht, verschiebt die Karte, auch wenn gerade ein Weg oder Deko „in der Hand“ ist. Ein kurzer Tipp setzt ein einzelnes Feld.
 - **Doppelklick auf ein Gebäude** öffnet es direkt im Bearbeiten-Modus. Im Bearbeiten-Modus werden Gebäude unter dem Mauszeiger hervorgehoben.
 - **Kurze Übergänge** (unter 0,25 s) für Menüs, Leisten, Ansichten und das Übungsfenster sowie Klick-Feedback auf Knöpfen. Wer in den Systemeinstellungen reduzierte Bewegung eingestellt hat, sieht keine Animationen.
 - **Kleine Effekte:** Staubwölkchen beim Bauen, sanftes Schrumpfen beim Einlagern.
