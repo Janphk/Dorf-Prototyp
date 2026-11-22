@@ -353,6 +353,14 @@ Am Ziel tippt man auf „Ankommen“: Eine Postkarte kommt ins Album (Kapitel �
 24 Abzeichen für Meilensteine, ohne Ranglisten und ohne Druck. Sie kommen automatisch, sobald man sie erreicht, mit einer kurzen Meldung. Zu sehen sind sie in der Kachel „Abzeichen“ und im Album:
 Schritte (100.000 / 500.000 / 1 Mio. / 5 Mio.), Marathonwoche (55.000 Schritte in einer Woche), Dorfgröße (10 / 30 / 60 Gebäude), alle Waldsee-Fische, alle Meeresfische, Goldener Karpfen, alle Mineralien, Ruhe-Übungen (10 / 50), 50 Ernten, Gerichte (5 verschiedene / alle), alle vier Feste, alle Wildtiere, alle Bewohner-Geschichten, Wanderungen (3 / alle), alle Gedichte, ein Bewohner mit fünf Herzen.
 
+## Größere Sonnenfelder (im Web-Prototyp umgesetzt)
+Die Karte wächst nach Süden in die Leere (jetzt 44 × 52 Felder):
+- **Sonnenfelder:** 24 × 16 statt 32 × 8 Felder (Spalten 0–23, Reihen 36–51), also deutlich mehr Platz für Äcker und die neuen Gebäude.
+- **Seeufer:** Der frühere östliche Teil der Felder (Spalten 24–31) gehört jetzt zum Seeufer, das bis ganz nach Süden reicht. Zwischen Feldern und See liegt immer ein Uferstreifen, die Felder grenzen nirgends direkt ans Wasser. Der See endet drei Reihen vor dem Südrand.
+- **Küste:** wächst nach Süden mit, mit zwei neuen Felsen und Riffen.
+
+Bestehende Dörfer ziehen automatisch um: Was im früheren östlichen Teil der Felder stand, rückt 8 Felder nach links und 8 nach unten in den neuen Teil der Felder. Die Anordnung bleibt dabei gleich. Nur was dort nicht passt, etwa Dinge, die über die alte Grenze ragten, kommt ins Lager.
+
 ## Tägliche Aufgaben (im Web-Prototyp umgesetzt)
 Jeden Tag gibt es **vier** Aufgaben: eine zu Schritten, eine zu Treppen, Training oder Achtsamkeit (im Wechsel), eine zum Bauen und eine im Dorf. Belohnungen sind Münzen und passende Rohstoffe. Bonus-Münzen zählen nicht zu den Lebensschritten. Es gibt keine Strafen und keine Streaks.
 

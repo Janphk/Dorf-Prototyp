@@ -1225,18 +1225,19 @@ const itemOf = p => SPECIAL[p.id] || byId[p.id];
 /* =========================================================
    Die Welt: eine Fläche, die an den Rändern wächst (16 × 12 Felder)
    ========================================================= */
-const W = 44, H = 44, OY = 12;                                // W: 12 Spalten im Osten für die Küste                                // OY: 12 Reihen im Norden für Waldsee und Gebirge (ältere Dörfer rücken nach unten)
+const W = 44, H = 52, OY = 12;                                // H: 8 Reihen im Süden für die größeren Sonnenfelder                                // W: 12 Spalten im Osten für die Küste                                // OY: 12 Reihen im Norden für Waldsee und Gebirge (ältere Dörfer rücken nach unten)
 const REGIONS = [
   {id:'lichtung', name:'Lichtung', x0:8, y0:20, x1:23, y1:35, oy:OY, need:null,
    top:['#8CC269','#86BD63'], edge:'#6FA552', side:'#6B4A33', decor:() => null},
-  {id:'see', name:'Seeufer', acc:'das Seeufer', at:'am Seeufer', to:'ans Seeufer', x0:24, y0:20, x1:31, y1:35, oy:OY, need:{buildings:6, spent:20000},
-   top:['#E9D7A6','#E4D19D'], edge:'#CDB57F', side:'#8A6A45', decor:(x, y) => (x >= 29 || (x >= 27 && y >= 17)) ? 'water' : null},
+  // Seeufer: reicht bis ganz nach Süden; zwischen Sonnenfeldern und See bleibt immer ein Uferstreifen
+  {id:'see', name:'Seeufer', acc:'das Seeufer', at:'am Seeufer', to:'ans Seeufer', x0:24, y0:20, x1:31, y1:51, oy:OY, need:{buildings:6, spent:20000},
+   top:['#E9D7A6','#E4D19D'], edge:'#CDB57F', side:'#8A6A45', decor:(x, y) => (x >= 29 || (x >= 27 && y >= 17)) && y <= 36 && !(x === 27 && y === 36) ? 'water' : null},
   {id:'wald', name:'Waldrand', acc:'den Waldrand', at:'am Waldrand', to:'an den Waldrand', x0:8, y0:12, x1:31, y1:19, oy:OY, need:{buildings:11, spent:60000},
    top:['#5F9450','#5A8F4C'], edge:'#4A7A3E', side:'#4A3224', trail:(x, y) => x === 22 || x === 23,
    decor:(x, y) => x === 22 || x === 23 ? null : (y === 0 && x % 2 === 0) || (y === 1 && x % 3 === 1) || (y === 2 && x % 7 === 3) ? 'pine' : null},
   {id:'berg', name:'Bergwiese', acc:'die Bergwiese', at:'auf der Bergwiese', to:'auf die Bergwiese', x0:0, y0:12, x1:7, y1:35, oy:OY, need:{buildings:16, spent:150000},
    top:['#B3CF86','#AECA80'], edge:'#93AE68', side:'#7A766D', decor:(x, y) => (x === 0 && y % 3 === 0) || (x === 1 && y % 7 === 2) || (x === 2 && y % 11 === 5) ? 'rock' : null},
-  {id:'felder', name:'Sonnenfelder', acc:'die Sonnenfelder', at:'auf den Sonnenfeldern', to:'auf die Sonnenfelder', x0:0, y0:36, x1:31, y1:43, oy:OY, need:{buildings:21, spent:300000},
+  {id:'felder', name:'Sonnenfelder', acc:'die Sonnenfelder', at:'auf den Sonnenfeldern', to:'auf die Sonnenfelder', x0:0, y0:36, x1:23, y1:51, oy:OY, need:{buildings:21, spent:300000},
    top:['#CBD170','#C5CB69'], edge:'#A7AD52', side:'#7A5A3A', decor:(x, y) => ((y === 31 || y === 30) && x % 6 === 2) || (y === 29 && x % 13 === 9) ? 'appletree' : null},
   // Waldsee: rechteckiger Wald hinter dem Waldrand, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume
   {id:'waldsee', name:'Waldsee', acc:'den Waldsee', at:'am Waldsee', to:'an den Waldsee', x0:14, y0:0, x1:31, y1:11, need:{buildings:24, spent:400000},
@@ -1254,16 +1255,16 @@ const REGIONS = [
    top:['#A9B49A','#A3AE94'], edge:'#8E9880', side:'#6E6A63',
    decor:(x, y) => (y === 0 && x % 3 === 1) || (y === 1 && x % 4 === 3) ? 'peak' : (y === 2 && x % 3 === 0) || (x === 0 && y % 3 === 1) || (y === 6 && x === 12) || (y === 9 && x === 2) ? 'rock' : (y === 3 && x % 5 === 2) ? 'pine' : null},
   // Küste: Meer hinter dem Seewasser und den Sonnenfeldern, neben den Feldern erst ein Strand, im Meer eine Insel mit Felsen für den Leuchtturm
-  {id:'kueste', name:'Küste', acc:'die Küste', at:'an der Küste', to:'an die Küste', x0:32, y0:20, x1:43, y1:43, need:{buildings:20, spent:250000},
+  {id:'kueste', name:'Küste', acc:'die Küste', at:'an der Küste', to:'an die Küste', x0:32, y0:20, x1:43, y1:51, need:{buildings:20, spent:250000},
    top:['#E6D3A0','#E1CD98'], edge:'#CDB57F', side:'#7A6A55', sea:true,
    ground:(x, y) => { const lx = x - 32, ly = y - 20; return lx >= 6 && lx <= 8 && ly >= 6 && ly <= 8 ? 'rock' : null; },
    decor:(x, y) => {
      const lx = x - 32, ly = y - 20;
      const beach = (ly >= 16 && lx <= 3) || (ly === 15 && lx <= 2) || (ly >= 21 && lx === 4);
      const island = lx >= 5 && lx <= 9 && ly >= 4 && ly <= 10 && !((lx === 5 || lx === 9) && (ly === 4 || ly === 10));
-     if ((lx === 9 && ly === 8) || (lx === 0 && ly === 23) || (lx === 3 && ly === 16)) return 'rock';
+     if ((lx === 9 && ly === 8) || (lx === 0 && ly === 23) || (lx === 3 && ly === 16) || (lx === 1 && ly === 29) || (lx === 9 && ly === 27)) return 'rock';
      if (beach || island) return null;
-     if ((lx === 2 && ly === 4) || (lx === 10 && ly === 15) || (lx === 7 && ly === 19)) return 'reef';
+     if ((lx === 2 && ly === 4) || (lx === 10 && ly === 15) || (lx === 7 && ly === 19) || (lx === 6 && ly === 26) || (lx === 10 && ly === 30)) return 'reef';
      return 'sea';
    }},
   // Waldbucht: das Meer läuft von der Küste weiter nach Norden, wird zur Bucht und endet im Wald (verbindet Küste, Waldsee und Waldrand)
@@ -1288,7 +1289,7 @@ const regionAt = (x, y) => REGIONS.find(r => x >= r.x0 && x <= r.x1 && y >= r.y0
    ========================================================= */
 const KEY = 'lindenbach-v3', OLD_KEYS = ['lindenbach-v2', 'lindenbach-v1'];
 const freshDay = () => ({ stats:{built:0, paths:0, visits:0, maxCoins:0, talks:0, deco:0, calm:0, poems:0, harvest:0, planted:0, sold:0, fish:0}, act:{floors:0, workout:0, mindful:0}, calmDone:[], poemRead:false, games:{quiz:false, rare:false}, claimed:[], notified:[], chest:false, farmTask:null });
-const fresh = () => ({ tut:0, day:1, today:3200, lifetime:3200, spent:0, bonus:0, res:{wood:20, stone:20, herbs:10}, placed:[{id:'home', x:14, y:26, uid:1}, {id:'market', x:19, y:28, uid:2}], storage:{}, unlocked:['lichtung'], t2:false, mapV:2, ...freshDay() });
+const fresh = () => ({ tut:0, day:1, today:3200, lifetime:3200, spent:0, bonus:0, res:{wood:20, stone:20, herbs:10}, placed:[{id:'home', x:14, y:26, uid:1}, {id:'market', x:19, y:28, uid:2}], storage:{}, unlocked:['lichtung'], t2:false, mapV:4, ...freshDay() });
 let migrated = false;
 function load(){
   try { const s = JSON.parse(localStorage.getItem(KEY)); if (s) return s; } catch(e) {}
@@ -1309,6 +1310,8 @@ let S = Object.assign(fresh(), loaded || {});
 if (loaded && loaded.tut === undefined) S.tut = -1;                // bestehende Dörfer kennen das Spiel schon
 // Karte wurde im Norden um 12 Reihen erweitert: Gebäude älterer Dörfer rücken mit, damit alles an seinem Platz bleibt
 if (loaded && (loaded.mapV || 1) < 2) { S.placed.forEach(p => { p.y += OY; }); S.mapV = 2; }
+// Die kurzzeitig breitere Karte (mapV 3) wird zurückgenommen: Küste und Bucht rücken zurück, was im Zusatzstreifen stand, kommt ins Lager
+if (loaded && S.mapV === 3) { S.placed = S.placed.filter(p => { if (p.x >= 38) { p.x -= 6; return true; } if (p.x >= 32) { if (!SPECIAL[p.id]) S.storage[p.id] = (S.storage[p.id] || 0) + 1; return !!SPECIAL[p.id]; } return true; }); S.mapV = 2; }
 S.stats = Object.assign(freshDay().stats, S.stats);
 S.act = Object.assign(freshDay().act, S.act);
 S.calmDone = S.calmDone || [];
@@ -1394,6 +1397,18 @@ function canPlace(item, x, y, ignore = null, rot = 0){
     if (item.onRock && !(r.ground && r.ground(tx, ty - (r.oy || 0)) === 'rock')) return tt`${item.name} passt nur auf den Felsen der Insel.`;
   }
   return null;
+}
+// Sonnenfelder sind jetzt 24 × 16 statt 32 × 8, ihr östlicher Teil (Spalten 24–31) gehört zum Seeufer:
+// was dort stand, rückt 8 Felder nach links und 8 nach unten in den neuen Teil der Felder; passt es nicht, kommt es ins Lager
+if ((S.mapV || 1) < 4) {
+  S.placed = S.placed.filter(p => {
+    const [fw, fd] = footOf(p.id, p.rot || 0);
+    if (!(p.x <= 31 && p.x + fw - 1 >= 24 && p.y <= 43 && p.y + fd - 1 >= 36)) return true;
+    if (p.x >= 24) { p.x -= 8; p.y += 8; if (!canPlace(itemOf(p), p.x, p.y, p, p.rot || 0) || SPECIAL[p.id]) return true; }
+    if (SPECIAL[p.id]) return true;
+    S.storage[p.id] = stored(p.id) + 1; return false;
+  });
+  S.mapV = 4;
 }
 // Stege und Boote, die noch an Land stehen, wandern ins Lager
 // Der Leuchtturm gehört jetzt auf den Felsen der Insel an der Küste: steht er woanders, wandert er ins Lager
