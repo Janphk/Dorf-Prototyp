@@ -940,10 +940,10 @@ enApply('base');
 const SPECIAL = {home:HOME_ITEM, market:MARKET_ITEM};       // gehören zum Dorf, können nicht ins Lager
 // Grundfläche in Feldern: Wege und kleine Deko 1 × 1, kleinere Bauten 2 × 2, Häuser 3 × 3, Zuhause 4 × 4
 const FOOT = {path:1, fence:1, lantern:1, reeds:1, pine:1, lavender:1,
-  campfire:2, bench:2, flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:4, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, home:4, market:2};
+  campfire:2, bench:2, flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:5, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, home:4, market:2};
 const sizeOf = id => FOOT[id] ?? 3;
 // Sichtbare Größe der Modelle (die Modelle sind für 1 Feld gebaut)
-const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], home:[2, 2, 2]};
+const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], palace:[5, 6.8, 5], home:[2, 2, 2]};
 const scaleOf = id => VIS[id] || [sizeOf(id), sizeOf(id), sizeOf(id)];
 const itemOf = p => SPECIAL[p.id] || byId[p.id];
 
@@ -1070,6 +1070,8 @@ function canPlace(item, x, y, ignore = null){
   return null;
 }
 // Stege und Boote, die noch an Land stehen, wandern ins Lager
+// Der Palast ist jetzt 5 × 5 Felder groß: passt er nicht mehr an seinen Platz, wandert er ins Lager
+S.placed = S.placed.filter(p => p.id !== 'palace' || !canPlace(byId.palace, p.x, p.y, p) || (S.storage.palace = stored('palace') + 1, false));
 S.placed = S.placed.filter(p => !(byId[p.id]?.onWater && decorAt(p.x, p.y) !== 'water') || (S.storage[p.id] = stored(p.id) + 1, false));
 // Zuhause wird 2 × 2: falls der Platz belegt ist, nächsten freien Platz suchen
 (function fitHome(){
@@ -1527,25 +1529,69 @@ MODELS.clocktower = () => {
     const l = new THREE.PointLight('#ffd98a', .8, 3, 1.5); l.position.set(0, .5, .35); g.add(l); }
   return g;
 };
-MODELS.palace = () => {
+MODELS.palace = () => {                                           // 5 × 5 Felder, wächst über 10 Bauphasen
   const ph = lmPhase('palace'); if (ph < 1) return site();
-  const STONE = '#E8DCC6', ROOF = '#4F6D9A';
-  const g = group(box(.96, .03, .96, '#CFC6B4'));
-  if (ph >= 2) g.add(box(.96, .07, .03, STONE, 0, .03, -.465), box(.03, .07, .96, STONE, -.465, .03, 0), box(.03, .07, .96, STONE, .465, .03, 0),
-    box(.37, .07, .03, STONE, -.28, .03, .465), box(.37, .07, .03, STONE, .28, .03, .465));
-  if (ph >= 3) g.add(box(.05, .13, .05, STONE, -.1, .03, .465), box(.05, .13, .05, STONE, .1, .03, .465), box(.25, .04, .06, '#D8C8AE', 0, .16, .465), box(.14, .09, .01, '#6E4329', 0, .03, .47));
-  const tower = x => group(cyl(.07, .08, .32, STONE, x, .03, -.36, 10), cone(.095, .14, ROOF, x, .35, -.36, 10), box(.03, .05, .01, WIN, x, .2, -.29, true));
-  if (ph >= 4) g.add(tower(-.36));
-  if (ph >= 5) g.add(tower(.36));
-  if (ph >= 6) g.add(box(.5, .18, .26, '#F1E4C8', 0, .03, -.25), gable(.56, .14, .32, ROOF, 0, .21, -.25), box(.12, .1, .12, '#F1E4C8', 0, .24, -.25), cone(.1, .1, ROOF, 0, .34, -.25, 4));
-  if (ph >= 7) [-.18, -.06, .06, .18].forEach(x => g.add(box(.05, .06, .01, WIN, x, .1, -.115, true))), g.add(box(.07, .09, .01, '#5A3D2B', 0, .03, -.114));
-  if (ph >= 8) g.add(box(.52, .012, .36, '#E2D6BE', 0, .03, .18), cyl(.08, .09, .04, '#B9B4A8', 0, .04, .16, 12), cyl(.065, .065, .012, '#5FA8C9', 0, .075, .16, 12), cyl(.012, .012, .07, '#B9B4A8', 0, .08, .16, 6));
-  if (ph >= 9) { [[-.3, .18], [.3, .18]].forEach(([x, z]) => g.add(box(.08, .05, .3, '#4E8F4A', x, .03, z)));
-    [[-.4, .38], [.4, .38], [-.4, -.05], [.4, -.05]].forEach(([x, z]) => g.add(cyl(.012, .015, .06, WOOD_DD, x, .03, z, 5), ball(.05, '#5FA34B', x, .12, z)));
-    [-.2, -.12, .12, .2].forEach((x, i) => g.add(ball(.018, ['#F28DB2', '#FFD166', '#B79CED', '#FFF4E0'][i], x, .05, .33))); }
-  if (ph >= 10) { [-.36, .36].forEach(x => g.add(box(.008, .12, .008, '#3F3A4A', x, .49, -.36), box(.07, .04, .006, '#C8473C', x + .035, .57, -.36)));
-    for (let i = 0; i < 9; i++) g.add(ball(.012, ['#C8473C', '#F2C14E', '#5FA8C9'][i % 3], -.4 + i * .1, .1 + Math.sin(i * .9) * .01, .465));
-    const l = new THREE.PointLight('#ffd98a', 1, 4, 1.5); l.position.set(0, .3, .1); g.add(l); }
+  const ST = '#EFE4CF', ST2 = '#E2D5BC', ROOF = '#3F5F8F', GOLD = '#C9952A', BASE = '#CFC6B4', HEDGE = '#3F7F3F', Y = .045, WH = .075;
+  const g = group();
+  const merlonsX = (x0, x1, z, y) => { const out = []; for (let x = x0; x <= x1 + 1e-6; x += .05) out.push(box(.024, .024, .034, ST, x, y, z)); return out; };
+  const merlonsZ = (z0, z1, x, y) => { const out = []; for (let z = z0; z <= z1 + 1e-6; z += .05) out.push(box(.034, .024, .024, ST, x, y, z)); return out; };
+  const ring = (x, z, r, y, n = 8) => Array.from({length:n}, (_, i) => box(.022, .026, .022, ST, x + Math.cos(i / n * Math.PI * 2) * r, y, z + Math.sin(i / n * Math.PI * 2) * r));
+  // 1 Fundament: zweistufige Steinterrasse
+  g.add(box(.99, .025, .99, BASE), box(.92, .02, .92, '#DCD3C1', 0, .025, 0));
+  // 2 Mauern mit Zinnen und Ecktürmchen, vorne eine Lücke für das Tor
+  if (ph >= 2) {
+    g.add(box(.9, WH, .026, ST, 0, Y, -.44), box(.026, WH, .9, ST, -.44, Y, 0), box(.026, WH, .9, ST, .44, Y, 0),
+      box(.3, WH, .026, ST, -.29, Y, .44), box(.3, WH, .026, ST, .29, Y, .44),
+      merlonsX(-.42, .42, -.44, Y + WH), merlonsZ(-.42, .42, -.44, Y + WH), merlonsZ(-.42, .42, .44, Y + WH), merlonsX(-.42, -.16, .44, Y + WH), merlonsX(.16, .42, .44, Y + WH));
+    [[-.44, -.44], [.44, -.44], [-.44, .44], [.44, .44]].forEach(([x, z]) => g.add(cyl(.048, .054, .13, ST2, x, Y, z, 12), cone(.06, .08, ROOF, x, Y + .13, z, 12)));
+  }
+  // 3 Torhaus mit zwei runden Tortürmen
+  if (ph >= 3) {
+    [-.12, .12].forEach(x => g.add(cyl(.052, .058, .22, ST2, x, Y, .44, 12), ring(x, .44, .05, Y + .22), cone(.064, .12, ROOF, x, Y + .24, .44, 12), box(.02, .035, .01, WIN, x, Y + .13, .495, true)));
+    g.add(box(.2, .06, .06, ST2, 0, Y + .12, .44), merlonsX(-.07, .07, .44, Y + .18), box(.12, .12, .014, '#5A3D2B', 0, Y, .466), box(.13, .014, .016, GOLD, 0, Y + .12, .467), ball(.022, GOLD, 0, Y + .15, .475));
+  }
+  // 4 und 5: zwei hohe Haupttürme hinten
+  const tower = x => group(cyl(.075, .088, .5, ST, x, Y, -.32, 14), cyl(.098, .098, .03, ST2, x, Y + .5, -.32, 14), ring(x, -.32, .088, Y + .53, 10),
+    cone(.1, .26, ROOF, x, Y + .53, -.32, 14), ball(.016, GOLD, x, Y + .8, -.32), [.14, .26, .38].map(h => box(.03, .046, .01, WIN, x, Y + h, -.242, true)));
+  if (ph >= 4) g.add(tower(-.32));
+  if (ph >= 5) g.add(tower(.32));
+  // 6 Hauptgebäude mit Seitenflügeln, Kuppel und goldener Spitze
+  if (ph >= 6) {
+    g.add(box(.42, .25, .22, ST, 0, Y, -.2), box(.43, .014, .23, GOLD, 0, Y + .245, -.2), gable(.46, .12, .26, ROOF, 0, Y + .259, -.2));
+    [-.27, .27].forEach(x => { const r = gable(.22, .08, .15, ROOF, x, Y + .19, -.18); r.rotation.y = Math.PI / 2; g.add(box(.13, .19, .2, ST2, x, Y, -.18), box(.135, .012, .205, GOLD, x, Y + .185, -.18), r); });
+    g.add(cyl(.075, .075, .08, ST, 0, Y + .33, -.2, 16), box(.16, .012, .16, GOLD, 0, Y + .33, -.2),
+      put(new THREE.SphereGeometry(.078, 18, 9, 0, Math.PI * 2, 0, Math.PI / 2), ROOF, 0, Y + .41, -.2),
+      cyl(.014, .014, .06, GOLD, 0, Y + .48, -.2, 8), ball(.02, GOLD, 0, Y + .55, -.2));
+  }
+  // 7 Fenster, Tür und Balkon
+  if (ph >= 7) {
+    [Y + .05, Y + .15].forEach(y => [-.17, -.09, .09, .17].forEach(x => g.add(box(.036, .052, .01, WIN, x, y, -.088, true), box(.044, .008, .012, GOLD, x, y + .055, -.087))));
+    [-.27, .27].forEach(x => [Y + .05, Y + .12].forEach(y => g.add(box(.04, .045, .01, WIN, x, y, -.078, true))));
+    g.add(box(.07, .11, .012, '#5A3D2B', 0, Y, -.087), box(.08, .014, .014, GOLD, 0, Y + .11, -.086),
+      box(.14, .012, .04, ST2, 0, Y + .13, -.07), box(.14, .022, .004, GOLD, 0, Y + .142, -.05), box(.036, .052, .01, WIN, 0, Y + .15, -.088, true));
+  }
+  // 8 Innenhof mit zweistufigem Springbrunnen
+  if (ph >= 8) {
+    g.add(box(.62, .006, .44, '#E6DCC8', 0, Y, .17), box(.12, .007, .22, '#D8CCB2', 0, Y, .32),
+      cyl(.095, .105, .032, '#B9B4A8', 0, Y, .14, 18), cyl(.085, .085, .006, '#5FA8C9', 0, Y + .032, .14, 18), cyl(.02, .026, .07, '#B9B4A8', 0, Y + .03, .14, 10),
+      cyl(.045, .045, .014, '#B9B4A8', 0, Y + .1, .14, 14), cyl(.038, .038, .004, '#7FC0DB', 0, Y + .114, .14, 14), ball(.014, '#BFE3F2', 0, Y + .13, .14));
+  }
+  // 9 Garten: Hecken, Blumenbeete, Formschnitt-Bäumchen und Laternen
+  if (ph >= 9) {
+    [-1, 1].forEach(s => {
+      g.add(box(.18, .04, .03, HEDGE, s * .25, Y, .03), box(.03, .04, .3, HEDGE, s * .36, Y, .2), box(.13, .012, .09, '#7A5232', s * .22, Y, .24));
+      ['#F28DB2', '#FFD166', '#B79CED', '#FFF4E0', '#E0523F'].forEach((c, i) => g.add(ball(.014, c, s * (.17 + i * .025), Y + .02, .24 + (i % 2 ? .02 : -.02))));
+      [.32, .38].forEach(z => g.add(cyl(.008, .012, .03, WOOD_DD, s * .15, Y, z, 6), cone(.032, .09, HEDGE, s * .15, Y + .03, z, 8)));
+      g.add(cyl(.006, .006, .09, '#3F3A4A', s * .08, Y, .36, 6), ball(.014, WIN, s * .08, Y + .1, .36), ball(.05, '#5FA34C', s * .38, Y + .09, -.05), cyl(.012, .016, .07, WOOD_DD, s * .38, Y, -.05, 6));
+    });
+  }
+  // 10 Fahnen, Wimpelketten, roter Teppich und Festbeleuchtung
+  if (ph >= 10) {
+    [[-.32, -.32, .8], [.32, -.32, .8], [-.12, .44, .36], [.12, .44, .36], [0, -.2, .57]].forEach(([x, z, y]) => g.add(box(.006, .13, .006, '#3F3A4A', x, Y + y, z), box(.08, .045, .004, '#C8473C', x + .04, Y + y + .08, z), box(.02, .045, .005, GOLD, x + .012, Y + y + .08, z)));
+    for (let i = 0; i <= 12; i++) { const t = i / 12, x = -.44 + t * .32; g.add(ball(.011, ['#C8473C', '#F2C14E', '#5FA8C9', '#6DB35A'][i % 4], x, Y + .1 - Math.sin(t * Math.PI) * .03, .445), ball(.011, ['#C8473C', '#F2C14E', '#5FA8C9', '#6DB35A'][i % 4], -x, Y + .1 - Math.sin(t * Math.PI) * .03, .445)); }
+    g.add(box(.07, .004, .5, '#B5333C', 0, Y + .007, .2), box(.05, .07, .05, ST2, -.12, Y, .05), ball(.03, GOLD, -.12, Y + .1, .05), box(.05, .07, .05, ST2, .12, Y, .05), ball(.03, GOLD, .12, Y + .1, .05));
+    [[0, .3, .14], [-.3, .6, -.32], [.3, .6, -.32]].forEach(([x, y, z]) => { const l = new THREE.PointLight('#ffd98a', .9, 3, 1.5); l.position.set(x, Y + y, z); g.add(l); });
+  }
   return g;
 };
 

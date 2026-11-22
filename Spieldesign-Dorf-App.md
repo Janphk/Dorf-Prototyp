@@ -90,7 +90,7 @@ Ein gemütliches Dorfaufbau-Spiel im Indie-Stil. Die Ressourcen zum Bauen kommen
 
 Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Dach → Fenster → Innenhof → Garten → Fahnen und Einweihungsfest. Jede Phase ist im Dorf sichtbar und bringt eine kleine Belohnung (Deko, Dialog oder Bewohner).
 
-**Umsetzung im Web-Prototyp:** Die Wahrzeichen stehen im Bau-Menü in einer eigenen Gruppe. Sie kosten nichts, wachsen aber nur mit den Lebensschritten, und zwar nacheinander: Leuchtturm bei 0–200.000, Uhrturm bei 200.000–600.000, Palast bei 600.000–1.600.000 Lebensschritten. Man kann sie schon früh als Baustelle platzieren. Jede neue Bauphase ist sofort am Modell zu sehen und bringt Rohstoffe und Münzen (Leuchtturm 1.000 Münzen + 10 Holz + 10 Stein, Uhrturm 1.500 + 12 Holz + 15 Stein, Palast 2.500 + 15 Holz + 20 Stein + 10 Kräuter je Phase). Ist ein Wahrzeichen fertig, zieht ein Bewohner ein: Leuchtturmwärter Hannes, Uhrmacherin Ida, Fürstin Amalia. Der Leuchtturm steht am Seeufer und hat ein drehendes Licht. Ist das Dorf voll erschlossen, zeigt der Text unter der Karte den Fortschritt des aktuellen Wahrzeichens.
+**Umsetzung im Web-Prototyp:** Die Wahrzeichen stehen im Bau-Menü in einer eigenen Gruppe. Sie kosten nichts, wachsen aber nur mit den Lebensschritten, und zwar nacheinander: Leuchtturm bei 0–200.000, Uhrturm bei 200.000–600.000, Palast bei 600.000–1.600.000 Lebensschritten. Man kann sie schon früh als Baustelle platzieren. Jede neue Bauphase ist sofort am Modell zu sehen und bringt Rohstoffe und Münzen (Leuchtturm 1.000 Münzen + 10 Holz + 10 Stein, Uhrturm 1.500 + 12 Holz + 15 Stein, Palast 2.500 + 15 Holz + 20 Stein + 10 Kräuter je Phase). Ist ein Wahrzeichen fertig, zieht ein Bewohner ein: Leuchtturmwärter Hannes, Uhrmacherin Ida, Fürstin Amalia. Der Leuchtturm steht am Seeufer und hat ein drehendes Licht. Der Kleine Palast ist mit 5 × 5 Feldern das größte Bauwerk: Terrasse, Mauern mit Zinnen und Ecktürmchen, Torhaus mit zwei Rundtürmen, zwei hohe Haupttürme, Hauptgebäude mit Seitenflügeln und goldener Kuppel, beleuchtete Fenster mit Balkon, Innenhof mit zweistufigem Springbrunnen, Garten mit Hecken und Formschnitt-Bäumchen und zum Schluss Fahnen, Wimpelketten, roter Teppich und Festbeleuchtung. Ältere Paläste, die nicht mehr an ihren Platz passen, wandern automatisch ins Lager. Ist das Dorf voll erschlossen, zeigt der Text unter der Karte den Fortschritt des aktuellen Wahrzeichens.
 
 ## Gesamtrechnung (Referenzspieler)
 - Stufe 1: rund 6.000 Münzen, also etwa 1 Tag
@@ -121,6 +121,7 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen, Acker |
 | 3 × 3 | Gemüsegarten, Hütte, Teich, Gästehaus, Fischerhütte, Holzfällerhütte, Baumhaus, Försterhaus, Ziegenstall, Steinbruch, Bergkapelle, Bauernhof, Windmühle |
 | 4 × 4 | Dein Zuhause |
+| 5 × 5 | Kleiner Palast |
 
 Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erscheinen erst, wenn man mit der Maus darüberfährt oder es antippt. Einmal erschlossene Gebiete bleiben offen, auch wenn später Gebäude ins Lager wandern.
 
