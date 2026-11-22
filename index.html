@@ -87,6 +87,70 @@
   .moment-btn{position:absolute;top:10px;left:50%;transform:translateX(-50%);pointer-events:auto;border:0;border-radius:999px;background:rgba(38,48,74,.92);
     color:#FFE08A;font-weight:700;padding:7px 14px;font-size:14px;box-shadow:0 0 18px rgba(255,224,138,.45);white-space:nowrap}
   .moment-btn.rb{top:46px;color:#FFF;background:rgba(95,168,201,.92);box-shadow:0 0 18px rgba(255,255,255,.4)}
+  .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .swatch{border:2px solid var(--night-3);background:var(--night-2);border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px}
+  .swatch i{display:block;width:100%;height:30px;border-radius:8px}
+  .swatch i.orig{background:repeating-linear-gradient(45deg,#C8473C 0 8px,#4F6D9A 8px 16px,#3F6B35 16px 24px)}
+  .swatch.on{border-color:var(--gold)}
+  .hub{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+  .hub-tile{position:relative;border:0;border-radius:16px;background:var(--night-2);padding:12px;display:flex;gap:10px;align-items:center;text-align:left;color:var(--cream);min-height:66px}
+  .hub-tile:hover{background:var(--night-3)}
+  .hub-tile svg{width:34px;height:34px;flex:none}
+  .hub-tile b{display:block;font-size:15px;line-height:1.2}
+  .hub-tile small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+  .hub-tile.on{outline:2px solid var(--gold);background:var(--night-3)}
+  .hub-tile .cnt{position:absolute;top:6px;right:8px;background:var(--gold);color:var(--ink);border-radius:99px;font-size:12px;font-weight:700;padding:1px 7px}
+  .hub-sec{margin-top:4px;padding-bottom:6px}
+  .hub-sec[hidden]{display:none}
+  .book-tabs{display:flex;gap:4px;overflow-x:auto;padding:4px 4px 0;scrollbar-width:none;position:sticky;top:-1px;z-index:1}
+  .book-tabs::-webkit-scrollbar{display:none}
+  .book-tab{flex:none;border:0;border-radius:10px 10px 0 0;padding:7px 11px 9px;font-size:13px;font-weight:700;color:#fff;background:var(--c);opacity:.7;transform:translateY(5px);transition:transform .15s}
+  .book-tab.on{opacity:1;transform:none}
+  .book-page{background:#FBF5E8;border:1px solid #E2D6BE;border-top:4px solid var(--c);border-radius:4px 4px 14px 14px;padding:12px 14px 18px;min-height:300px;
+    box-shadow:inset 10px 0 14px -12px rgba(60,40,10,.35),0 3px 0 #E2D6BE}
+  .book-page h3{font-family:"Pixelify Sans",monospace;font-size:20px;color:var(--ink);margin:2px 0 6px}
+  .book-page .album-cell{background:#F0E6D2}
+  .book-sum{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#6B6455;margin:0 0 4px}
+  .swatch{border-color:var(--paper-2) !important;background:var(--paper-2) !important;color:var(--ink)}
+  .swatch.on{border-color:var(--gold) !important}
+  .kitchen{display:flex;gap:14px;align-items:center;justify-content:center;margin:6px 0 4px}
+  .kgrid{display:grid;grid-template-columns:repeat(3,64px);gap:6px;background:#E2D6BE;padding:8px;border-radius:14px}
+  .kcell{width:64px;height:64px;border:0;border-radius:10px;background:#FBF5E8;display:grid;place-items:center;padding:4px}
+  .kcell svg{width:44px;height:44px}
+  .kcell.full{background:#FFF8EA;box-shadow:inset 0 0 0 2px #E8C68A}
+  .kside{display:flex;flex-direction:column;gap:8px}
+  .ktray{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px}
+  .king{border:2px solid transparent;background:var(--paper-2);border-radius:12px;padding:5px 4px;display:flex;flex-direction:column;align-items:center;font-size:11px;color:var(--ink);line-height:1.2}
+  .king svg{width:32px;height:32px}
+  .king small{font-weight:700;color:#6B6455}
+  .king.on{border-color:var(--gold);background:#FFF4D6}
+  .king.lock{opacity:.45}
+  .recipe{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--paper-2)}
+  .recipe .rico svg{width:44px;height:44px}
+  .recipe .rico b{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--paper-2);font-family:"Pixelify Sans",monospace;font-size:22px;color:#7A6A9A}
+  .recipe small{display:block;color:#6B6455;font-size:12px}
+  .recipe.secret small{font-style:italic}
+  .mini{display:grid;grid-template-columns:repeat(3,18px);gap:2px;margin-top:4px}
+  .mini i{width:18px;height:18px;background:#EFE5D0;border-radius:4px;display:grid;place-items:center}
+  .mini i svg{width:15px;height:15px}
+  .dstock{display:flex;flex-wrap:wrap;gap:6px}
+  .dchip{display:inline-flex;align-items:center;gap:4px;background:var(--paper-2);border-radius:99px;padding:2px 10px 2px 4px;font-size:13px}
+  .dchip svg{width:26px;height:26px}
+  .note-dark{color:var(--muted);font-size:14px;margin:14px 0 4px}
+  .trail{width:100%;height:auto;display:block;margin:4px 0 6px}
+  .hike-now{background:var(--night-2);border-radius:16px;padding:4px 14px 14px;margin-top:14px}
+  .hike-now .week-head{margin-top:12px}
+  .badge-grid .album-cell{font-size:11px}
+  .badge-grid .album-cell b{font-size:12px;overflow-wrap:anywhere;hyphens:auto}
+  .badge-grid .album-cell small{color:#6B6455}
+  .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .pc{background:#FFFDF6;border-radius:10px;padding:6px;box-shadow:0 2px 6px rgba(60,40,10,.15);font-size:12px;transform:rotate(-1deg)}
+  .pc:nth-child(2n){transform:rotate(1.2deg)}
+  .pc .postcard{width:100%;display:block;border-radius:6px}
+  .pc b{display:block;margin-top:4px}
+  .pc small{color:#6B6455}
+  .pc.missing{opacity:.55}
+  .pc-blank{aspect-ratio:3/2;border-radius:6px;background:#EFE5D0;display:grid;place-items:center;font-family:"Pixelify Sans",monospace;font-size:26px;color:#9A9384}
   .rlock{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--night-3);
     background:rgba(38,48,74,.9);display:grid;place-items:center;padding:0;color:var(--gold)}
   .rlock > svg{width:15px;height:15px}
@@ -422,13 +486,13 @@
     </div>
     <div id="tasks"></div>
     <div class="chest" id="chest"></div>
-    <div id="festBox"></div>
-    <div id="week"></div>
-    <div class="calmlist" id="albumBox"></div>
-    <div class="calmlist" id="calmList"></div>
-    <div class="calmlist" id="gameList"></div>
-    <div class="calmlist" id="wishList"></div>
-    <div class="calmlist" id="storyBox" hidden></div>
+    <div class="hub" id="hub"></div>
+    <section class="hub-sec" data-sec="fest" hidden><div id="festBox"></div><div id="week"></div></section>
+    <section class="hub-sec" data-sec="wishes" hidden><div class="calmlist" id="wishList"></div><div class="calmlist" id="storyBox" hidden></div></section>
+    <section class="hub-sec" data-sec="calm" hidden><div class="calmlist" id="calmList"></div><div class="calmlist" id="gameList"></div></section>
+    <section class="hub-sec" data-sec="hikes" hidden><div id="hikeBox"></div></section>
+    <section class="hub-sec" data-sec="badges" hidden><div id="badgeBox"></div></section>
+    <div id="albumBox" hidden></div>
   </main>
 
   <details class="sim">
@@ -524,14 +588,14 @@ Object.assign(EN, {"Acker": "Field", "Pflanzen": "Plant", "Alle {}": "All {}", "
   "Leere Äcker: {} · Wachsen: {} · Reif: {}": "Empty fields: {} · Growing: {} · Ripe: {}",
   "{} gepflanzt": "{} planted", "{} auf {} Äckern gepflanzt": "{} planted on {} fields", "{} wachsen noch {}.": "{} still need {}.",
   "{} geerntet: +{} Kräuter": "{} harvested: +{} herbs", "Ernten: {}": "Harvest: {}", "Die Pflanzen sind eine Stunde weiter gewachsen.": "The plants have grown for another hour.",
-  "Äcker: +1 Std": "Fields: +1 h", "Sternschnuppe": "Shooting star", "Regenbogen": "Rainbow", "Nebel": "Fog", "Wanderhändler": "Travelling trader", "Einführung": "Introduction", "Willkommen in Lindenbach! Dein kleines Dorf wächst mit jedem Schritt, den du im echten Leben gehst.": "Welcome to Lindenbach! Your little village grows with every step you take in real life.", "Los geht’s": "Let's go", "Jeder Schritt bringt dir eine Münze. Stockwerke geben Stein, Training gibt Holz und Achtsamkeit gibt Kräuter.": "Every step earns you a coin. Floors give stone, exercise gives wood and mindfulness gives herbs.", "Tippe auf „Bauen“ und such dir etwas Schönes aus, zum Beispiel ein Lagerfeuer. Danach tippst du auf einen freien Platz im Dorf.": "Tap “Build” and pick something nice, for example a campfire. Then tap a free spot in your village.", "Wunderbar! Mit einem Finger verschiebst du die Karte, mit zwei Fingern zoomst und drehst du. Tippst du doppelt auf ein Gebäude, kannst du es verschieben.": "Wonderful! Drag with one finger to move the map, use two fingers to zoom and rotate. Double-tap a building to move it.", "Unter „Aufgaben“ warten jeden Tag vier kleine Ziele. Schau mal rein!": "Four little goals wait under “Tasks” every day. Take a look!", "Hier holst du Belohnungen ab. Dazu gibt es Wünsche der Bewohner, Ruhe-Übungen und Rätsel. Alles ganz ohne Druck.": "This is where you collect rewards. There are also residents' wishes, calm exercises and puzzles. All without any pressure.", "Tippe im Dorf Bewohner und Tiere an, sie haben dir etwas zu erzählen. Viel Freude in Lindenbach!": "Tap residents and animals in your village, they have things to tell you. Enjoy Lindenbach!", "Kleine Einführung": "Quick introduction", "Überspringen": "Skip", "Du kannst die Einführung jederzeit in den Einstellungen wieder ansehen.": "You can watch the introduction again at any time in the settings.", "Lottes Garten": "Lotte's garden", "Bring Lotte 15 Kräuter": "Bring Lotte 15 herbs", "Seit ich hier wohne, ist mein Garten noch ganz kahl. Ein paar duftende Kräuter wären ein wunderbarer Anfang. Hättest du welche übrig? Ganz ohne Eile.": "Since I moved here, my garden has been completely bare. A few fragrant herbs would be a wonderful start. Could you spare some? No rush at all.", "Riech nur, wie das duftet! Als Dankeschön habe ich dir ein kleines Rosenbeet angelegt.": "Just smell that! As a thank-you I've planted a little rose bed for you.", "Das gerissene Netz": "The torn net", "Bring Greta 10 Holz und 5 Kräuter": "Bring Greta 10 wood and 5 herbs", "Mein altes Netz ist gerissen, ausgerechnet jetzt, wo die Fische so gut beißen. Mit etwas Holz für den Rahmen und Kräuterbast könnte ich es flicken.": "My old net has torn, right now when the fish are biting so well. With some wood for the frame and herb fibre I could mend it.", "Hält wie neu! Mein altes Gestell zum Netze-Trocknen schenke ich dir, es sieht hübsch aus am Wasser.": "As good as new! You can have my old net-drying rack, it looks lovely by the water.", "Zwei für einen": "Two for one", "Pflanze 3 Bäume": "Plant 3 trees", "Für jeden Baum, den ich fälle, sollen zwei neue wachsen. Diesmal komme ich nicht hinterher. Pflanzt du ein paar Bäume mit mir?": "For every tree I fell, two new ones should grow. This time I can't keep up. Will you plant a few trees with me?", "So gefällt mir das! Aus einem alten Stamm habe ich dir einen kleinen Bären geschnitzt.": "That's how I like it! I carved you a little bear from an old trunk.", "Die verlorene Pfeife": "The lost whistle", "Gehe 6.000 Schritte": "Walk 6,000 steps", "Irgendwo auf meinem Rundweg habe ich meine Holzpfeife verloren. Wenn du spazieren gehst, halt doch bitte die Augen offen.": "I lost my wooden whistle somewhere along my usual walk. When you're out walking, please keep your eyes open.", "Du hast sie gefunden! Zum Dank zeige ich dir meinen geheimen Pilzkreis. Er gehört jetzt dir.": "You found it! As thanks I'll show you my secret fairy ring. It's yours now.", "Ein Drachen für Mo": "A kite for Mo", "Gehe 3.000 Schritte": "Walk 3,000 steps", "Ich habe einen Drachen gebaut, aber er fliegt nur, wenn man ganz schnell rennt! Läufst du mit mir?": "I built a kite, but it only flies if you run really fast! Will you run with me?", "Er fliegt, er fliegt! Den Drachen darfst du behalten, ich baue mir einfach einen neuen.": "It flies, it flies! You can keep the kite, I'll just build myself a new one.", "Kuchen fürs Erntefest": "Cake for the harvest festival", "Bring Frieda 3 Kisten aus dem Vorrat": "Bring Frieda 3 crates from your stock", "Ich möchte für alle einen großen Kuchen backen. Dafür bräuchte ich ein paar Kisten aus deiner Ernte.": "I'd like to bake a big cake for everyone. For that I'd need a few crates from your harvest.", "Das wird ein Fest! Und damit die Vögel nicht alles wegpicken, bekommst du meine beste Vogelscheuche.": "This will be a feast! And so the birds don't peck everything away, you get my best scarecrow.", "Sterne zählen": "Counting stars", "Mach 2 Ruhe-Übungen": "Do 2 calm exercises", "Wer still wird, sieht mehr Sterne, sage ich immer zu meinen Schülern. Nimm dir doch zwei ruhige Momente im Dorf.": "Those who grow still see more stars, I always tell my pupils. Why not take two quiet moments in the village?", "Siehst du? Mit meinem alten Fernrohr kannst du jetzt selbst Sterne zählen.": "You see? With my old telescope you can count the stars yourself now.", "Eine neue Geschichte": "A new story", "Fange einen Fisch": "Catch a fish", "Mir gehen die Geschichten aus! Erzähl mir von einem Fang, daraus mache ich ein Gedicht.": "I'm running out of stories! Tell me about a catch and I'll turn it into a poem.", "Was für ein Fang! Meine kleine Bücherkiste stelle ich dir ins Dorf, damit alle etwas zu lesen haben.": "What a catch! I'll put my little book box in your village so everyone has something to read.", "Geschichten aus dem Dorf": "Stories from the village", "Ganz freiwillig: Hör zu, wenn du Lust hast. Es gibt keine Frist.": "Completely optional: listen whenever you feel like it. There's no deadline.", "Übergeben": "Hand over", "Abschließen": "Complete", "Ansehen": "View", "Anhören": "Listen", "{} möchte dir etwas erzählen": "{} would like to tell you something", "{} bedankt sich": "{} says thank you", "{} erzählt": "{} tells you", "<b>{}</b> liegt jetzt in deinem Lager.": "<b>{}</b> is now in your storage.", "Als Dankeschön: <b>{}</b>": "As a thank-you: <b>{}</b>", "Danke!": "Thank you!", "Lieber doch nicht": "Rather not after all", "Kein Interesse": "Not interested", "Vielleicht später": "Maybe later", "Gern helfen": "Happy to help", "{}: {}. Ganz in Ruhe, wann immer du magst.": "{}: {}. Take your time, whenever you like.", "Sternschnuppe! Wünsch dir was": "Shooting star! Make a wish", "Du schließt die Augen und wünschst dir etwas …": "You close your eyes and make a wish …", "Am Ende des Regenbogens wartet ein kleiner Schatz: +500 Münzen": "A little treasure waits at the end of the rainbow: +500 coins", "Ein Regenbogen! Antippen": "A rainbow! Tap here", "Fiete zieht am Wochenende mit seinem Wagen durchs Tal. Diese Woche hat er drei seltene Dinge dabei, die es nur bei ihm gibt.": "Fiete travels through the valley with his cart at weekends. This week he has three rare things with him that you can only get from him.", "Gekauft": "Bought", "Kaufen": "Buy", "Gekaufte Dinge landen im Lager. Nächstes Wochenende bringt Fiete vielleicht etwas anderes mit.": "Things you buy go into storage. Next weekend Fiete may bring something different.", "{} liegt jetzt in deinem Lager.": "{} is now in your storage.", "Wanderhändler Fiete": "Fiete the travelling trader", "Geschichten der Bewohner": "Residents' stories", "Freiwillige kleine Geschichten in den Aufgaben, ganz ohne Erinnerungen": "Optional little stories in the tasks, with no reminders", "Die kurze Tour durchs Dorf noch einmal ansehen": "Watch the short village tour again", "Momente": "Moments", "Sternschnuppen": "Shooting stars", "Regenbögen": "Rainbows", "Morgennebel": "Morning mist", "Besuche von Fiete": "Visits from Fiete", "{}× erlebt": "experienced {}×", "+3 Kräuter fürs Streicheln": "+3 herbs for the cuddle", "Igel": "Hedgehog", "Schwan": "Swan", "Eichhörnchen": "Squirrel", "Feldhase": "Hare", "Murmeltier": "Marmot", "Reh": "Roe deer", "Stockente": "Mallard", "Gämse": "Chamois", "Möwe": "Gull", "Fuchs": "Fox", "Igel sind nachts unterwegs und fressen am liebsten Käfer und Schnecken.": "Hedgehogs are out at night and love eating beetles and snails.", "Schwäne bleiben oft ein Leben lang mit ihrem Partner zusammen.": "Swans often stay with their partner for life.", "Eichhörnchen vergraben im Herbst Tausende Nüsse und finden längst nicht alle wieder.": "Squirrels bury thousands of nuts in autumn and don't find nearly all of them again.", "Feldhasen schaffen kurze Sprints mit bis zu 70 Kilometern pro Stunde.": "Hares can sprint briefly at up to 70 kilometres per hour.", "Murmeltiere warnen sich mit einem lauten Pfiff, wenn Gefahr droht.": "Marmots warn each other with a loud whistle when danger is near.", "Rehe kommen gern in der Dämmerung ans Wasser.": "Roe deer like to come to the water at dusk.", "Nur die Erpel haben den grün schimmernden Kopf.": "Only the drakes have the shimmering green head.", "Gämsen klettern sicher über steile Felsen.": "Chamois climb confidently over steep rocks.", "Möwen können sogar Salzwasser trinken.": "Gulls can even drink salt water.", "Füchse hören eine Maus noch unter dem Schnee rascheln.": "Foxes can hear a mouse rustling even under snow.", "Blütenfest": "Blossom Festival", "Sommerfest": "Summer Festival", "Erntedankfest": "Harvest Festival", "Wintermarkt": "Winter Market", "Der Frühling ist da! Das Dorf feiert mit Blumen, Bändern und Vogelgezwitscher.": "Spring is here! The village celebrates with flowers, ribbons and birdsong.", "Lange, warme Abende: Lampions, Eis und ein Sprung ins kühle Wasser.": "Long, warm evenings: lanterns, ice cream and a dip in cool water.", "Die Ernte ist eingebracht. Das Dorf dankt mit Kürbislaternen, Strohballen und vollen Wagen.": "The harvest is in. The village gives thanks with pumpkin lanterns, hay bales and full carts.", "Lichter, Punsch und Schnee: Der Wintermarkt macht die dunklen Tage hell.": "Lights, punch and snow: the winter market brightens the dark days.", "Frühlingsgrün": "Spring green", "Pflanze 3 Bäume": "Plant 3 trees", "Sommerfang": "Summer catch", "Fange 3 Fische": "Catch 3 fish", "Reiche Ernte": "Rich harvest", "Ernte 5 Äcker": "Harvest 5 fields", "Innere Ruhe": "Inner calm", "Mach 3 Ruhe-Übungen": "Do 3 calm exercises", "Schmücke das Dorf": "Decorate the village", "Baue 3 Festdekorationen": "Build 3 festival decorations", "Festspaziergang": "Festival walk", "Gehe während des Festes 30.000 Schritte": "Walk 30,000 steps during the festival", "bis {}": "until {}", "Festdeko ansehen": "See festival decorations", "Festabzeichen im Album!": "Festival badge in your album!", "{} hat begonnen! Neue Festdeko im Bau-Menü und drei Festaufgaben warten.": "The {} has begun! New festival decorations in the build menu and three festival tasks are waiting.", "Festdeko: {} (nur während des Festes)": "Festival decorations: {} (only during the festival)", "Feste": "Festivals", "{}× gefeiert": "celebrated {}×", "Tiere ({} von {})": "Animals ({} of {})", "{}× gesehen": "seen {}×", "Gemütlich": "Cosy", "Liebevoll eingerichtet": "Lovingly furnished", "Blumen vor dem Haus, ein kleiner weißer Zaun und eine Laterne an der Tür": "Flowers out front, a little white fence and a lantern by the door", "Ein Gemüsebeet, eine Bank vor dem Haus, Kletterrosen und ein kleiner Schuppen": "A vegetable patch, a bench out front, climbing roses and a little shed", "Ausbauen": "Upgrade", "Stufe {} von 3": "Level {} of 3", "Voll ausgebaut. Hier wohnt man richtig gemütlich.": "Fully upgraded. A truly cosy place to live.", "Stufe {}: {}": "Level {}: {}", "{}: {}!": "{}: {}!", "{} gehört auf einen Berggipfel. Tippe auf einen Gipfel.": "{} belongs on a mountain peak. Tap a peak.", "Bäume": "Trees", "{} von {}": "{} of {}", "Höchstzahl erreicht ({})": "Maximum reached ({})", "Mehr als {} × {} geht nicht.": "You can't have more than {} × {}.", "Zum Drehen ist hier kein Platz.": "There's no room to rotate here.", "Vorrat": "Stock", "Vorrat: {} Kisten": "Stock: {} crates", "Vorrat: geerntete Kisten": "Stock: harvested crates", "Jeder geerntete Acker ergibt eine Kiste. Kisten kannst du Bewohnern schenken, die sich welche wünschen, oder im Hofladen verkaufen.": "Every harvested field gives one crate. You can give crates to residents who wish for them or sell them at the farm shop.", "{} wünscht sich {}": "{} wishes for {}", "Zum Hofladen": "Go to the farm shop", "Noch keine Kisten im Vorrat. Bepflanze einen Acker auf den Sonnenfeldern und ernte ihn, wenn er reif ist.": "No crates in stock yet. Plant a field in the Sunny Fields and harvest it when it's ripe.", "Im Vorrat: {} von {} Kisten": "In stock: {} of {} crates", "Pflanze {} auf einem Acker und ernte sie": "Plant {} on a field and harvest them", "{} passt nur auf den Felsen der Insel.": "{} only fits on the rock of the island.", "Das Boot fährt hinaus aufs Meer. In 15 Minuten siehst du, was angebissen hat.": "The boat heads out to sea. In 15 minutes you'll see what bit.", "Meeresfische ({} von {})": "Sea fish ({} of {})", "Fange diese Woche 6 Fische": "Catch 6 fish this week", "{} gebaut. Tippen setzt weitere, kurz halten und ziehen malt, Rechtsklick beendet.": "{} built. Tap to place more, press and hold then drag to paint, right-click to finish.", "Die Angel ist ausgeworfen. In 15 Minuten siehst du, was angebissen hat.": "Your line is cast. In 15 minutes you'll see what bit.", "Die Schürfarbeit beginnt. In 20 Minuten weißt du, was im Berg steckt.": "The digging begins. In 20 minutes you'll know what the mountain holds.", "Länge: {} cm": "Length: {} cm", "Neuer Rekord!": "New record!", "Neu im Album!": "New in your album!", "Nochmal angeln": "Fish again", "Nochmal schürfen": "Dig again", "Noch {}, dann weißt du mehr.": "{} to go, then you'll know more.", "Fang ansehen": "See your catch", "Fund ansehen": "See your find", "Läuft noch": "Still running", "Fang": "Catch", "Fund": "Find", "Fische ({} von {})": "Fish ({} of {})", "{}× · bis {} cm": "{}× · up to {} cm", "Mineralien ({} von {})": "Minerals ({} of {})", "{}× gefunden": "found {}×", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Fische, {} Mineralien, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} fish, {} minerals, {} poems.", "Angelwoche": "Fishing week", "Fange diese Woche 6 Fische am Waldsee": "Catch 6 fish at the forest lake this week", "Zeit: +15 Min": "Time: +15 min", "15 Minuten vorgespult.": "Skipped ahead 15 minutes.", "Uhrzeit: {}": "Time: {}", "Uhrzeit": "Time", "Diese Woche": "This week", "Tag {} von 7": "Day {} of 7", "Abholen": "Collect", "Wanderwoche": "Hiking week", "Gehe diese Woche 50.000 Schritte": "Walk 50,000 steps this week", "Dranbleiben": "Keep it up", "Gehe an 4 Tagen mindestens 5.000 Schritte": "Walk at least 5,000 steps on 4 days", "Ruhige Woche": "Calm week", "Mach diese Woche 5 Ruhe-Übungen im Dorf": "Do 5 calm exercises in your village this week", "Erntewoche": "Harvest week", "Ernte diese Woche 10 Äcker": "Harvest 10 fields this week", "Rätselwoche": "Puzzle week", "Spiele diese Woche 6 Rätselspiele in der Schule": "Play 6 puzzle games at the school this week", "Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.": "No penalties: whatever you don't finish simply expires. New goals next week.", "Album": "Album", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} poems.", "Album öffnen": "Open album", "{} von {} Einträgen gesammelt ({} %).": "{} of {} entries collected ({} %).", "Gebäude ({} von {})": "Buildings ({} of {})", "Ernte ({} von {})": "Harvest ({} of {})", "{}× geerntet": "harvested {}×", "Gedichte ({} von {})": "Poems ({} of {})", "Noch nicht gelesen": "Not read yet", "Freundschaften": "Friendships", "Noch keine Bewohner im Dorf.": "No residents in the village yet.", "Wahrzeichen (wachsen mit deinen Schritten)": "Landmarks (grow with your steps)", "Nach: {}": "After: {}", "Fertig gebaut": "Completed", "Bauphase {} von {} · nächste in {} Schritten": "Construction phase {} of {} · next in {} steps", "Bauphase {} von {}": "construction phase {} of {}", "{} ist fertig! {}": "{} is finished! {}", "{} wächst: {}. {}": "{} is growing: {}. {}", "Dein Dorf hat seine volle Größe erreicht. {}: {}": "Your village has reached its full size. {}: {}", "Fundament": "foundation", "Mauern": "walls", "Tor": "gate", "Erster Turm": "first tower", "Zweiter Turm": "second tower", "Dach": "roof", "Fenster": "windows", "Innenhof": "courtyard", "Garten": "garden", "Fahnen und Einweihungsfest": "flags and grand opening", "Tageszeit": "Time of day", "Wetter": "Weather", "Jahreszeit": "Season", "echt": "real", "Morgen": "morning", "Mittag": "noon", "Abend": "evening", "Nacht": "night", "Sonne": "sun", "Regen": "rain", "Schnee": "snow", "Frühling": "spring", "Sommer": "summer", "Herbst": "autumn", "Winter": "winter", "Tageszeit, Wetter und Jahreszeiten": "Time of day, weather and seasons", "Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat": "Light follows the real time, sometimes rain or snow, trees and meadows change with the month", "Wünsche": "Wishes", "Wünsche der Bewohner": "Residents' wishes", "Wünsche ansehen": "See wishes", "Erfüllt": "Fulfilled", "Belohnung abholen": "Collect reward", "Übergeben": "Hand over", "Ich würde mich so über {} freuen!": "I would love a {}!", "Ich würde mich über {} × {} freuen!": "I would love {} × {}!", "Hast du {} {} {} für mich?": "Do you have {} {} of {} for me?", "Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.": "Every day one or two residents have a small wish. Fulfil it for a reward, and your friendship grows.", "Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.": "As soon as residents live in your village (e.g. in the village school or guest house), their wishes appear here.", "{} von {} gebaut": "{} of {} built", "Im Vorrat: {}": "In stock: {}", "Freundschaft {} von {}": "Friendship {} of {}", "{} strahlt: Danke! {} · Freundschaft {}": "{} beams: Thank you! {} · Friendship {}", "Heute noch offen: {} von {}. Tippe im Dorf auf die rosa Sprechblasen.": "Still open today: {} of {}. Tap the pink speech bubbles in your village.", "Alle Wünsche für heute erfüllt. Morgen gibt es neue.": "All wishes fulfilled for today. New ones tomorrow.", "Wunsch von {}": "Wish from {}", "1 Kiste": "1 crate", "{} Kisten": "{} crates", "Kiste": "crate", "Kisten": "crates", "{} Äcker geerntet: +{} Kräuter, {}": "{} fields harvested: +{} herbs, {}", "{} geerntet: +{} Kräuter, {}": "{} harvested: +{} herbs, {}", "Im Vorrat: {} Kisten.": "In stock: {} crates.", "Lene kauft sie im Hofladen.": "Lene buys them at the farm shop.", "Baue den Hofladen, dann kannst du sie verkaufen.": "Build the farm shop to sell them.", "Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.": "Lene buys your harvest. Every harvested field gives one crate.", "Alles verkaufen ({} Münzen)": "Sell everything ({} coins)", "Im Vorrat: {} · {} Münzen pro Kiste": "In stock: {} · {} coins per crate", "1 verkaufen": "Sell 1", "Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.": "No crates in stock yet. Harvest ripe fields in the Sunny Fields.", "{} {} verkauft: +{} Münzen": "{} {} sold: +{} coins", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Spielstand sichern": "Back up saved game", "Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.": "Downloads your village as a file so you can restore it later or on another device.", "Exportieren": "Export", "Spielstand laden": "Load saved game", "Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.": "Replaces your current village with a backup file.", "Importieren": "Import", "Spielstand gespeichert. Die Datei liegt in deinen Downloads.": "Game saved. The file is in your downloads.", "Wirklich laden?": "Really load?", "Gefunden: Dorf an Tag {} mit {} Objekten. Tippe noch einmal, um es zu laden.": "Found: village on day {} with {} objects. Tap again to load it.", "Diese Datei ist kein Lindenbach-Spielstand.": "This file is not a Lindenbach saved game.", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
+  "Äcker: +1 Std": "Fields: +1 h", "Wegweiser": "Signpost", "Zum Bergsee": "To the mountain lake", "Über die Sonnenfelder": "Across the Sunny Fields", "Rund um die Bucht": "Around the bay", "Auf den Gipfel": "Up to the summit", "Zum Leuchtturm": "To the lighthouse", "Die große Talrunde": "The great valley round", "Ein gemütlicher Weg durch den Wald bis zum stillen Bergsee.": "A cosy path through the forest to the quiet mountain lake.", "Zwischen goldenen Feldern, Mohnblumen und summenden Bienen hindurch.": "Through golden fields, poppies and humming bees.", "Am Ufer entlang, wo Treibholz liegt und die Möwen rufen.": "Along the shore, where driftwood lies and gulls call.", "Serpentinen hinauf bis zum Gipfelkreuz, mit Blick über das ganze Tal.": "Up the switchbacks to the summit cross, with a view over the whole valley.", "Die lange Küstenwanderung bis zum Leuchtturm auf der Insel.": "The long coastal hike to the lighthouse on the island.", "Einmal rund um Lindenbach: Wälder, Felder, Berge und Meer.": "All the way round Lindenbach: forests, fields, mountains and sea.", "{} km": "{} km", "Angekommen!": "Arrived!", "noch {} Schritte": "{} steps to go", "Ankommen und Postkarte holen": "Arrive and collect your postcard", "Wanderung abbrechen": "Stop hike", "Wirklich abbrechen?": "Really stop?", "Such dir ein Ziel aus. Ab dann zählt jeder Schritt, den du gehst, und am Ziel wartet eine Postkarte und ein Andenken für dein Dorf.": "Pick a destination. From then on every step you take counts, and a postcard and a souvenir for your village await you at the end.", "{} Schritte · {} km": "{} steps · {} km", "{}× gewandert": "hiked {}×", "Unterwegs": "On the way", "Nochmal": "Again", "Losgehen": "Set off", "{}: Los geht’s! Jeder Schritt zählt ab jetzt.": "{}: Off you go! Every step counts from now on.", "Angekommen: {}! Die Postkarte klebt im Album, {} liegt im Lager.": "Arrived: {}! The postcard is in your album, {} is in storage.", "Wieder angekommen: {}! {}": "Arrived again: {}! {}", "Wanderungen": "Hikes", "Ziel aussuchen": "Choose a destination", "{}: {} %": "{}: {} %", "Abzeichen": "Badges", "Postkarten": "Postcards", "Postkarten ({} von {})": "Postcards ({} of {})", "{} km · {}× gewandert": "{} km · hiked {}×", "Abzeichen ({} von {})": "Badges ({} of {})", "Neues Abzeichen: {}": "New badge: {}", "{} neue Abzeichen im Album!": "{} new badges in your album!", "{} von {} Abzeichen. Keine Ranglisten, kein Druck: Sie kommen ganz von allein.": "{} of {} badges. No leaderboards, no pressure: they come all by themselves.", "Erste Schritte": "First steps", "100.000 Schritte insgesamt": "100,000 steps in total", "Halbe Million": "Half a million", "500.000 Schritte insgesamt": "500,000 steps in total", "Schritte-Million": "Step millionaire", "1.000.000 Schritte insgesamt": "1,000,000 steps in total", "Weltenbummler": "Globetrotter", "5.000.000 Schritte insgesamt": "5,000,000 steps in total", "Marathonwoche": "Marathon week", "55.000 Schritte in einer Woche": "55,000 steps in one week", "Kleines Dorf": "Little village", "10 Gebäude": "10 buildings", "Lebendiges Dorf": "Lively village", "30 Gebäude": "30 buildings", "Prächtiges Dorf": "Splendid village", "60 Gebäude": "60 buildings", "Seekenner": "Lake expert", "Alle Fische im Waldsee gefangen": "All forest-lake fish caught", "Seebär": "Old sea dog", "Alle Meeresfische gefangen": "All sea fish caught", "Glückspilz": "Lucky one", "Den Goldenen Karpfen gefangen": "Caught the golden carp", "Schatzsucher": "Treasure hunter", "Alle Mineralien gefunden": "All minerals found", "Innere Ruhe": "Inner calm", "10 Ruhe-Übungen": "10 calm exercises", "Ganz bei mir": "Fully present", "50 Ruhe-Übungen": "50 calm exercises", "Fleißige Hände": "Busy hands", "50 Äcker geerntet": "50 fields harvested", "Hobbykoch": "Home cook", "5 verschiedene Gerichte gekocht": "5 different dishes cooked", "Meisterkoch": "Master chef", "Alle Gerichte gekocht": "All dishes cooked", "Festfreund": "Festival friend", "Alle vier Feste gefeiert": "All four festivals celebrated", "Tierfreund": "Animal friend", "Alle Wildtiere entdeckt": "All wild animals discovered", "Gute Seele": "Kind soul", "Alle Geschichten der Bewohner": "All residents' stories", "Wanderer": "Hiker", "3 verschiedene Wanderungen": "3 different hikes", "Gipfelstürmer": "Summit seeker", "Alle Wanderungen": "All hikes", "Bücherwurm": "Bookworm", "Alle Gedichte gelesen": "All poems read", "Beste Freunde": "Best friends", "Ein Bewohner mit fünf Herzen": "A resident with five hearts", "Wildblumenwiese": "Wildflower meadow", "Treibholzbank": "Driftwood bench", "Steinmännchen": "Cairn", "Alter Anker": "Old anchor", "Meilenstein": "Milestone", "Dorfküche": "Village kitchen", "Mehl": "Flour", "Eier": "Eggs", "Milch": "Milk", "Honig": "Honey", "Braucht die Windmühle": "Needs the windmill", "Braucht den Bauernhof": "Needs the farm", "Braucht den Ziegenstall": "Needs the goat barn", "Braucht Bienenstöcke oder einen Honigstand": "Needs beehives or a honey stand", "Leeres Feld": "Empty slot", "Geheimes Rezept": "Secret recipe", "Verkauf: {} Münzen · gekocht: {}×": "Sells for {} coins · cooked: {}×", "Ins Raster": "Into the grid", "Wähle unten eine Zutat und tippe auf ein Feld. Die Anordnung zählt! Gekochtes kannst du im Hofladen verkaufen oder Bewohnern schenken.": "Pick an ingredient below and tap a slot. The arrangement matters! You can sell dishes at the farm shop or give them to residents.", "Kochen": "Cook", "Leeren": "Clear", "Zutaten": "Ingredients", "Fertige Gerichte": "Finished dishes", "Noch nichts gekocht.": "Nothing cooked yet.", "Rezeptbuch ({} von {})": "Recipe book ({} of {})", "Wähle zuerst unten eine Zutat.": "First pick an ingredient below.", "Keine {} mehr übrig.": "No {} left.", "Dafür fehlt dir noch: {}": "You still need: {}", "Das Raster ist noch leer.": "The grid is still empty.", "Hmm, daraus wird leider nichts. Probier eine andere Anordnung.": "Hmm, that doesn't make anything. Try a different arrangement.", "Dafür reichen deine Zutaten nicht.": "You don't have enough ingredients for that.", "{} ist fertig!": "{} is ready!", "Neues Rezept entdeckt!": "New recipe discovered!", "{}× {} verkauft: +{} Münzen": "{}× {} sold: +{} coins", "Gerichte aus der Küche": "Dishes from the kitchen", "Im Vorrat: {} · {} Münzen pro Stück": "In stock: {} · {} coins each", "Ich hätte so Lust auf {}. Kochst du mir etwas?": "I'd love some {}. Would you cook for me?", "Gekocht vorrätig: {} von {}": "Cooked and ready: {} of {}", "Dafür gibt es zwei Herzen": "Worth two hearts", "Zur Küche": "To the kitchen", "Gerichte": "Dishes", "Gerichte ({} von {})": "Dishes ({} of {})", "{}× gekocht": "cooked {}×", "Frieda schwärmt von etwas Süßem aus zwei Kürbissen, darunter Mehl und ein Ei.": "Frieda raves about something sweet made of two pumpkins, with flour and an egg underneath.", "Bruno mag einen Topf, in dem von drei Gemüsen je eins schwimmt, und darunter eine Reihe Kräuter.": "Bruno likes a pot with one each of three vegetables floating in it, and a row of herbs underneath.", "Mo trinkt am liebsten etwas Rosa: eine Erdbeere, darunter Milch und ganz unten Honig.": "Mo's favourite drink is pink: a strawberry, milk below it and honey at the very bottom.", "Konrad frühstückt ein Brot aus drei Portionen Mehl mit einem Klecks Honig in der Mitte darunter.": "Konrad breakfasts on bread made from three portions of flour with a dollop of honey in the middle underneath.", "Lotte backt einen Kuchen: oben Karotten links und rechts mit Mehl dazwischen, unten Eier außen und Honig in der Mitte.": "Lotte bakes a cake: on top carrots left and right with flour between them, below eggs on the outside and honey in the middle.", "Fest & Woche": "Festival & week", "Wünsche & Geschichten": "Wishes & stories", "Ruhe & Rätsel": "Calm & puzzles", "{} von {} offen": "{} of {} open", "Noch keine Bewohner": "No residents yet", "Übungen und Spiele": "Exercises and games", "{} % gesammelt": "{} % collected", "Gebäude": "Buildings", "Ernte": "Harvest", "Fische": "Fish", "Meer": "Sea", "Mineralien": "Minerals", "Tiere": "Animals", "Gedichte": "Poems", "Freunde": "Friends", "Dach": "Roof", "Dachfarbe": "Roof colour", "Wähle eine Dachfarbe für {}.": "Choose a roof colour for {}.", "Ziegelrot": "Brick red", "Taubenblau": "Dove blue", "Moosgrün": "Moss green", "Fliederlila": "Lilac", "Holzbraun": "Wood brown", "Schiefergrau": "Slate grey", "Ocker": "Ochre", "Rosenrot": "Rose red", "Original": "Original", "Sternschnuppe": "Shooting star", "Regenbogen": "Rainbow", "Nebel": "Fog", "Wanderhändler": "Travelling trader", "Einführung": "Introduction", "Willkommen in Lindenbach! Dein kleines Dorf wächst mit jedem Schritt, den du im echten Leben gehst.": "Welcome to Lindenbach! Your little village grows with every step you take in real life.", "Los geht’s": "Let's go", "Jeder Schritt bringt dir eine Münze. Stockwerke geben Stein, Training gibt Holz und Achtsamkeit gibt Kräuter.": "Every step earns you a coin. Floors give stone, exercise gives wood and mindfulness gives herbs.", "Tippe auf „Bauen“ und such dir etwas Schönes aus, zum Beispiel ein Lagerfeuer. Danach tippst du auf einen freien Platz im Dorf.": "Tap “Build” and pick something nice, for example a campfire. Then tap a free spot in your village.", "Wunderbar! Mit einem Finger verschiebst du die Karte, mit zwei Fingern zoomst und drehst du. Tippst du doppelt auf ein Gebäude, kannst du es verschieben.": "Wonderful! Drag with one finger to move the map, use two fingers to zoom and rotate. Double-tap a building to move it.", "Unter „Aufgaben“ warten jeden Tag vier kleine Ziele. Schau mal rein!": "Four little goals wait under “Tasks” every day. Take a look!", "Hier holst du Belohnungen ab. Dazu gibt es Wünsche der Bewohner, Ruhe-Übungen und Rätsel. Alles ganz ohne Druck.": "This is where you collect rewards. There are also residents' wishes, calm exercises and puzzles. All without any pressure.", "Tippe im Dorf Bewohner und Tiere an, sie haben dir etwas zu erzählen. Viel Freude in Lindenbach!": "Tap residents and animals in your village, they have things to tell you. Enjoy Lindenbach!", "Kleine Einführung": "Quick introduction", "Überspringen": "Skip", "Du kannst die Einführung jederzeit in den Einstellungen wieder ansehen.": "You can watch the introduction again at any time in the settings.", "Lottes Garten": "Lotte's garden", "Bring Lotte 15 Kräuter": "Bring Lotte 15 herbs", "Seit ich hier wohne, ist mein Garten noch ganz kahl. Ein paar duftende Kräuter wären ein wunderbarer Anfang. Hättest du welche übrig? Ganz ohne Eile.": "Since I moved here, my garden has been completely bare. A few fragrant herbs would be a wonderful start. Could you spare some? No rush at all.", "Riech nur, wie das duftet! Als Dankeschön habe ich dir ein kleines Rosenbeet angelegt.": "Just smell that! As a thank-you I've planted a little rose bed for you.", "Das gerissene Netz": "The torn net", "Bring Greta 10 Holz und 5 Kräuter": "Bring Greta 10 wood and 5 herbs", "Mein altes Netz ist gerissen, ausgerechnet jetzt, wo die Fische so gut beißen. Mit etwas Holz für den Rahmen und Kräuterbast könnte ich es flicken.": "My old net has torn, right now when the fish are biting so well. With some wood for the frame and herb fibre I could mend it.", "Hält wie neu! Mein altes Gestell zum Netze-Trocknen schenke ich dir, es sieht hübsch aus am Wasser.": "As good as new! You can have my old net-drying rack, it looks lovely by the water.", "Zwei für einen": "Two for one", "Pflanze 3 Bäume": "Plant 3 trees", "Für jeden Baum, den ich fälle, sollen zwei neue wachsen. Diesmal komme ich nicht hinterher. Pflanzt du ein paar Bäume mit mir?": "For every tree I fell, two new ones should grow. This time I can't keep up. Will you plant a few trees with me?", "So gefällt mir das! Aus einem alten Stamm habe ich dir einen kleinen Bären geschnitzt.": "That's how I like it! I carved you a little bear from an old trunk.", "Die verlorene Pfeife": "The lost whistle", "Gehe 6.000 Schritte": "Walk 6,000 steps", "Irgendwo auf meinem Rundweg habe ich meine Holzpfeife verloren. Wenn du spazieren gehst, halt doch bitte die Augen offen.": "I lost my wooden whistle somewhere along my usual walk. When you're out walking, please keep your eyes open.", "Du hast sie gefunden! Zum Dank zeige ich dir meinen geheimen Pilzkreis. Er gehört jetzt dir.": "You found it! As thanks I'll show you my secret fairy ring. It's yours now.", "Ein Drachen für Mo": "A kite for Mo", "Gehe 3.000 Schritte": "Walk 3,000 steps", "Ich habe einen Drachen gebaut, aber er fliegt nur, wenn man ganz schnell rennt! Läufst du mit mir?": "I built a kite, but it only flies if you run really fast! Will you run with me?", "Er fliegt, er fliegt! Den Drachen darfst du behalten, ich baue mir einfach einen neuen.": "It flies, it flies! You can keep the kite, I'll just build myself a new one.", "Kuchen fürs Erntefest": "Cake for the harvest festival", "Bring Frieda 3 Kisten aus dem Vorrat": "Bring Frieda 3 crates from your stock", "Ich möchte für alle einen großen Kuchen backen. Dafür bräuchte ich ein paar Kisten aus deiner Ernte.": "I'd like to bake a big cake for everyone. For that I'd need a few crates from your harvest.", "Das wird ein Fest! Und damit die Vögel nicht alles wegpicken, bekommst du meine beste Vogelscheuche.": "This will be a feast! And so the birds don't peck everything away, you get my best scarecrow.", "Sterne zählen": "Counting stars", "Mach 2 Ruhe-Übungen": "Do 2 calm exercises", "Wer still wird, sieht mehr Sterne, sage ich immer zu meinen Schülern. Nimm dir doch zwei ruhige Momente im Dorf.": "Those who grow still see more stars, I always tell my pupils. Why not take two quiet moments in the village?", "Siehst du? Mit meinem alten Fernrohr kannst du jetzt selbst Sterne zählen.": "You see? With my old telescope you can count the stars yourself now.", "Eine neue Geschichte": "A new story", "Fange einen Fisch": "Catch a fish", "Mir gehen die Geschichten aus! Erzähl mir von einem Fang, daraus mache ich ein Gedicht.": "I'm running out of stories! Tell me about a catch and I'll turn it into a poem.", "Was für ein Fang! Meine kleine Bücherkiste stelle ich dir ins Dorf, damit alle etwas zu lesen haben.": "What a catch! I'll put my little book box in your village so everyone has something to read.", "Geschichten aus dem Dorf": "Stories from the village", "Ganz freiwillig: Hör zu, wenn du Lust hast. Es gibt keine Frist.": "Completely optional: listen whenever you feel like it. There's no deadline.", "Übergeben": "Hand over", "Abschließen": "Complete", "Ansehen": "View", "Anhören": "Listen", "{} möchte dir etwas erzählen": "{} would like to tell you something", "{} bedankt sich": "{} says thank you", "{} erzählt": "{} tells you", "<b>{}</b> liegt jetzt in deinem Lager.": "<b>{}</b> is now in your storage.", "Als Dankeschön: <b>{}</b>": "As a thank-you: <b>{}</b>", "Danke!": "Thank you!", "Lieber doch nicht": "Rather not after all", "Kein Interesse": "Not interested", "Vielleicht später": "Maybe later", "Gern helfen": "Happy to help", "{}: {}. Ganz in Ruhe, wann immer du magst.": "{}: {}. Take your time, whenever you like.", "Sternschnuppe! Wünsch dir was": "Shooting star! Make a wish", "Du schließt die Augen und wünschst dir etwas …": "You close your eyes and make a wish …", "Am Ende des Regenbogens wartet ein kleiner Schatz: +500 Münzen": "A little treasure waits at the end of the rainbow: +500 coins", "Ein Regenbogen! Antippen": "A rainbow! Tap here", "Fiete zieht am Wochenende mit seinem Wagen durchs Tal. Diese Woche hat er drei seltene Dinge dabei, die es nur bei ihm gibt.": "Fiete travels through the valley with his cart at weekends. This week he has three rare things with him that you can only get from him.", "Gekauft": "Bought", "Kaufen": "Buy", "Gekaufte Dinge landen im Lager. Nächstes Wochenende bringt Fiete vielleicht etwas anderes mit.": "Things you buy go into storage. Next weekend Fiete may bring something different.", "{} liegt jetzt in deinem Lager.": "{} is now in your storage.", "Wanderhändler Fiete": "Fiete the travelling trader", "Geschichten der Bewohner": "Residents' stories", "Freiwillige kleine Geschichten in den Aufgaben, ganz ohne Erinnerungen": "Optional little stories in the tasks, with no reminders", "Die kurze Tour durchs Dorf noch einmal ansehen": "Watch the short village tour again", "Momente": "Moments", "Sternschnuppen": "Shooting stars", "Regenbögen": "Rainbows", "Morgennebel": "Morning mist", "Besuche von Fiete": "Visits from Fiete", "{}× erlebt": "experienced {}×", "+3 Kräuter fürs Streicheln": "+3 herbs for the cuddle", "Igel": "Hedgehog", "Schwan": "Swan", "Eichhörnchen": "Squirrel", "Feldhase": "Hare", "Murmeltier": "Marmot", "Reh": "Roe deer", "Stockente": "Mallard", "Gämse": "Chamois", "Möwe": "Gull", "Fuchs": "Fox", "Igel sind nachts unterwegs und fressen am liebsten Käfer und Schnecken.": "Hedgehogs are out at night and love eating beetles and snails.", "Schwäne bleiben oft ein Leben lang mit ihrem Partner zusammen.": "Swans often stay with their partner for life.", "Eichhörnchen vergraben im Herbst Tausende Nüsse und finden längst nicht alle wieder.": "Squirrels bury thousands of nuts in autumn and don't find nearly all of them again.", "Feldhasen schaffen kurze Sprints mit bis zu 70 Kilometern pro Stunde.": "Hares can sprint briefly at up to 70 kilometres per hour.", "Murmeltiere warnen sich mit einem lauten Pfiff, wenn Gefahr droht.": "Marmots warn each other with a loud whistle when danger is near.", "Rehe kommen gern in der Dämmerung ans Wasser.": "Roe deer like to come to the water at dusk.", "Nur die Erpel haben den grün schimmernden Kopf.": "Only the drakes have the shimmering green head.", "Gämsen klettern sicher über steile Felsen.": "Chamois climb confidently over steep rocks.", "Möwen können sogar Salzwasser trinken.": "Gulls can even drink salt water.", "Füchse hören eine Maus noch unter dem Schnee rascheln.": "Foxes can hear a mouse rustling even under snow.", "Blütenfest": "Blossom Festival", "Sommerfest": "Summer Festival", "Erntedankfest": "Harvest Festival", "Wintermarkt": "Winter Market", "Der Frühling ist da! Das Dorf feiert mit Blumen, Bändern und Vogelgezwitscher.": "Spring is here! The village celebrates with flowers, ribbons and birdsong.", "Lange, warme Abende: Lampions, Eis und ein Sprung ins kühle Wasser.": "Long, warm evenings: lanterns, ice cream and a dip in cool water.", "Die Ernte ist eingebracht. Das Dorf dankt mit Kürbislaternen, Strohballen und vollen Wagen.": "The harvest is in. The village gives thanks with pumpkin lanterns, hay bales and full carts.", "Lichter, Punsch und Schnee: Der Wintermarkt macht die dunklen Tage hell.": "Lights, punch and snow: the winter market brightens the dark days.", "Frühlingsgrün": "Spring green", "Pflanze 3 Bäume": "Plant 3 trees", "Sommerfang": "Summer catch", "Fange 3 Fische": "Catch 3 fish", "Reiche Ernte": "Rich harvest", "Ernte 5 Äcker": "Harvest 5 fields", "Innere Ruhe": "Inner calm", "Mach 3 Ruhe-Übungen": "Do 3 calm exercises", "Schmücke das Dorf": "Decorate the village", "Baue 3 Festdekorationen": "Build 3 festival decorations", "Festspaziergang": "Festival walk", "Gehe während des Festes 30.000 Schritte": "Walk 30,000 steps during the festival", "bis {}": "until {}", "Festdeko ansehen": "See festival decorations", "Festabzeichen im Album!": "Festival badge in your album!", "{} hat begonnen! Neue Festdeko im Bau-Menü und drei Festaufgaben warten.": "The {} has begun! New festival decorations in the build menu and three festival tasks are waiting.", "Festdeko: {} (nur während des Festes)": "Festival decorations: {} (only during the festival)", "Feste": "Festivals", "{}× gefeiert": "celebrated {}×", "Tiere ({} von {})": "Animals ({} of {})", "{}× gesehen": "seen {}×", "Gemütlich": "Cosy", "Liebevoll eingerichtet": "Lovingly furnished", "Blumen vor dem Haus, ein kleiner weißer Zaun und eine Laterne an der Tür": "Flowers out front, a little white fence and a lantern by the door", "Ein Gemüsebeet, eine Bank vor dem Haus, Kletterrosen und ein kleiner Schuppen": "A vegetable patch, a bench out front, climbing roses and a little shed", "Ausbauen": "Upgrade", "Stufe {} von 3": "Level {} of 3", "Voll ausgebaut. Hier wohnt man richtig gemütlich.": "Fully upgraded. A truly cosy place to live.", "Stufe {}: {}": "Level {}: {}", "{}: {}!": "{}: {}!", "{} gehört auf einen Berggipfel. Tippe auf einen Gipfel.": "{} belongs on a mountain peak. Tap a peak.", "Bäume": "Trees", "{} von {}": "{} of {}", "Höchstzahl erreicht ({})": "Maximum reached ({})", "Mehr als {} × {} geht nicht.": "You can't have more than {} × {}.", "Zum Drehen ist hier kein Platz.": "There's no room to rotate here.", "Vorrat": "Stock", "Vorrat: {} Kisten": "Stock: {} crates", "Vorrat: geerntete Kisten": "Stock: harvested crates", "Jeder geerntete Acker ergibt eine Kiste. Kisten kannst du Bewohnern schenken, die sich welche wünschen, oder im Hofladen verkaufen.": "Every harvested field gives one crate. You can give crates to residents who wish for them or sell them at the farm shop.", "{} wünscht sich {}": "{} wishes for {}", "Zum Hofladen": "Go to the farm shop", "Noch keine Kisten im Vorrat. Bepflanze einen Acker auf den Sonnenfeldern und ernte ihn, wenn er reif ist.": "No crates in stock yet. Plant a field in the Sunny Fields and harvest it when it's ripe.", "Im Vorrat: {} von {} Kisten": "In stock: {} of {} crates", "Pflanze {} auf einem Acker und ernte sie": "Plant {} on a field and harvest them", "{} passt nur auf den Felsen der Insel.": "{} only fits on the rock of the island.", "Das Boot fährt hinaus aufs Meer. In 15 Minuten siehst du, was angebissen hat.": "The boat heads out to sea. In 15 minutes you'll see what bit.", "Meeresfische ({} von {})": "Sea fish ({} of {})", "Fange diese Woche 6 Fische": "Catch 6 fish this week", "{} gebaut. Tippen setzt weitere, kurz halten und ziehen malt, Rechtsklick beendet.": "{} built. Tap to place more, press and hold then drag to paint, right-click to finish.", "Die Angel ist ausgeworfen. In 15 Minuten siehst du, was angebissen hat.": "Your line is cast. In 15 minutes you'll see what bit.", "Die Schürfarbeit beginnt. In 20 Minuten weißt du, was im Berg steckt.": "The digging begins. In 20 minutes you'll know what the mountain holds.", "Länge: {} cm": "Length: {} cm", "Neuer Rekord!": "New record!", "Neu im Album!": "New in your album!", "Nochmal angeln": "Fish again", "Nochmal schürfen": "Dig again", "Noch {}, dann weißt du mehr.": "{} to go, then you'll know more.", "Fang ansehen": "See your catch", "Fund ansehen": "See your find", "Läuft noch": "Still running", "Fang": "Catch", "Fund": "Find", "Fische ({} von {})": "Fish ({} of {})", "{}× · bis {} cm": "{}× · up to {} cm", "Mineralien ({} von {})": "Minerals ({} of {})", "{}× gefunden": "found {}×", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Fische, {} Mineralien, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} fish, {} minerals, {} poems.", "Angelwoche": "Fishing week", "Fange diese Woche 6 Fische am Waldsee": "Catch 6 fish at the forest lake this week", "Zeit: +15 Min": "Time: +15 min", "15 Minuten vorgespult.": "Skipped ahead 15 minutes.", "Uhrzeit: {}": "Time: {}", "Uhrzeit": "Time", "Diese Woche": "This week", "Tag {} von 7": "Day {} of 7", "Abholen": "Collect", "Wanderwoche": "Hiking week", "Gehe diese Woche 50.000 Schritte": "Walk 50,000 steps this week", "Dranbleiben": "Keep it up", "Gehe an 4 Tagen mindestens 5.000 Schritte": "Walk at least 5,000 steps on 4 days", "Ruhige Woche": "Calm week", "Mach diese Woche 5 Ruhe-Übungen im Dorf": "Do 5 calm exercises in your village this week", "Erntewoche": "Harvest week", "Ernte diese Woche 10 Äcker": "Harvest 10 fields this week", "Rätselwoche": "Puzzle week", "Spiele diese Woche 6 Rätselspiele in der Schule": "Play 6 puzzle games at the school this week", "Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.": "No penalties: whatever you don't finish simply expires. New goals next week.", "Album": "Album", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} poems.", "Album öffnen": "Open album", "{} von {} Einträgen gesammelt ({} %).": "{} of {} entries collected ({} %).", "Gebäude ({} von {})": "Buildings ({} of {})", "Ernte ({} von {})": "Harvest ({} of {})", "{}× geerntet": "harvested {}×", "Gedichte ({} von {})": "Poems ({} of {})", "Noch nicht gelesen": "Not read yet", "Freundschaften": "Friendships", "Noch keine Bewohner im Dorf.": "No residents in the village yet.", "Wahrzeichen (wachsen mit deinen Schritten)": "Landmarks (grow with your steps)", "Nach: {}": "After: {}", "Fertig gebaut": "Completed", "Bauphase {} von {} · nächste in {} Schritten": "Construction phase {} of {} · next in {} steps", "Bauphase {} von {}": "construction phase {} of {}", "{} ist fertig! {}": "{} is finished! {}", "{} wächst: {}. {}": "{} is growing: {}. {}", "Dein Dorf hat seine volle Größe erreicht. {}: {}": "Your village has reached its full size. {}: {}", "Fundament": "foundation", "Mauern": "walls", "Tor": "gate", "Erster Turm": "first tower", "Zweiter Turm": "second tower", "Dach": "roof", "Fenster": "windows", "Innenhof": "courtyard", "Garten": "garden", "Fahnen und Einweihungsfest": "flags and grand opening", "Tageszeit": "Time of day", "Wetter": "Weather", "Jahreszeit": "Season", "echt": "real", "Morgen": "morning", "Mittag": "noon", "Abend": "evening", "Nacht": "night", "Sonne": "sun", "Regen": "rain", "Schnee": "snow", "Frühling": "spring", "Sommer": "summer", "Herbst": "autumn", "Winter": "winter", "Tageszeit, Wetter und Jahreszeiten": "Time of day, weather and seasons", "Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat": "Light follows the real time, sometimes rain or snow, trees and meadows change with the month", "Wünsche": "Wishes", "Wünsche der Bewohner": "Residents' wishes", "Wünsche ansehen": "See wishes", "Erfüllt": "Fulfilled", "Belohnung abholen": "Collect reward", "Übergeben": "Hand over", "Ich würde mich so über {} freuen!": "I would love a {}!", "Ich würde mich über {} × {} freuen!": "I would love {} × {}!", "Hast du {} {} {} für mich?": "Do you have {} {} of {} for me?", "Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.": "Every day one or two residents have a small wish. Fulfil it for a reward, and your friendship grows.", "Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.": "As soon as residents live in your village (e.g. in the village school or guest house), their wishes appear here.", "{} von {} gebaut": "{} of {} built", "Im Vorrat: {}": "In stock: {}", "Freundschaft {} von {}": "Friendship {} of {}", "{} strahlt: Danke! {} · Freundschaft {}": "{} beams: Thank you! {} · Friendship {}", "Heute noch offen: {} von {}. Tippe im Dorf auf die rosa Sprechblasen.": "Still open today: {} of {}. Tap the pink speech bubbles in your village.", "Alle Wünsche für heute erfüllt. Morgen gibt es neue.": "All wishes fulfilled for today. New ones tomorrow.", "Wunsch von {}": "Wish from {}", "1 Kiste": "1 crate", "{} Kisten": "{} crates", "Kiste": "crate", "Kisten": "crates", "{} Äcker geerntet: +{} Kräuter, {}": "{} fields harvested: +{} herbs, {}", "{} geerntet: +{} Kräuter, {}": "{} harvested: +{} herbs, {}", "Im Vorrat: {} Kisten.": "In stock: {} crates.", "Lene kauft sie im Hofladen.": "Lene buys them at the farm shop.", "Baue den Hofladen, dann kannst du sie verkaufen.": "Build the farm shop to sell them.", "Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.": "Lene buys your harvest. Every harvested field gives one crate.", "Alles verkaufen ({} Münzen)": "Sell everything ({} coins)", "Im Vorrat: {} · {} Münzen pro Kiste": "In stock: {} · {} coins per crate", "1 verkaufen": "Sell 1", "Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.": "No crates in stock yet. Harvest ripe fields in the Sunny Fields.", "{} {} verkauft: +{} Münzen": "{} {} sold: +{} coins", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Spielstand sichern": "Back up saved game", "Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.": "Downloads your village as a file so you can restore it later or on another device.", "Exportieren": "Export", "Spielstand laden": "Load saved game", "Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.": "Replaces your current village with a backup file.", "Importieren": "Import", "Spielstand gespeichert. Die Datei liegt in deinen Downloads.": "Game saved. The file is in your downloads.", "Wirklich laden?": "Really load?", "Gefunden: Dorf an Tag {} mit {} Objekten. Tippe noch einmal, um es zu laden.": "Found: village on day {} with {} objects. Tap again to load it.", "Diese Datei ist kein Lindenbach-Spielstand.": "This file is not a Lindenbach saved game.", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
 const t = s => LANG === 'en' ? (EN[s] ?? s) : s;
 function tt(strings, ...vals){ const key = strings.join('{}'); const tr = LANG === 'en' ? (EN[key] ?? key) : key; let i = 0;
   return tr.replace(/\{(\d*)\}/g, (_, d) => String(vals[d === '' ? i++ : +d] ?? '')); }
 const Q1 = LANG === 'en' ? '“' : '„', Q2 = '“';
 const EN_DATA = {
   catalog: {
-    path:['Small path', 'Paths through the village'], fence:['Wooden fence', 'Marks out plots'], campfire:['Campfire', 'The first evening meeting spot'],
+    path:['Small path', 'Paths through the village'], fence:['Wooden fence', 'Marks out plots'], gravel:['Gravel path', 'Crunches nicely underfoot'], kitchen:['Village kitchen', 'Cook tasty dishes from your harvest here'], flagstone:['Flagstones', 'A tidy path of stone slabs'], boardwalk:['Boardwalk', 'A path of warm wooden planks'], hedge:['Hedge', 'Dense greenery as a garden border'], rosetrellis:['Rose trellis', 'A trellis full of climbing roses'], stonewall:['Dry-stone wall', 'A low wall of field stones'], campfire:['Campfire', 'The first evening meeting spot'],
     bench:['Wooden bench', 'For a little rest'], lantern:['Lantern', 'Light for the night'], flowerbed:['Flower bed', 'Brings colour to the village'],
     school:['Village school', 'Teacher Konrad hosts daily puzzle games'], storyhouse:['Storyteller’s house', 'Wilma recites a poem here every day'],
     garden:['Vegetable garden', 'Vegetables grow here'], hut:['Hut', 'A small wooden cottage'], pond:['Pond with pier', 'A quiet place by the water'],
@@ -546,6 +610,7 @@ const EN_DATA = {
     pumpkinlamp:['Pumpkin lantern', 'Glows warmly at dusk'], haybales:['Hay bales', 'For sitting on'], harvestcart:['Harvest cart', 'Full of pumpkins and apples'],
     xmastree:['Decorated fir tree', 'With lights and a star'], snowman:['Snowman', 'With a carrot nose'], marketstall:['Market stall', 'Hot apple punch and gingerbread'],
     doghouse:['Dog house', 'Home of your dog Bello'],
+    signpost:['Signpost', 'Souvenir of the hike to the mountain lake'], wildflowers:['Wildflower meadow', 'Souvenir of the hike across the Sunny Fields'], driftbench:['Driftwood bench', 'Souvenir of the walk around the bay (2 × 1 tiles)'], cairn:['Cairn', 'Souvenir of the summit tour'], anchor:['Old anchor', 'Souvenir of the coastal hike'], milestone:['Milestone', 'Souvenir of the great valley round'],
     rosebed:['Lotte’s rose bed', 'A gift from Lotte'], netrack:['Greta’s net rack', 'A gift from Greta'], woodbear:['Bruno’s wooden bear', 'A gift from Bruno'], fairyring:['Hanne’s fairy ring', 'A gift from Hanne'],
     kite:['Mo’s kite', 'A gift from Mo'], scarecrow:['Frieda’s scarecrow', 'A gift from Frieda'], telescope:['Konrad’s telescope', 'A gift from Konrad'], bookbox:['Wilma’s book box', 'A gift from Wilma'],
     windchime:['Wind chime', 'Tinkles softly in the wind'], sundial:['Sundial', 'Tells the time as long as the sun shines'], wishwell:['Wishing well', 'Toss a coin and make a wish'],
@@ -614,6 +679,7 @@ const EN_DATA = {
     school:[['Teacher', ['Fancy a little puzzle? Come to the school!', 'Asking questions is how you win.']]],
     storyhouse:[['Storyteller', ['Come to my house, I have a poem for you today.']]],
     home:[['your cat', ['purrs contentedly.', 'is washing herself in the sun.', 'would like to be stroked.']]],
+    kitchen:[['Cook', ['Can you smell that? Soup today.', 'A recipe book is a treasure, my grandma always says.']]],
     doghouse:[['your dog', ['wags his tail happily.', 'brings you a stick.', 'sniffs curiously at everything.']]],
     hut:[['Neighbour', ['What a lovely day for a walk!', 'Have you done your steps today?']]],
     guesthouse:[['Guest', ['I’m staying a few more days. It’s so peaceful here.']], ['Guest', ['The guest house is really cosy.', 'Tomorrow I’m going to explore the forest.']]],
@@ -761,6 +827,13 @@ const enApply = k => { if (LANG === 'en') EN_APPLY[k](); };
 const COIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F2C14E"/><circle cx="12" cy="12" r="7" fill="none" stroke="#C9952A" stroke-width="2"/></svg>';
 const LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 const ART = {
+  kitchen:'<rect x="8" y="20" width="32" height="24" fill="#F3EBDD"/><path d="M4 22 24 8l20 14Z" fill="#C8473C"/><rect x="32" y="8" width="5" height="10" fill="#8A8272"/><circle cx="35" cy="5" r="2.5" fill="#E8E4DC"/><rect x="12" y="26" width="9" height="8" fill="#FFE08A"/><rect x="26" y="30" width="8" height="14" fill="#8A5634"/><ellipse cx="16" cy="40" rx="5" ry="2.5" fill="#5F7FB0"/>',
+  gravel:'<rect x="8" y="16" width="32" height="20" rx="4" fill="#C9C4B8"/><g fill="#9C978C"><circle cx="14" cy="22" r="2"/><circle cx="24" cy="28" r="2.2"/><circle cx="33" cy="21" r="1.8"/><circle cx="19" cy="31" r="1.6"/><circle cx="31" cy="31" r="1.8"/></g>',
+  flagstone:'<rect x="6" y="14" width="36" height="24" rx="3" fill="#7FA05A"/><g fill="#C2BCAE"><rect x="8" y="16" width="15" height="9" rx="2"/><rect x="25" y="16" width="15" height="9" rx="2"/><rect x="8" y="27" width="10" height="9" rx="2"/><rect x="20" y="27" width="20" height="9" rx="2"/></g>',
+  boardwalk:'<g><rect x="8" y="12" width="6" height="26" fill="#B97A4C"/><rect x="15" y="12" width="6" height="26" fill="#A8693F"/><rect x="22" y="12" width="6" height="26" fill="#B97A4C"/><rect x="29" y="12" width="6" height="26" fill="#A8693F"/><rect x="36" y="12" width="5" height="26" fill="#B97A4C"/></g><rect x="7" y="16" width="35" height="2" fill="#6E4329"/><rect x="7" y="32" width="35" height="2" fill="#6E4329"/>',
+  hedge:'<rect x="5" y="20" width="38" height="22" rx="7" fill="#4A8A3F"/><g fill="#3E7A35"><circle cx="13" cy="21" r="6"/><circle cx="24" cy="19" r="7"/><circle cx="35" cy="21" r="6"/></g>',
+  rosetrellis:'<path d="M10 44V10M38 44V10" stroke="#A8693F" stroke-width="3"/><path d="M10 14l28 24M38 14 10 38M10 26l14 12M38 26 24 38M24 14 10 26M24 14l14 12" stroke="#C79A6B" stroke-width="1.6"/><g fill="#4F8F3F"><circle cx="16" cy="18" r="3"/><circle cx="31" cy="24" r="3"/><circle cx="18" cy="33" r="3"/></g><g fill="#E26D8A"><circle cx="20" cy="17" r="2.6"/><circle cx="28" cy="22" r="2.6"/><circle cx="15" cy="30" r="2.6"/><circle cx="33" cy="34" r="2.6"/></g>',
+  stonewall:'<g fill="#A8A397"><rect x="5" y="30" width="12" height="12" rx="3"/><rect x="18" y="31" width="11" height="11" rx="3"/><rect x="30" y="30" width="13" height="12" rx="3"/></g><g fill="#BDB8AC"><rect x="10" y="20" width="12" height="11" rx="3"/><rect x="23" y="20" width="14" height="11" rx="3"/></g>',
   path:'<rect x="8" y="16" width="32" height="20" rx="6" fill="#D9C08F"/><circle cx="17" cy="24" r="2.5" fill="#BFA474"/><circle cx="30" cy="29" r="2" fill="#BFA474"/>',
   fence:'<g fill="#C79A6B"><rect x="5" y="24" width="38" height="4" rx="1"/><rect x="5" y="34" width="38" height="4" rx="1"/></g><g fill="#A8693F"><path d="M7 45V20l2-3 2 3v25Z"/><path d="M22 45V20l2-3 2 3v25Z"/><path d="M37 45V20l2-3 2 3v25Z"/></g>',
   campfire:'<path d="M24 13c6 8 8 14 4 20-2 3-6 3-8 0-4-6 0-12 4-20Z" fill="#FF8A3D"/><path d="M24 22c3 5 3 9 1 12-1 1-2 1-3 0-1-3-1-7 2-12Z" fill="#FFD166"/><rect x="12" y="35" width="24" height="5" rx="2.5" fill="#8A5634" transform="rotate(12 24 37)"/><rect x="12" y="35" width="24" height="5" rx="2.5" fill="#6E4329" transform="rotate(-12 24 37)"/><g fill="#9C978C"><circle cx="10" cy="42" r="3"/><circle cx="38" cy="42" r="3"/><circle cx="24" cy="44" r="3"/></g>',
@@ -798,6 +871,12 @@ Object.assign(ART, {
   windmill:'<path d="M16 45 19 20h10l3 25Z" fill="#F3EBDD"/><path d="M17 20 24 11l7 9Z" fill="#B5533C"/><rect x="21" y="36" width="6" height="9" fill="#5A3D2B"/><g transform="rotate(20 24 17)"><rect x="22.5" y="1" width="3" height="32" fill="#6E4329"/><rect x="8" y="15.5" width="32" height="3" fill="#6E4329"/><rect x="25.5" y="2" width="5" height="12" fill="#F3EBDD"/><rect x="17.5" y="20" width="5" height="12" fill="#F3EBDD"/><rect x="9" y="11.5" width="12" height="4" fill="#F3EBDD"/><rect x="27" y="18.5" width="12" height="4" fill="#F3EBDD"/></g><circle cx="24" cy="17" r="2.5" fill="#3F3A4A"/>'
 });
 Object.assign(ART, {
+  signpost:'<rect x="22" y="8" width="4" height="37" fill="#8A5634"/><path d="M8 12h22l6 4-6 4H8Z" fill="#C79A6B"/><path d="M40 24H18l-6 4 6 4h22Z" fill="#B97A4C"/><rect x="18" y="42" width="12" height="3" fill="#6FA552"/>',
+  wildflowers:'<ellipse cx="24" cy="38" rx="20" ry="7" fill="#7FB55A"/><g stroke="#4F8F3F" stroke-width="1.5"><path d="M12 38v-10M20 38V24M28 38V26M36 38v-9"/></g><circle cx="12" cy="27" r="3.2" fill="#B79CED"/><circle cx="20" cy="23" r="3.2" fill="#FFD166"/><circle cx="28" cy="25" r="3.2" fill="#F28DB2"/><circle cx="36" cy="28" r="3.2" fill="#5FA8C9"/>',
+  driftbench:'<path d="M6 26q18-6 36 0v5H6Z" fill="#C2B49A"/><path d="M8 30h4v12H8ZM36 30h4v12h-4Z" fill="#A89A80"/><path d="M10 24q4-2 8 0" stroke="#8C7F68" stroke-width="1.5" fill="none"/>',
+  cairn:'<ellipse cx="24" cy="40" rx="14" ry="5" fill="#9C978C"/><ellipse cx="24" cy="31" rx="10" ry="5" fill="#B0AA9E"/><ellipse cx="24" cy="23" rx="7" ry="4" fill="#C3BEB3"/><ellipse cx="24" cy="16" rx="4.5" ry="3" fill="#B0AA9E"/>',
+  anchor:'<circle cx="24" cy="9" r="4" fill="none" stroke="#5A6270" stroke-width="3"/><path d="M24 13v28M15 20h18" stroke="#5A6270" stroke-width="3.5"/><path d="M8 30q4 12 16 12t16-12" stroke="#5A6270" stroke-width="3.5" fill="none"/><path d="M8 30l-2 4M40 30l2 4" stroke="#5A6270" stroke-width="3"/>',
+  milestone:'<path d="M14 44V18a10 10 0 0 1 20 0v26Z" fill="#CFC9BC"/><path d="M14 44h20" stroke="#9C978C" stroke-width="3"/><text x="24" y="30" font-size="9" font-family="sans-serif" font-weight="700" text-anchor="middle" fill="#6B6455">200k</text>',
   rosebed:'<rect x="4" y="30" width="40" height="12" rx="3" fill="#7A5636"/><g fill="#E0526B"><circle cx="11" cy="26" r="4"/><circle cx="24" cy="24" r="4"/><circle cx="37" cy="26" r="4"/></g><g fill="#F28DB2"><circle cx="17" cy="28" r="3.4"/><circle cx="31" cy="28" r="3.4"/></g><g fill="#4F8F3F"><circle cx="14" cy="31" r="2"/><circle cx="28" cy="31" r="2"/></g>',
   netrack:'<path d="M10 44V10M38 44V10M8 11h32" stroke="#8A5634" stroke-width="3"/><path d="M12 14h24v18H12Z" fill="#E6DAB8"/><path d="M12 20h24M12 26h24M18 14v18M24 14v18M30 14v18" stroke="#B9A77C" stroke-width="1"/><g fill="#E0523F"><circle cx="16" cy="32" r="2.2"/><circle cx="32" cy="32" r="2.2"/></g>',
   woodbear:'<rect x="12" y="40" width="24" height="5" fill="#8A5634"/><rect x="15" y="24" width="18" height="16" rx="4" fill="#B07A4A"/><circle cx="24" cy="17" r="8" fill="#B07A4A"/><circle cx="17" cy="10" r="3" fill="#B07A4A"/><circle cx="31" cy="10" r="3" fill="#B07A4A"/><ellipse cx="24" cy="20" rx="3.5" ry="2.5" fill="#C79A6B"/><circle cx="21" cy="15" r="1.2" fill="#2A2F45"/><circle cx="27" cy="15" r="1.2" fill="#2A2F45"/>',
@@ -860,8 +939,15 @@ const icon = id => `<svg viewBox="0 0 48 48" aria-hidden="true">${ART[id]}</svg>
    Gebäudekatalog
    ========================================================= */
 const CATALOG = [
-  {id:'path',      name:'Kleiner Pfad',  tier:1, cost:300,   multi:true, desc:'Wege durchs Dorf'},
+  {id:'path',      name:'Kleiner Pfad',  tier:1, cost:300,   multi:true, walk:true, desc:'Wege durchs Dorf'},
   {id:'fence',     name:'Holzzaun',      tier:1, cost:500,   multi:true, desc:'Grenzt Grundstücke ab'},
+  {id:'gravel',    name:'Kiesweg',       tier:1, cost:400,   multi:true, walk:true, desc:'Knirscht so schön beim Gehen'},
+  {id:'flagstone', name:'Steinplatten',  tier:1, cost:600,   multi:true, walk:true, desc:'Ein ordentlicher Weg aus Platten'},
+  {id:'boardwalk', name:'Holzbohlen',    tier:1, cost:500,   multi:true, walk:true, desc:'Ein Weg aus warmen Holzbrettern'},
+  {id:'kitchen',   name:'Dorfküche',     tier:2, cost:15000, desc:'Hier kochst du aus deiner Ernte leckere Gerichte'},
+  {id:'hedge',     name:'Hecke',         tier:2, cost:600,   multi:true, desc:'Dichtes Grün als Gartengrenze'},
+  {id:'rosetrellis',name:'Blumenranke',  tier:2, cost:900,   multi:true, desc:'Ein Rankgitter voller Kletterrosen'},
+  {id:'stonewall', name:'Trockenmauer',  tier:2, cost:800,   multi:true, desc:'Eine niedrige Mauer aus Feldsteinen'},
   {id:'campfire',  name:'Lagerfeuer',    tier:1, cost:500,   desc:'Erster Treffpunkt am Abend'},
   {id:'bench',     name:'Holzbank',      tier:1, cost:1000,  multi:true, desc:'Zum Ausruhen (2 × 1 Felder)'},
   {id:'lantern',   name:'Laterne',       tier:1, cost:1500,  multi:true, desc:'Licht für die Nacht'},
@@ -915,6 +1001,13 @@ const CATALOG = [
   {id:'scarecrow', name:'Friedas Vogelscheuche', cost:0, gift:true, desc:'Ein Geschenk von Frieda'},
   {id:'telescope', name:'Konrads Fernrohr',      cost:0, gift:true, desc:'Ein Geschenk von Konrad'},
   {id:'bookbox',   name:'Wilmas Bücherkiste',    cost:0, gift:true, desc:'Ein Geschenk von Wilma'},
+  // Andenken von Wanderungen (nicht kaufbar)
+  {id:'signpost',   name:'Wegweiser',          cost:0, gift:true, desc:'Andenken an die Wanderung zum Bergsee'},
+  {id:'wildflowers',name:'Wildblumenwiese',    cost:0, gift:true, desc:'Andenken an die Wanderung über die Sonnenfelder'},
+  {id:'driftbench', name:'Treibholzbank',      cost:0, gift:true, desc:'Andenken an die Runde um die Bucht (2 × 1 Felder)'},
+  {id:'cairn',      name:'Steinmännchen',      cost:0, gift:true, desc:'Andenken an die Gipfeltour'},
+  {id:'anchor',     name:'Alter Anker',        cost:0, gift:true, desc:'Andenken an die Küstenwanderung'},
+  {id:'milestone',  name:'Meilenstein',        cost:0, gift:true, desc:'Andenken an die große Talrunde'},
   // Seltene Dinge vom Wanderhändler (nur bei ihm erhältlich)
   {id:'windchime',  name:'Windspiel',     cost:3000, multi:true, trader:true, desc:'Klingt leise im Wind'},
   {id:'sundial',    name:'Sonnenuhr',     cost:4500, multi:true, trader:true, desc:'Zeigt die Zeit, solange die Sonne scheint'},
@@ -975,13 +1068,13 @@ const RSRC = {
 };
 // Baukosten zusätzlich zu Münzen (Stein für Wege, Holz für Häuser, Kräuter für Gärten und Pflanzen)
 const MATS = {
-  path:{stone:1}, fence:{wood:2}, campfire:{wood:3, stone:2}, bench:{wood:4}, lantern:{wood:1, stone:2}, flowerbed:{wood:2, herbs:3},
+  path:{stone:1}, fence:{wood:2}, gravel:{stone:1}, flagstone:{stone:2}, kitchen:{wood:30, stone:20}, boardwalk:{wood:2}, hedge:{herbs:2}, rosetrellis:{wood:1, herbs:2}, stonewall:{stone:3}, campfire:{wood:3, stone:2}, bench:{wood:4}, lantern:{wood:1, stone:2}, flowerbed:{wood:2, herbs:3},
   garden:{wood:15, herbs:5}, hut:{wood:40, stone:10}, pond:{wood:5, stone:25}, well:{wood:10, stone:30}, guesthouse:{wood:60, stone:20}, storyhouse:{wood:30, stone:15, herbs:5}, school:{wood:15, stone:5},
   reeds:{herbs:2}, rowboat:{wood:20}, dock:{wood:35}, shellstand:{wood:20, stone:5}, fisherhut:{wood:50, stone:15},
   pine:{herbs:3}, mushrooms:{herbs:8}, lumberhut:{wood:40, stone:20}, treehouse:{wood:70}, forester:{wood:60, stone:30, herbs:10},
   lavender:{herbs:4}, viewbench:{wood:10, stone:15}, goatbarn:{wood:60, stone:20}, quarry:{wood:10, stone:60}, chapel:{wood:30, stone:100},
   sunflower:{herbs:3}, beehive:{wood:12, herbs:8}, farmstand:{wood:30, stone:5}, farm:{wood:70, stone:25, herbs:5}, windmill:{wood:60, stone:60, herbs:10},
-  lilies:{herbs:3}, jetty:{wood:30}, hochsitz:{wood:25}, picnic:{wood:10, herbs:5}, summitcross:{wood:10, stone:20}, mine:{wood:40, stone:30}, berghut:{wood:80, stone:40}, cablecar:{wood:40, stone:80}, boat:{wood:50}, beachchair:{wood:4, herbs:2}, boathouse:{wood:40, stone:10}, canoe:{wood:10}, silo:{wood:20, stone:40}, graveyard:{wood:10, stone:25, herbs:4}, flowerarch:{herbs:6}, maypole:{wood:12}, birdhouse:{wood:3}, lampions:{wood:6}, parasol:{wood:4}, icecart:{wood:15}, pumpkinlamp:{herbs:3}, haybales:{herbs:2}, harvestcart:{wood:15, herbs:5}, xmastree:{wood:8, herbs:4}, snowman:{}, marketstall:{wood:20, stone:5}, doghouse:{wood:15}, rosebed:{}, netrack:{}, woodbear:{}, fairyring:{}, kite:{}, scarecrow:{}, telescope:{}, bookbox:{}, windchime:{herbs:5}, sundial:{stone:10}, wishwell:{stone:15}, hammock:{wood:10}, lanterntree:{wood:8}, honeystand:{wood:6, herbs:4}, appletree:{herbs:3}, birch:{herbs:3}, oak:{herbs:5}, cherry:{herbs:6}, willow:{herbs:8}
+  lilies:{herbs:3}, jetty:{wood:30}, hochsitz:{wood:25}, picnic:{wood:10, herbs:5}, summitcross:{wood:10, stone:20}, mine:{wood:40, stone:30}, berghut:{wood:80, stone:40}, cablecar:{wood:40, stone:80}, boat:{wood:50}, beachchair:{wood:4, herbs:2}, boathouse:{wood:40, stone:10}, canoe:{wood:10}, silo:{wood:20, stone:40}, graveyard:{wood:10, stone:25, herbs:4}, flowerarch:{herbs:6}, maypole:{wood:12}, birdhouse:{wood:3}, lampions:{wood:6}, parasol:{wood:4}, icecart:{wood:15}, pumpkinlamp:{herbs:3}, haybales:{herbs:2}, harvestcart:{wood:15, herbs:5}, xmastree:{wood:8, herbs:4}, snowman:{}, marketstall:{wood:20, stone:5}, doghouse:{wood:15}, rosebed:{}, netrack:{}, signpost:{}, wildflowers:{}, driftbench:{}, cairn:{}, anchor:{}, milestone:{}, woodbear:{}, fairyring:{}, kite:{}, scarecrow:{}, telescope:{}, bookbox:{}, windchime:{herbs:5}, sundial:{stone:10}, wishwell:{stone:15}, hammock:{wood:10}, lanterntree:{wood:8}, honeystand:{wood:6, herbs:4}, appletree:{herbs:3}, birch:{herbs:3}, oak:{herbs:5}, cherry:{herbs:6}, willow:{herbs:8}
 };
 const COINS = {school:1200, storyhouse:10000, path:50, fence:300, campfire:400, bench:800, lantern:1200, flowerbed:1500, garden:6000, hut:8000, pond:9000, well:12000, guesthouse:16000,
   reeds:300, rowboat:2500, dock:5000, shellstand:7000, fisherhut:11000, pine:500, mushrooms:2000, lumberhut:14000, treehouse:18000, forester:24000,
@@ -1095,13 +1188,13 @@ const MARKET_ITEM = {id:'market', name:'Tauschstand', area:'any', cost:0};
 enApply('base');
 const SPECIAL = {home:HOME_ITEM, market:MARKET_ITEM};       // gehören zum Dorf, können nicht ins Lager
 // Grundfläche in Feldern: Wege und kleine Deko 1 × 1, kleinere Bauten 2 × 2, Häuser 3 × 3, Zuhause 4 × 4
-const FOOT = {path:1, fence:1, lantern:1, reeds:1, pine:1, lavender:1,
-  campfire:2, bench:[2, 1], flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:5, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, boat:2, beachchair:1, boathouse:2, canoe:1, silo:2, graveyard:2, flowerarch:[2, 1], maypole:1, birdhouse:1, lampions:[2, 1], parasol:1, icecart:1, pumpkinlamp:1, haybales:1, harvestcart:[2, 1], xmastree:1, snowman:1, marketstall:[2, 1], doghouse:1, rosebed:[2, 1], netrack:1, woodbear:1, fairyring:1, kite:1, scarecrow:1, telescope:1, bookbox:1, windchime:1, sundial:1, wishwell:2, hammock:[2, 1], lanterntree:1, honeystand:1, appletree:1, birch:1, oak:1, cherry:1, willow:1, home:4, market:2};
+const FOOT = {kitchen:2, path:1, fence:1, gravel:1, flagstone:1, boardwalk:1, hedge:1, rosetrellis:1, stonewall:1, lantern:1, reeds:1, pine:1, lavender:1,
+  campfire:2, bench:[2, 1], flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:5, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, boat:2, beachchair:1, boathouse:2, canoe:1, silo:2, graveyard:2, flowerarch:[2, 1], maypole:1, birdhouse:1, lampions:[2, 1], parasol:1, icecart:1, pumpkinlamp:1, haybales:1, harvestcart:[2, 1], xmastree:1, snowman:1, marketstall:[2, 1], doghouse:1, rosebed:[2, 1], netrack:1, signpost:1, wildflowers:1, driftbench:[2, 1], cairn:1, anchor:1, milestone:1, woodbear:1, fairyring:1, kite:1, scarecrow:1, telescope:1, bookbox:1, windchime:1, sundial:1, wishwell:2, hammock:[2, 1], lanterntree:1, honeystand:1, appletree:1, birch:1, oak:1, cherry:1, willow:1, home:4, market:2};
 // Grundfläche [Breite, Tiefe]; bei 90°/270° Drehung tauschen Breite und Tiefe (z. B. Holzbank 2 × 1)
 const footOf = (id, rot = 0) => { const f = FOOT[id] ?? 3, [w, d] = Array.isArray(f) ? f : [f, f]; return rot % 2 ? [d, w] : [w, d]; };
 const sizeOf = id => Math.max(...footOf(id));
 // Sichtbare Größe der Modelle (die Modelle sind für 1 Feld gebaut)
-const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], palace:[5, 6.8, 5], reef:[1.7, 1.7, 1.7], beachchair:[1.4, 1.4, 1.4], canoe:[1.3, 1.3, 1.3], maypole:[1.7, 1.7, 1.7], birdhouse:[1.4, 1.4, 1.4], parasol:[1.5, 1.5, 1.5], icecart:[1.5, 1.5, 1.5], pumpkinlamp:[1.4, 1.4, 1.4], haybales:[1.4, 1.4, 1.4], xmastree:[1.7, 1.7, 1.7], snowman:[1.4, 1.4, 1.4], doghouse:[1.4, 1.4, 1.4], woodbear:[1.6, 1.6, 1.6], kite:[1.6, 1.6, 1.6], scarecrow:[1.6, 1.6, 1.6], telescope:[1.5, 1.5, 1.5], bookbox:[1.5, 1.5, 1.5], windchime:[1.6, 1.6, 1.6], sundial:[1.4, 1.4, 1.4], lanterntree:[1.7, 1.7, 1.7], honeystand:[1.4, 1.4, 1.4], netrack:[1.4, 1.4, 1.4], birch:[1.7, 1.7, 1.7], oak:[1.8, 1.8, 1.8], cherry:[1.7, 1.7, 1.7], willow:[1.8, 1.8, 1.8], home:[2, 2, 2]};
+const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], gravel:[1, 1, 1], flagstone:[1, 1, 1], boardwalk:[1, 1, 1], hedge:[1, 1.6, 1], rosetrellis:[1, 1.7, 1], stonewall:[1, 1.5, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], palace:[5, 6.8, 5], reef:[1.7, 1.7, 1.7], beachchair:[1.4, 1.4, 1.4], canoe:[1.3, 1.3, 1.3], maypole:[1.7, 1.7, 1.7], birdhouse:[1.4, 1.4, 1.4], parasol:[1.5, 1.5, 1.5], icecart:[1.5, 1.5, 1.5], pumpkinlamp:[1.4, 1.4, 1.4], haybales:[1.4, 1.4, 1.4], xmastree:[1.7, 1.7, 1.7], snowman:[1.4, 1.4, 1.4], doghouse:[1.4, 1.4, 1.4], woodbear:[1.6, 1.6, 1.6], signpost:[1.6, 1.6, 1.6], cairn:[1.5, 1.5, 1.5], anchor:[1.5, 1.5, 1.5], milestone:[1.5, 1.5, 1.5], kite:[1.6, 1.6, 1.6], scarecrow:[1.6, 1.6, 1.6], telescope:[1.5, 1.5, 1.5], bookbox:[1.5, 1.5, 1.5], windchime:[1.6, 1.6, 1.6], sundial:[1.4, 1.4, 1.4], lanterntree:[1.7, 1.7, 1.7], honeystand:[1.4, 1.4, 1.4], netrack:[1.4, 1.4, 1.4], birch:[1.7, 1.7, 1.7], oak:[1.8, 1.8, 1.8], cherry:[1.7, 1.7, 1.7], willow:[1.8, 1.8, 1.8], home:[2, 2, 2]};
 const scaleOf = id => VIS[id] || [sizeOf(id), sizeOf(id), sizeOf(id)];
 const itemOf = p => SPECIAL[p.id] || byId[p.id];
 
@@ -1437,7 +1530,7 @@ function pyramid(r, h, c, x = 0, y = 0, z = 0){ const g = new THREE.ConeGeometry
 function gable(w, h, d, c, x = 0, y = 0, z = 0){        // Satteldach, First entlang x
   const s = new THREE.Shape(); s.moveTo(-d / 2, 0); s.lineTo(d / 2, 0); s.lineTo(0, h); s.closePath();
   const g = new THREE.ExtrudeGeometry(s, {depth:w, bevelEnabled:false}); g.translate(0, 0, -w / 2); g.rotateY(Math.PI / 2);
-  return put(g, c, x, y, z);
+  const m = put(g, c, x, y, z); m.userData.roof = true; return m;
 }
 const group = (...parts) => { const g = new THREE.Group(); parts.flat().forEach(p => g.add(p)); return g; };
 const WOOD = '#B97A4C', WOOD_D = '#8A5634', WOOD_DD = '#6E4329', WIN = '#FFE08A';
@@ -1452,6 +1545,20 @@ const MODELS = {
   path: () => group(
     box(.92, .03, .92, '#D9C08F'),
     ball(.06, '#BFA474', -.2, .04, .15), ball(.05, '#BFA474', .22, .04, -.18), ball(.04, '#C8AE7E', .1, .04, .25)),
+  kitchen: () => { const smoke = group(ball(.05, '#E8E4DC', 0, 0, 0), ball(.04, '#E8E4DC', .03, .08, 0), ball(.03, '#E8E4DC', -.02, .15, 0)); smoke.position.set(.24, .86, -.12); smoke.userData.smoke = true;
+    return group(box(.7, .36, .6, '#F3EBDD', 0, 0, 0), box(.72, .04, .62, '#C79A6B', 0, 0, 0), gable(.78, .26, .68, '#C8473C', 0, .36, 0), box(.1, .22, .1, '#8A8272', .24, .5, -.12), smoke,
+      box(.16, .12, .01, WIN, -.18, .14, .301, true), box(.14, .24, .01, '#8A5634', .14, 0, .301), box(.02, .02, .01, '#F2C14E', .18, .12, .31),
+      box(.3, .03, .12, WOOD, -.12, .1, .38), cyl(.04, .035, .05, '#5F7FB0', -.2, .13, .38, 8), cyl(.035, .03, .04, '#C8473C', -.08, .13, .38, 8), box(.02, .1, .02, WOOD_D, -.25, 0, .38), box(.02, .1, .02, WOOD_D, .01, 0, .38)); },
+  gravel: () => { const g = group(box(.94, .03, .94, '#C9C4B8'));
+    [[-.25, .2], [.2, -.25], [.3, .28], [-.3, -.22], [0, .02], [.08, .35], [-.12, -.38]].forEach(([x, z], i) => g.add(ball(.035 + (i % 3) * .01, i % 2 ? '#9C978C' : '#B0AA9E', x, .035, z))); return g; },
+  flagstone: () => group(box(.94, .02, .94, '#7FA05A'), [[-.22, -.22, .4, .4], [.22, -.22, .4, .4], [-.27, .22, .3, .4], [.15, .22, .52, .4]].map(([x, z, w, d]) => box(w, .04, d, '#C2BCAE', x, 0, z))),
+  boardwalk: () => group([-.36, -.18, 0, .18, .36].map((x, i) => box(.16, .05, .94, i % 2 ? '#A8693F' : '#B97A4C', x, 0, 0)), box(.94, .02, .04, WOOD_DD, 0, .05, -.3), box(.94, .02, .04, WOOD_DD, 0, .05, .3)),
+  hedge: () => { const g = group(box(.94, .3, .42, '#4A8A3F', 0, 0, 0)); [-.32, 0, .32].forEach((x, i) => g.add(ball(.2, i % 2 ? '#3E7A35' : '#4A8A3F', x, .3, 0, 1))); return g; },
+  rosetrellis: () => { const g = group(box(.05, .6, .05, '#A8693F', -.42, 0, 0), box(.05, .6, .05, '#A8693F', .42, 0, 0));
+    for (let i = 0; i < 4; i++) { const s = box(1.05, .02, .02, '#C79A6B', 0, .12 + i * .13, 0); s.rotation.z = i % 2 ? .45 : -.45; s.scale.x = .85; g.add(s); }
+    [[-.25, .2], [.1, .35], [.3, .15], [-.05, .5], [-.3, .45], [.25, .5]].forEach(([x, y], i) => g.add(ball(.07, '#4F8F3F', x, y, .02), ball(.045, i % 2 ? '#E26D8A' : '#F28DB2', x + .04, y + .03, .05))); return g; },
+  stonewall: () => group([[-.32, .1, .26], [0, .09, .28], [.32, .11, .26]].map(([x, h, w], i) => box(w, .2, .3, i % 2 ? '#A8A397' : '#B5B0A4', x, 0, 0)),
+    [[-.16, .24], [.17, .26]].map(([x, w], i) => box(w, .16, .26, i ? '#BDB8AC' : '#ADA89C', x, .2, 0))),
   fence: () => group(
     [-.4, 0, .4].map(x => box(.08, .42, .08, '#A8693F', x)),
     box(.92, .06, .04, '#C79A6B', 0, .14), box(.92, .06, .04, '#C79A6B', 0, .3)),
@@ -1651,6 +1758,15 @@ MODELS.field = p => {
 
 /* ---------- Waldsee und Gebirge ---------- */
 Object.assign(MODELS, {
+  signpost: () => group(box(.05, .6, .05, WOOD_D, 0, 0, 0), (() => { const a = box(.32, .07, .02, '#C79A6B', .12, .48, .03); return a; })(), (() => { const a = box(.3, .07, .02, '#B97A4C', -.1, .36, -.03); a.rotation.y = .5; return a; })(), cone(.035, .04, '#C79A6B', .3, .495, .03, 4), box(.2, .02, .2, '#6FA552', 0, 0, 0)),
+  wildflowers: () => { const g = group(cyl(.42, .44, .02, '#7FB55A', 0, 0, 0, 12));
+    for (let i = 0; i < 14; i++) { const a = i * 2.4, r = .1 + (i % 4) * .08, x = Math.cos(a) * r, z = Math.sin(a) * r; g.add(cyl(.006, .006, .12, '#4F8F3F', x, .02, z, 4), ball(.03, ['#B79CED', '#FFD166', '#F28DB2', '#5FA8C9', '#FFF4E0'][i % 5], x, .15, z)); }
+    return g; },
+  driftbench: () => { const top = cyl(.08, .09, .9, '#C2B49A', 0, 0, 0, 7); top.rotation.z = Math.PI / 2; top.position.set(0, .2, 0); return group(top, box(.1, .14, .16, '#A89A80', -.32, 0, 0), box(.1, .14, .16, '#A89A80', .32, 0, 0), ball(.03, '#F3EBDD', .2, .02, .14), ball(.025, '#E8C4A8', -.1, .02, .16)); },
+  cairn: () => group(rock(.14, '#9C978C', 0, .07, 0), rock(.1, '#B0AA9E', .01, .2, 0), rock(.075, '#C3BEB3', -.01, .3, .01), rock(.05, '#B0AA9E', 0, .38, 0)),
+  anchor: () => { const g = group(box(.04, .5, .04, '#5A6270', 0, 0, 0), box(.26, .035, .035, '#5A6270', 0, .4, 0)); const r = put(new THREE.TorusGeometry(.05, .015, 6, 12), '#5A6270', 0, .55, 0); g.add(r);
+    const arc = put(new THREE.TorusGeometry(.18, .022, 6, 14, Math.PI), '#5A6270', 0, .18, 0); arc.rotation.z = Math.PI; g.add(arc, box(.6, .02, .2, '#C9B48A', 0, 0, .05)); g.rotation.z = .15; return g; },
+  milestone: () => group(box(.22, .36, .14, '#CFC9BC', 0, 0, 0), cyl(.11, .11, .14, '#CFC9BC', 0, .29, 0, 12), box(.12, .03, .01, '#6B6455', 0, .22, .071), box(.08, .03, .01, '#6B6455', 0, .16, .071), box(.3, .03, .2, '#9C978C', 0, 0, 0)),
   rosebed: () => { const g = group(box(.9, .1, .4, '#7A5636', 0, 0, 0), box(.86, .03, .36, '#5E3E28', 0, .1, 0));
     for (let i = 0; i < 9; i++) { const x = -.38 + i * .095, z = i % 2 ? .08 : -.08; g.add(cyl(.01, .01, .1, '#3F6B35', x, .12, z, 5), ball(.04, i % 3 ? '#E0526B' : '#F28DB2', x, .25, z, 1), ball(.03, '#4F8F3F', x + .03, .17, z)); }
     return g; },
@@ -2027,6 +2143,7 @@ MODELS.market = () => group(
 function buildModel(id, p){
   const inner = MODELS[id](p), sc = scaleOf(id);
   if (p && p.lvl > 1 && UPGRADABLE.includes(id)) inner.add(cozyExtras(p.lvl));
+  if (p && p.roof) inner.traverse(o => { if (o.userData.roof) o.material = mat(p.roof); });
   inner.scale.set(sc[0], sc[1], sc[2]);
   inner.traverse(o => { if (o.isLight) o.distance *= Math.max(...sc); });
   const g = new THREE.Group(); g.add(inner); return g;
@@ -2085,7 +2202,7 @@ function syncObjects(){
     if (reduce) objects.remove(g); else g.userData.dying = performance.now();
   }
   S.placed.forEach(p => {
-    const sig = p.id + (p.lvl || '') + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '') + (byId[p.id]?.landmark ? lmPhase(p.id) : '') + (p.job ? 'j' : '');
+    const sig = p.id + (p.lvl || '') + (p.roof || '') + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '') + (byId[p.id]?.landmark ? lmPhase(p.id) : '') + (p.job ? 'j' : '');
     let g = objMap.get(p.uid);
     if (g && g.userData.sig !== sig) { objects.remove(g); objMap.delete(p.uid); g = null; if (p.id !== 'field') p._new = true; }
     if (!g) {
@@ -2133,6 +2250,7 @@ const RES = {
   market:    [{name:'Emil', role:'Händler', range:3, look:{shirt:'#8C4A6B', pants:'#3F3A4A', skin:'#E8B98F', hat:'cap', hatColor:'#E39B4A', beard:'#B9B4A8'},
               lines:['Frisches Holz, guter Stein, duftende Kräuter!', 'Tippe auf meinen Stand, wenn dir etwas fehlt.']}],
   home:      [{kind:'cat', pet:true, name:'Minka', role:'deine Katze', lines:['schnurrt zufrieden.', 'putzt sich in der Sonne.', 'möchte gestreichelt werden.']}],
+  kitchen:   [{name:'Marta', role:'Köchin', range:4, look:{shirt:'#F3EBDD', pants:'#4F6D9A', skin:'#E8B98F', hat:'brim', hatColor:'#F3EBDD'}, lines:['Riechst du das? Heute koche ich Suppe.', 'Ein Rezeptbuch ist ein Schatz, sagt meine Oma.']}],
   doghouse:  [{kind:'dog', pet:true, name:'Bello', role:'dein Hund', lines:['wedelt fröhlich mit dem Schwanz.', 'bringt dir einen Stock.', 'schnuppert neugierig an allem.']}],
   hut:       [{name:'Lotte', role:'Nachbarin', look:{shirt:'#E26D8A', pants:'#4F6D9A', skin:'#F1C9A5', hair:'#6E4329'},
               lines:['Was für ein schöner Tag zum Spazierengehen!', 'Hast du heute schon deine Schritte gemacht?']}],
@@ -2329,7 +2447,7 @@ function floatHeart(pos){
 const wildSeen = {};
 
 const npcs = new Map();
-const blocks = (x, y) => { const o = at(x, y); return o && o.id !== 'path'; };
+const blocks = (x, y) => { const o = at(x, y); return o && !byId[o.id]?.walk; };
 const walkable = (x, y) => tileOpen(x, y) && !decorAt(x, y) && !blocks(x, y);
 function doorOf(p){
   const [fw, fd] = footOf(p.id, p.rot || 0), c = [];
@@ -2348,7 +2466,7 @@ function findPath(sx, sy, tx, ty, lim){                             // Dijkstra,
     if (d > (dist.get(key(x, y)) ?? Infinity)) continue;
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const nx = x + dx, ny = y + dy; if (!walkable(nx, ny) || (lim && (nx < lim.x0 || nx > lim.x1 || ny < lim.y0 || ny > lim.y1))) continue;
-      const nd = d + (at(nx, ny)?.id === 'path' ? .4 : 1);
+      const nd = d + (byId[at(nx, ny)?.id]?.walk ? .4 : 1);
       if (nd < (dist.get(key(nx, ny)) ?? Infinity)) { dist.set(key(nx, ny), nd); prev.set(key(nx, ny), [x, y]); open.push([nd, nx, ny]); }
     }
   }
@@ -2822,6 +2940,7 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-open-wishes]')) openSheet('wishes');
   if (e.target.closest('[data-open-album]')) openSheet('album');
   if (e.target.closest('[data-open-shop]')) openSheet('farmshop');
+  if (e.target.closest('[data-open-kitchen]')) openSheet('kitchen');
   if (e.target.closest('[data-open-festdeco]')) { openSheet('build'); const h = $('list').querySelector('[data-fest-group]'); if (h) h.scrollIntoView({block:'start'}); }
 });
 function startGame(kind){
@@ -3173,8 +3292,111 @@ function renderFarmshop(){
       <span class="crop-btns"><button class="claim" data-sell="${c.id}" ${n ? '' : 'disabled'}>${t('1 verkaufen')}</button>${n > 1 ? `<button class="ghost" data-sell-n="${c.id}">${tt`Alle ${n}`}</button>` : ''}</span></div>`;
   });
   if (!total) html += `<p class="note" style="margin-top:12px">${t('Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.')}</p>`;
+  const ds = DISHES.filter(d => S.dishes?.[d.id]);
+  if (ds.length) html += `<h3>${t('Gerichte aus der Küche')}</h3>` + ds.map(d => `<div class="gamecard-pick crop-row"><span class="ico">${dishSvg(d)}</span><span><b>${d.name}</b><small>${tt`Im Vorrat: ${S.dishes[d.id]} · ${fmt(d.price)} Münzen pro Stück`}</small></span><span class="crop-btns"><button class="claim" data-dsell="${d.id}">${t('1 verkaufen')}</button></span></div>`).join('');
   $('list').innerHTML = html;
 }
+/* ---------- Dorfküche: Zutaten im 3 × 3-Raster anordnen, die Form zählt ----------
+   Zutaten: Kisten aus dem Vorrat, Kräuter, dazu Mehl (Windmühle), Eier (Bauernhof), Milch (Ziegenstall) und Honig (Bienenstöcke oder Honigstand) ohne Verbrauch. */
+const STAPLE_SVG = {
+  flour:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 14h24l4 28H8Z" fill="#F3EBDD"/><path d="M12 14c2-4 6-6 12-6s10 2 12 6" fill="#E2D6BE"/><path d="M18 26l6-4 6 4-6 8Z" fill="#E2BE5C"/></svg>',
+  egg:'<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="27" rx="12" ry="15" fill="#F0DDBB" stroke="#C9A97A" stroke-width="1.5"/><ellipse cx="20" cy="22" rx="3" ry="5" fill="#FFFFFF" opacity=".7"/></svg>',
+  milk:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 6h12v6l5 8v22H13V20l5-8Z" fill="#F8F8F4"/><rect x="18" y="4" width="12" height="4" fill="#5FA8C9"/><rect x="13" y="26" width="22" height="9" fill="#5FA8C9"/></svg>',
+  honey:'<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="12" y="16" width="24" height="26" rx="6" fill="#F2B33D"/><rect x="14" y="10" width="20" height="7" rx="2" fill="#C8473C"/><path d="M14 24h20" stroke="#D99A2B" stroke-width="2"/></svg>'
+};
+const ING = {
+  R:{id:'radish', crop:true}, C:{id:'carrot', crop:true}, P:{id:'potato', crop:true}, K:{id:'pumpkin', crop:true}, E:{id:'strawberry', crop:true},
+  H:{id:'herbs', herb:true},
+  M:{id:'flour', name:'Mehl', need:['windmill'], needTxt:'Braucht die Windmühle'}, I:{id:'egg', name:'Eier', need:['farm'], needTxt:'Braucht den Bauernhof'},
+  L:{id:'milk', name:'Milch', need:['goatbarn'], needTxt:'Braucht den Ziegenstall'}, O:{id:'honey', name:'Honig', need:['beehive', 'honeystand'], needTxt:'Braucht Bienenstöcke oder einen Honigstand'}
+};
+const ingName = k => ING[k].crop ? CROP_BY[ING[k].id].name : ING[k].herb ? RSRC.herbs.name : t(ING[k].name);
+const ingIcon = k => ING[k].crop ? icon(ING[k].id) : ING[k].herb ? RSRC.herbs.icon.replace('viewBox="0 0 24 24"', 'viewBox="0 0 24 24" width="40" height="40"') : STAPLE_SVG[ING[k].id];
+const ingAvail = k => ING[k].crop ? S.pantry[ING[k].id] || 0 : ING[k].herb ? Math.max(0, S.res.herbs) : ING[k].need.some(id => S.placed.some(q => q.id === id)) ? Infinity : 0;
+// Gerichte: pat = Muster im Raster (zeilenweise, '.' = leer), secret = muss man selbst entdecken
+const DISHES = [
+  {id:'tea',         name:'Kräutertee',       price:250,   pat:['HHH'],             look:['cup', '#9AC27A']},
+  {id:'salad',       name:'Radieschensalat',  price:700,   pat:['RHR'],             look:['bowl', '#E26D8A']},
+  {id:'carrotsoup',  name:'Karottensuppe',    price:1800,  pat:['CCC', '.H.'],      look:['bowl', '#F08A3C']},
+  {id:'fried',       name:'Bratkartoffeln',   price:2800,  pat:['PHP', '.P.'],      look:['plate', '#E2BE5C']},
+  {id:'pancake',     name:'Pfannkuchen',      price:900,   pat:['MIM', '.L.'],      look:['plate', '#F2D58A']},
+  {id:'pumpkinsoup', name:'Kürbissuppe',      price:5000,  pat:['.K.', 'HKH', '.L.'], look:['bowl', '#F0A23C']},
+  {id:'strawcake',   name:'Erdbeerkuchen',    price:13000, pat:['EEE', 'MIM'],      look:['cake', '#E0526B']},
+  {id:'pumpkinpie',  name:'Kürbiskuchen',     price:4800,  pat:['KK', 'MI'],        look:['cake', '#E8913C'], secret:'Frieda schwärmt von etwas Süßem aus zwei Kürbissen, darunter Mehl und ein Ei.'},
+  {id:'stew',        name:'Gemüseeintopf',    price:2200,  pat:['RCP', 'HHH'],      look:['bowl', '#B97A4C'], secret:'Bruno mag einen Topf, in dem von drei Gemüsen je eins schwimmt, und darunter eine Reihe Kräuter.'},
+  {id:'strawmilk',   name:'Erdbeermilch',     price:4500,  pat:['E', 'L', 'O'],     look:['glass', '#F28DB2'], secret:'Mo trinkt am liebsten etwas Rosa: eine Erdbeere, darunter Milch und ganz unten Honig.'},
+  {id:'honeybread',  name:'Honigbrot',        price:800,   pat:['MMM', '.O.'],      look:['bread', '#D9A65A'], secret:'Konrad frühstückt ein Brot aus drei Portionen Mehl mit einem Klecks Honig in der Mitte darunter.'},
+  {id:'carrotcake',  name:'Karottenkuchen',   price:2600,  pat:['CMC', 'IOI'],      look:['cake', '#F08A3C'], secret:'Lotte backt einen Kuchen: oben Karotten links und rechts mit Mehl dazwischen, unten Eier außen und Honig in der Mitte.'}
+];
+if (LANG === 'en') { const n = {tea:'Herbal tea', salad:'Radish salad', carrotsoup:'Carrot soup', fried:'Fried potatoes', pancake:'Pancakes', pumpkinsoup:'Pumpkin soup', strawcake:'Strawberry cake', pumpkinpie:'Pumpkin pie', stew:'Vegetable stew', strawmilk:'Strawberry milk', honeybread:'Honey bread', carrotcake:'Carrot cake'}; DISHES.forEach(d => { d.name = n[d.id]; }); }
+const DISH_BY = Object.fromEntries(DISHES.map(d => [d.id, d]));
+function dishSvg(d){
+  const [k, c] = d.look;
+  const body = k === 'cup' ? `<path d="M12 18h20v12a10 10 0 0 1-20 0Z" fill="#F3EBDD"/><path d="M14 20h16v6H14Z" fill="${c}"/><path d="M32 22a5 5 0 0 1 0 10" stroke="#F3EBDD" stroke-width="3" fill="none"/><path d="M18 8q2 4 0 7M24 8q2 4 0 7" stroke="#DCE3EA" stroke-width="1.6" fill="none"/>`
+    : k === 'bowl' ? `<path d="M6 22h36a18 14 0 0 1-36 0Z" fill="#5F7FB0"/><ellipse cx="24" cy="22" rx="17" ry="4" fill="${c}"/><path d="M18 10q2 4 0 8M26 9q2 4 0 8" stroke="#DCE3EA" stroke-width="1.6" fill="none"/>`
+    : k === 'plate' ? `<ellipse cx="24" cy="32" rx="19" ry="7" fill="#F3EBDD"/><ellipse cx="24" cy="29" rx="12" ry="5" fill="${c}"/><circle cx="20" cy="28" r="1.5" fill="#6DB35A"/><circle cx="28" cy="29" r="1.3" fill="#6DB35A"/>`
+    : k === 'cake' ? `<ellipse cx="24" cy="38" rx="18" ry="5" fill="#F3EBDD"/><path d="M10 22h28v14H10Z" fill="#E8C68A"/><path d="M10 22h28v5H10Z" fill="${c}"/><ellipse cx="24" cy="22" rx="14" ry="4" fill="${c}"/><circle cx="24" cy="16" r="3" fill="#D9483B"/>`
+    : k === 'glass' ? `<path d="M15 10h18l-3 32H18Z" fill="#F3F7FA"/><path d="M16 18h16l-2 22H18Z" fill="${c}"/><path d="M28 6l-4 14" stroke="#5FA8C9" stroke-width="2"/>`
+    : `<path d="M8 30c0-10 8-14 16-14s16 4 16 14v6H8Z" fill="${c}"/><path d="M14 24q4-3 8 0M26 24q4-3 8 0" stroke="#B9853E" stroke-width="2" fill="none"/><ellipse cx="24" cy="18" rx="6" ry="2.5" fill="#F2B33D"/>`;
+  return `<svg viewBox="0 0 48 48" aria-hidden="true">${body}</svg>`;
+}
+const trimPat = g => {                                              // 3 × 3 → kleinstes Rechteck mit Inhalt
+  const rows = [0, 1, 2].map(r => [0, 1, 2].map(c => g[r * 3 + c] || '.').join(''));
+  let rs = rows.filter(r => r !== '...'); if (!rs.length) return [];
+  const used = [0, 1, 2].filter(c => rs.some(r => r[c] !== '.')), c0 = Math.min(...used), c1 = Math.max(...used);
+  const r0 = rows.findIndex(r => r !== '...'), r1 = 2 - [...rows].reverse().findIndex(r => r !== '...');
+  return rows.slice(r0, r1 + 1).map(r => r.slice(c0, c1 + 1));
+};
+const findDish = g => { const pt = trimPat(g).join('|'); return DISHES.find(d => d.pat.join('|') === pt) || null; };
+const knownDish = d => !d.secret || (S.recipes || []).includes(d.id);
+let kGrid = Array(9).fill(null), kSel = null;
+const kUsed = k => kGrid.filter(x => x === k).length;
+function renderKitchen(){
+  S.dishes = S.dishes || {};
+  const cells = kGrid.map((k, i) => `<button class="kcell${k ? ' full' : ''}" data-kcell="${i}" aria-label="${k ? ingName(k) : t('Leeres Feld')}">${k ? ingIcon(k) : ''}</button>`).join('');
+  const tray = Object.keys(ING).map(k => { const av = ingAvail(k), left = av === Infinity ? '∞' : Math.max(0, av - kUsed(k)), lock = av === 0;
+    return `<button class="king${kSel === k ? ' on' : ''}${lock ? ' lock' : ''}" data-king="${k}" ${lock ? 'disabled' : ''} title="${lock && ING[k].needTxt ? t(ING[k].needTxt) : ingName(k)}">${ingIcon(k)}<span>${ingName(k)}</span><small>${lock ? (ING[k].needTxt ? t('gesperrt') : '0') : left}</small></button>`; }).join('');
+  const book = DISHES.map(d => { const kn = knownDish(d), mini = d.pat.map(r => r.padEnd(3, '.')).concat(['...', '...', '...']).slice(0, 3).map(r => r.split('').map(ch => `<i>${ch === '.' ? '' : ingIcon(ch)}</i>`).join('')).join('');
+    return `<div class="recipe${kn ? '' : ' secret'}"><span class="rico">${kn ? dishSvg(d) : '<b>?</b>'}</span><div><b>${kn ? d.name : t('Geheimes Rezept')}</b><small>${kn ? tt`Verkauf: ${fmt(d.price)} Münzen · gekocht: ${S.album.dishes?.[d.id] || 0}×` : t(d.secret)}</small>${kn ? `<div class="mini">${mini}</div>` : ''}</div>${kn ? `<button class="ghost" data-kfill="${d.id}">${t('Ins Raster')}</button>` : ''}</div>`; }).join('');
+  const stock = DISHES.filter(d => S.dishes[d.id]).map(d => `<span class="dchip">${dishSvg(d)}${d.name} × ${S.dishes[d.id]}</span>`).join('');
+  $('list').innerHTML = `<p class="note">${t('Wähle unten eine Zutat und tippe auf ein Feld. Die Anordnung zählt! Gekochtes kannst du im Hofladen verkaufen oder Bewohnern schenken.')}</p>
+    <div class="kitchen"><div class="kgrid">${cells}</div><div class="kside"><button class="solid" data-kcook>${t('Kochen')}</button><button class="ghost" data-kclear>${t('Leeren')}</button></div></div>
+    <h3>${t('Zutaten')}</h3><div class="ktray">${tray}</div>
+    <h3>${t('Fertige Gerichte')}</h3>${stock ? `<div class="dstock">${stock}</div>` : `<p class="note">${t('Noch nichts gekocht.')}</p>`}
+    <h3>${tt`Rezeptbuch (${DISHES.filter(knownDish).length} von ${DISHES.length})`}</h3>${book}`;
+}
+function kTapCell(i){
+  if (kGrid[i] && (!kSel || kGrid[i] === kSel)) { kGrid[i] = null; renderKitchen(); return; }
+  if (!kSel) { toast(t('Wähle zuerst unten eine Zutat.')); return; }
+  const av = ingAvail(kSel); if (av !== Infinity && kUsed(kSel) - (kGrid[i] === kSel ? 1 : 0) >= av) { toast(tt`Keine ${ingName(kSel)} mehr übrig.`); return; }
+  kGrid[i] = kSel; sfx.place(); renderKitchen();
+}
+function kFill(id){
+  const d = DISH_BY[id], g = Array(9).fill(null), need = {};
+  d.pat.forEach((r, y) => r.split('').forEach((ch, x) => { if (ch !== '.') { g[y * 3 + x] = ch; need[ch] = (need[ch] || 0) + 1; } }));
+  const miss = Object.entries(need).filter(([k, n]) => ingAvail(k) < n).map(([k]) => ingName(k));
+  if (miss.length) { toast(tt`Dafür fehlt dir noch: ${miss.join(', ')}`); return; }
+  kGrid = g; renderKitchen();
+}
+function kCook(){
+  if (!kGrid.some(Boolean)) { toast(t('Das Raster ist noch leer.')); return; }
+  const d = findDish(kGrid);
+  if (!d) { toast(t('Hmm, daraus wird leider nichts. Probier eine andere Anordnung.')); sfx.remove(); return; }
+  const need = {}; kGrid.forEach(k => { if (k) need[k] = (need[k] || 0) + 1; });
+  if (Object.entries(need).some(([k, n]) => ingAvail(k) < n)) { toast(t('Dafür reichen deine Zutaten nicht.')); return; }
+  Object.entries(need).forEach(([k, n]) => { if (ING[k].crop) { S.pantry[ING[k].id] -= n; if (!S.pantry[ING[k].id]) delete S.pantry[ING[k].id]; } else if (ING[k].herb) S.res.herbs -= n; });
+  S.dishes = S.dishes || {}; S.dishes[d.id] = (S.dishes[d.id] || 0) + 1;
+  S.album.dishes = S.album.dishes || {}; S.album.dishes[d.id] = (S.album.dishes[d.id] || 0) + 1;
+  const isNew = d.secret && !(S.recipes || []).includes(d.id); if (isNew) (S.recipes = S.recipes || []).push(d.id);
+  kGrid = Array(9).fill(null); save(); render(); renderKitchen(); sfx.grow();
+  toast(tt`${d.name} ist fertig!` + (isNew ? ' ' + t('Neues Rezept entdeckt!') : ''), 3500);
+}
+function sellDish(id, n){
+  const k = Math.min(n, S.dishes?.[id] || 0); if (!k) return;
+  S.dishes[id] -= k; if (!S.dishes[id]) delete S.dishes[id]; give({coins:k * DISH_BY[id].price});
+  save(); render(); renderFarmshop(); sfx.coin(); toast(tt`${k}× ${DISH_BY[id].name} verkauft: +${fmt(k * DISH_BY[id].price)} Münzen`);
+}
+
 const cratePrice = id => Math.round(CROP_BY[id].price * (S.placed.some(p => p.id === 'silo') ? 1.1 : 1));   // Silo: 10 % mehr
 function sellCrops(list){                                          // list: [[cropId, Anzahl], …]
   let coinsGot = 0, n = 0;
@@ -3600,6 +3822,145 @@ function openTrader(){
   openSheet('trader');
 }
 
+/* ---------- Übersicht in den Aufgaben: „Heute“ oben, der Rest als Kacheln zum Aufklappen ---------- */
+const HI = {
+  fest:'<svg viewBox="0 0 48 48"><path d="M8 10 40 6 36 40 12 42Z" fill="#F2C14E"/><path d="M14 16l20-2M15 24l19-1.5M16 32l17-1" stroke="#C9952A" stroke-width="2"/><circle cx="38" cy="10" r="5" fill="#E26D8A"/></svg>',
+  wishes:'<svg viewBox="0 0 48 48"><path d="M6 10h36a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H22l-10 8v-8H6a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3Z" fill="#FFF4F8"/><path d="M24 29s-7-4.4-7-9.2a3.8 3.8 0 0 1 7-2 3.8 3.8 0 0 1 7 2c0 4.8-7 9.2-7 9.2Z" fill="#C95480"/></svg>',
+  calm:'<svg viewBox="0 0 48 48"><path d="M24 6c10 6 14 16 0 36C10 22 14 12 24 6Z" fill="#6DB35A"/><path d="M24 12v28" stroke="#3F7A35" stroke-width="2"/><circle cx="37" cy="12" r="6" fill="#B79CED"/><path d="M35 10.5a2.2 2.2 0 1 1 3 2c-.8.4-1 .8-1 1.6" stroke="#3F3A4A" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="37" cy="16.3" r=".9" fill="#3F3A4A"/></svg>',
+  hikes:'<svg viewBox="0 0 48 48"><path d="M4 40 18 18l8 10 6-8 12 20Z" fill="#7FA05A"/><path d="M18 18l4 6-4-1-3 3Z" fill="#F5F7FA"/><path d="M8 44c6-6 14-2 18-8s10-4 14-10" stroke="#F2C14E" stroke-width="2.5" stroke-dasharray="3 3" fill="none"/></svg>',
+  badges:'<svg viewBox="0 0 48 48"><path d="M16 4h16l-4 14h-8Z" fill="#5FA8C9"/><circle cx="24" cy="29" r="13" fill="#F2C14E"/><circle cx="24" cy="29" r="9" fill="none" stroke="#C9952A" stroke-width="2"/><path d="M24 23l1.8 3.7 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6Z" fill="#FFF4E0"/></svg>',
+  album:'<svg viewBox="0 0 48 48"><path d="M6 10c6-2 12-2 18 2v28c-6-4-12-4-18-2Z" fill="#F3EBDD"/><path d="M42 10c-6-2-12-2-18 2v28c6-4 12-4 18-2Z" fill="#EADFCB"/><path d="M24 12v28" stroke="#C9B998" stroke-width="2"/><path d="M33 8v12l3-2 3 2V8" fill="#E26D8A"/></svg>'
+};
+const HUB = [
+  {sec:'fest', title:'Fest & Woche', sub:() => t(FESTS[festSeason()].name), cnt:() => festClaimable().length + weekClaimable().length},
+  {sec:'wishes', title:'Wünsche & Geschichten', sub:() => { const l = todaysWishes(), o = l.filter(w => !w.done).length; return l.length ? tt`${o} von ${l.length} offen` : t('Noch keine Bewohner'); }, cnt:() => storiesReady().length},
+  {sec:'calm', title:'Ruhe & Rätsel', sub:() => t('Übungen und Spiele'), cnt:() => 0},
+  {sec:'hikes', title:'Wanderungen', sub:() => S.hike ? tt`${t(HIKE_BY[S.hike.id].name)}: ${Math.floor(hikeProg() / HIKE_BY[S.hike.id].steps * 100)} %` : t('Ziel aussuchen'), cnt:() => hikeArrived() ? 1 : 0},
+  {sec:'badges', title:'Abzeichen', sub:() => tt`${(S.badges || []).length} von ${BADGES.length}`, cnt:() => 0},
+  {sec:'album', title:'Album', sub:() => tt`${albumStats().pct} % gesammelt`, cnt:() => 0}
+];
+let hubOpen = null;
+function renderHub(){
+  $('hub').innerHTML = HUB.map(h => { const c = h.cnt();
+    return `<button class="hub-tile${hubOpen === h.sec ? ' on' : ''}" data-hub="${h.sec}" aria-expanded="${hubOpen === h.sec}">${HI[h.sec]}<span><b>${t(h.title)}</b><small>${h.sub()}</small></span>${c ? `<span class="cnt">${c}</span>` : ''}</button>`; }).join('');
+  document.querySelectorAll('.hub-sec').forEach(s => { s.hidden = s.dataset.sec !== hubOpen; });
+}
+$('hub').onclick = e => {
+  const b = e.target.closest('[data-hub]'); if (!b) return;
+  const k = b.dataset.hub;
+  if (k === 'album') { openSheet('album'); return; }
+  hubOpen = hubOpen === k ? null : k; renderHub(); sfx.open();
+  if (hubOpen) document.querySelector(`.hub-sec[data-sec="${hubOpen}"]`)?.scrollIntoView({behavior:reduce ? 'auto' : 'smooth', block:'nearest'});
+};
+
+/* ---------- Wanderungen: ein Ziel wählen, echte Schritte bringen dich hin ---------- */
+const HIKES = [
+  {id:'bergsee', name:'Zum Bergsee',            steps:15000,  souvenir:'signpost',    text:'Ein gemütlicher Weg durch den Wald bis zum stillen Bergsee.', sky:'#BFE3F2', land:'#5F9450', acc:'#5FA8C9'},
+  {id:'felder',  name:'Über die Sonnenfelder',  steps:25000,  souvenir:'wildflowers', text:'Zwischen goldenen Feldern, Mohnblumen und summenden Bienen hindurch.', sky:'#FFE7B8', land:'#CBD170', acc:'#E0523F'},
+  {id:'bucht',   name:'Rund um die Bucht',      steps:40000,  souvenir:'driftbench',  text:'Am Ufer entlang, wo Treibholz liegt und die Möwen rufen.', sky:'#CFE6F0', land:'#E6D3A0', acc:'#3E6D9A'},
+  {id:'gipfel',  name:'Auf den Gipfel',         steps:60000,  souvenir:'cairn',       text:'Serpentinen hinauf bis zum Gipfelkreuz, mit Blick über das ganze Tal.', sky:'#DDE7F5', land:'#A9B49A', acc:'#F5F7FA'},
+  {id:'kueste',  name:'Zum Leuchtturm',         steps:100000, souvenir:'anchor',      text:'Die lange Küstenwanderung bis zum Leuchtturm auf der Insel.', sky:'#F6D5C2', land:'#E1CD98', acc:'#C8473C'},
+  {id:'tal',     name:'Die große Talrunde',     steps:200000, souvenir:'milestone',   text:'Einmal rund um Lindenbach: Wälder, Felder, Berge und Meer.', sky:'#E8DDF5', land:'#8CC269', acc:'#7A5BB0'}
+];
+const HIKE_BY = Object.fromEntries(HIKES.map(h => [h.id, h]));
+const kmOf = st => (st * .75 / 1000).toLocaleString(LANG === 'en' ? 'en-GB' : 'de-DE', {maximumFractionDigits:1});
+const hikeProg = () => S.hike ? Math.min(HIKE_BY[S.hike.id].steps, S.lifetime - S.hike.base) : 0;
+const hikeArrived = () => !!S.hike && hikeProg() >= HIKE_BY[S.hike.id].steps;
+function postcardSvg(h, big){
+  return `<svg viewBox="0 0 120 80" class="postcard${big ? ' big' : ''}" aria-hidden="true"><rect width="120" height="80" rx="6" fill="${h.sky}"/><circle cx="96" cy="18" r="9" fill="#FFF4C0"/>
+    <path d="M0 52 26 30l16 12 22-22 26 26 30-14v48H0Z" fill="${h.land}" opacity=".75"/><path d="M0 62q30-12 60-2t60-4v24H0Z" fill="${h.land}"/>
+    <path d="M10 74q24-14 50-8t50-14" stroke="#F3EBDD" stroke-width="2.5" stroke-dasharray="4 4" fill="none"/><circle cx="104" cy="54" r="4" fill="${h.acc}"/>
+    <rect x="3" y="3" width="114" height="74" rx="5" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".7"/></svg>`;
+}
+function renderHikes(){
+  S.hikesDone = S.hikesDone || {};
+  let html = '';
+  if (S.hike) {
+    const h = HIKE_BY[S.hike.id], v = hikeProg(), arr = v >= h.steps;
+    html += `<div class="hike-now"><div class="week-head"><h3>${t(h.name)}</h3><span>${tt`${kmOf(h.steps)} km`}</span></div>
+      <svg viewBox="0 0 300 90" class="trail"><path id="trailPath" d="M12 70 C 60 10, 100 90, 150 45 S 240 10, 288 30" pathLength="100" stroke="#3E4A6E" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M12 70 C 60 10, 100 90, 150 45 S 240 10, 288 30" pathLength="100" stroke="${h.acc}" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="${v / h.steps * 100} 100"/>
+        <circle cx="12" cy="70" r="6" fill="#F3EBDD"/><path d="M282 30l6-14 6 14Z" fill="${h.acc}"/><circle id="trailDot" cx="12" cy="70" r="8" fill="#F2C14E" stroke="#26304A" stroke-width="2"/></svg>
+      <div class="bar" role="progressbar" aria-label="${t(h.name)}" aria-valuemin="0" aria-valuemax="${h.steps}" aria-valuenow="${v}"><i style="width:${v / h.steps * 100}%"></i></div>
+      <div class="meta"><span>${fmt(v)} / ${fmt(h.steps)}</span><span>${arr ? t('Angekommen!') : tt`noch ${fmt(h.steps - v)} Schritte`}</span></div>
+      <p style="margin:10px 0 0">${arr ? `<button class="claim" data-hike-arrive>${t('Ankommen und Postkarte holen')}</button>` : `<button class="ghost" data-hike-stop>${t('Wanderung abbrechen')}</button>`}</p></div>`;
+  } else html += `<p class="note-dark">${t('Such dir ein Ziel aus. Ab dann zählt jeder Schritt, den du gehst, und am Ziel wartet eine Postkarte und ein Andenken für dein Dorf.')}</p>`;
+  html += HIKES.map(h => { const n = S.hikesDone[h.id] || 0, act = S.hike?.id === h.id;
+    return `<div class="task hike-row"><span class="ico">${icon(h.souvenir)}</span><div><div class="title">${t(h.name)}</div><div class="text">${t(h.text)}</div>
+      <div class="meta"><span>${tt`${fmt(h.steps)} Schritte · ${kmOf(h.steps)} km`}</span>${n ? `<span>${tt`${n}× gewandert`}</span>` : ''}</div></div>
+      ${act ? `<span class="claimed">${t('Unterwegs')}</span>` : `<button class="${n ? 'ghost' : 'claim'}" data-hike-start="${h.id}" ${S.hike ? 'disabled' : ''}>${n ? t('Nochmal') : t('Losgehen')}</button>`}</div>`; }).join('');
+  $('hikeBox').innerHTML = html;
+  const tp = $('trailPath'), dot = $('trailDot');
+  if (tp && dot && S.hike) { const L = tp.getTotalLength(), pt = tp.getPointAtLength(L * hikeProg() / HIKE_BY[S.hike.id].steps); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); }
+}
+function startHike(id){ if (S.hike || !HIKE_BY[id]) return; S.hike = {id, base:S.lifetime}; save(); render(); sfx.place(); toast(tt`${t(HIKE_BY[id].name)}: Los geht’s! Jeder Schritt zählt ab jetzt.`); }
+function arriveHike(){
+  if (!hikeArrived()) return;
+  const h = HIKE_BY[S.hike.id]; S.hikesDone = S.hikesDone || {}; const first = !S.hikesDone[h.id];
+  S.hikesDone[h.id] = (S.hikesDone[h.id] || 0) + 1; S.hike = null;
+  let msg;
+  if (first) { S.storage[h.souvenir] = stored(h.souvenir) + 1; msg = tt`Angekommen: ${t(h.name)}! Die Postkarte klebt im Album, ${byId[h.souvenir].name} liegt im Lager.`; }
+  else { const r = {coins:Math.round(h.steps / 10)}; give(r); msg = tt`Wieder angekommen: ${t(h.name)}! ${rewardText(r)}`; }
+  save(); render(); sfx.grow(); toast(msg, 5000);
+}
+
+/* ---------- Abzeichen: Meilensteine ohne Druck, nur zum Sammeln ---------- */
+const GLYPH = {
+  step:'<path d="M17 14c2-3 6-2 6 2s-2 7-4 7-3-6-2-9Zm8 9c2-2 5-1 5 2s-2 6-4 6-2-5-1-8Z" fill="#FFF4E0"/>',
+  house:'<path d="M14 24l10-8 10 8v9H14Z" fill="#FFF4E0"/><rect x="21" y="27" width="6" height="6" fill="#C8473C"/>',
+  fish:'<path d="M14 24q8-8 16 0-8 8-16 0Zm16 0 6-5v10Z" fill="#FFF4E0"/>',
+  gem:'<path d="M18 18h12l4 5-10 11-10-11Z" fill="#FFF4E0"/>',
+  leaf:'<path d="M24 14c7 4 9 11 0 20-9-9-7-16 0-20Z" fill="#FFF4E0"/>',
+  wheat:'<path d="M24 34V14" stroke="#FFF4E0" stroke-width="2"/><g fill="#FFF4E0"><ellipse cx="21" cy="18" rx="2" ry="3.5"/><ellipse cx="27" cy="18" rx="2" ry="3.5"/><ellipse cx="21" cy="25" rx="2" ry="3.5"/><ellipse cx="27" cy="25" rx="2" ry="3.5"/></g>',
+  bowl:'<path d="M13 22h22a11 9 0 0 1-22 0Z" fill="#FFF4E0"/><path d="M20 13q2 3 0 6M27 13q2 3 0 6" stroke="#FFF4E0" stroke-width="1.6" fill="none"/>',
+  flag:'<path d="M17 34V14" stroke="#FFF4E0" stroke-width="2"/><path d="M18 15h14l-3 4 3 4H18Z" fill="#FFF4E0"/>',
+  paw:'<g fill="#FFF4E0"><ellipse cx="24" cy="28" rx="6" ry="5"/><circle cx="17" cy="21" r="2.5"/><circle cx="21" cy="17" r="2.5"/><circle cx="27" cy="17" r="2.5"/><circle cx="31" cy="21" r="2.5"/></g>',
+  book:'<path d="M14 16q5-2 10 1v16q-5-3-10-1Zm20 0q-5-2-10 1v16q5-3 10-1Z" fill="#FFF4E0"/>',
+  mountain:'<path d="M12 33l8-13 5 7 3-4 8 10Z" fill="#FFF4E0"/>',
+  heart:'<path d="M24 33s-9-5.5-9-11.5a4.8 4.8 0 0 1 9-2.4 4.8 4.8 0 0 1 9 2.4c0 6-9 11.5-9 11.5Z" fill="#FFF4E0"/>',
+  star:'<path d="M24 14l2.9 6 6.6 1-4.8 4.6 1.2 6.5L24 29l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-1Z" fill="#FFF4E0"/>'
+};
+const sumV = o => Object.values(o || {}).reduce((a, b) => a + (typeof b === 'number' ? b : b.n || 0), 0);
+const BADGES = [
+  {id:'st1',   name:'Erste Schritte',      text:'100.000 Schritte insgesamt',       g:'step',  c:'#6DB35A', ok:() => S.lifetime >= 1e5},
+  {id:'st2',   name:'Halbe Million',       text:'500.000 Schritte insgesamt',       g:'step',  c:'#4F8F9A', ok:() => S.lifetime >= 5e5},
+  {id:'st3',   name:'Schritte-Million',    text:'1.000.000 Schritte insgesamt',     g:'step',  c:'#C9952A', ok:() => S.lifetime >= 1e6},
+  {id:'st4',   name:'Weltenbummler',       text:'5.000.000 Schritte insgesamt',     g:'star',  c:'#7A5BB0', ok:() => S.lifetime >= 5e6},
+  {id:'mara',  name:'Marathonwoche',       text:'55.000 Schritte in einer Woche',   g:'step',  c:'#E0523F', ok:() => (S.week?.steps || 0) >= 55000},
+  {id:'b1',    name:'Kleines Dorf',        text:'10 Gebäude',                       g:'house', c:'#B97A4C', ok:() => buildings() >= 10},
+  {id:'b2',    name:'Lebendiges Dorf',     text:'30 Gebäude',                       g:'house', c:'#C8473C', ok:() => buildings() >= 30},
+  {id:'b3',    name:'Prächtiges Dorf',     text:'60 Gebäude',                       g:'house', c:'#7A5BB0', ok:() => buildings() >= 60},
+  {id:'fish',  name:'Seekenner',           text:'Alle Fische im Waldsee gefangen',  g:'fish',  c:'#4F8F9A', ok:() => FISH.every(f => S.album.fish[f.id])},
+  {id:'sea',   name:'Seebär',              text:'Alle Meeresfische gefangen',       g:'fish',  c:'#3E6D9A', ok:() => SEAFISH.every(f => S.album.sea[f.id])},
+  {id:'gold',  name:'Glückspilz',          text:'Den Goldenen Karpfen gefangen',    g:'star',  c:'#E2B93B', ok:() => !!S.album.fish.goldkarpfen},
+  {id:'gems',  name:'Schatzsucher',        text:'Alle Mineralien gefunden',         g:'gem',   c:'#7A5BB0', ok:() => GEMS.every(g => S.album.gems[g.id])},
+  {id:'calm1', name:'Innere Ruhe',         text:'10 Ruhe-Übungen',                  g:'leaf',  c:'#6DB35A', ok:() => (S.calmTotal || 0) >= 10},
+  {id:'calm2', name:'Ganz bei mir',        text:'50 Ruhe-Übungen',                  g:'leaf',  c:'#3F6B35', ok:() => (S.calmTotal || 0) >= 50},
+  {id:'harv',  name:'Fleißige Hände',      text:'50 Äcker geerntet',                g:'wheat', c:'#C9952A', ok:() => sumV(S.album.crops) >= 50},
+  {id:'chef1', name:'Hobbykoch',           text:'5 verschiedene Gerichte gekocht',  g:'bowl',  c:'#F08A3C', ok:() => DISHES.filter(d => S.album.dishes?.[d.id]).length >= 5},
+  {id:'chef2', name:'Meisterkoch',         text:'Alle Gerichte gekocht',            g:'bowl',  c:'#B5533C', ok:() => DISHES.every(d => S.album.dishes?.[d.id])},
+  {id:'fests', name:'Festfreund',          text:'Alle vier Feste gefeiert',         g:'flag',  c:'#E26D8A', ok:() => Object.values(FESTS).every(F => S.album.fests[F.id])},
+  {id:'anim',  name:'Tierfreund',          text:'Alle Wildtiere entdeckt',          g:'paw',   c:'#8A6A45', ok:() => WILD.every(w => S.album.animals[w.id])},
+  {id:'story', name:'Gute Seele',          text:'Alle Geschichten der Bewohner',    g:'book',  c:'#C95480', ok:() => STORIES.every(s => S.stories[s.id]?.st === 'done')},
+  {id:'hike1', name:'Wanderer',            text:'3 verschiedene Wanderungen',       g:'mountain', c:'#5F9450', ok:() => HIKES.filter(h => S.hikesDone?.[h.id]).length >= 3},
+  {id:'hike2', name:'Gipfelstürmer',       text:'Alle Wanderungen',                 g:'mountain', c:'#3E6D9A', ok:() => HIKES.every(h => S.hikesDone?.[h.id])},
+  {id:'poem',  name:'Bücherwurm',          text:'Alle Gedichte gelesen',            g:'book',  c:'#5A4A7A', ok:() => POEMS.every((_, i) => S.album.poems.includes(i))},
+  {id:'friend',name:'Beste Freunde',       text:'Ein Bewohner mit fünf Herzen',     g:'heart', c:'#C95480', ok:() => Object.values(S.friends || {}).some(h => h >= MAX_HEARTS)}
+];
+const medal = (b, on) => `<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 2h6l3 10h-6ZM25 2h6l-3 10h-6Z" fill="${on ? '#5FA8C9' : '#B9B4A8'}"/><circle cx="24" cy="26" r="15" fill="${on ? b.c : '#CFC9BC'}"/><circle cx="24" cy="26" r="12" fill="none" stroke="${on ? '#FFFFFF' : '#E2DCCF'}" stroke-opacity=".5" stroke-width="1.5"/><g transform="translate(0 2)" opacity="${on ? 1 : .6}">${GLYPH[b.g]}</g></svg>`;
+function checkBadges(){
+  S.badges = S.badges || [];
+  const fresh = BADGES.filter(b => !S.badges.includes(b.id) && b.ok());
+  if (!fresh.length) return;
+  fresh.forEach(b => S.badges.push(b.id)); save();
+  if (S.badgesInit) setTimeout(() => toast(fresh.length === 1 ? tt`Neues Abzeichen: ${t(fresh[0].name)}` : tt`${fresh.length} neue Abzeichen im Album!`, 4000), 600);
+}
+const badgeGrid = () => `<div class="album-grid badge-grid">${BADGES.map(b => { const on = (S.badges || []).includes(b.id);
+  return `<div class="album-cell${on ? '' : ' missing'}">${medal(b, on)}<b>${t(b.name)}</b><br><small>${t(b.text)}</small></div>`; }).join('')}</div>`;
+function renderBadges(){
+  $('badgeBox').innerHTML = `<p class="note-dark">${tt`${(S.badges || []).length} von ${BADGES.length} Abzeichen. Keine Ranglisten, kein Druck: Sie kommen ganz von allein.`}</p>${badgeGrid()}`;
+}
+
 /* ---------- Wochenziele: freundlich, ohne Strafen ---------- */
 // Eine Woche = 7 Spieltage. Was nicht geschafft wird, verfällt einfach, nächste Woche gibt es neue Ziele.
 const weekNo = () => Math.floor((S.day - 1) / 7);
@@ -3645,37 +4006,49 @@ const albumBuilt = id => S.album.built.includes(id);
 function albumStats(){
   const items = CATALOG, b = items.filter(x => albumBuilt(x.id)).length, c = CROPS.filter(x => S.album.crops[x.id]).length, pm = S.album.poems.length;
   const f = FISH.filter(x => S.album.fish[x.id]).length, g = GEMS.filter(x => S.album.gems[x.id]).length, sf = SEAFISH.filter(x => S.album.sea[x.id]).length;
-  const total = items.length + CROPS.length + POEMS.length + FISH.length + GEMS.length + SEAFISH.length, have = b + c + pm + f + g + sf;
+  const ds = DISHES.filter(x => S.album.dishes?.[x.id]).length;
+  const total = items.length + CROPS.length + POEMS.length + FISH.length + GEMS.length + SEAFISH.length + DISHES.length, have = b + c + pm + f + g + sf + ds;
   return {b, c, pm, f, g, sf, total, have, pct:Math.round(have / total * 100)};
 }
 function renderAlbumBox(){
   const a = albumStats();
   $('albumBox').innerHTML = `<h3>${t('Album')}</h3><p>${tt`Du hast ${a.pct} % gesammelt: ${a.b} Gebäude, ${a.c} Pflanzen, ${a.f + a.sf} Fische, ${a.g} Mineralien, ${a.pm} Gedichte.`}</p><button class="claim" data-open-album>${t('Album öffnen')}</button>`;
 }
+const cell = (ic, label, have) => `<div class="album-cell${have ? '' : ' missing'}">${ic}${have ? label : '?'}</div>`;
+const fishCell = (f, d) => cell(fishSvg(f), `${f.name}<br>${tt`${d ? d.n : 0}× · bis ${d ? d.best : 0} cm`}<br><span style="color:${RARITY[f.tier].color}">${fmtPct(f.p)}</span>`, d);
+// Kapitel des Albums: [id, Titel, Farbe, Inhalt]
+const ALBUM_CH = [
+  ['build', 'Gebäude', '#C8473C', () => `<h3>${tt`Gebäude (${albumStats().b} von ${CATALOG.length})`}</h3><div class="album-grid">${CATALOG.map(x => cell(icon(x.id), x.name, albumBuilt(x.id))).join('')}</div>`],
+  ['crops', 'Ernte', '#C9952A', () => `<h3>${tt`Ernte (${albumStats().c} von ${CROPS.length})`}</h3><div class="album-grid">${CROPS.map(c => cell(icon(c.id), `${c.name}<br>${tt`${S.album.crops[c.id] || 0}× geerntet`}`, S.album.crops[c.id])).join('')}</div>`],
+  ['dishes', 'Gerichte', '#B5533C', () => `<h3>${tt`Gerichte (${DISHES.filter(d => S.album.dishes?.[d.id]).length} von ${DISHES.length})`}</h3><div class="album-grid">${DISHES.map(d => cell(dishSvg(d), `${d.name}<br>${tt`${S.album.dishes?.[d.id] || 0}× gekocht`}`, S.album.dishes?.[d.id])).join('')}</div>`],
+  ['fish', 'Fische', '#4F8F9A', () => `<h3>${tt`Fische (${albumStats().f} von ${FISH.length})`}</h3><div class="album-grid">${FISH.map(f => fishCell(f, S.album.fish[f.id])).join('')}</div>`],
+  ['sea', 'Meer', '#3E6D9A', () => `<h3>${tt`Meeresfische (${albumStats().sf} von ${SEAFISH.length})`}</h3><div class="album-grid">${SEAFISH.map(f => fishCell(f, S.album.sea[f.id])).join('')}</div>`],
+  ['gems', 'Mineralien', '#7A5BB0', () => `<h3>${tt`Mineralien (${albumStats().g} von ${GEMS.length})`}</h3><div class="album-grid">${GEMS.map(g => cell(gemSvg(g), `${g.name}<br>${tt`${S.album.gems[g.id] || 0}× gefunden`}<br><span style="color:${RARITY[g.tier].color}">${fmtPct(g.p)}</span>`, S.album.gems[g.id])).join('')}</div>`],
+  ['animals', 'Tiere', '#8A6A45', () => `<h3>${tt`Tiere (${WILD.filter(w => S.album.animals[w.id]).length} von ${WILD.length})`}</h3><div class="album-grid">${WILD.map(w => cell(animalSvg(w), `${t(w.name)}<br>${tt`${S.album.animals[w.id] || 0}× gesehen`}`, S.album.animals[w.id])).join('')}</div>`],
+  ['fests', 'Feste', '#E26D8A', () => `<h3>${t('Feste')}</h3><div class="album-grid">${Object.entries(FESTS).map(([s, F]) => cell(icon(festDeco(s)[0].id), `${t(F.name)}<br>${tt`${S.album.fests[F.id] || 0}× gefeiert`}`, S.album.fests[F.id])).join('')}</div>`],
+  ['moments', 'Momente', '#5A6FA8', () => albumMoments()],
+  ['cards', 'Postkarten', '#5F9450', () => `<h3>${tt`Postkarten (${HIKES.filter(h => S.hikesDone?.[h.id]).length} von ${HIKES.length})`}</h3><div class="card-grid">${HIKES.map(h => S.hikesDone?.[h.id]
+      ? `<div class="pc">${postcardSvg(h)}<b>${t(h.name)}</b><small>${tt`${kmOf(h.steps)} km · ${S.hikesDone[h.id]}× gewandert`}</small></div>` : `<div class="pc missing"><div class="pc-blank">?</div><b>${t(h.name)}</b><small>${tt`${kmOf(h.steps)} km`}</small></div>`).join('')}</div>`],
+  ['badges', 'Abzeichen', '#C9952A', () => `<h3>${tt`Abzeichen (${(S.badges || []).length} von ${BADGES.length})`}</h3>${badgeGrid()}`],
+  ['poems', 'Gedichte', '#5A4A7A', () => `<h3>${tt`Gedichte (${S.album.poems.length} von ${POEMS.length})`}</h3><ul class="poem-list">${POEMS.map((pm, i) => S.album.poems.includes(i) ? `<li>${pm.title} <small>(${pm.author.replace(/\s*\(.*\)/, '')})</small></li>` : `<li class="missing">${t('Noch nicht gelesen')}</li>`).join('')}</ul>`],
+  ['friends', 'Freunde', '#C95480', () => { const fr = [...new Set([...residentsNow().map(r => r.name), ...Object.keys(S.friends)])];
+    return `<h3>${t('Freundschaften')}</h3>` + (fr.length ? fr.map(n => `<div class="set-row"><span><b>${n}</b></span><span class="hearts" style="color:#C95480;letter-spacing:2px">${hearts(S.friends[n] || 0)}</span></div>`).join('') : `<p class="note">${t('Noch keine Bewohner im Dorf.')}</p>`); }]
+];
+let albumPage = 'build';
 function renderAlbum(){
-  const a = albumStats(), cell = (ic, label, have) => `<div class="album-cell${have ? '' : ' missing'}">${ic}${have ? label : '?'}</div>`;
-  let html = `<p class="note">${tt`${a.have} von ${a.total} Einträgen gesammelt (${a.pct} %).`}</p><div class="album-bar"><i style="width:${a.pct}%"></i></div>`;
-  html += `<h3>${tt`Gebäude (${a.b} von ${CATALOG.length})`}</h3><div class="album-grid">${CATALOG.map(x => cell(icon(x.id), x.name, albumBuilt(x.id))).join('')}</div>`;
-  html += `<h3>${tt`Ernte (${a.c} von ${CROPS.length})`}</h3><div class="album-grid">${CROPS.map(c => cell(icon(c.id), `${c.name}<br>${tt`${S.album.crops[c.id] || 0}× geerntet`}`, S.album.crops[c.id])).join('')}</div>`;
-  html += `<h3>${tt`Fische (${a.f} von ${FISH.length})`}</h3><div class="album-grid">${FISH.map(f => { const d = S.album.fish[f.id];
-    return cell(fishSvg(f), `${f.name}<br>${tt`${d ? d.n : 0}× · bis ${d ? d.best : 0} cm`}<br><span style="color:${RARITY[f.tier].color}">${fmtPct(f.p)}</span>`, d); }).join('')}</div>`;
-  html += `<h3>${tt`Meeresfische (${a.sf} von ${SEAFISH.length})`}</h3><div class="album-grid">${SEAFISH.map(f => { const d = S.album.sea[f.id];
-    return cell(fishSvg(f), `${f.name}<br>${tt`${d ? d.n : 0}× · bis ${d ? d.best : 0} cm`}<br><span style="color:${RARITY[f.tier].color}">${fmtPct(f.p)}</span>`, d); }).join('')}</div>`;
-  html += `<h3>${tt`Mineralien (${a.g} von ${GEMS.length})`}</h3><div class="album-grid">${GEMS.map(g => cell(gemSvg(g), `${g.name}<br>${tt`${S.album.gems[g.id] || 0}× gefunden`}<br><span style="color:${RARITY[g.tier].color}">${fmtPct(g.p)}</span>`, S.album.gems[g.id])).join('')}</div>`;
-  html += `<h3>${t('Feste')}</h3><div class="album-grid">${Object.entries(FESTS).map(([s, F]) => cell(icon(festDeco(s)[0].id), `${t(F.name)}<br>${tt`${S.album.fests[F.id] || 0}× gefeiert`}`, S.album.fests[F.id])).join('')}</div>`;
-  html += `<h3>${tt`Tiere (${WILD.filter(w => S.album.animals[w.id]).length} von ${WILD.length})`}</h3><div class="album-grid">${WILD.map(w => cell(animalSvg(w), `${w.name}<br>${tt`${S.album.animals[w.id] || 0}× gesehen`}`, S.album.animals[w.id])).join('')}</div>`;
+  const a = albumStats(), ch = ALBUM_CH.find(c => c[0] === albumPage) || ALBUM_CH[0];
+  $('list').innerHTML = `<div class="book-sum"><span>${tt`${a.have} von ${a.total} Einträgen gesammelt (${a.pct} %).`}</span></div><div class="album-bar"><i style="width:${a.pct}%"></i></div>
+    <nav class="book-tabs" role="tablist">${ALBUM_CH.map(([id, n, c]) => `<button class="book-tab${id === ch[0] ? ' on' : ''}" role="tab" aria-selected="${id === ch[0]}" data-page="${id}" style="--c:${c}">${t(n)}</button>`).join('')}</nav>
+    <div class="book-page" style="--c:${ch[2]}">${ch[3]()}</div>`;
+  $('list').querySelector('.book-tab.on')?.scrollIntoView({block:'nearest', inline:'nearest'});
+}
+function albumMoments(){
   const MO = [['stars', 'Sternschnuppen', '<path d="M30 8l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8Z" fill="#FFE08A"/><path d="M8 40 26 22" stroke="#FFF4C0" stroke-width="2.5"/>'],
     ['rainbow', 'Regenbögen', '<path d="M6 38a18 18 0 0 1 36 0" stroke="#E0523F" stroke-width="3" fill="none"/><path d="M10 38a14 14 0 0 1 28 0" stroke="#F2C14E" stroke-width="3" fill="none"/><path d="M14 38a10 10 0 0 1 20 0" stroke="#6DB35A" stroke-width="3" fill="none"/><path d="M18 38a6 6 0 0 1 12 0" stroke="#5FA8C9" stroke-width="3" fill="none"/>'],
     ['fog', 'Morgennebel', '<path d="M8 20h26M14 27h28M6 34h26" stroke="#DCE3EA" stroke-width="4" stroke-linecap="round"/><circle cx="36" cy="14" r="5" fill="#FFD9A0"/>'],
     ['trader', 'Besuche von Fiete', ART.harvestcart]];
-  html += `<h3>${t('Momente')}</h3><div class="album-grid">${MO.map(([k, n, svg]) => cell(`<svg viewBox="0 0 48 48" aria-hidden="true">${svg}</svg>`, `${t(n)}<br>${tt`${S.album.moments[k] || 0}× erlebt`}`, S.album.moments[k])).join('')}</div>`;
-  html += `<h3>${tt`Gedichte (${a.pm} von ${POEMS.length})`}</h3><ul class="poem-list">${POEMS.map((pm, i) => S.album.poems.includes(i) ? `<li>${pm.title} <small>(${pm.author.replace(/\s*\(.*\)/, '')})</small></li>` : `<li class="missing">${t('Noch nicht gelesen')}</li>`).join('')}</ul>`;
-  const fr = [...new Set([...residentsNow().map(r => r.name), ...Object.keys(S.friends)])];
-  html += `<h3>${t('Freundschaften')}</h3>` + (fr.length ? fr.map(n => `<div class="set-row"><span><b>${n}</b></span><span class="hearts" style="color:#C95480;letter-spacing:2px">${hearts(S.friends[n] || 0)}</span></div>`).join('')
-    : `<p class="note">${t('Noch keine Bewohner im Dorf.')}</p>`);
-  $('list').innerHTML = html;
+  return `<h3>${t('Momente')}</h3><div class="album-grid">${MO.map(([k, n, svg]) => cell(`<svg viewBox="0 0 48 48" aria-hidden="true">${svg}</svg>`, `${t(n)}<br>${tt`${S.album.moments[k] || 0}× erlebt`}`, S.album.moments[k])).join('')}</div>`;
 }
-
 /* ---------- Wünsche der Bewohner ---------- */
 const WISH_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" fill="#FFF4F8"/><path d="M12 14.5s-3.5-2.2-3.5-4.6a1.9 1.9 0 0 1 3.5-1 1.9 1.9 0 0 1 3.5 1c0 2.4-3.5 4.6-3.5 4.6Z" fill="#C95480"/></svg>';
 const MAX_HEARTS = 5;
@@ -3696,7 +4069,11 @@ function makeWishes(){
   const list = [], used = new Set();
   for (let k = 0; k < Math.min(2, res.length); k++) {
     let who = pick(res), guard = 0; while (used.has(who.key) && guard++ < 10) who = pick(res); if (used.has(who.key)) break; used.add(who.key);
-    if (hasFields && R() < .4) {
+    const cookable = S.placed.some(q => q.id === 'kitchen') ? DISHES.filter(d => knownDish(d) && d.price <= 6000) : [];
+    if (cookable.length && R() < .3) {
+      const d = pick(cookable);
+      list.push({...who, type:'dish', item:d.id, n:1, reward:{coins:Math.round(d.price * 1.5 / 50) * 50, herbs:5}, done:false});
+    } else if (hasFields && R() < .4) {
       const c = pick(CROPS.slice(0, 3 + Math.min(2, Math.floor(S.day / 6)))), n = 1 + Math.floor(R() * 2);
       list.push({...who, type:'deliver', item:c.id, n, reward:{coins:Math.round(c.price * n * 1.4 / 10) * 10, herbs:5}, done:false});
     } else if (items.length) {
@@ -3710,9 +4087,10 @@ function todaysWishes(){
   if (!S.wishes || S.wishes.day !== S.day || (!S.wishes.list.length && residentsNow().length)) S.wishes = {day:S.day, list:makeWishes()};
   return S.wishes.list;
 }
-const wishReady = w => !w.done && (w.type === 'build' ? owned(w.item) >= w.base + w.n : (S.pantry[w.item] || 0) >= w.n);
+const wishReady = w => !w.done && (w.type === 'build' ? owned(w.item) >= w.base + w.n : w.type === 'dish' ? (S.dishes?.[w.item] || 0) >= w.n : (S.pantry[w.item] || 0) >= w.n);
 const wishText = w => w.type === 'build'
   ? (w.n === 1 ? tt`Ich würde mich so über ${byId[w.item].name} freuen!` : tt`Ich würde mich über ${w.n} × ${byId[w.item].name} freuen!`)
+  : w.type === 'dish' ? tt`Ich hätte so Lust auf ${DISH_BY[w.item].name}. Kochst du mir etwas?`
   : tt`Hast du ${w.n} ${w.n === 1 ? t('Kiste') : t('Kisten')} ${CROP_BY[w.item].name} für mich?`;
 function renderWishes(){
   const list = todaysWishes();
@@ -3722,9 +4100,10 @@ function renderWishes(){
     const h = S.friends[w.name] || 0, ready = wishReady(w);
     const status = w.done ? `<b>${t('Erfüllt')}</b>`
       : w.type === 'build' ? `<small>${tt`${Math.min(w.n, Math.max(0, owned(w.item) - w.base))} von ${w.n} gebaut`}</small>`
+      : w.type === 'dish' ? `<small>${tt`Gekocht vorrätig: ${S.dishes?.[w.item] || 0} von ${w.n}`} · ${t('Dafür gibt es zwei Herzen')}</small>`
       : `<small>${tt`Im Vorrat: ${S.pantry[w.item] || 0} von ${w.n} Kisten`}${(S.pantry[w.item] || 0) < w.n ? ' · ' + tt`Pflanze ${CROP_BY[w.item].name} auf einem Acker und ernte sie` : ''}</small>`;
     const btn = w.done ? '' : ready ? `<button class="claim" data-wish="${i}">${w.type === 'build' ? t('Belohnung abholen') : t('Übergeben')}</button>`
-      : w.type === 'build' ? `<button class="ghost" data-wish-build="${w.item}">${t('Bauen')}</button>` : `<button class="ghost" disabled>${t('Übergeben')}</button>`;
+      : w.type === 'build' ? `<button class="ghost" data-wish-build="${w.item}">${t('Bauen')}</button>` : w.type === 'dish' ? `<button class="ghost" data-open-kitchen>${t('Zur Küche')}</button>` : `<button class="ghost" disabled>${t('Übergeben')}</button>`;
     html += `<div class="wish-row"><div class="who"><b>${w.name}, ${w.role}</b><span class="hearts" aria-label="${tt`Freundschaft ${h} von ${MAX_HEARTS}`}">${hearts(h)}</span></div>
       <p class="say">${Q1}${wishText(w)}${Q2}</p><div class="wbtm"><span>${status} · ${rewardText(w.reward)}</span>${btn}</div></div>`;
   });
@@ -3733,8 +4112,9 @@ function renderWishes(){
 function fulfillWish(i){
   const w = todaysWishes()[i]; if (!w || !wishReady(w)) return;
   if (w.type === 'deliver') { S.pantry[w.item] -= w.n; if (!S.pantry[w.item]) delete S.pantry[w.item]; }
+  if (w.type === 'dish') { S.dishes[w.item] -= w.n; if (!S.dishes[w.item]) delete S.dishes[w.item]; }
   w.done = true; give(w.reward);
-  const h = S.friends[w.name] = Math.min(MAX_HEARTS, (S.friends[w.name] || 0) + 1);
+  const h = S.friends[w.name] = Math.min(MAX_HEARTS, (S.friends[w.name] || 0) + (w.type === 'dish' ? 2 : 1));
   const msg = checkCompletions(); save(); render(); renderWishes(); sfx.grow();
   toast(msg || tt`${w.name} strahlt: Danke! ${rewardText(w.reward)} · Freundschaft ${hearts(h)}`, 4000);
 }
@@ -3951,7 +4331,7 @@ function renderTasks(){
   $('chest').innerHTML = S.chest ? tt`${chestSvg}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>`
     : allClaimed() ? tt`${chestSvg}<p><strong>Alle vier geschafft</strong>Deine Truhe ist bereit.</p><button class="claim" id="openChest">Öffnen</button>`
     : tt`${chestSvg}<p><strong>Tagesbonus: ${rewardText(CHEST)}</strong>Hol alle vier Belohnungen ab, dann öffnet sich die Truhe (${S.claimed.length} von ${n}).</p>`;
-  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0) + weekClaimable().length + festClaimable().length + storiesReady().length;
+  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0) + weekClaimable().length + festClaimable().length + storiesReady().length + (hikeArrived() ? 1 : 0);
   $('badge').hidden = c === 0; $('badge').textContent = c;
 }
 function renderRes(){
@@ -3997,7 +4377,7 @@ function render(){
   animateCoins(); renderRes();
   persistUnlocks();
   if (buildGround()) { fitTarget(); cam.zoomT = cam.fit * cam.user; }
-  syncObjects(); syncNpcs(); syncWild(); syncTrader(); tutCheck(); renderProgress(); renderTasks(); renderCalmList(); renderGameList(); renderWishList(); renderStories(); renderFest(); renderWeek(); renderAlbumBox(); renderTut();
+  syncObjects(); syncNpcs(); syncWild(); syncTrader(); tutCheck(); renderProgress(); renderTasks(); renderCalmList(); renderGameList(); renderWishList(); renderStories(); renderFest(); renderWeek(); renderAlbumBox(); checkBadges(); renderHikes(); renderBadges(); renderHub(); renderTut();
 }
 let toastTimer;
 function toast(msg, ms = 2800){ const tm = $('toast'); tm.textContent = msg; tm.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => tm.classList.remove('show'), ms); }
@@ -4174,8 +4554,8 @@ let sheetKind = 'build';
 const sheetScroll = {};
 function openSheet(kind = 'build'){
   sheetKind = kind;
-  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker'), farmshop:byId.farmstand.name, wishes:t('Wünsche'), album:t('Album'), pantry:t('Vorrat'), upgrade:t('Ausbauen'), trader:t('Wanderhändler Fiete'), catch:lastCatch && lastCatch.kind === 'mine' ? t('Fund') : t('Fang')}[kind] || t('Bauen');
-  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else if (kind === 'farmshop') renderFarmshop(); else if (kind === 'wishes') renderWishes(); else if (kind === 'album') renderAlbum(); else if (kind === 'catch') renderCatch(); else if (kind === 'pantry') renderPantry(); else if (kind === 'upgrade') renderUpgrade(); else if (kind === 'trader') renderTrader(); else renderList();
+  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker'), farmshop:byId.farmstand.name, wishes:t('Wünsche'), album:t('Album'), pantry:t('Vorrat'), upgrade:t('Ausbauen'), kitchen:t('Dorfküche'), roof:t('Dachfarbe'), trader:t('Wanderhändler Fiete'), catch:lastCatch && lastCatch.kind === 'mine' ? t('Fund') : t('Fang')}[kind] || t('Bauen');
+  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else if (kind === 'farmshop') renderFarmshop(); else if (kind === 'wishes') renderWishes(); else if (kind === 'album') renderAlbum(); else if (kind === 'catch') renderCatch(); else if (kind === 'pantry') renderPantry(); else if (kind === 'upgrade') renderUpgrade(); else if (kind === 'kitchen') renderKitchen(); else if (kind === 'roof') renderRoof(); else if (kind === 'trader') renderTrader(); else renderList();
   document.body.classList.add('open'); $('closeBuild').focus({preventScroll:true});
   $('sheet').scrollTop = sheetScroll[kind] || 0;           // Menü merkt sich, wo du warst
   sfx.open();
@@ -4263,6 +4643,18 @@ function renderUpgrade(){
   }
   $('list').innerHTML = html;
 }
+/* ---------- Dachfarben: jedes Haus kann seine eigene Farbe bekommen ---------- */
+const ROOFS = [['#C8473C', 'Ziegelrot'], ['#4F6D9A', 'Taubenblau'], ['#3F6B35', 'Moosgrün'], ['#7A5BB0', 'Fliederlila'], ['#8A5634', 'Holzbraun'], ['#5A6270', 'Schiefergrau'], ['#E39B4A', 'Ocker'], ['#E26D8A', 'Rosenrot']];
+const roofCache = {};
+const hasRoof = id => roofCache[id] ??= (() => { let r = false; try { MODELS[id]?.({id, x:0, y:0, uid:-1})?.traverse(o => { if (o.userData.roof) r = true; }); } catch (e) { r = false; } return r; })();
+let roofTarget = null;
+function renderRoof(){
+  const p = roofTarget; if (!p) { $('list').innerHTML = ''; return; }
+  $('list').innerHTML = `<p class="note">${tt`Wähle eine Dachfarbe für ${nameOf(p)}.`}</p><div class="swatches">` +
+    ROOFS.map(([c, n]) => `<button class="swatch${p.roof === c ? ' on' : ''}" data-roof="${c}" aria-label="${t(n)}"><i style="background:${c}"></i><span>${t(n)}</span></button>`).join('') +
+    `<button class="swatch${p.roof ? '' : ' on'}" data-roof="" aria-label="${t('Original')}"><i class="orig"></i><span>${t('Original')}</span></button></div>`;
+}
+function setRoof(c){ const p = roofTarget; if (!p) return; if (c) p.roof = c; else delete p.roof; save(); syncObjects(); renderRoof(); sfx.place(); }
 function doUpgrade(){
   const p = upgTarget; if (!p || (p.lvl || 1) >= 3) return;
   const nl = (p.lvl || 1) + 1, c = upgCost(p.id, nl); if (!canAfford(c)) return;
@@ -4324,7 +4716,7 @@ function renderCtx(){
   } else if (mode === 'edit') {
     if (selected) {
       txt.innerHTML = `<b>${nameOf(selected)}</b>`;
-      btns.innerHTML = tt`<button class="icon-btn" data-act="rot" aria-label="Gebäude drehen (Taste R)" title="Drehen (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg></button><button class="solid" data-act="move">Verschieben</button>${(UPGRADABLE.includes(selected.id) ? `<button class="ghost" data-act="upgrade">${t('Ausbauen')}</button>` : '') + (SPECIAL[selected.id] ? '' : t('<button class="ghost" data-act="store">Ins Lager</button>'))}<button class="ghost" data-act="done">Fertig</button>`;
+      btns.innerHTML = tt`<button class="icon-btn" data-act="rot" aria-label="Gebäude drehen (Taste R)" title="Drehen (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg></button><button class="solid" data-act="move">Verschieben</button>${(UPGRADABLE.includes(selected.id) ? `<button class="ghost" data-act="upgrade">${t('Ausbauen')}</button>` : '') + (hasRoof(selected.id) ? `<button class="ghost" data-act="roof">${t('Dach')}</button>` : '') + (SPECIAL[selected.id] ? '' : t('<button class="ghost" data-act="store">Ins Lager</button>'))}<button class="ghost" data-act="done">Fertig</button>`;
     } else {
       txt.textContent = t('Bearbeiten: Tippe auf ein Gebäude.');
       btns.innerHTML = t('<button class="ghost" data-act="done">Fertig</button>');
@@ -4357,6 +4749,7 @@ $('ctxBtns').onclick = e => {
   if (a === 'move') { quickMove = false; placing = itemOf(selected); placeRot = selected.rot || 0; setMode('move'); }
   if (a === 'store') storeSelected();
   if (a === 'upgrade' && selected) { upgTarget = selected; openSheet('upgrade'); }
+  if (a === 'roof' && selected) { roofTarget = selected; openSheet('roof'); }
 };
 $('editBtn').onclick = () => { selected = null; setMode('edit'); };
 $('list').addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) readImport(e.target.files[0]); });
@@ -4400,6 +4793,14 @@ $('list').onclick = e => {
   if (sb) { const id = sb.dataset.sell || sb.dataset.sellN; sellCrops([[id, sb.dataset.sell ? 1 : S.pantry[id] || 0]]); return; }
   if (e.target.closest('[data-sell-all]')) { sellCrops(Object.entries(S.pantry)); return; }
   if (e.target.closest('[data-upgrade]')) { doUpgrade(); return; }
+  const kc = e.target.closest('[data-kcell]'); if (kc) { kTapCell(+kc.dataset.kcell); return; }
+  const ki = e.target.closest('[data-king]'); if (ki) { kSel = kSel === ki.dataset.king ? null : ki.dataset.king; renderKitchen(); return; }
+  if (e.target.closest('[data-kcook]')) { kCook(); return; }
+  if (e.target.closest('[data-kclear]')) { kGrid = Array(9).fill(null); renderKitchen(); return; }
+  const kf = e.target.closest('[data-kfill]'); if (kf) { kFill(kf.dataset.kfill); return; }
+  const dsl = e.target.closest('[data-dsell]'); if (dsl) { sellDish(dsl.dataset.dsell, 1); return; }
+  const pg = e.target.closest('[data-page]'); if (pg) { albumPage = pg.dataset.page; renderAlbum(); return; }
+  const rf = e.target.closest('[data-roof]'); if (rf) { setRoof(rf.dataset.roof); return; }
   const tbu = e.target.closest('[data-tbuy]'); if (tbu) { traderBuy(tbu.dataset.tbuy); return; }
   if (e.target.id === 'tutAgain') { closeSheet(); showTab('dorf'); tutGo(0); return; }
   const ag = e.target.closest('[data-again]');
@@ -4493,6 +4894,7 @@ function onTap(cx, cy){
     if (p.id === 'school') { openSheet('school'); if (msg) toast(msg); return; }
     if (p.id === 'field') { tapField(p, msg); return; }
     if (p.id === 'farmstand') { openSheet('farmshop'); if (msg) toast(msg); return; }
+    if (p.id === 'kitchen') { openSheet('kitchen'); if (msg) toast(msg); return; }
     if (byId[p.id]?.landmark) { toast(msg || `${byId[p.id].name}: ${lmText(p.id)}`, 4000); return; }
     if (JOBS[p.id]) { tapJob(p, msg); return; }
     if (UPGRADABLE.includes(p.id)) { upgTarget = p; openSheet('upgrade'); if (msg) toast(msg); return; }
@@ -4522,7 +4924,7 @@ function tryPlace(tap, quiet){
   if (!canAfford(item)) { toast(tt`Dafür fehlen dir noch ${missText(missing(item))}.`); setMode('idle'); return false; }
   const wasT2 = tier2Open(), lvl = homeLevel();
   S.placed.push({id:item.id, x:o.x, y:o.y, rot:placeRot, uid:nextUid++, _new:true});
-  pay(item); if (!S.album.built.includes(item.id)) S.album.built.push(item.id); S.stats.built++; if (item.id === 'path') S.stats.paths++; if (item.multi && item.id !== 'path') S.stats.deco++;
+  pay(item); if (!S.album.built.includes(item.id)) S.album.built.push(item.id); S.stats.built++; if (item.walk) S.stats.paths++; if (item.multi && !item.walk) S.stats.deco++;
   const done = checkCompletions(), grown = persistUnlocks();
   if (item.multi && canAfford(item) && !(item.max && owned(item.id) >= item.max)) $('ctxText').textContent = tt`${item.name} gebaut. Tippen setzt weitere, kurz halten und ziehen malt, Rechtsklick beendet.`;
   else setMode('idle');
@@ -4564,6 +4966,9 @@ $('viewTasks').onclick = e => {
   }
   const wc = e.target.closest('[data-wclaim]'); if (wc) { claimWeek(wc.dataset.wclaim); return; }
   const fc = e.target.closest('[data-fclaim]'); if (fc) { claimFest(fc.dataset.fclaim); return; }
+  const hs = e.target.closest('[data-hike-start]'); if (hs) { startHike(hs.dataset.hikeStart); return; }
+  if (e.target.closest('[data-hike-arrive]')) { arriveHike(); return; }
+  if (e.target.closest('[data-hike-stop]')) { const b = e.target.closest('[data-hike-stop]'); if (!b.dataset.armed) { b.dataset.armed = '1'; b.textContent = t('Wirklich abbrechen?'); return; } S.hike = null; save(); render(); return; }
   const so = e.target.closest('[data-story-open]'); if (so) { openStory(STORY_BY[so.dataset.storyOpen]); return; }
   const sd = e.target.closest('[data-story-done]'); if (sd) { finishStory(STORY_BY[sd.dataset.storyDone]); return; }
   if (e.target.closest('#openChest') && allClaimed() && !S.chest) { S.chest = true; give(CHEST); checkCompletions(); save(); render(); sfx.grow(); toast(tt`Truhe geöffnet: ${rewardText(CHEST)}`); }
@@ -4587,7 +4992,7 @@ if (LANG === 'en') {
   if (EN[document.title]) document.title = EN[document.title];
 }
 checkCompletions(); save();
-updateEnv(); render(); resize(); announceFest();
+updateEnv(); render(); resize(); announceFest(); S.badgesInit = true;
 if (migrated) setTimeout(() => toast(t('Dein Dorf wurde neu vermessen. Alle Gebäude liegen im Lager und warten auf einen neuen Platz.'), 6000), 600);
 cam.zoom = cam.zoomT; cam.target.copy(cam.targetT);
 requestAnimationFrame(frame);

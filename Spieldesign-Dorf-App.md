@@ -272,6 +272,69 @@ Im Testmodus lassen sich alle Momente auslösen.
 ## Steuerung
 Die Kamera-Knöpfe unten rechts sind kompakter (32 px statt 40 px), damit sie weniger vom Dorf verdecken.
 
+## Gestaltung (im Web-Prototyp umgesetzt)
+- **Neue Wege (Stufe 1):** Kiesweg (400 Münzen, 1 Stein), Steinplatten (600, 2 Stein), Holzbohlen (500, 2 Holz). Bewohner laufen auf allen Wegarten wie auf dem kleinen Pfad, und alle Wege lassen sich malen.
+- **Neue Grenzen (Stufe 2):** Hecke (600, 2 Kräuter), Blumenranke (900, 1 Holz, 2 Kräuter), Trockenmauer (800, 3 Stein), alle malbar.
+- **Dachfarben:** Jedes Gebäude mit Satteldach hat im Bearbeiten-Menü den Knopf „Dach“. Zur Wahl stehen 8 Farben (Ziegelrot, Taubenblau, Moosgrün, Fliederlila, Holzbraun, Schiefergrau, Ocker, Rosenrot) und „Original“. Die Farbe bleibt gespeichert.
+
+## Übersicht in den Aufgaben (im Web-Prototyp umgesetzt)
+Die Tagesaufgaben und die Truhe stehen immer oben. Darunter liegen sechs Kacheln, die sich beim Antippen aufklappen (immer nur eine zur Zeit):
+- **Fest & Woche:** Festkarte und Wochenziele
+- **Wünsche & Geschichten:** Bewohnerwünsche und freiwillige Geschichten
+- **Ruhe & Rätsel:** Ruheorte und Rätselspiele
+- **Wanderungen**
+- **Abzeichen**
+- **Album:** öffnet das Sammelalbum
+
+Ein goldener Zähler auf der Kachel zeigt, wenn dort etwas abzuholen ist.
+
+## Sammelalbum als Buch (im Web-Prototyp umgesetzt)
+Das Album ist ein aufgeschlagenes Buch mit farbigen Kapitel-Reitern: Gebäude, Ernte, Gerichte, Fische, Meer, Mineralien, Tiere, Feste, Momente, Postkarten, Abzeichen, Gedichte, Freunde. Oben steht der Gesamtfortschritt.
+
+## Dorfküche (im Web-Prototyp umgesetzt)
+Gebäude der Stufe 2 (15.000 Münzen, 30 Holz, 20 Stein) mit der Köchin Marta. Antippen öffnet die Küche:
+- **3 × 3-Raster:** Man wählt eine Zutat und tippt auf Felder. Die **Anordnung zählt**, die Position im Raster nicht (ein Muster darf überall liegen).
+- **Zutaten:** Kisten aus dem Vorrat (Radieschen, Karotten, Kartoffeln, Kürbisse, Erdbeeren) und Kräuter werden verbraucht. Mehl (braucht die Windmühle), Eier (Bauernhof), Milch (Ziegenstall) und Honig (Bienenstöcke oder Honigstand) sind unbegrenzt da, sobald das Gebäude steht.
+- **Rezeptbuch:** 7 Rezepte sind von Anfang an bekannt und lassen sich mit „Ins Raster“ automatisch legen. 5 Rezepte sind geheim, dafür gibt es Hinweise von Bewohnern. Wer eines richtig nachkocht, schaltet es frei.
+- **Ein falsches Muster** verbraucht nichts („daraus wird leider nichts“).
+
+| Gericht | Muster (Zeilen) | Verkauf |
+|---|---|---|
+| Kräutertee | H H H | 250 |
+| Radieschensalat | R H R | 700 |
+| Karottensuppe | K K K / · H · | 1.800 |
+| Bratkartoffeln | Ka H Ka / · Ka · | 2.800 |
+| Pfannkuchen | Mehl Ei Mehl / · Milch · | 900 |
+| Kürbissuppe | · Kü · / H Kü H / · Milch · | 5.000 |
+| Erdbeerkuchen | E E E / Mehl Ei Mehl | 13.000 |
+| geheim: Kürbiskuchen | Kü Kü / Mehl Ei | 4.800 |
+| geheim: Gemüseeintopf | R K Ka / H H H | 2.200 |
+| geheim: Erdbeermilch | E / Milch / Honig (senkrecht) | 4.500 |
+| geheim: Honigbrot | Mehl Mehl Mehl / · Honig · | 800 |
+| geheim: Karottenkuchen | K Mehl K / Ei Honig Ei | 2.600 |
+
+(R = Radieschen, K = Karotte, Ka = Kartoffel, Kü = Kürbis, E = Erdbeere, H = Kräuter)
+
+Gerichte kann man im **Hofladen verkaufen**. **Bewohner wünschen sich Gerichte** (ab gebauter Küche, etwa jeder dritte Wunsch). Dafür gibt es das 1,5-fache des Verkaufspreises, 5 Kräuter und **zwei Herzen** Freundschaft. Jedes gekochte Gericht kommt ins **Album** (Kapitel „Gerichte“).
+
+## Wanderungen (im Web-Prototyp umgesetzt)
+In der Kachel „Wanderungen“ wählt man ein Ziel. Ab dann zählen alle echten Schritte, eine kleine Wegkarte zeigt den Fortschritt. Es läuft immer nur eine Wanderung, Abbrechen ist jederzeit möglich (mit Rückfrage).
+
+| Wanderung | Schritte | ca. km | Andenken |
+|---|---|---|---|
+| Zum Bergsee | 15.000 | 11 | Wegweiser |
+| Über die Sonnenfelder | 25.000 | 19 | Wildblumenwiese |
+| Rund um die Bucht | 40.000 | 30 | Treibholzbank |
+| Auf den Gipfel | 60.000 | 45 | Steinmännchen |
+| Zum Leuchtturm | 100.000 | 75 | Alter Anker |
+| Die große Talrunde | 200.000 | 150 | Meilenstein |
+
+Am Ziel tippt man auf „Ankommen“: Eine Postkarte kommt ins Album (Kapitel „Postkarten“), das Andenken als Deko ins Lager. Wer eine Wanderung wiederholt, bekommt Münzen (ein Zehntel der Schritte).
+
+## Abzeichen (im Web-Prototyp umgesetzt)
+24 Abzeichen für Meilensteine, ohne Ranglisten und ohne Druck. Sie kommen automatisch, sobald man sie erreicht, mit einer kurzen Meldung. Zu sehen sind sie in der Kachel „Abzeichen“ und im Album:
+Schritte (100.000 / 500.000 / 1 Mio. / 5 Mio.), Marathonwoche (55.000 Schritte in einer Woche), Dorfgröße (10 / 30 / 60 Gebäude), alle Waldsee-Fische, alle Meeresfische, Goldener Karpfen, alle Mineralien, Ruhe-Übungen (10 / 50), 50 Ernten, Gerichte (5 verschiedene / alle), alle vier Feste, alle Wildtiere, alle Bewohner-Geschichten, Wanderungen (3 / alle), alle Gedichte, ein Bewohner mit fünf Herzen.
+
 ## Tägliche Aufgaben (im Web-Prototyp umgesetzt)
 Jeden Tag gibt es **vier** Aufgaben: eine zu Schritten, eine zu Treppen, Training oder Achtsamkeit (im Wechsel), eine zum Bauen und eine im Dorf. Belohnungen sind Münzen und passende Rohstoffe. Bonus-Münzen zählen nicht zu den Lebensschritten. Es gibt keine Strafen und keine Streaks.
 
