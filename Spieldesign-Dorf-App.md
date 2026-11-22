@@ -80,7 +80,7 @@ Ein gemütliches Dorfaufbau-Spiel im Indie-Stil. Die Ressourcen zum Bauen kommen
 | Bibliothek | 90.000 | 150 | 100 | Dorfchronik (Statistik der eigenen Bewegung) |
 | Windmühle | 100.000 | 200 | 100 | Wahrzeichen der Landschaft |
 
-### Stufe 4 – Wahrzeichen (Monate, über Lebensschritte)
+### Stufe 4 – Wahrzeichen (Monate, über Lebensschritte, im Web-Prototyp umgesetzt)
 
 | Wahrzeichen | Lebensschritte | Bauphasen | Dauer beim Referenzspieler |
 |---|---|---|---|
@@ -90,13 +90,15 @@ Ein gemütliches Dorfaufbau-Spiel im Indie-Stil. Die Ressourcen zum Bauen kommen
 
 Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Dach → Fenster → Innenhof → Garten → Fahnen und Einweihungsfest. Jede Phase ist im Dorf sichtbar und bringt eine kleine Belohnung (Deko, Dialog oder Bewohner).
 
+**Umsetzung im Web-Prototyp:** Die Wahrzeichen stehen im Bau-Menü in einer eigenen Gruppe. Sie kosten nichts, wachsen aber nur mit den Lebensschritten, und zwar nacheinander: Leuchtturm bei 0–200.000, Uhrturm bei 200.000–600.000, Palast bei 600.000–1.600.000 Lebensschritten. Man kann sie schon früh als Baustelle platzieren. Jede neue Bauphase ist sofort am Modell zu sehen und bringt Rohstoffe und Münzen (Leuchtturm 1.000 Münzen + 10 Holz + 10 Stein, Uhrturm 1.500 + 12 Holz + 15 Stein, Palast 2.500 + 15 Holz + 20 Stein + 10 Kräuter je Phase). Ist ein Wahrzeichen fertig, zieht ein Bewohner ein: Leuchtturmwärter Hannes, Uhrmacherin Ida, Fürstin Amalia. Der Leuchtturm steht am Seeufer und hat ein drehendes Licht. Ist das Dorf voll erschlossen, zeigt der Text unter der Karte den Fortschritt des aktuellen Wahrzeichens.
+
 ## Gesamtrechnung (Referenzspieler)
 - Stufe 1: rund 6.000 Münzen, also etwa 1 Tag
 - Stufe 2: 65.000 Münzen, also etwa 9 Tage
 - Stufe 3: 440.000 Münzen, also etwa 63 Tage
 - Die Gebäude aus Münzen sind nach ungefähr **2,5 Monaten** fertig. Der Palast ist erst nach ungefähr **7,5 Monaten** fertig.
 
-**Offenes Problem:** Zwischen Monat 2,5 und 7,5 fehlt ein Ziel, für das man Münzen ausgibt. Mögliche Lösungen dafür sind ein Deko-Shop mit Jahreszeiten-Sets, Wünsche der Bewohner (kleine Aufträge), Upgrades für bestehende Gebäude in 2–3 Stufen und Erweiterungen des Dorfgebiets. Die täglichen Aufgaben bringen zusätzliche Münzen ins Spiel. Dadurch wird diese Lücke etwas früher erreicht, und das sollte man bei der Balance berücksichtigen.
+**Offenes Problem (teilweise gelöst durch Äcker, Hofladen, Wünsche der Bewohner und die Wahrzeichen im Web-Prototyp):** Zwischen Monat 2,5 und 7,5 fehlt ein Ziel, für das man Münzen ausgibt. Mögliche Lösungen dafür sind ein Deko-Shop mit Jahreszeiten-Sets, Wünsche der Bewohner (kleine Aufträge), Upgrades für bestehende Gebäude in 2–3 Stufen und Erweiterungen des Dorfgebiets. Die täglichen Aufgaben bringen zusätzliche Münzen ins Spiel. Dadurch wird diese Lücke etwas früher erreicht, und das sollte man bei der Balance berücksichtigen.
 
 ## Wachsende Dorffläche (im Web-Prototyp umgesetzt, 3D)
 Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 32 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
@@ -131,6 +133,8 @@ Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. G
 | Erdbeeren | 2.000 Münzen, 5 Kräuter | 6 Stunden | 60 Kräuter |
 
 Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leicht anpassen.
+
+**Hofladen und Kisten:** Jeder geerntete Acker ergibt zusätzlich zu den Kräutern eine Kiste der Pflanze im Vorrat. Lene im Hofladen kauft die Kisten (Antippen des Hofladens): Radieschen 150, Karotten 350, Kartoffeln 600, Kürbisse 1.500, Erdbeeren 3.000 Münzen pro Kiste. Ohne Hofladen sammeln sich die Kisten einfach an. Kisten kann man auch Bewohnern schenken (siehe Wünsche).
 
 **Dein Zuhause (4 × 4 Felder):** Es ist von Anfang an da und wird mit jedem neuen Gebiet gemütlicher: Zelt → Blockhütte (mit Seeufer) → Fachwerkhaus (mit Waldrand) → Landhaus (mit Bergwiese) → Gutshof (mit Sonnenfeldern). Die Stufe richtet sich nach der Zahl der erschlossenen Gebiete. Man kann es verschieben, aber nicht ins Lager legen.
 
@@ -175,7 +179,32 @@ Jeden Tag gibt es **vier** Aufgaben: eine zu Schritten, eine zu Treppen, Trainin
 | Dorf | Plauderstunde | mit 2 Bewohnern sprechen | 200 + 2 Kräuter |
 | Dorf | Sparfuchs | 5.000 Münzen auf einmal | 300 Münzen |
 
+**Acker-Aufgaben:** Sobald es Äcker gibt, ersetzt jeden zweiten Tag eine Acker-Aufgabe die Dorf-Aufgabe: Erntezeit (2 Äcker ernten, 300 Münzen + 4 Kräuter), Aussaat (4 Äcker bepflanzen, 300 Münzen + 5 Holz), Markttag (3 Kisten im Hofladen verkaufen, 500 Münzen, nur mit Hofladen), Reiche Ernte (5 Äcker ernten, 700 Münzen + 8 Kräuter). Die Auswahl wird beim ersten Öffnen des Tages festgelegt und ändert sich dann nicht mehr.
+
 **Tagesbonus:** Wer alle vier Belohnungen abholt, öffnet eine Truhe mit 500 Münzen, 5 Holz, 5 Stein und 5 Kräutern.
+
+## Wochenziele (im Web-Prototyp umgesetzt)
+Unter den täglichen Aufgaben stehen drei Wochenziele. Eine Woche sind 7 Spieltage. Es gibt **keine Strafen**: Was man nicht schafft, verfällt einfach, und nächste Woche gibt es neue Ziele.
+
+| Ziel | Aufgabe | Belohnung |
+|---|---|---|
+| Wanderwoche (immer) | 50.000 Schritte in der Woche | 2.500 Münzen + 10 Kräuter |
+| Dranbleiben (immer) | an 4 Tagen mindestens 5.000 Schritte | 2.000 Münzen + 15 Holz + 15 Stein |
+| Ruhige Woche (im Wechsel) | 5 Ruhe-Übungen | 1.200 Münzen + 15 Kräuter |
+| Erntewoche (im Wechsel, mit Äckern) | 10 Äcker ernten | 1.500 Münzen + 10 Holz |
+| Rätselwoche (im Wechsel, mit Dorfschule) | 6 Rätselspiele | 1.500 Münzen + 10 Stein |
+
+## Wünsche der Bewohner (im Web-Prototyp umgesetzt)
+Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Über ihrem Haus erscheint dann eine rosa Sprechblase. Es gibt zwei Arten: **Bauwünsche** („Ich würde mich über 2 × Laterne freuen!“, gezählt wird, was ab dem Wunsch neu gebaut wird) und **Lieferwünsche** („Hast du 2 Kisten Karotten für mich?“, nur wenn es Äcker gibt). Gewünscht werden nur Dinge, die gerade baubar sind und ungefähr ins Budget passen. Wer einen Wunsch erfüllt, bekommt Münzen und Rohstoffe, und die Freundschaft mit dem Bewohner wächst um ein Herz (höchstens 5). Die Wünsche stehen auch im Aufgaben-Tab. Tippt man einen Bewohner mit offenem Wunsch an, öffnet sich die Wunschliste.
+
+## Tageszeit, Wetter und Jahreszeiten (im Web-Prototyp umgesetzt)
+- **Tageszeit:** Das Licht folgt der echten Uhrzeit. Morgens und abends ist es warm und golden, nachts dunkelblau. Laternen, Lagerfeuer und Fenster leuchten abends und nachts heller. Die Sonne wandert über den Himmel, dadurch wandern auch die Schatten.
+- **Wetter:** Das Wetter wechselt alle drei Stunden. Meist ist es sonnig, ungefähr jedes fünfte Mal regnet es, im Winter schneit es stattdessen. Bei Regen wird es etwas dunkler.
+- **Jahreszeiten:** Sie richten sich nach dem echten Monat. Im Frühling blühen die Apfelbäume rosa, im Herbst färbt sich das Laub orange, im Winter liegt Schnee auf Wiesen und Bäumen.
+- In den Einstellungen lässt sich das abschalten (dann immer Sommermittag bei Sonne). Im Testmodus kann man Tageszeit, Wetter und Jahreszeit durchschalten.
+
+## Album (im Web-Prototyp umgesetzt)
+Im Aufgaben-Tab gibt es ein Album. Es zeigt alle Gebäude (noch nicht gebaute als graue Umrisse), alle geernteten Pflanzen mit Anzahl, alle gelesenen Gedichte und die Freundschaften mit den Bewohnern. Oben steht, wie viel Prozent man schon gesammelt hat.
 
 ## Ruheorte (im Web-Prototyp umgesetzt)
 Jeden Tag lädt das Spiel an bis zu drei Orten im Dorf zu einer kurzen Übung ein. Dort schwebt dann ein Blatt-Symbol. Jede Übung wird geführt (animierter Atemkreis oder Schritt-für-Schritt-Text) und **läuft automatisch bis zu 3 Minuten**. Ein sanfter Klang markiert jede volle Minute und das Ende. So kann man die Augen geschlossen lassen. Beenden geht jederzeit, angerechnet werden die geschafften vollen Minuten: 3 Kräuter und 1 Achtsamkeitsminute pro Minute. Wer in der ersten Minute abbricht, bekommt nichts, aber auch keinen Hinweis oder eine Strafe, und der Ruheort bleibt offen. Ob man sie wirklich macht, prüft das Spiel nicht. Man spielt ja für sich. Später könnte die iOS-App diese Minuten selbst in Apple Health eintragen.
@@ -211,7 +240,7 @@ Die Dorfschule ist ein Stufe-1-Gebäude (3 × 3 Felder, 1.200 Münzen, 15 Holz, 
 **Einschränkung im Prototyp:** Ohne Server gibt es keine echten Spielerdaten. Die Seltenheit ist deshalb vorab festgelegt, und die Antwortlisten (10 Fragen) sind begrenzt. In der App könnte ein Server die echte Seltenheit aus allen Spielerantworten berechnen, wie bei Krillion.
 
 ## Einstellungen (im Web-Prototyp umgesetzt)
-Über das Zahnrad neben dem Tag erreichbar: Spielsprache (Deutsch/Englisch), Klänge an/aus, Hintergrundmusik an/aus, Lautstärke (gilt für Klänge und Musik), Gedichte automatisch vorlesen, Animationen reduzieren, Steuerungs-Hinweis ein-/ausblenden, Übersicht über Maus-, Touch- und Tastatursteuerung sowie „Dorf zurücksetzen“ (mit Sicherheitsabfrage). Die Einstellungen werden im Browser gespeichert.
+Über das Zahnrad neben dem Tag erreichbar: Spielsprache (Deutsch/Englisch), Klänge an/aus, Hintergrundmusik an/aus, Lautstärke (gilt für Klänge und Musik), Tageszeit, Wetter und Jahreszeiten an/aus, Gedichte automatisch vorlesen, Animationen reduzieren, Steuerungs-Hinweis ein-/ausblenden, Übersicht über Maus-, Touch- und Tastatursteuerung sowie „Dorf zurücksetzen“ (mit Sicherheitsabfrage). Unter „Spielstand“ kann man das Dorf als Datei **exportieren** und später oder auf einem anderen Gerät wieder **importieren** (mit Prüfung der Datei und Sicherheitsabfrage). Die Einstellungen werden im Browser gespeichert.
 
 ## Hintergrundmusik (im Web-Prototyp umgesetzt)
 Ruhige, gemütliche Musik im Stil vietnamesischer Volksmusik. Die Melodien nutzen die fünftönige Tonleiter „Hơi Bắc“ (auf D: D, E, G, A, H). Zu hören sind ein gezupftes Zither-Instrument, das an die Đàn tranh erinnert (mit typischem Hochbiegen in den Ton), ein singender Ton mit Vibrato wie bei der einsaitigen Đàn bầu, ein weicher Klangteppich und ein leises Holzblock-Klopfen (Mõ). Ein Durchlauf dauert etwa 2,5 Minuten und wiederholt sich dann mit kleinen Abweichungen.

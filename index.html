@@ -179,6 +179,36 @@
   .crop-row .ico svg{width:34px;height:34px}
   .crop-row .cost{margin-top:4px}
   .crop-btns{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+  .crop-btns button:disabled,.wish-row button:disabled{opacity:.45;cursor:default}
+  /* Wünsche der Bewohner */
+  .wishspot{position:absolute;transform:translate(-50%,-100%);pointer-events:auto;width:32px;height:32px;border-radius:50%;border:2px solid #FBD3E2;
+    background:rgba(201,84,128,.95);display:grid;place-items:center;padding:0;animation:wishPulse 2.6s ease-out infinite}
+  .wishspot svg{width:18px;height:18px}
+  @keyframes wishPulse{0%{box-shadow:0 0 0 0 rgba(242,141,178,.6)}70%{box-shadow:0 0 0 14px rgba(242,141,178,0)}100%{box-shadow:0 0 0 0 rgba(242,141,178,0)}}
+  .ctx .wishspot{display:none}
+  .wishspot:hover{transform:translate(-50%,-100%) scale(1.08)}
+  .wish-row{padding:14px 0;border-bottom:1px solid var(--paper-2)}
+  .wish-row .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .wish-row .hearts{color:#C95480;letter-spacing:2px;font-size:15px;white-space:nowrap}
+  .wish-row .say{margin:6px 0 8px;font-style:italic}
+  .wish-row .wbtm{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .wish-row small{color:#6B6455}
+  /* Wochenziele und Album */
+  .week-head{display:flex;justify-content:space-between;align-items:baseline;margin:22px 0 4px}
+  .week-head h3{margin:0}
+  .week-head span{color:var(--muted, #A9B0C6);font-size:13px}
+  .album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin:8px 0 4px}
+  .album-cell{background:var(--paper-2);border-radius:12px;padding:6px 4px;text-align:center;font-size:11px;line-height:1.25;color:var(--ink)}
+  .album-cell svg{width:40px;height:40px;display:block;margin:0 auto 2px}
+  .album-cell.missing svg{filter:grayscale(1);opacity:.28}
+  .album-cell.missing{color:#9A9384}
+  .album-bar{height:8px;border-radius:99px;background:var(--paper-2);overflow:hidden;margin:6px 0 14px}
+  .album-bar i{display:block;height:100%;background:#6DB35A}
+  .poem-list{margin:6px 0 4px;padding-left:18px}
+  .poem-list li{margin:2px 0}
+  .poem-list li.missing{color:#9A9384}
+  .item.flash{animation:flash 1.6s ease-out 1}
+  @keyframes flash{0%,40%{box-shadow:0 0 0 3px #F2C14E}100%{box-shadow:0 0 0 0 rgba(242,193,78,0)}}
   .calm{position:fixed;inset:0;z-index:6;background:rgba(20,28,44,.97);display:grid;place-items:center;padding:20px}
   .calm[hidden]{display:none}
   .calm-card{width:min(380px,100%);text-align:center}
@@ -351,8 +381,11 @@
     </div>
     <div id="tasks"></div>
     <div class="chest" id="chest"></div>
+    <div id="week"></div>
+    <div class="calmlist" id="albumBox"></div>
     <div class="calmlist" id="calmList"></div>
     <div class="calmlist" id="gameList"></div>
+    <div class="calmlist" id="wishList"></div>
   </main>
 
   <details class="sim">
@@ -367,6 +400,9 @@
       <button class="chip" data-act-sim="mindful" data-n="5">+5 Min Achtsamkeit</button>
       <button class="chip" id="newDay">Neuer Tag</button>
       <button class="chip" id="growHour">Äcker: +1 Std</button>
+      <button class="chip" data-env="hour">Tageszeit: echt</button>
+      <button class="chip" data-env="weather">Wetter: echt</button>
+      <button class="chip" data-env="season">Jahreszeit: echt</button>
     </div>
   </details>
 
@@ -428,13 +464,13 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 const LANG = (() => { try { const s = JSON.parse(localStorage.getItem('lindenbach-settings')) || {}; if (s.lang) return s.lang; } catch(e) {}
   return (navigator.language || 'de').toLowerCase().startsWith('de') ? 'de' : 'en'; })();
 document.documentElement.lang = LANG;
-const EN = {"Dein Dorf wurde neu vermessen. Alle Gebäude liegen im Lager und warten auf einen neuen Platz.": "Your village has been re-measured. All buildings are in storage, waiting for a new spot.", "Truhe geöffnet: {}": "Chest opened: {}", "{} für {}": "{} for {}", "Guten Morgen, Tag {}. Vier neue Aufgaben warten.": "Good morning, day {}. Four new tasks are waiting.", "{} gebaut": "{} built", "Stufe 2 freigeschaltet: Hütte, Brunnen und mehr": "Tier 2 unlocked: hut, well and more", "Dein Zuhause ist jetzt {}.": "Your home is now {}.", "Dein Dorf wächst um {}! {}": "Your village grows by {}! {}", " und ": " and ", "{} gebaut. Weiter platzieren, ziehen zum Malen, Rechtsklick zum Beenden.": "{} built. Keep placing, drag to paint, right-click to finish.", "Dafür fehlen dir noch {}.": "You still need {}.", "{} aus dem Lager platziert": "{} placed from storage", "{}: noch nicht erschlossen": "{}: not yet developed", "Dein Zuhause: ": "Your home: ", "Neues Dorf angelegt": "New village created", "Zurücksetzen": "Reset", "Wirklich?": "Really?", "{} liegt jetzt im Lager": "{} is now in storage", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"back\">Abbrechen</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"back\">Cancel</button>", "Wohin mit: {}?": "Where should {} go?", "<button class=\"ghost\" data-act=\"done\">Fertig</button>": "<button class=\"ghost\" data-act=\"done\">Done</button>", "Bearbeiten: Tippe auf ein Gebäude.": "Edit: tap a building.", "<button class=\"ghost\" data-act=\"store\">Ins Lager</button>": "<button class=\"ghost\" data-act=\"store\">Store</button>", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"solid\" data-act=\"move\">Verschieben</button>{}<button class=\"ghost\" data-act=\"done\">Fertig</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"solid\" data-act=\"move\">Move</button>{}<button class=\"ghost\" data-act=\"done\">Done</button>", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"cancel\">Abbrechen</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"cancel\">Cancel</button>", " (aus dem Lager)": " (from storage)", "freies Feld": "free tile", "Wasserfeld": "water tile", "Tippe auf ein {}{} für: {}{}": "Tap a {}{} for: {}{}", "<button data-trade=\"{}\" data-n=\"{}\" {} aria-label=\"{} {} für {} Münzen\">+{}<small>{} Münzen</small></button>": "<button data-trade=\"{}\" data-n=\"{}\" {} aria-label=\"{} {} for {} coins\">+{}<small>{} coins</small></button>", "<p class=\"note\">Emil tauscht deine Münzen gegen Rohstoffe: {} Münzen pro Stück.</p>": "<p class=\"note\">Emil trades your coins for resources: {} coins each.</p>", "Der kurze Text oben links im Dorf": "The short text at the top left of the village", "Steuerungs-Hinweis auf der Karte": "Controls hint on the map", "Keine Übergänge, kein Wackeln, kein Pulsieren": "No transitions, no wobbling, no pulsing", "Ist in deinen Systemeinstellungen bereits aktiv": "Already active in your system settings", "Animationen reduzieren": "Reduce animations", "Dein Browser unterstützt kein Vorlesen": "Your browser does not support read-aloud", "Wilma liest das Gedicht des Tages vor, sobald du es öffnest": "Wilma reads the poem of the day aloud as soon as you open it", "Gedichte automatisch vorlesen": "Read poems aloud automatically", "Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen": "Soft sounds when building, collecting rewards and during calm exercises", "Klänge": "Sounds", "\n    <h3>Ton und Darstellung</h3>\n    {}\n    <div class=\"set-row\"><span><b>Lautstärke</b><small>{} %</small></span><input type=\"range\" min=\"10\" max=\"100\" step=\"10\" value=\"{}\" data-vol aria-label=\"Lautstärke\"></div>\n    {}\n    {}\n    {}\n    <h3>Steuerung mit der Maus</h3>\n    <table class=\"keytable\">\n      <tr><td>Karte verschieben</td><td>Linke Maustaste ziehen</td></tr>\n      <tr><td>Ansicht drehen</td><td>Rechte Maustaste ziehen (oder {} + ziehen)</td></tr>\n      <tr><td>Zoomen</td><td>Mausrad (zum Mauszeiger hin)</td></tr>\n      <tr><td>Abbrechen</td><td>Rechtsklick</td></tr>\n      <tr><td>Gebäude bearbeiten</td><td>Doppelklick auf das Gebäude</td></tr>\n      <tr><td>Wege und Deko malen</td><td>Beim Bauen mit gedrückter Maustaste ziehen</td></tr>\n    </table>\n    <h3>Steuerung auf dem Handy</h3>\n    <table class=\"keytable\">\n      <tr><td>Karte verschieben</td><td>Ein Finger ziehen</td></tr>\n      <tr><td>Zoomen und drehen</td><td>Zwei Finger</td></tr>\n      <tr><td>Wege malen</td><td>Beim Bauen mit dem Finger ziehen</td></tr>\n    </table>\n    <h3>Tastenkürzel</h3>\n    <table class=\"keytable\">\n      <tr><td>{}</td><td>Bau-Menü öffnen</td></tr>\n      <tr><td>{}</td><td>Bearbeiten an/aus</td></tr>\n      <tr><td>{}</td><td>Gebäude drehen</td></tr>\n      <tr><td>{}</td><td>Ausgewähltes Gebäude ins Lager</td></tr>\n      <tr><td>{} {}</td><td>Ansicht drehen</td></tr>\n      <tr><td>{} {} {} {} / Pfeiltasten</td><td>Karte verschieben</td></tr>\n      <tr><td>{} {}</td><td>Zoomen</td></tr>\n      <tr><td>{}</td><td>Abbrechen, Fenster schließen</td></tr>\n    </table>\n    <h3>Spielstand</h3>\n    <div class=\"set-row\"><span><b>Dorf zurücksetzen</b><small>Beginnt ein ganz neues Dorf. Das lässt sich nicht rückgängig machen.</small></span><button class=\"danger\" id=\"resetBtn\">Zurücksetzen</button></div>\n    <p class=\"note\" style=\"margin-top:14px\">Lindenbach, Web-Prototyp. Die Gedichte im Erzählhaus sind gemeinfrei.</p>": "\n    <h3>Sound and display</h3>\n    {}\n    <div class=\"set-row\"><span><b>Volume</b><small>{} %</small></span><input type=\"range\" min=\"10\" max=\"100\" step=\"10\" value=\"{}\" data-vol aria-label=\"Volume\"></div>\n    {}\n    {}\n    {}\n    <h3>Mouse controls</h3>\n    <table class=\"keytable\">\n      <tr><td>Move the map</td><td>Drag with the left mouse button</td></tr>\n      <tr><td>Rotate the view</td><td>Drag with the right mouse button (or {} + drag)</td></tr>\n      <tr><td>Zoom</td><td>Mouse wheel (towards the pointer)</td></tr>\n      <tr><td>Cancel</td><td>Right-click</td></tr>\n      <tr><td>Edit a building</td><td>Double-click the building</td></tr>\n      <tr><td>Paint paths and decorations</td><td>While building, drag with the mouse button held</td></tr>\n    </table>\n    <h3>Touch controls</h3>\n    <table class=\"keytable\">\n      <tr><td>Move the map</td><td>Drag with one finger</td></tr>\n      <tr><td>Zoom and rotate</td><td>Two fingers</td></tr>\n      <tr><td>Paint paths</td><td>While building, drag with your finger</td></tr>\n    </table>\n    <h3>Keyboard shortcuts</h3>\n    <table class=\"keytable\">\n      <tr><td>{}</td><td>Open the build menu</td></tr>\n      <tr><td>{}</td><td>Edit mode on/off</td></tr>\n      <tr><td>{}</td><td>Rotate building</td></tr>\n      <tr><td>{}</td><td>Put the selected building into storage</td></tr>\n      <tr><td>{} {}</td><td>Rotate the view</td></tr>\n      <tr><td>{} {} {} {} / arrow keys</td><td>Move the map</td></tr>\n      <tr><td>{} {}</td><td>Zoom</td></tr>\n      <tr><td>{}</td><td>Cancel, close windows</td></tr>\n    </table>\n    <h3>Saved game</h3>\n    <div class=\"set-row\"><span><b>Reset village</b><small>Starts a brand-new village. This cannot be undone.</small></span><button class=\"danger\" id=\"resetBtn\">Reset</button></div>\n    <p class=\"note\" style=\"margin-top:14px\">Lindenbach, web prototype. The poems in the storyteller's house are in the public domain.</p>", "Bauen": "Build", "Dorfschule": "Village school", "Einstellungen": "Settings", "Tauschstand": "Trading stall", "Ton einschalten": "Turn sound on", "Ton ausschalten": "Turn sound off", "Tag {}": "Day {}", "{}: {}. Heute: {}.": "{}: {}. Today: {}.", "{} Min Achtsamkeit": "{} min mindfulness", "{} Stockwerke": "{} floors", "{} Min Training": "{} min exercise", "heute {} Min Achtsamkeit": "today {} min mindfulness", "heute {} Stockwerke": "today {} floors", "heute {} Min Training": "today {} min exercise", "{}<p><strong>Tagesbonus: {}</strong>Hol alle vier Belohnungen ab, dann öffnet sich die Truhe ({} von {}).</p>": "{}<p><strong>Daily bonus: {}</strong>Collect all four rewards to open the chest ({} of {}).</p>", "{}<p><strong>Alle vier geschafft</strong>Deine Truhe ist bereit.</p><button class=\"claim\" id=\"openChest\">Öffnen</button>": "{}<p><strong>All four done</strong>Your chest is ready.</p><button class=\"claim\" id=\"openChest\">Open</button>", "{}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>": "{}<p><strong>Daily bonus collected</strong>New tasks tomorrow.</p>", "<button class=\"claim\" data-claim=\"{}\">Abholen</button>": "<button class=\"claim\" data-claim=\"{}\">Collect</button>", "<span class=\"claimed\">Abgeholt</span>": "<span class=\"claimed\">Collected</span>", "bereits gebaut": "already built", "Im Lager": "In storage", "Gebaut": "Built", "Gesperrt": "Locked", "{} (noch nicht erschlossen)": "{} (not yet developed)", "Noch {} Objekte": "{} more objects", "Stufe 2": "Tier 2", "Stufe 1": "Tier 1", "<button class=\"item\" data-id=\"{}\" data-src=\"storage\" aria-label=\"{} aus dem Lager, {} Stück\">\n        <span class=\"ico\">{}</span><span><span class=\"name\">{}</span><br><span class=\"desc\">Aus dem Lager holen</span></span>\n        <span class=\"tag\">{}× im Lager</span></button>": "<button class=\"item\" data-id=\"{}\" data-src=\"storage\" aria-label=\"{} from storage, {} pieces\">\n        <span class=\"ico\">{}</span><span><span class=\"name\">{}</span><br><span class=\"desc\">Take out of storage</span></span>\n        <span class=\"tag\">{}× in storage</span></button>", "<h3>Lager (kostenlos platzieren)</h3>": "<h3>Storage (place for free)</h3>", "<p class=\"note\">Fehlt dir ein Rohstoff? Tippe im Dorf auf den Tauschstand. <button class=\"close\" data-open-trade>Jetzt tauschen</button></p>": "<p class=\"note\">Missing a resource? Tap the trading stall in your village. <button class=\"close\" data-open-trade>Trade now</button></p>", "Dein Dorf hat seine volle Größe erreicht.": "Your village has reached its full size.", "Fahre über ein Schloss-Symbol, um zu sehen, wann dein Dorf wächst.": "Hover over a lock to see when your village grows.", "Objekte": "objects", "Objekt": "object", "<span class=\"pips\">{}</span>\n       <span>Noch {} {} aus Stufe 1 bis Stufe 2</span>": "<span class=\"pips\">{}</span>\n       <span>{} more {} from tier 1 until tier 2</span>", "Offen": "Open", "Gemacht": "Done", "Baue ein Lagerfeuer, eine Bank oder einen Brunnen, dann findest du hier tägliche Ruhe-Übungen.": "Build a campfire, a bench or a well, and you'll find daily calm exercises here.", "Tippe im Dorf auf die Blätter. Jede Übung läuft bis zu {} Minuten, ein Klang markiert jede volle Minute. Beenden kannst du jederzeit. Pro Minute gibt es {} Kräuter ({} von {} gemacht).": "Tap the leaves in your village. Each exercise lasts up to {} minutes, a chime marks every full minute. You can stop at any time. You get {} herbs per minute ({} of {} done).", "<h3>Ruheorte heute</h3><p>{}</p>": "<h3>Calm spots today</h3><p>{}</p>", " Minuten": " minutes", "die Minute": "the minute", "+{} Kräuter. Schön, dass du dir {} genommen hast.": "+{} herbs. Lovely that you took {}.", "Drei Minuten nur für dich. Wunderbar.": "Three minutes just for you. Wonderful.", "{} Minuten geschafft · +{} Kräuter": "{} minutes done · +{} herbs", "Schön": "Lovely", "Bleib einfach bei deinem Atem. Du kannst jederzeit beenden.": "Just stay with your breath. You can stop at any time.", "Minuten": "minutes", "Minute": "minute", "{} {} geschafft (+{} Kräuter). Es geht sanft weiter.": "{} {} done (+{} herbs). Gently continuing.", "Beenden": "Stop", "Minute {} von {} · noch 0:{}": "Minute {} of {} · 0:{} left", "Abbrechen": "Cancel", "Ruhe-Übung: {}": "Calm exercise: {}", "Gedicht des Tages im Erzählhaus": "Poem of the day at the storyteller's house", "Wilma freut sich über deinen Besuch: {}": "Wilma is happy you came by: {}", "Stopp": "Stop", "Vorlesen": "Read aloud", "keine Belohnung": "no reward", "Fragen": "questions", "Frage": "question", "Für {} beantwortete {}: {}": "For {} answered {}: {}", "Übungsrunde: ohne Belohnung.": "Practice round: no reward.", "Belohnung: <b>{}</b>": "Reward: <b>{}</b>", "Seltene Funde": "Rare Finds", "Quizrunde": "Quiz round", "<div class=\"game-top\"><span>{} · Auswertung</span></div>\n    <p class=\"result-big\">{}</p><p style=\"margin:0;color:#6B6455\">{}</p>\n    <div class=\"result-rows\">{}</div>\n    <p style=\"margin:12px 0 0\">{}</p>\n    <div class=\"game-next\"><button class=\"solid\" data-gdone>Fertig</button></div>": "<div class=\"game-top\"><span>{} · Results</span></div>\n    <p class=\"result-big\">{}</p><p style=\"margin:0;color:#6B6455\">{}</p>\n    <div class=\"result-rows\">{}</div>\n    <p style=\"margin:12px 0 0\">{}</p>\n    <div class=\"game-next\"><button class=\"solid\" data-gdone>Done</button></div>", "Probier ruhig ausgefallenere Antworten.": "Feel free to try more unusual answers.", "Schöne Funde dabei!": "Some nice finds!", "Was für seltene Funde!": "What rare finds!", "Morgen gibt es neue Fragen.": "New questions tomorrow.", "Gut gemacht!": "Well done!", "Alles richtig, Konrad ist beeindruckt!": "All correct, Konrad is impressed!", "{} Punkte": "{} points", "{} von {} richtig": "{} of {} correct", "Weiter": "Next", "Auswertung": "Results", "<p class=\"examples\"><b>Häufig:</b> {}<br><b>Raritäten:</b> {}</p>": "<p class=\"examples\"><b>Common:</b> {}<br><b>Rarities:</b> {}</p>", "<span class=\"tierbadge t-none\">Zeit um · +0</span>": "<span class=\"tierbadge t-none\">Time's up · +0</span>", "<span class=\"tierbadge t-none\">Nicht in unserer Liste</span>Versuch eine andere Antwort.": "<span class=\"tierbadge t-none\">Not on our list</span>Try another answer.", "Leider nicht. Richtig ist: {}": "Not quite. The answer is: {}", "Die Zeit ist um. Richtig wäre: {}": "Time's up. The answer would have been: {}", "Richtig!": "Correct!", "<p class=\"game-q\">{}</p><form class=\"rare-form\" id=\"rareForm\" autocomplete=\"off\"><input id=\"rareIn\" placeholder=\"Deine Antwort …\" aria-label=\"Deine Antwort\" enterkeyhint=\"send\"><button class=\"solid\">OK</button></form><p class=\"game-fb\" id=\"gFb\">Je seltener, desto mehr Punkte.</p><div class=\"game-next\" id=\"gNext\"></div>": "<p class=\"game-q\">{}</p><form class=\"rare-form\" id=\"rareForm\" autocomplete=\"off\"><input id=\"rareIn\" placeholder=\"Your answer …\" aria-label=\"Your answer\" enterkeyhint=\"send\"><button class=\"solid\">OK</button></form><p class=\"game-fb\" id=\"gFb\">The rarer, the more points.</p><div class=\"game-next\" id=\"gNext\"></div>", " · Übung": " · practice", "<div class=\"game-top\"><span>{}{} · {} von {}</span><span id=\"gTime\"></span><button data-gclose aria-label=\"Spiel beenden\">Beenden</button></div><div class=\"tbar\"><i></i></div>": "<div class=\"game-top\"><span>{}{} · {} of {}</span><span id=\"gTime\"></span><button data-gclose aria-label=\"End game\">End</button></div><div class=\"tbar\"><i></i></div>", "<button class=\"claim\" data-open-school>Zur Dorfschule</button>": "<button class=\"claim\" data-open-school>Go to the school</button>", "Baue die Dorfschule (Stufe 1), dann warten hier täglich zwei Rätselspiele mit Belohnungen.": "Build the village school (tier 1) and two daily puzzle games with rewards will be waiting here.", "heute gespielt": "played today", "Quizrunde: {} · Seltene Funde: {}": "Quiz round: {} · Rare Finds: {}", "<h3>Rätselspiele</h3><p>{}</p>{}": "<h3>Puzzle games</h3><p>{}</p>{}", "Heute noch offen: ": "Still open today: ", "Für heute hast du beide Belohnungen bekommen. Morgen gibt es neue Fragen.": "You've collected both rewards for today. New questions tomorrow.", "Spielen": "Play", "Üben": "Practice", "<p class=\"note\">Konrad hat jeden Tag zwei Rätselspiele vorbereitet. Die erste Runde am Tag bringt Belohnungen, danach kannst du so oft üben, wie du willst.</p>\n    <div class=\"gamecard-pick\"><span class=\"ico\">?</span><span><b>Quizrunde</b><small>{} Fragen zum Allgemeinwissen, je 4 Antworten, {} Sekunden Zeit. Pro richtiger Antwort Münzen und Rohstoffe.</small></span>\n      <button class=\"claim\" data-start=\"quiz\">{}</button></div>\n    <div class=\"gamecard-pick\"><span class=\"ico\">✦</span><span><b>Seltene Funde</b><small>{} offene Fragen, {} Sekunden. Je seltener deine richtige Antwort, desto mehr Punkte: Häufig 10 · Bekannt 30 · Selten 60 · Rarität 100.</small></span>\n      <button class=\"claim\" data-start=\"rare\">{}</button></div>\n    <p class=\"note\" style=\"margin-top:12px\">{}</p>": "<p class=\"note\">Konrad prepares two puzzle games every day. The first round of each day earns rewards; after that you can practise as often as you like.</p>\n    <div class=\"gamecard-pick\"><span class=\"ico\">?</span><span><b>Quiz round</b><small>{} general knowledge questions, 4 answers each, {} seconds. Coins and resources for every correct answer.</small></span>\n      <button class=\"claim\" data-start=\"quiz\">{}</button></div>\n    <div class=\"gamecard-pick\"><span class=\"ico\">✦</span><span><b>Rare Finds</b><small>{} open questions, {} seconds. The rarer your correct answer, the more points: Common 10 · Known 30 · Rare 60 · Rarity 100.</small></span>\n      <button class=\"claim\" data-start=\"rare\">{}</button></div>\n    <p class=\"note\" style=\"margin-top:12px\">{}</p>", "<b>{}</b><span>Kommt dazu bei {} Gebäuden</span><span>oder {} ausgegebenen Münzen.</span><span>Jetzt: {} Gebäude, {} Münzen</span>": "<b>{}</b><span>Joins at {} buildings</span><span>or {} coins spent.</span><span>Now: {} buildings, {} coins</span>", "<div class=\"nogl\">Dein Browser kann leider kein 3D (WebGL) darstellen.</div>": "<div class=\"nogl\">Sorry, your browser cannot display 3D (WebGL).</div>", "Münzen": "coins", "Hier ist kein Platz. Wähle ein freies Feld.": "There's no room here. Choose a free tile.", "{} gehört ins Wasser. Tippe auf ein Wasserfeld.": "{} belongs in the water. Tap a water tile.", "Dieser Teil des Dorfs ist noch nicht erschlossen.": "This part of the village hasn't been developed yet.", "Dein Zuhause: {}": "Your home: {}", "Einatmen": "Breathe in", "Ausatmen": "Breathe out", "Halten": "Hold", "Ton aus": "Sound off", "Ton an/aus": "Sound on/off", "Rohstoffe": "Resources", "Ansicht nach links drehen": "Rotate view left", "Ansicht nach rechts drehen": "Rotate view right", "Ansicht zurücksetzen": "Reset view", "Herauszoomen": "Zoom out", "Hineinzoomen": "Zoom in", "Bauen (B)": "Build (B)", "Bearbeiten: Gebäude verschieben oder ins Lager legen": "Edit: move buildings or put them into storage", "Bearbeiten (M)": "Edit (M)", "Bereiche": "Sections", "Rätselspiel": "Puzzle game", "Tag 1": "Day 1", "Heute": "Today", "Schritte": "steps", "Insgesamt": "Total", "Ziehen zum Verschieben, rechte Maustaste zum Drehen, Mausrad zum Zoomen": "Drag to move, right mouse button to rotate, mouse wheel to zoom", "Heutige Aufgaben": "Today's tasks", "Jeden Morgen warten vier neue Aufgaben.": "Four new tasks are waiting every morning.", "Testmodus: Schritte simulieren": "Test mode: simulate steps", "Ersetzt vorerst Apple Health. 1 Schritt = 1 Münze, 1 Stockwerk = 1 Stein, 1 Trainingsminute = 1 Holz, 1 Achtsamkeitsminute = 1 Kraut.": "Replaces Apple Health for now. 1 step = 1 coin, 1 floor = 1 stone, 1 exercise minute = 1 wood, 1 mindful minute = 1 herb.", "+5 Stockwerke": "+5 floors", "+15 Min Training": "+15 min exercise", "+5 Min Achtsamkeit": "+5 min mindfulness", "Neuer Tag": "New day", "Dorf": "Village", "Aufgaben": "Tasks", "Schließen": "Close", "Fertig": "Done", "Wilma trägt heute vor": "Wilma recites today", "Danke, Wilma": "Thank you, Wilma", "Alle Gedichte sind gemeinfrei: Ihre Dichter sind seit mehr als 70 Jahren verstorben.": "All poems are in the public domain: their poets died more than 70 years ago.", "Von": "By", "Aufgabe geschafft: {}": "Task complete: {}", "Summen": "Hum", "{} passt nur {}.": "{} only fits {}.", " (gesperrt)": " (locked)", "{} (nur dort baubar)": "{} (build only there)", "gesperrt": "locked", "es fehlen {}": "missing {}", "kostet {}": "costs {}"};
+const EN = {"Dein Dorf wurde neu vermessen. Alle Gebäude liegen im Lager und warten auf einen neuen Platz.": "Your village has been re-measured. All buildings are in storage, waiting for a new spot.", "Truhe geöffnet: {}": "Chest opened: {}", "{} für {}": "{} for {}", "Guten Morgen, Tag {}. Vier neue Aufgaben warten.": "Good morning, day {}. Four new tasks are waiting.", "{} gebaut": "{} built", "Stufe 2 freigeschaltet: Hütte, Brunnen und mehr": "Tier 2 unlocked: hut, well and more", "Dein Zuhause ist jetzt {}.": "Your home is now {}.", "Dein Dorf wächst um {}! {}": "Your village grows by {}! {}", " und ": " and ", "{} gebaut. Weiter platzieren, ziehen zum Malen, Rechtsklick zum Beenden.": "{} built. Keep placing, drag to paint, right-click to finish.", "Dafür fehlen dir noch {}.": "You still need {}.", "{} aus dem Lager platziert": "{} placed from storage", "{}: noch nicht erschlossen": "{}: not yet developed", "Dein Zuhause: ": "Your home: ", "Neues Dorf angelegt": "New village created", "Zurücksetzen": "Reset", "Wirklich?": "Really?", "{} liegt jetzt im Lager": "{} is now in storage", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"back\">Abbrechen</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"back\">Cancel</button>", "Wohin mit: {}?": "Where should {} go?", "<button class=\"ghost\" data-act=\"done\">Fertig</button>": "<button class=\"ghost\" data-act=\"done\">Done</button>", "Bearbeiten: Tippe auf ein Gebäude.": "Edit: tap a building.", "<button class=\"ghost\" data-act=\"store\">Ins Lager</button>": "<button class=\"ghost\" data-act=\"store\">Store</button>", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"solid\" data-act=\"move\">Verschieben</button>{}<button class=\"ghost\" data-act=\"done\">Fertig</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"solid\" data-act=\"move\">Move</button>{}<button class=\"ghost\" data-act=\"done\">Done</button>", "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Gebäude drehen (Taste R)\" title=\"Drehen (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"cancel\">Abbrechen</button>": "<button class=\"icon-btn\" data-act=\"rot\" aria-label=\"Rotate building (R key)\" title=\"Rotate (R)\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 12a8 8 0 1 1-2.5-5.8\"/><path d=\"M20 4v4h-4\"/></svg></button><button class=\"ghost\" data-act=\"cancel\">Cancel</button>", " (aus dem Lager)": " (from storage)", "freies Feld": "free tile", "Wasserfeld": "water tile", "Tippe auf ein {}{} für: {}{}": "Tap a {}{} for: {}{}", "<button data-trade=\"{}\" data-n=\"{}\" {} aria-label=\"{} {} für {} Münzen\">+{}<small>{} Münzen</small></button>": "<button data-trade=\"{}\" data-n=\"{}\" {} aria-label=\"{} {} for {} coins\">+{}<small>{} coins</small></button>", "<p class=\"note\">Emil tauscht deine Münzen gegen Rohstoffe: {} Münzen pro Stück.</p>": "<p class=\"note\">Emil trades your coins for resources: {} coins each.</p>", "Der kurze Text oben links im Dorf": "The short text at the top left of the village", "Steuerungs-Hinweis auf der Karte": "Controls hint on the map", "Keine Übergänge, kein Wackeln, kein Pulsieren": "No transitions, no wobbling, no pulsing", "Ist in deinen Systemeinstellungen bereits aktiv": "Already active in your system settings", "Animationen reduzieren": "Reduce animations", "Dein Browser unterstützt kein Vorlesen": "Your browser does not support read-aloud", "Wilma liest das Gedicht des Tages vor, sobald du es öffnest": "Wilma reads the poem of the day aloud as soon as you open it", "Gedichte automatisch vorlesen": "Read poems aloud automatically", "Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen": "Soft sounds when building, collecting rewards and during calm exercises", "Klänge": "Sounds", "\n    <h3>Ton und Darstellung</h3>\n    {}\n    <div class=\"set-row\"><span><b>Lautstärke</b><small>{} %</small></span><input type=\"range\" min=\"10\" max=\"100\" step=\"10\" value=\"{}\" data-vol aria-label=\"Lautstärke\"></div>\n    {}\n    {}\n    {}\n    <h3>Steuerung mit der Maus</h3>\n    <table class=\"keytable\">\n      <tr><td>Karte verschieben</td><td>Linke Maustaste ziehen</td></tr>\n      <tr><td>Ansicht drehen</td><td>Rechte Maustaste ziehen (oder {} + ziehen)</td></tr>\n      <tr><td>Zoomen</td><td>Mausrad (zum Mauszeiger hin)</td></tr>\n      <tr><td>Abbrechen</td><td>Rechtsklick</td></tr>\n      <tr><td>Gebäude bearbeiten</td><td>Doppelklick auf das Gebäude</td></tr>\n      <tr><td>Wege und Deko malen</td><td>Beim Bauen mit gedrückter Maustaste ziehen</td></tr>\n    </table>\n    <h3>Steuerung auf dem Handy</h3>\n    <table class=\"keytable\">\n      <tr><td>Karte verschieben</td><td>Ein Finger ziehen</td></tr>\n      <tr><td>Zoomen und drehen</td><td>Zwei Finger</td></tr>\n      <tr><td>Wege malen</td><td>Beim Bauen mit dem Finger ziehen</td></tr>\n    </table>\n    <h3>Tastenkürzel</h3>\n    <table class=\"keytable\">\n      <tr><td>{}</td><td>Bau-Menü öffnen</td></tr>\n      <tr><td>{}</td><td>Bearbeiten an/aus</td></tr>\n      <tr><td>{}</td><td>Gebäude drehen</td></tr>\n      <tr><td>{}</td><td>Ausgewähltes Gebäude ins Lager</td></tr>\n      <tr><td>{} {}</td><td>Ansicht drehen</td></tr>\n      <tr><td>{} {} {} {} / Pfeiltasten</td><td>Karte verschieben</td></tr>\n      <tr><td>{} {}</td><td>Zoomen</td></tr>\n      <tr><td>{}</td><td>Abbrechen, Fenster schließen</td></tr>\n    </table>\n    <h3>Spielstand</h3>\n    <div class=\"set-row\"><span><b>Dorf zurücksetzen</b><small>Beginnt ein ganz neues Dorf. Das lässt sich nicht rückgängig machen.</small></span><button class=\"danger\" id=\"resetBtn\">Zurücksetzen</button></div>\n    {}\n    <p class=\"note\" style=\"margin-top:14px\">Lindenbach, Web-Prototyp. Die Gedichte im Erzählhaus sind gemeinfrei.</p>": "\n    <h3>Sound and display</h3>\n    {}\n    <div class=\"set-row\"><span><b>Volume</b><small>{} %</small></span><input type=\"range\" min=\"10\" max=\"100\" step=\"10\" value=\"{}\" data-vol aria-label=\"Volume\"></div>\n    {}\n    {}\n    {}\n    <h3>Mouse controls</h3>\n    <table class=\"keytable\">\n      <tr><td>Move the map</td><td>Drag with the left mouse button</td></tr>\n      <tr><td>Rotate the view</td><td>Drag with the right mouse button (or {} + drag)</td></tr>\n      <tr><td>Zoom</td><td>Mouse wheel (towards the pointer)</td></tr>\n      <tr><td>Cancel</td><td>Right-click</td></tr>\n      <tr><td>Edit a building</td><td>Double-click the building</td></tr>\n      <tr><td>Paint paths and decorations</td><td>While building, drag with the mouse button held</td></tr>\n    </table>\n    <h3>Touch controls</h3>\n    <table class=\"keytable\">\n      <tr><td>Move the map</td><td>Drag with one finger</td></tr>\n      <tr><td>Zoom and rotate</td><td>Two fingers</td></tr>\n      <tr><td>Paint paths</td><td>While building, drag with your finger</td></tr>\n    </table>\n    <h3>Keyboard shortcuts</h3>\n    <table class=\"keytable\">\n      <tr><td>{}</td><td>Open the build menu</td></tr>\n      <tr><td>{}</td><td>Edit mode on/off</td></tr>\n      <tr><td>{}</td><td>Rotate building</td></tr>\n      <tr><td>{}</td><td>Put the selected building into storage</td></tr>\n      <tr><td>{} {}</td><td>Rotate the view</td></tr>\n      <tr><td>{} {} {} {} / arrow keys</td><td>Move the map</td></tr>\n      <tr><td>{} {}</td><td>Zoom</td></tr>\n      <tr><td>{}</td><td>Cancel, close windows</td></tr>\n    </table>\n    <h3>Saved game</h3>\n    <div class=\"set-row\"><span><b>Reset village</b><small>Starts a brand-new village. This cannot be undone.</small></span><button class=\"danger\" id=\"resetBtn\">Reset</button></div>\n    {}\n    <p class=\"note\" style=\"margin-top:14px\">Lindenbach, web prototype. The poems in the storyteller's house are in the public domain.</p>", "Bauen": "Build", "Dorfschule": "Village school", "Einstellungen": "Settings", "Tauschstand": "Trading stall", "Ton einschalten": "Turn sound on", "Ton ausschalten": "Turn sound off", "Tag {}": "Day {}", "{}: {}. Heute: {}.": "{}: {}. Today: {}.", "{} Min Achtsamkeit": "{} min mindfulness", "{} Stockwerke": "{} floors", "{} Min Training": "{} min exercise", "heute {} Min Achtsamkeit": "today {} min mindfulness", "heute {} Stockwerke": "today {} floors", "heute {} Min Training": "today {} min exercise", "{}<p><strong>Tagesbonus: {}</strong>Hol alle vier Belohnungen ab, dann öffnet sich die Truhe ({} von {}).</p>": "{}<p><strong>Daily bonus: {}</strong>Collect all four rewards to open the chest ({} of {}).</p>", "{}<p><strong>Alle vier geschafft</strong>Deine Truhe ist bereit.</p><button class=\"claim\" id=\"openChest\">Öffnen</button>": "{}<p><strong>All four done</strong>Your chest is ready.</p><button class=\"claim\" id=\"openChest\">Open</button>", "{}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>": "{}<p><strong>Daily bonus collected</strong>New tasks tomorrow.</p>", "<button class=\"claim\" data-claim=\"{}\">Abholen</button>": "<button class=\"claim\" data-claim=\"{}\">Collect</button>", "<span class=\"claimed\">Abgeholt</span>": "<span class=\"claimed\">Collected</span>", "bereits gebaut": "already built", "Im Lager": "In storage", "Gebaut": "Built", "Gesperrt": "Locked", "{} (noch nicht erschlossen)": "{} (not yet developed)", "Noch {} Objekte": "{} more objects", "Stufe 2": "Tier 2", "Stufe 1": "Tier 1", "<button class=\"item\" data-id=\"{}\" data-src=\"storage\" aria-label=\"{} aus dem Lager, {} Stück\">\n        <span class=\"ico\">{}</span><span><span class=\"name\">{}</span><br><span class=\"desc\">Aus dem Lager holen</span></span>\n        <span class=\"tag\">{}× im Lager</span></button>": "<button class=\"item\" data-id=\"{}\" data-src=\"storage\" aria-label=\"{} from storage, {} pieces\">\n        <span class=\"ico\">{}</span><span><span class=\"name\">{}</span><br><span class=\"desc\">Take out of storage</span></span>\n        <span class=\"tag\">{}× in storage</span></button>", "<h3>Lager (kostenlos platzieren)</h3>": "<h3>Storage (place for free)</h3>", "<p class=\"note\">Fehlt dir ein Rohstoff? Tippe im Dorf auf den Tauschstand. <button class=\"close\" data-open-trade>Jetzt tauschen</button></p>": "<p class=\"note\">Missing a resource? Tap the trading stall in your village. <button class=\"close\" data-open-trade>Trade now</button></p>", "Dein Dorf hat seine volle Größe erreicht.": "Your village has reached its full size.", "Fahre über ein Schloss-Symbol, um zu sehen, wann dein Dorf wächst.": "Hover over a lock to see when your village grows.", "Objekte": "objects", "Objekt": "object", "<span class=\"pips\">{}</span>\n       <span>Noch {} {} aus Stufe 1 bis Stufe 2</span>": "<span class=\"pips\">{}</span>\n       <span>{} more {} from tier 1 until tier 2</span>", "Offen": "Open", "Gemacht": "Done", "Baue ein Lagerfeuer, eine Bank oder einen Brunnen, dann findest du hier tägliche Ruhe-Übungen.": "Build a campfire, a bench or a well, and you'll find daily calm exercises here.", "Tippe im Dorf auf die Blätter. Jede Übung läuft bis zu {} Minuten, ein Klang markiert jede volle Minute. Beenden kannst du jederzeit. Pro Minute gibt es {} Kräuter ({} von {} gemacht).": "Tap the leaves in your village. Each exercise lasts up to {} minutes, a chime marks every full minute. You can stop at any time. You get {} herbs per minute ({} of {} done).", "<h3>Ruheorte heute</h3><p>{}</p>": "<h3>Calm spots today</h3><p>{}</p>", " Minuten": " minutes", "die Minute": "the minute", "+{} Kräuter. Schön, dass du dir {} genommen hast.": "+{} herbs. Lovely that you took {}.", "Drei Minuten nur für dich. Wunderbar.": "Three minutes just for you. Wonderful.", "{} Minuten geschafft · +{} Kräuter": "{} minutes done · +{} herbs", "Schön": "Lovely", "Bleib einfach bei deinem Atem. Du kannst jederzeit beenden.": "Just stay with your breath. You can stop at any time.", "Minuten": "minutes", "Minute": "minute", "{} {} geschafft (+{} Kräuter). Es geht sanft weiter.": "{} {} done (+{} herbs). Gently continuing.", "Beenden": "Stop", "Minute {} von {} · noch 0:{}": "Minute {} of {} · 0:{} left", "Abbrechen": "Cancel", "Ruhe-Übung: {}": "Calm exercise: {}", "Gedicht des Tages im Erzählhaus": "Poem of the day at the storyteller's house", "Wilma freut sich über deinen Besuch: {}": "Wilma is happy you came by: {}", "Stopp": "Stop", "Vorlesen": "Read aloud", "keine Belohnung": "no reward", "Fragen": "questions", "Frage": "question", "Für {} beantwortete {}: {}": "For {} answered {}: {}", "Übungsrunde: ohne Belohnung.": "Practice round: no reward.", "Belohnung: <b>{}</b>": "Reward: <b>{}</b>", "Seltene Funde": "Rare Finds", "Quizrunde": "Quiz round", "<div class=\"game-top\"><span>{} · Auswertung</span></div>\n    <p class=\"result-big\">{}</p><p style=\"margin:0;color:#6B6455\">{}</p>\n    <div class=\"result-rows\">{}</div>\n    <p style=\"margin:12px 0 0\">{}</p>\n    <div class=\"game-next\"><button class=\"solid\" data-gdone>Fertig</button></div>": "<div class=\"game-top\"><span>{} · Results</span></div>\n    <p class=\"result-big\">{}</p><p style=\"margin:0;color:#6B6455\">{}</p>\n    <div class=\"result-rows\">{}</div>\n    <p style=\"margin:12px 0 0\">{}</p>\n    <div class=\"game-next\"><button class=\"solid\" data-gdone>Done</button></div>", "Probier ruhig ausgefallenere Antworten.": "Feel free to try more unusual answers.", "Schöne Funde dabei!": "Some nice finds!", "Was für seltene Funde!": "What rare finds!", "Morgen gibt es neue Fragen.": "New questions tomorrow.", "Gut gemacht!": "Well done!", "Alles richtig, Konrad ist beeindruckt!": "All correct, Konrad is impressed!", "{} Punkte": "{} points", "{} von {} richtig": "{} of {} correct", "Weiter": "Next", "Auswertung": "Results", "<p class=\"examples\"><b>Häufig:</b> {}<br><b>Raritäten:</b> {}</p>": "<p class=\"examples\"><b>Common:</b> {}<br><b>Rarities:</b> {}</p>", "<span class=\"tierbadge t-none\">Zeit um · +0</span>": "<span class=\"tierbadge t-none\">Time's up · +0</span>", "<span class=\"tierbadge t-none\">Nicht in unserer Liste</span>Versuch eine andere Antwort.": "<span class=\"tierbadge t-none\">Not on our list</span>Try another answer.", "Leider nicht. Richtig ist: {}": "Not quite. The answer is: {}", "Die Zeit ist um. Richtig wäre: {}": "Time's up. The answer would have been: {}", "Richtig!": "Correct!", "<p class=\"game-q\">{}</p><form class=\"rare-form\" id=\"rareForm\" autocomplete=\"off\"><input id=\"rareIn\" placeholder=\"Deine Antwort …\" aria-label=\"Deine Antwort\" enterkeyhint=\"send\"><button class=\"solid\">OK</button></form><p class=\"game-fb\" id=\"gFb\">Je seltener, desto mehr Punkte.</p><div class=\"game-next\" id=\"gNext\"></div>": "<p class=\"game-q\">{}</p><form class=\"rare-form\" id=\"rareForm\" autocomplete=\"off\"><input id=\"rareIn\" placeholder=\"Your answer …\" aria-label=\"Your answer\" enterkeyhint=\"send\"><button class=\"solid\">OK</button></form><p class=\"game-fb\" id=\"gFb\">The rarer, the more points.</p><div class=\"game-next\" id=\"gNext\"></div>", " · Übung": " · practice", "<div class=\"game-top\"><span>{}{} · {} von {}</span><span id=\"gTime\"></span><button data-gclose aria-label=\"Spiel beenden\">Beenden</button></div><div class=\"tbar\"><i></i></div>": "<div class=\"game-top\"><span>{}{} · {} of {}</span><span id=\"gTime\"></span><button data-gclose aria-label=\"End game\">End</button></div><div class=\"tbar\"><i></i></div>", "<button class=\"claim\" data-open-school>Zur Dorfschule</button>": "<button class=\"claim\" data-open-school>Go to the school</button>", "Baue die Dorfschule (Stufe 1), dann warten hier täglich zwei Rätselspiele mit Belohnungen.": "Build the village school (tier 1) and two daily puzzle games with rewards will be waiting here.", "heute gespielt": "played today", "Quizrunde: {} · Seltene Funde: {}": "Quiz round: {} · Rare Finds: {}", "<h3>Rätselspiele</h3><p>{}</p>{}": "<h3>Puzzle games</h3><p>{}</p>{}", "Heute noch offen: ": "Still open today: ", "Für heute hast du beide Belohnungen bekommen. Morgen gibt es neue Fragen.": "You've collected both rewards for today. New questions tomorrow.", "Spielen": "Play", "Üben": "Practice", "<p class=\"note\">Konrad hat jeden Tag zwei Rätselspiele vorbereitet. Die erste Runde am Tag bringt Belohnungen, danach kannst du so oft üben, wie du willst.</p>\n    <div class=\"gamecard-pick\"><span class=\"ico\">?</span><span><b>Quizrunde</b><small>{} Fragen zum Allgemeinwissen, je 4 Antworten, {} Sekunden Zeit. Pro richtiger Antwort Münzen und Rohstoffe.</small></span>\n      <button class=\"claim\" data-start=\"quiz\">{}</button></div>\n    <div class=\"gamecard-pick\"><span class=\"ico\">✦</span><span><b>Seltene Funde</b><small>{} offene Fragen, {} Sekunden. Je seltener deine richtige Antwort, desto mehr Punkte: Häufig 10 · Bekannt 30 · Selten 60 · Rarität 100.</small></span>\n      <button class=\"claim\" data-start=\"rare\">{}</button></div>\n    <p class=\"note\" style=\"margin-top:12px\">{}</p>": "<p class=\"note\">Konrad prepares two puzzle games every day. The first round of each day earns rewards; after that you can practise as often as you like.</p>\n    <div class=\"gamecard-pick\"><span class=\"ico\">?</span><span><b>Quiz round</b><small>{} general knowledge questions, 4 answers each, {} seconds. Coins and resources for every correct answer.</small></span>\n      <button class=\"claim\" data-start=\"quiz\">{}</button></div>\n    <div class=\"gamecard-pick\"><span class=\"ico\">✦</span><span><b>Rare Finds</b><small>{} open questions, {} seconds. The rarer your correct answer, the more points: Common 10 · Known 30 · Rare 60 · Rarity 100.</small></span>\n      <button class=\"claim\" data-start=\"rare\">{}</button></div>\n    <p class=\"note\" style=\"margin-top:12px\">{}</p>", "<b>{}</b><span>Kommt dazu bei {} Gebäuden</span><span>oder {} ausgegebenen Münzen.</span><span>Jetzt: {} Gebäude, {} Münzen</span>": "<b>{}</b><span>Joins at {} buildings</span><span>or {} coins spent.</span><span>Now: {} buildings, {} coins</span>", "<div class=\"nogl\">Dein Browser kann leider kein 3D (WebGL) darstellen.</div>": "<div class=\"nogl\">Sorry, your browser cannot display 3D (WebGL).</div>", "Münzen": "coins", "Hier ist kein Platz. Wähle ein freies Feld.": "There's no room here. Choose a free tile.", "{} gehört ins Wasser. Tippe auf ein Wasserfeld.": "{} belongs in the water. Tap a water tile.", "Dieser Teil des Dorfs ist noch nicht erschlossen.": "This part of the village hasn't been developed yet.", "Dein Zuhause: {}": "Your home: {}", "Einatmen": "Breathe in", "Ausatmen": "Breathe out", "Halten": "Hold", "Ton aus": "Sound off", "Ton an/aus": "Sound on/off", "Rohstoffe": "Resources", "Ansicht nach links drehen": "Rotate view left", "Ansicht nach rechts drehen": "Rotate view right", "Ansicht zurücksetzen": "Reset view", "Herauszoomen": "Zoom out", "Hineinzoomen": "Zoom in", "Bauen (B)": "Build (B)", "Bearbeiten: Gebäude verschieben oder ins Lager legen": "Edit: move buildings or put them into storage", "Bearbeiten (M)": "Edit (M)", "Bereiche": "Sections", "Rätselspiel": "Puzzle game", "Tag 1": "Day 1", "Heute": "Today", "Schritte": "steps", "Insgesamt": "Total", "Ziehen zum Verschieben, rechte Maustaste zum Drehen, Mausrad zum Zoomen": "Drag to move, right mouse button to rotate, mouse wheel to zoom", "Heutige Aufgaben": "Today's tasks", "Jeden Morgen warten vier neue Aufgaben.": "Four new tasks are waiting every morning.", "Testmodus: Schritte simulieren": "Test mode: simulate steps", "Ersetzt vorerst Apple Health. 1 Schritt = 1 Münze, 1 Stockwerk = 1 Stein, 1 Trainingsminute = 1 Holz, 1 Achtsamkeitsminute = 1 Kraut.": "Replaces Apple Health for now. 1 step = 1 coin, 1 floor = 1 stone, 1 exercise minute = 1 wood, 1 mindful minute = 1 herb.", "+5 Stockwerke": "+5 floors", "+15 Min Training": "+15 min exercise", "+5 Min Achtsamkeit": "+5 min mindfulness", "Neuer Tag": "New day", "Dorf": "Village", "Aufgaben": "Tasks", "Schließen": "Close", "Fertig": "Done", "Wilma trägt heute vor": "Wilma recites today", "Danke, Wilma": "Thank you, Wilma", "Alle Gedichte sind gemeinfrei: Ihre Dichter sind seit mehr als 70 Jahren verstorben.": "All poems are in the public domain: their poets died more than 70 years ago.", "Von": "By", "Aufgabe geschafft: {}": "Task complete: {}", "Summen": "Hum", "{} passt nur {}.": "{} only fits {}.", " (gesperrt)": " (locked)", "{} (nur dort baubar)": "{} (build only there)", "gesperrt": "locked", "es fehlen {}": "missing {}", "kostet {}": "costs {}"};
 Object.assign(EN, {"Acker": "Field", "Pflanzen": "Plant", "Alle {}": "All {}", "Wächst {} · Ernte: +{} Kräuter": "Grows in {} · Harvest: +{} herbs",
   "<p class=\"note\">Wähle, was auf diesem Acker wachsen soll. Die Pflanzen wachsen in echter Zeit weiter, auch wenn das Spiel geschlossen ist. Ist ein Acker reif, tippst du ihn an und erntest Kräuter.</p>": "<p class=\"note\">Choose what should grow on this field. Plants keep growing in real time, even when the game is closed. When a field is ripe, tap it to harvest herbs.</p>",
   "Leere Äcker: {} · Wachsen: {} · Reif: {}": "Empty fields: {} · Growing: {} · Ripe: {}",
   "{} gepflanzt": "{} planted", "{} auf {} Äckern gepflanzt": "{} planted on {} fields", "{} wachsen noch {}.": "{} still need {}.",
   "{} geerntet: +{} Kräuter": "{} harvested: +{} herbs", "Ernten: {}": "Harvest: {}", "Die Pflanzen sind eine Stunde weiter gewachsen.": "The plants have grown for another hour.",
-  "Äcker: +1 Std": "Fields: +1 h", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
+  "Äcker: +1 Std": "Fields: +1 h", "Diese Woche": "This week", "Tag {} von 7": "Day {} of 7", "Abholen": "Collect", "Wanderwoche": "Hiking week", "Gehe diese Woche 50.000 Schritte": "Walk 50,000 steps this week", "Dranbleiben": "Keep it up", "Gehe an 4 Tagen mindestens 5.000 Schritte": "Walk at least 5,000 steps on 4 days", "Ruhige Woche": "Calm week", "Mach diese Woche 5 Ruhe-Übungen im Dorf": "Do 5 calm exercises in your village this week", "Erntewoche": "Harvest week", "Ernte diese Woche 10 Äcker": "Harvest 10 fields this week", "Rätselwoche": "Puzzle week", "Spiele diese Woche 6 Rätselspiele in der Schule": "Play 6 puzzle games at the school this week", "Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.": "No penalties: whatever you don't finish simply expires. New goals next week.", "Album": "Album", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} poems.", "Album öffnen": "Open album", "{} von {} Einträgen gesammelt ({} %).": "{} of {} entries collected ({} %).", "Gebäude ({} von {})": "Buildings ({} of {})", "Ernte ({} von {})": "Harvest ({} of {})", "{}× geerntet": "harvested {}×", "Gedichte ({} von {})": "Poems ({} of {})", "Noch nicht gelesen": "Not read yet", "Freundschaften": "Friendships", "Noch keine Bewohner im Dorf.": "No residents in the village yet.", "Wahrzeichen (wachsen mit deinen Schritten)": "Landmarks (grow with your steps)", "Nach: {}": "After: {}", "Fertig gebaut": "Completed", "Bauphase {} von {} · nächste in {} Schritten": "Construction phase {} of {} · next in {} steps", "Bauphase {} von {}": "construction phase {} of {}", "{} ist fertig! {}": "{} is finished! {}", "{} wächst: {}. {}": "{} is growing: {}. {}", "Dein Dorf hat seine volle Größe erreicht. {}: {}": "Your village has reached its full size. {}: {}", "Fundament": "foundation", "Mauern": "walls", "Tor": "gate", "Erster Turm": "first tower", "Zweiter Turm": "second tower", "Dach": "roof", "Fenster": "windows", "Innenhof": "courtyard", "Garten": "garden", "Fahnen und Einweihungsfest": "flags and grand opening", "Tageszeit": "Time of day", "Wetter": "Weather", "Jahreszeit": "Season", "echt": "real", "Morgen": "morning", "Mittag": "noon", "Abend": "evening", "Nacht": "night", "Sonne": "sun", "Regen": "rain", "Schnee": "snow", "Frühling": "spring", "Sommer": "summer", "Herbst": "autumn", "Winter": "winter", "Tageszeit, Wetter und Jahreszeiten": "Time of day, weather and seasons", "Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat": "Light follows the real time, sometimes rain or snow, trees and meadows change with the month", "Wünsche": "Wishes", "Wünsche der Bewohner": "Residents' wishes", "Wünsche ansehen": "See wishes", "Erfüllt": "Fulfilled", "Belohnung abholen": "Collect reward", "Übergeben": "Hand over", "Ich würde mich so über {} freuen!": "I would love a {}!", "Ich würde mich über {} × {} freuen!": "I would love {} × {}!", "Hast du {} {} {} für mich?": "Do you have {} {} of {} for me?", "Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.": "Every day one or two residents have a small wish. Fulfil it for a reward, and your friendship grows.", "Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.": "As soon as residents live in your village (e.g. in the village school or guest house), their wishes appear here.", "{} von {} gebaut": "{} of {} built", "Im Vorrat: {}": "In stock: {}", "Freundschaft {} von {}": "Friendship {} of {}", "{} strahlt: Danke! {} · Freundschaft {}": "{} beams: Thank you! {} · Friendship {}", "Heute noch offen: {} von {}. Tippe im Dorf auf die rosa Sprechblasen.": "Still open today: {} of {}. Tap the pink speech bubbles in your village.", "Alle Wünsche für heute erfüllt. Morgen gibt es neue.": "All wishes fulfilled for today. New ones tomorrow.", "Wunsch von {}": "Wish from {}", "1 Kiste": "1 crate", "{} Kisten": "{} crates", "Kiste": "crate", "Kisten": "crates", "{} Äcker geerntet: +{} Kräuter, {}": "{} fields harvested: +{} herbs, {}", "{} geerntet: +{} Kräuter, {}": "{} harvested: +{} herbs, {}", "Im Vorrat: {} Kisten.": "In stock: {} crates.", "Lene kauft sie im Hofladen.": "Lene buys them at the farm shop.", "Baue den Hofladen, dann kannst du sie verkaufen.": "Build the farm shop to sell them.", "Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.": "Lene buys your harvest. Every harvested field gives one crate.", "Alles verkaufen ({} Münzen)": "Sell everything ({} coins)", "Im Vorrat: {} · {} Münzen pro Kiste": "In stock: {} · {} coins per crate", "1 verkaufen": "Sell 1", "Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.": "No crates in stock yet. Harvest ripe fields in the Sunny Fields.", "{} {} verkauft: +{} Münzen": "{} {} sold: +{} coins", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Spielstand sichern": "Back up saved game", "Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.": "Downloads your village as a file so you can restore it later or on another device.", "Exportieren": "Export", "Spielstand laden": "Load saved game", "Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.": "Replaces your current village with a backup file.", "Importieren": "Import", "Spielstand gespeichert. Die Datei liegt in deinen Downloads.": "Game saved. The file is in your downloads.", "Wirklich laden?": "Really load?", "Gefunden: Dorf an Tag {} mit {} Objekten. Tippe noch einmal, um es zu laden.": "Found: village on day {} with {} objects. Tap again to load it.", "Diese Datei ist kein Lindenbach-Spielstand.": "This file is not a Lindenbach saved game.", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
 const t = s => LANG === 'en' ? (EN[s] ?? s) : s;
 function tt(strings, ...vals){ const key = strings.join('{}'); const tr = LANG === 'en' ? (EN[key] ?? key) : key; let i = 0;
   return tr.replace(/\{(\d*)\}/g, (_, d) => String(vals[d === '' ? i++ : +d] ?? '')); }
@@ -454,7 +490,8 @@ const EN_DATA = {
     quarry:['Quarry', 'Stone is cut here'], chapel:['Mountain chapel', 'Its bell can be heard across the valley'],
     sunflower:['Sunflowers', 'They turn to follow the sun'], beehive:['Beehives', 'Buzzing and smelling of honey'], farmstand:['Farm shop', 'Apples, pumpkins and fresh eggs'],
     farm:['Farm', 'With a barn, a silo and chickens'], windmill:['Windmill', 'Its sails turn in the wind'],
-    field:['Field', 'Plant crops here and harvest herbs']
+    field:['Field', 'Plant crops here and harvest herbs'],
+    lighthouse:['Lighthouse', 'Landmark on the lakeshore'], clocktower:['Clock tower', 'Its bell strikes every hour'], palace:['Little palace', 'The big goal of your village']
   },
   crops: {radish:'Radishes', carrot:'Carrots', potato:'Potatoes', pumpkin:'Pumpkins', strawberry:'Strawberries'},
   regions: {
@@ -477,7 +514,8 @@ const EN_DATA = {
     f15:['Tower climb', 'Climb 15 floors today'], w45:['Endurance hero', 'Exercise for 45 minutes today'],
     b1:['Builder', 'Build one object today'], p3:['Path builder', 'Lay 3 path tiles today'], d2:['Beautifier', 'Place 2 decorations today'],
     b2:['Busy hands', 'Build 2 objects today'], p8:['Paver', 'Lay 8 path tiles today'],
-    v3:['Village walk', 'Tap 3 places in your village'], t2:['Chat time', 'Talk to 2 residents'], c5:['Saver', 'Have 5,000 coins at once']
+    v3:['Village walk', 'Tap 3 places in your village'], t2:['Chat time', 'Talk to 2 residents'], c5:['Saver', 'Have 5,000 coins at once'],
+    h2:['Harvest time', 'Harvest 2 fields today'], g4:['Sowing', 'Plant 4 fields today'], k3:['Market day', 'Sell 3 crates at the farm shop today'], h5:['Bumper crop', 'Harvest 5 fields today']
   },
   exercises: {
     home:{place:'In front of your home', title:'Morning stretch', steps:['Stand up straight and stretch your arms high above you.', 'Slowly lean to the left … and to the right.', 'Lower your arms and roll your shoulders back.', 'Take one deep breath and smile.']},
@@ -506,7 +544,10 @@ const EN_DATA = {
     goatbarn:[['Goatherd', ['The goats love the lavender.']], ['Goat', ['Baa!']], ['Goat', ['Baaa!']]],
     farmstand:[['Farm shop keeper', ['The apples were picked this morning!', 'Pumpkins while stocks last.']]],
     farm:[['Farmer', ['The hens are laying nicely.', 'After the harvest we’ll have a party.']], ['Hen', ['Cluck!']], ['Hen', ['Cluck, cluck!']]],
-    windmill:[['Miller', ['In this wind the mill grinds all by itself.', 'They bake the best bread in the valley from my flour.']]]
+    windmill:[['Miller', ['In this wind the mill grinds all by itself.', 'They bake the best bread in the valley from my flour.']]],
+    lighthouse:[['Lighthouse keeper', ['On clear nights you can see my light from the mountains.', 'Every one of your steps helped build this tower.']]],
+    clocktower:[['Clockmaker', ['Tick, tock: your village runs like clockwork.', 'I wind the clock every Sunday.']]],
+    palace:[['Princess', ['Welcome to my little palace!', 'Lindenbach is the most beautiful village in the whole land.']]]
   },
   poems: [
     {title:'The Eagle', author:'Alfred, Lord Tennyson (1809–1892)', text:['He clasps the crag with crooked hands;', 'Close to the sun in lonely lands,', 'Ring’d with the azure world, he stands.', '', 'The wrinkled sea beneath him crawls;', 'He watches from his mountain walls,', 'And like a thunderbolt he falls.']},
@@ -671,6 +712,9 @@ Object.assign(ART, {
   windmill:'<path d="M16 45 19 20h10l3 25Z" fill="#F3EBDD"/><path d="M17 20 24 11l7 9Z" fill="#B5533C"/><rect x="21" y="36" width="6" height="9" fill="#5A3D2B"/><g transform="rotate(20 24 17)"><rect x="22.5" y="1" width="3" height="32" fill="#6E4329"/><rect x="8" y="15.5" width="32" height="3" fill="#6E4329"/><rect x="25.5" y="2" width="5" height="12" fill="#F3EBDD"/><rect x="17.5" y="20" width="5" height="12" fill="#F3EBDD"/><rect x="9" y="11.5" width="12" height="4" fill="#F3EBDD"/><rect x="27" y="18.5" width="12" height="4" fill="#F3EBDD"/></g><circle cx="24" cy="17" r="2.5" fill="#3F3A4A"/>'
 });
 Object.assign(ART, {
+  lighthouse:'<rect x="8" y="40" width="32" height="5" rx="2" fill="#9C978C"/><path d="M18 40 20 14h8l2 26Z" fill="#F3EBDD"/><path d="M19.2 30h9.6l.5 5h-10.6ZM20.2 19h7.6l.4 4h-8.4Z" fill="#C8473C"/><rect x="18" y="10" width="12" height="4" fill="#3F3A4A"/><rect x="20" y="5" width="8" height="5" fill="#FFE08A"/><path d="M19 5h10l-5-4Z" fill="#C8473C"/><path d="M28 7l16-4v8Z" fill="#FFF3B0" opacity=".7"/>',
+  clocktower:'<rect x="14" y="16" width="20" height="29" fill="#D8C8AE"/><rect x="13" y="14" width="22" height="3" fill="#B9A88E"/><circle cx="24" cy="24" r="6" fill="#F3EBDD" stroke="#C9952A" stroke-width="1.5"/><path d="M24 24v-4M24 24h3" stroke="#3F3A4A" stroke-width="1.5"/><rect x="21" y="37" width="6" height="8" fill="#5A3D2B"/><path d="M12 14 24 2l12 12Z" fill="#5A6475"/><circle cx="24" cy="2.5" r="1.5" fill="#C9952A"/>',
+  palace:'<rect x="4" y="38" width="40" height="7" fill="#E8DCC6"/><rect x="14" y="24" width="20" height="15" fill="#F1E4C8"/><path d="M12 25 24 16l12 9Z" fill="#4F6D9A"/><rect x="5" y="18" width="7" height="21" fill="#E8DCC6"/><rect x="36" y="18" width="7" height="21" fill="#E8DCC6"/><path d="M4 19l4.5-8 4.5 8ZM35 19l4.5-8 4.5 8Z" fill="#4F6D9A"/><g fill="#FFE08A"><rect x="17" y="29" width="3" height="4"/><rect x="28" y="29" width="3" height="4"/></g><rect x="22" y="31" width="4" height="8" fill="#5A3D2B"/><path d="M8.5 11V5l5 2-5 2" fill="#C8473C" stroke="#3F3A4A" stroke-width=".6"/>',
   field:'<path d="M4 30 24 20l20 10-20 10Z" fill="#7A5232"/><path d="M10 27l20 10M16 24l20 10M22 21l20 10" stroke="#5A3D26" stroke-width="2"/><g fill="#6DB35A"><circle cx="15" cy="27" r="2"/><circle cx="22" cy="31" r="2"/><circle cx="27" cy="26" r="2"/><circle cx="33" cy="30" r="2"/></g>',
   radish:'<path d="M24 6c-3 3-4 7-3 11M24 6c3 3 4 7 3 11" stroke="#4E8F4A" stroke-width="3" fill="none"/><path d="M17 12c-4-1-7 1-8 4 4 1 7 0 8-4Zm14 0c4-1 7 1 8 4-4 1-7 0-8-4Z" fill="#6DB35A"/><circle cx="24" cy="28" r="11" fill="#E0526A"/><path d="M24 39v6" stroke="#F3EBDD" stroke-width="2"/><ellipse cx="20" cy="25" rx="3" ry="2" fill="#F28DA0"/>',
   carrot:'<path d="M20 14 28 14 25 44Z" fill="#F08A3C"/><path d="M21 20h5M22 27h4M23 34h3" stroke="#D9702A" stroke-width="1.5"/><path d="M24 14c-2-4-6-7-9-7 1 4 4 7 9 7Zm0 0c0-5 1-9 4-11 1 4 0 8-4 11Zm0 0c3-3 7-4 10-3-2 3-6 4-10 3Z" fill="#5FA34B"/>',
@@ -717,8 +761,29 @@ const CATALOG = [
   {id:'beehive',   name:'Bienenstöcke',   area:'felder', cost:6000,  desc:'Es summt und duftet nach Honig'},
   {id:'farmstand', name:'Hofladen',       area:'felder', cost:12000, desc:'Äpfel, Kürbisse und frische Eier'},
   {id:'farm',      name:'Bauernhof',      area:'felder', cost:26000, desc:'Mit Scheune, Silo und Hühnern'},
-  {id:'windmill',  name:'Windmühle',      area:'felder', cost:42000, desc:'Ihre Flügel drehen sich im Wind'}
+  {id:'windmill',  name:'Windmühle',      area:'felder', cost:42000, desc:'Ihre Flügel drehen sich im Wind'},
+  // Wahrzeichen: kosten nichts, wachsen aber nur mit Lebensschritten (nacheinander, siehe LANDMARKS)
+  {id:'lighthouse', name:'Leuchtturm',     area:'see', cost:0, landmark:true, desc:'Wahrzeichen am Seeufer'},
+  {id:'clocktower', name:'Uhrturm',        area:'any', cost:0, landmark:true, desc:'Seine Glocke schlägt jede Stunde'},
+  {id:'palace',     name:'Kleiner Palast', area:'any', cost:0, landmark:true, desc:'Das große Ziel deines Dorfs'}
 ];
+// Reihenfolge, Schritte und Bauphasen der Wahrzeichen (Spieldesign, Stufe 4). Die Schritte zählen nacheinander.
+const LANDMARKS = [
+  {id:'lighthouse', steps:200000,  phases:4,  reward:{coins:1000, wood:10, stone:10}},
+  {id:'clocktower', steps:400000,  phases:8,  reward:{coins:1500, wood:12, stone:15}},
+  {id:'palace',     steps:1000000, phases:10, reward:{coins:2500, wood:15, stone:20, herbs:10}}
+];
+const PALACE_PHASES = ['Fundament', 'Mauern', 'Tor', 'Erster Turm', 'Zweiter Turm', 'Dach', 'Fenster', 'Innenhof', 'Garten', 'Fahnen und Einweihungsfest'];
+function lmState(id){
+  let off = 0, prevDone = true;
+  for (const L of LANDMARKS) {
+    const prog = Math.max(0, Math.min(L.steps, S.lifetime - off)), per = L.steps / L.phases, phase = Math.floor(prog / per + 1e-9);
+    const st = {L, open:prevDone, phase, phases:L.phases, done:phase >= L.phases, next:phase >= L.phases ? 0 : Math.ceil((phase + 1) * per - prog), prog};
+    if (L.id === id) return st;
+    prevDone = st.done; off += L.steps;
+  }
+  return null;
+}
 CATALOG.forEach(b => { b.area = b.area || 'any'; });
 
 /* ---------- Rohstoffe ---------- */
@@ -739,17 +804,18 @@ const MATS = {
 const COINS = {school:1200, storyhouse:10000, path:50, fence:300, campfire:400, bench:800, lantern:1200, flowerbed:1500, garden:6000, hut:8000, pond:9000, well:12000, guesthouse:16000,
   reeds:300, rowboat:2500, dock:5000, shellstand:7000, fisherhut:11000, pine:500, mushrooms:2000, lumberhut:14000, treehouse:18000, forester:24000,
   lavender:700, viewbench:3000, goatbarn:16000, quarry:20000, chapel:32000,
-  sunflower:800, beehive:5000, farmstand:9000, farm:22000, windmill:36000, field:300};
+  sunflower:800, beehive:5000, farmstand:9000, farm:22000, windmill:36000, field:300, lighthouse:0, clocktower:0, palace:0};
 CATALOG.forEach(b => { b.mat = MATS[b.id] || {}; b.cost = COINS[b.id] ?? b.cost; });
 const RATE = 100;                                    // Tauschstand: 100 Münzen pro Rohstoff
 const byId = Object.fromEntries(CATALOG.map(b => [b.id, b]));
-// Äcker: Was man anpflanzen kann. cost = Münzen, mat = Rohstoffe beim Pflanzen, mins = Wachstum in echten Minuten, yield = Kräuter bei der Ernte
+// Äcker: Was man anpflanzen kann. cost = Münzen, mat = Rohstoffe beim Pflanzen, mins = Wachstum in echten Minuten, yield = Kräuter bei der Ernte,
+// price = Münzen pro Kiste im Hofladen (jeder geerntete Acker ergibt eine Kiste)
 const CROPS = [
-  {id:'radish',     name:'Radieschen', cost:200,  mat:{},         mins:3,   yield:4},
-  {id:'carrot',     name:'Karotten',   cost:500,  mat:{},         mins:15,  yield:8},
-  {id:'potato',     name:'Kartoffeln', cost:0,    mat:{herbs:4},  mins:45,  yield:14},
-  {id:'pumpkin',    name:'Kürbisse',   cost:0,    mat:{herbs:10}, mins:120, yield:32},
-  {id:'strawberry', name:'Erdbeeren',  cost:2000, mat:{herbs:5},  mins:360, yield:60}
+  {id:'radish',     name:'Radieschen', cost:200,  mat:{},         mins:3,   yield:4,  price:150},
+  {id:'carrot',     name:'Karotten',   cost:500,  mat:{},         mins:15,  yield:8,  price:350},
+  {id:'potato',     name:'Kartoffeln', cost:0,    mat:{herbs:4},  mins:45,  yield:14, price:600},
+  {id:'pumpkin',    name:'Kürbisse',   cost:0,    mat:{herbs:10}, mins:120, yield:32, price:1500},
+  {id:'strawberry', name:'Erdbeeren',  cost:2000, mat:{herbs:5},  mins:360, yield:60, price:3000}
 ];
 enApply('crops');
 const CROP_BY = Object.fromEntries(CROPS.map(c => [c.id, c]));
@@ -774,7 +840,7 @@ enApply('base');
 const SPECIAL = {home:HOME_ITEM, market:MARKET_ITEM};       // gehören zum Dorf, können nicht ins Lager
 // Grundfläche in Feldern: Wege und kleine Deko 1 × 1, kleinere Bauten 2 × 2, Häuser 3 × 3, Zuhause 4 × 4
 const FOOT = {path:1, fence:1, lantern:1, reeds:1, pine:1, lavender:1,
-  campfire:2, bench:2, flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, home:4, market:2};
+  campfire:2, bench:2, flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:4, home:4, market:2};
 const sizeOf = id => FOOT[id] ?? 3;
 // Sichtbare Größe der Modelle (die Modelle sind für 1 Feld gebaut)
 const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], home:[2, 2, 2]};
@@ -805,7 +871,7 @@ const regionAt = (x, y) => REGIONS.find(r => x >= r.x0 && x <= r.x1 && y >= r.y0
    Spielstand
    ========================================================= */
 const KEY = 'lindenbach-v3', OLD_KEYS = ['lindenbach-v2', 'lindenbach-v1'];
-const freshDay = () => ({ stats:{built:0, paths:0, visits:0, maxCoins:0, talks:0, deco:0, calm:0, poems:0}, act:{floors:0, workout:0, mindful:0}, calmDone:[], poemRead:false, games:{quiz:false, rare:false}, claimed:[], notified:[], chest:false });
+const freshDay = () => ({ stats:{built:0, paths:0, visits:0, maxCoins:0, talks:0, deco:0, calm:0, poems:0, harvest:0, planted:0, sold:0}, act:{floors:0, workout:0, mindful:0}, calmDone:[], poemRead:false, games:{quiz:false, rare:false}, claimed:[], notified:[], chest:false, farmTask:null });
 const fresh = () => ({ day:1, today:3200, lifetime:3200, spent:0, bonus:0, res:{wood:20, stone:20, herbs:10}, placed:[{id:'home', x:14, y:14, uid:1}, {id:'market', x:19, y:16, uid:2}], storage:{}, unlocked:['lichtung'], t2:false, ...freshDay() });
 let migrated = false;
 function load(){
@@ -828,6 +894,10 @@ S.act = Object.assign(freshDay().act, S.act);
 S.calmDone = S.calmDone || [];
 S.games = S.games || {quiz:false, rare:false};
 S.res = Object.assign({wood:20, stone:20, herbs:10}, S.res);
+S.pantry = S.pantry || {};
+S.friends = S.friends || {};
+S.album = S.album || {built:[...new Set([...S.placed.map(p => p.id), ...Object.keys(S.storage)])].filter(id => byId[id]), crops:{}, poems:[]};
+if (!S.lm) S.lm = Object.fromEntries(LANDMARKS.map(L => [L.id, lmState(L.id).phase]));   // erreichte Bauphasen der Wahrzeichen                                 // Freundschaft mit Bewohnern (0 bis 5 Herzen)                                   // geerntete Kisten für den Hofladen
 S.storage = S.storage || {}; S.unlocked = S.unlocked || ['lichtung'];
 let nextUid = 1;
 S.placed.forEach(p => { if (p.id === 'tent') p.id = 'home'; nextUid = Math.max(nextUid, (p.uid || 0) + 1); });
@@ -910,6 +980,7 @@ const TICON = {
   workout:'<svg viewBox="0 0 24 24" fill="none" stroke="#E2B987" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>',
   mindful:'<svg viewBox="0 0 24 24" fill="#6DB35A" aria-hidden="true"><path d="M12 4c2 3 2 7 0 11-2-4-2-8 0-11Zm-1 12c-4 0-7-2-8-6 4 0 7 2 8 6Zm2 0c1-4 4-6 8-6-1 4-4 6-8 6Z"/></svg>',
   build:'<svg viewBox="0 0 24 24" fill="none" stroke="#F2C14E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l4 4-9 9-4-4z"/><path d="M13 4l7 7"/><path d="M3 21l2-2"/></svg>',
+  farm:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18l-2.2 10H5.2Z" fill="#E2B987"/><path d="M8 10l3-6M16 10l-3-6" stroke="#F3EBDD" stroke-width="2" stroke-linecap="round"/><circle cx="9.5" cy="9" r="2.2" fill="#D9483B"/><circle cx="14.5" cy="9" r="2.2" fill="#F08A3C"/></svg>',
   cozy:'<svg viewBox="0 0 24 24" fill="#F28DB2" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg>'
 };
 const TASKS = {
@@ -940,21 +1011,35 @@ const TASKS = {
     {id:'v3', kind:'cozy', title:'Dorfrundgang',  text:'Tippe 3 Orte in deinem Dorf an', metric:'visits',   goal:3,    reward:{coins:150}},
     {id:'t2', kind:'cozy', title:'Plauderstunde', text:'Sprich mit 2 Bewohnern',         metric:'talks',    goal:2,    reward:{coins:200, herbs:2}},
     {id:'c5', kind:'cozy', title:'Sparfuchs',     text:'Habe 5.000 Münzen auf einmal',   metric:'maxCoins', goal:5000, reward:{coins:300}}
+  ],
+  farm: [                                             // nur an manchen Tagen, wenn es Äcker gibt
+    {id:'h2', kind:'farm', title:'Erntezeit',   text:'Ernte heute 2 Äcker',                 metric:'harvest', goal:2, reward:{coins:300, herbs:4}},
+    {id:'g4', kind:'farm', title:'Aussaat',     text:'Bepflanze heute 4 Äcker',             metric:'planted', goal:4, reward:{coins:300, wood:5}},
+    {id:'k3', kind:'farm', title:'Markttag',    text:'Verkaufe heute 3 Kisten im Hofladen', metric:'sold',    goal:3, reward:{coins:500}},
+    {id:'h5', kind:'farm', title:'Reiche Ernte', text:'Ernte heute 5 Äcker',                metric:'harvest', goal:5, reward:{coins:700, herbs:8}}
   ]
 };
 enApply('tasks');
 const CHEST = {coins:500, wood:5, stone:5, herbs:5};
+// Jeden zweiten Tag ersetzt eine Acker-Aufgabe die gemütliche Aufgabe, sobald es Äcker gibt. Die Wahl gilt für den ganzen Tag.
+function farmTaskToday(){
+  if (S.farmTask == null) {
+    const d = S.day - 1, list = TASKS.farm.filter(x => x.metric !== 'sold' || S.placed.some(p => p.id === 'farmstand'));
+    S.farmTask = S.placed.some(p => p.id === 'field') && d % 2 === 0 ? list[Math.floor(d / 2) % list.length].id : '';
+  }
+  return TASKS.farm.find(x => x.id === S.farmTask) || null;
+}
 const todaysTasks = () => { const d = S.day - 1;
-  return [TASKS.step[d % TASKS.step.length], TASKS.body[d % TASKS.body.length], TASKS.build[(d + 1) % TASKS.build.length], TASKS.cozy[(d + 2) % TASKS.cozy.length]]; };
-const progressOf = t => t.metric === 'steps' ? S.today : (t.metric in S.act ? S.act[t.metric] : S.stats[t.metric]);
-const isDone = t => progressOf(t) >= t.goal;
-const claimable = () => todaysTasks().filter(t => isDone(t) && !S.claimed.includes(t.id));
-const allClaimed = () => todaysTasks().every(t => S.claimed.includes(t.id));
+  return [TASKS.step[d % TASKS.step.length], TASKS.body[d % TASKS.body.length], TASKS.build[(d + 1) % TASKS.build.length], farmTaskToday() || TASKS.cozy[(d + 2) % TASKS.cozy.length]]; };
+const progressOf = tm => tm.metric === 'steps' ? S.today : (tm.metric in S.act ? S.act[tm.metric] : S.stats[tm.metric]);
+const isDone = tm => progressOf(tm) >= tm.goal;
+const claimable = () => todaysTasks().filter(tm => isDone(tm) && !S.claimed.includes(tm.id));
+const allClaimed = () => todaysTasks().every(tm => S.claimed.includes(tm.id));
 function checkCompletions(){
   S.stats.maxCoins = Math.max(S.stats.maxCoins, coins());
-  const newly = todaysTasks().filter(t => isDone(t) && !S.notified.includes(t.id));
-  newly.forEach(t => S.notified.push(t.id));
-  return newly.length ? tt`Aufgabe geschafft: ${newly.map(t => t.title).join(', ')}` : null;
+  const newly = todaysTasks().filter(tm => isDone(tm) && !S.notified.includes(tm.id));
+  newly.forEach(tm => S.notified.push(tm.id));
+  return newly.length ? tt`Aufgabe geschafft: ${newly.map(tm => tm.title).join(', ')}` : null;
 }
 const rewardText = r => Object.entries(r).filter(([, v]) => v).map(([k, v]) => `+${fmt(v)} ${k === 'coins' ? t('Münzen') : RSRC[k].name}`).join(', ');
 const rewardHtml = r => Object.entries(r).filter(([, v]) => v).map(([k, v]) => `<span>${k === 'coins' ? COIN : RSRC[k].icon}+${fmt(v)}</span>`).join('');
@@ -965,7 +1050,7 @@ const rewardHtml = r => Object.entries(r).filter(([, v]) => v).map(([k, v]) => `
 const $ = id => document.getElementById(id);
 const sceneEl = $('scene');
 const sysReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let SET = {sound:true, music:true, vol:70, reduce:false, hints:true, autoRead:false};
+let SET = {sound:true, music:true, env:true, vol:70, reduce:false, hints:true, autoRead:false};
 try { SET = Object.assign(SET, JSON.parse(localStorage.getItem('lindenbach-settings')) || {}); if (localStorage.getItem('lindenbach-sound') === 'off') SET.sound = false; } catch(e) {}
 let reduce = sysReduce || SET.reduce;
 document.body.classList.toggle('reduce', SET.reduce);
@@ -984,7 +1069,7 @@ if (renderer) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   sceneEl.prepend(renderer.domElement);
 }
-scene.add(new THREE.HemisphereLight('#dfeaff', '#6b5a48', 1.15));
+const hemi = new THREE.HemisphereLight('#dfeaff', '#6b5a48', 1.15); scene.add(hemi);
 const sun = new THREE.DirectionalLight('#fff1d6', 2.1);
 sun.position.set(9, 16, 7);
 sun.castShadow = true;
@@ -1116,7 +1201,7 @@ const MODELS = {
       const l = cyl(.06, .06, .28, '#C79A6B', 0, 0, 0, 7); l.rotation.x = Math.PI / 2; l.position.set(x, y, z); return l; })),
   treehouse: () => group(
     cyl(.09, .13, .75, WOOD_DD, 0, 0, 0, 7),
-    ball(.36, '#4E8F4A', 0, .95, -.05), ball(.22, '#5FA34B', -.25, .8, .05), ball(.22, '#5FA34B', .25, .82, -.1),
+    ball(.36, '#4E8F4B', 0, .95, -.05), ball(.22, '#5FA34C', -.25, .8, .05), ball(.22, '#5FA34C', .25, .82, -.1),
     box(.36, .24, .3, WOOD, 0, .48, .16), gable(.42, .16, .36, '#8C4A6B', 0, .72, .16),
     box(.1, .1, .02, WIN, 0, .56, .32, true),
     box(.03, .48, .03, '#C79A6B', .14, 0, .34), box(.03, .48, .03, '#C79A6B', .24, 0, .34),
@@ -1159,8 +1244,8 @@ Object.assign(MODELS, {
     box(.94, .05, .94, '#8C6A3E'),
     [-.33, -.11, .11, .33].flatMap((z, i) => [-.36, -.18, 0, .18, .36].map((x, j) => cyl(.035, .03, .26 + ((i + j) % 3) * .04, (i + j) % 2 ? '#E2BE5C' : '#D8B04E', x + (i % 2) * .05, .05, z, 4)))),
   appletree: () => group(
-    cyl(.05, .07, .3, WOOD_DD, 0, 0, 0, 6), ball(.26, '#5E9E3F', 0, .46, 0, 1), ball(.16, '#6DB35A', .14, .56, .08),
-    [[.18, .42, .14], [-.16, .48, .12], [.04, .62, .2], [-.12, .36, -.16], [.2, .5, -.12]].map(([x, y, z]) => ball(.035, '#D9483B', x, y, z))),
+    cyl(.05, .07, .3, WOOD_DD, 0, 0, 0, 6), ball(.26, '#5E9E40', 0, .46, 0, 1), ball(.16, '#6DB35B', .14, .56, .08),
+    [[.18, .42, .14], [-.16, .48, .12], [.04, .62, .2], [-.12, .36, -.16], [.2, .5, -.12]].map(([x, y, z]) => ball(.035, '#D9483C', x, y, z))),
   sunflower: () => group(
     cyl(.018, .022, .5, '#4E8F4A', 0, 0, 0, 5),
     (() => { const l = box(.14, .01, .07, '#5FA34B', .07, .22, 0); l.rotation.z = .4; return l; })(),
@@ -1226,6 +1311,74 @@ MODELS.field = p => {
   const pts = c.id === 'pumpkin' && st > 0 ? [[-.22, -.22], [.22, -.22], [-.22, .22], [.22, .22]]
     : [-.33, -.11, .11, .33].flatMap(z => [-.3, -.1, .1, .3].map(x => [x, z]));
   pts.forEach(([x, z]) => g.add(cropPlant(c, st, x, z)));
+  return g;
+};
+
+/* ---------- Wahrzeichen: wachsen Bauphase für Bauphase ---------- */
+const lmPhase = id => lmState(id).phase;
+function site(){                                                  // Baustelle mit Pflöcken, Seil und Material
+  const g = group(box(.9, .03, .9, '#B49A72'));
+  const c = [[-.4, -.4], [.4, -.4], [.4, .4], [-.4, .4]];
+  c.forEach(([x, z]) => g.add(box(.03, .14, .03, WOOD_D, x, 0, z)));
+  g.add(box(.8, .012, .012, '#E2B987', 0, .11, -.4), box(.8, .012, .012, '#E2B987', 0, .11, .4), box(.012, .012, .8, '#E2B987', -.4, .11, 0), box(.012, .012, .8, '#E2B987', .4, .11, 0));
+  g.add(ball(.07, '#9C978C', -.15, .06, .1), ball(.06, '#B9B4A8', -.05, .05, .16), ball(.05, '#9C978C', -.2, .05, .2));
+  g.add(box(.28, .03, .07, WOOD, .15, .03, -.1), box(.28, .03, .07, WOOD_D, .17, .06, -.06), box(.28, .03, .07, WOOD, .14, .09, -.11));
+  return g;
+}
+MODELS.lighthouse = () => {
+  const ph = lmPhase('lighthouse'); if (ph < 1) return site();
+  const g = group(cyl(.34, .38, .12, '#9C978C', 0, 0, 0, 12), ball(.08, '#B9B4A8', .34, .03, .2), ball(.06, '#9C978C', -.3, .02, .28));
+  if (ph >= 2) g.add(cyl(.2, .24, .4, '#F3EBDD', 0, .12, 0, 12), cyl(.215, .225, .08, '#C8473C', 0, .3, 0, 12), box(.07, .11, .02, '#5A3D2B', 0, .12, .23));
+  if (ph >= 3) g.add(cyl(.16, .2, .36, '#F3EBDD', 0, .52, 0, 12), cyl(.168, .18, .08, '#C8473C', 0, .68, 0, 12), cyl(.25, .25, .025, '#3F3A4A', 0, .88, 0, 14),
+    box(.05, .06, .02, WIN, 0, .6, .19, true));
+  if (ph >= 4) {
+    const beam = group(box(1.6, .03, .06, '#FFF3B0', 0, 0, 0));
+    beam.children[0].material = new THREE.MeshBasicMaterial({color:'#FFF3B0', transparent:true, opacity:.28}); beam.children[0].castShadow = false;
+    beam.position.y = .97; beam.userData.spinY = true;
+    const l = new THREE.PointLight('#FFE7A0', 1.2, 4, 1.5); l.position.y = .97;
+    g.add(cyl(.12, .12, .13, '#FFE08A', 0, .905, 0, 10, true), cone(.16, .15, '#C8473C', 0, 1.035, 0, 10), ball(.025, '#3F3A4A', 0, 1.2, 0), beam, l,
+      box(.2, .16, .18, '#F3EBDD', .3, 0, .28), gable(.24, .09, .22, '#C8473C', .3, .16, .28), box(.05, .05, .01, WIN, .3, .06, .375, true));
+  }
+  return g;
+};
+MODELS.clocktower = () => {
+  const ph = lmPhase('clocktower'); if (ph < 1) return site();
+  const g = group(box(.7, .06, .7, '#B9B4A8'));
+  if (ph >= 2) g.add(box(.46, .3, .46, '#C9B79C', 0, .06), box(.1, .16, .02, '#5A3D2B', 0, .06, .235));
+  if (ph >= 3) g.add(box(.42, .28, .42, '#D8C8AE', 0, .36), box(.06, .1, .02, WIN, -.1, .44, .215, true), box(.06, .1, .02, WIN, .1, .44, .215, true));
+  if (ph >= 4) g.add(box(.4, .26, .4, '#D8C8AE', 0, .64), box(.42, .02, .42, '#B9A88E', 0, .64));
+  if (ph >= 5) for (let i = 0; i < 4; i++) {
+    const f = group(cyl(.11, .11, .02, '#F3EBDD', 0, -.01, 0, 16), cyl(.12, .12, .015, '#C9952A', 0, -.02, 0, 16),
+      box(.012, .07, .01, '#3F3A4A', 0, .012, .03), box(.05, .012, .01, '#3F3A4A', .02, .012, 0));
+    f.rotation.x = Math.PI / 2; const w = group(f); f.position.set(0, .77, .205); w.rotation.y = i * Math.PI / 2; g.add(w);
+  }
+  if (ph >= 6) { [[-.17, -.17], [.17, -.17], [.17, .17], [-.17, .17]].forEach(([x, z]) => g.add(box(.05, .22, .05, '#D8C8AE', x, .9, z)));
+    g.add(ball(.07, '#C9952A', 0, 1.0, 0), box(.44, .04, .44, '#B9A88E', 0, 1.12)); }
+  if (ph >= 7) { const r = cone(.31, .42, '#5A6475', 0, 1.16, 0, 4); r.rotation.y = Math.PI / 4; g.add(r); }
+  if (ph >= 8) { g.add(ball(.035, '#C9952A', 0, 1.6, 0), box(.01, .14, .01, '#3F3A4A', 0, 1.6, 0), box(.09, .05, .01, '#C8473C', .045, 1.68, 0));
+    [[-.3, .3], [.3, .3]].forEach(([x, z]) => g.add(cyl(.05, .04, .06, '#B97A4C', x, .06, z, 8), ball(.05, '#F28DB2', x, .15, z)));
+    const l = new THREE.PointLight('#ffd98a', .8, 3, 1.5); l.position.set(0, .5, .35); g.add(l); }
+  return g;
+};
+MODELS.palace = () => {
+  const ph = lmPhase('palace'); if (ph < 1) return site();
+  const STONE = '#E8DCC6', ROOF = '#4F6D9A';
+  const g = group(box(.96, .03, .96, '#CFC6B4'));
+  if (ph >= 2) g.add(box(.96, .07, .03, STONE, 0, .03, -.465), box(.03, .07, .96, STONE, -.465, .03, 0), box(.03, .07, .96, STONE, .465, .03, 0),
+    box(.37, .07, .03, STONE, -.28, .03, .465), box(.37, .07, .03, STONE, .28, .03, .465));
+  if (ph >= 3) g.add(box(.05, .13, .05, STONE, -.1, .03, .465), box(.05, .13, .05, STONE, .1, .03, .465), box(.25, .04, .06, '#D8C8AE', 0, .16, .465), box(.14, .09, .01, '#6E4329', 0, .03, .47));
+  const tower = x => group(cyl(.07, .08, .32, STONE, x, .03, -.36, 10), cone(.095, .14, ROOF, x, .35, -.36, 10), box(.03, .05, .01, WIN, x, .2, -.29, true));
+  if (ph >= 4) g.add(tower(-.36));
+  if (ph >= 5) g.add(tower(.36));
+  if (ph >= 6) g.add(box(.5, .18, .26, '#F1E4C8', 0, .03, -.25), gable(.56, .14, .32, ROOF, 0, .21, -.25), box(.12, .1, .12, '#F1E4C8', 0, .24, -.25), cone(.1, .1, ROOF, 0, .34, -.25, 4));
+  if (ph >= 7) [-.18, -.06, .06, .18].forEach(x => g.add(box(.05, .06, .01, WIN, x, .1, -.115, true))), g.add(box(.07, .09, .01, '#5A3D2B', 0, .03, -.114));
+  if (ph >= 8) g.add(box(.52, .012, .36, '#E2D6BE', 0, .03, .18), cyl(.08, .09, .04, '#B9B4A8', 0, .04, .16, 12), cyl(.065, .065, .012, '#5FA8C9', 0, .075, .16, 12), cyl(.012, .012, .07, '#B9B4A8', 0, .08, .16, 6));
+  if (ph >= 9) { [[-.3, .18], [.3, .18]].forEach(([x, z]) => g.add(box(.08, .05, .3, '#4E8F4A', x, .03, z)));
+    [[-.4, .38], [.4, .38], [-.4, -.05], [.4, -.05]].forEach(([x, z]) => g.add(cyl(.012, .015, .06, WOOD_DD, x, .03, z, 5), ball(.05, '#5FA34B', x, .12, z)));
+    [-.2, -.12, .12, .2].forEach((x, i) => g.add(ball(.018, ['#F28DB2', '#FFD166', '#B79CED', '#FFF4E0'][i], x, .05, .33))); }
+  if (ph >= 10) { [-.36, .36].forEach(x => g.add(box(.008, .12, .008, '#3F3A4A', x, .49, -.36), box(.07, .04, .006, '#C8473C', x + .035, .57, -.36)));
+    for (let i = 0; i < 9; i++) g.add(ball(.012, ['#C8473C', '#F2C14E', '#5FA8C9'][i % 3], -.4 + i * .1, .1 + Math.sin(i * .9) * .01, .465));
+    const l = new THREE.PointLight('#ffd98a', 1, 4, 1.5); l.position.set(0, .3, .1); g.add(l); }
   return g;
 };
 
@@ -1320,7 +1473,7 @@ const fogMat = new THREE.MeshStandardMaterial({color:'#3E4A6E', transparent:true
 const fogGeo = new THREE.BoxGeometry(.94, .06, .94);
 let groundSig = '';
 function buildGround(){
-  const sig = REGIONS.map(regionOpen).join();
+  const sig = REGIONS.map(regionOpen).join() + envSeason();
   if (sig === groundSig) return false;
   groundSig = sig;
   ground.clear();
@@ -1328,7 +1481,7 @@ function buildGround(){
   REGIONS.forEach(r => {
     const w = r.x1 - r.x0 + 1, d = r.y1 - r.y0 + 1, c = toWorld((r.x0 + r.x1) / 2, (r.y0 + r.y1) / 2);
     if (regionOpen(r)) {
-      const side = mat(r.side), top = mat(r.edge);
+      const side = mat(r.side), top = mat(seasonTint(r.edge));
       const slab = new THREE.Mesh(new THREE.BoxGeometry(w, .5, d), [side, side, top, side, side, side]);
       slab.position.set(c.x, -.35, c.z); slab.receiveShadow = true; ground.add(slab);
     }
@@ -1336,7 +1489,7 @@ function buildGround(){
       const p = toWorld(x, y);
       if (!regionOpen(r)) { fog.push(p); continue; }
       const dec = r.decor(x, y), alt = (x + y) % 2;
-      caps.push({p, water:dec === 'water', color:dec === 'water' ? (alt ? '#58A0C1' : '#5FA8C9') : r.top[alt]});
+      caps.push({p, water:dec === 'water', color:dec === 'water' ? seasonTint(alt ? '#58A0C1' : '#5FA8C9', true) : seasonTint(r.top[alt])});
       if (dec && dec !== 'water') { const o = buildModel(dec); o.position.copy(p); o.rotation.y = ((x * 7 + y * 3) % 4) * .4; ground.add(o); }
     }
   });
@@ -1364,7 +1517,7 @@ function syncObjects(){
     if (reduce) objects.remove(g); else g.userData.dying = performance.now();
   }
   S.placed.forEach(p => {
-    const sig = p.id + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '');
+    const sig = p.id + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '') + (byId[p.id]?.landmark ? lmPhase(p.id) : '');
     let g = objMap.get(p.uid);
     if (g && g.userData.sig !== sig) { objects.remove(g); objMap.delete(p.uid); g = null; if (p.id !== 'field') p._new = true; }
     if (!g) {
@@ -1394,9 +1547,9 @@ function puff(c, n){
     world.add(m); puffs.push(m);
   }
 }
-function stepPuffs(t){
+function stepPuffs(tm){
   for (let i = puffs.length - 1; i >= 0; i--) {
-    const m = puffs[i], k = (t - m.userData.t0) / 550;
+    const m = puffs[i], k = (tm - m.userData.t0) / 550;
     if (k >= 1) { world.remove(m); m.material.dispose(); puffs.splice(i, 1); continue; }
     m.position.x += m.userData.vx * .016; m.position.z += m.userData.vz * .016; m.position.y = .1 + k * .5;
     m.scale.setScalar(m.userData.s * (.5 + k)); m.material.opacity = .8 * (1 - k);
@@ -1437,7 +1590,13 @@ const RES = {
              {kind:'hen', name:'Henni', role:'Huhn', lines:['Gack!']},
              {kind:'hen', name:'Pünktchen', role:'Huhn', lines:['Gack, gack!']}],
   windmill:  [{name:'Anton', role:'Müller', look:{shirt:'#F3EBDD', pants:'#8A5634', skin:'#E8B98F', hat:'cap', hatColor:'#E8E4DC', beard:'#E8E4DC'},
-              lines:['Bei diesem Wind mahlt die Mühle wie von selbst.', 'Aus meinem Mehl backen sie das beste Brot im Tal.']}]
+              lines:['Bei diesem Wind mahlt die Mühle wie von selbst.', 'Aus meinem Mehl backen sie das beste Brot im Tal.']}],
+  lighthouse:[{name:'Hannes', role:'Leuchtturmwärter', need:() => lmState('lighthouse').done, look:{shirt:'#2F4A6E', pants:'#3F3A4A', skin:'#E8B98F', hat:'cap', hatColor:'#2F4A6E', beard:'#B9B4A8'},
+              lines:['In klaren Nächten sieht man mein Licht bis zu den Bergen.', 'Jeder deiner Schritte hat diesen Turm mitgebaut.']}],
+  clocktower:[{name:'Ida', role:'Uhrmacherin', need:() => lmState('clocktower').done, look:{shirt:'#8C4A6B', pants:'#3F3A4A', skin:'#F1C9A5', hair:'#6E4329', glasses:true},
+              lines:['Tick, tack: Dein Dorf läuft wie ein Uhrwerk.', 'Sonntags ziehe ich die Uhr auf.']}],
+  palace:    [{name:'Amalia', role:'Fürstin', need:() => lmState('palace').done, look:{shirt:'#7A5BB0', pants:'#4F3A7A', skin:'#F1C9A5', hair:'#C9803A', hat:'brim', hatColor:'#C9952A'},
+              lines:['Willkommen in meinem kleinen Palast!', 'Lindenbach ist das schönste Dorf im ganzen Land.']}]
 };
 enApply('res');
 const SPEED = {person:1.8, cat:2.4, goat:1, hen:1.2}, RANGE = {person:9, cat:5, goat:5, hen:3}, NPC_SCALE = 2.2;
@@ -1513,7 +1672,7 @@ function findPath(sx, sy, tx, ty){                                  // Dijkstra,
 }
 function syncNpcs(){
   const want = new Map();
-  S.placed.forEach(p => (RES[p.id] || []).forEach((r, i) => want.set(`${p.uid}-${i}`, {p, r})));
+  S.placed.forEach(p => (RES[p.id] || []).forEach((r, i) => { if (!r.need || r.need()) want.set(`${p.uid}-${i}`, {p, r}); }));
   for (const [k, n] of npcs) if (!want.has(k)) { npcGroup.remove(n.mesh); npcs.delete(k); }
   for (const [k, {p, r}] of want) {
     const ex = npcs.get(k); if (ex) { ex.home = p; continue; }
@@ -1527,12 +1686,12 @@ function syncNpcs(){
     npcGroup.add(mesh); npcs.set(k, n);
   }
 }
-function stepNpcs(dt, t){
+function stepNpcs(dt, tm){
   npcs.forEach(n => {
     const m = n.mesh;
     if (!n.path.length) {
       if (m.userData.limbs) { const L = m.userData.limbs; L.legL.rotation.x = L.legR.rotation.x = L.armL.rotation.x = L.armR.rotation.x = 0; }
-      if (m.userData.tail) m.userData.tail.rotation.z = Math.sin(t / 300) * .4;
+      if (m.userData.tail) m.userData.tail.rotation.z = Math.sin(tm / 300) * .4;
       m.position.y = 0;
       n.wait -= dt; if (n.wait > 0 || reduce) return;
       const d = doorOf(n.home) || n.pos, R = n.r.range || RANGE[n.kind];
@@ -1610,9 +1769,9 @@ function makeGhost(id){
   ghost.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.transparent = true; o.material.opacity = .55; o.castShadow = false; } if (o.isLight) o.intensity = 0; });
   ghost.visible = false; world.add(ghost);
 }
-function originFor(item, t){                                   // Block, dessen Mitte am nächsten an der Fingerposition liegt
+function originFor(item, tm){                                   // Block, dessen Mitte am nächsten an der Fingerposition liegt
   const n = sizeOf(item.id);
-  return {x:Math.round(t.fx - n / 2), y:Math.round(t.fy - n / 2)};
+  return {x:Math.round(tm.fx - n / 2), y:Math.round(tm.fy - n / 2)};
 }
 const hoverMarker = new THREE.Mesh(new THREE.BoxGeometry(1, .03, 1), new THREE.MeshBasicMaterial({color:'#ffffff', transparent:true, opacity:.3}));
 hoverMarker.visible = false; world.add(hoverMarker);
@@ -1622,13 +1781,13 @@ function hoverEdit(p){
   canvas.style.cursor = 'pointer';
 }
 let lastHover = null;
-function showHover(t){
-  lastHover = t;
+function showHover(tm){
+  lastHover = tm;
   if (selected && mode !== 'idle') {
     const n = sizeOf(selected.id); selMarker.scale.set(n, 1, n); selMarker.position.copy(centerOf(selected)); selMarker.position.y = .02; selMarker.visible = true;
   } else selMarker.visible = false;
-  if (!(mode === 'place' || mode === 'move') || !t) { marker.visible = false; if (ghost) ghost.visible = false; return; }
-  const o = originFor(placing, t), n = sizeOf(placing.id), ok = !canPlace(placing, o.x, o.y, mode === 'move' ? selected : null);
+  if (!(mode === 'place' || mode === 'move') || !tm) { marker.visible = false; if (ghost) ghost.visible = false; return; }
+  const o = originFor(placing, tm), n = sizeOf(placing.id), ok = !canPlace(placing, o.x, o.y, mode === 'move' ? selected : null);
   const c = toWorld(o.x + (n - 1) / 2, o.y + (n - 1) / 2);
   marker.scale.set(n, 1, n); marker.position.set(c.x, .03, c.z); marker.material.color.set(ok ? '#ffffff' : '#ff6b6b'); marker.visible = true;
   if (ghost) { ghost.position.copy(c); ghost.rotation.y = placeRot * Math.PI / 2; if (placing.onWater) ghost.position.y = -.07; ghost.visible = ok; }
@@ -1679,40 +1838,145 @@ function updateLabels(){
   });
 }
 
+/* ---------- Tageszeit, Wetter und Jahreszeiten ----------
+   Licht folgt der echten Uhrzeit, das Wetter wechselt alle drei Stunden (meist sonnig, manchmal Regen, im Winter Schnee),
+   die Jahreszeit richtet sich nach dem echten Monat. Im Testmodus kann man alles vorgeben. */
+const ENV = {hour:null, weather:null, season:null};                 // Testmodus-Vorgaben (null = echt)
+const SEASON_OF_MONTH = ['winter', 'winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer', 'autumn', 'autumn', 'autumn', 'winter'];
+const envHour = () => !SET.env ? 13 : ENV.hour ?? (d => d.getHours() + d.getMinutes() / 60)(new Date());
+const envSeason = () => !SET.env ? 'summer' : ENV.season ?? SEASON_OF_MONTH[new Date().getMonth()];
+function envWeather(){
+  if (!SET.env) return 'clear';
+  if (ENV.weather) return ENV.weather;
+  const slot = Math.floor(Date.now() / 3600000 / 3), r = rng(slot * 7349 + 17)();
+  return r < .2 ? (envSeason() === 'winter' ? 'snow' : 'rain') : 'clear';
+}
+const mix = (a, b, k) => '#' + new THREE.Color(a).lerp(new THREE.Color(b), k).getHexString();
+function seasonTint(hex, water){
+  const s = envSeason();
+  if (water) return s === 'winter' ? mix(hex, '#CFE6F0', .55) : hex;
+  return s === 'winter' ? mix(hex, '#EEF2F5', .72) : s === 'autumn' ? mix(hex, '#C8A35A', .28) : s === 'spring' ? mix(hex, '#A8DC7E', .15) : hex;
+}
+// Bäume färben sich je nach Jahreszeit (Apfelbäume blühen im Frühling, im Herbst wird das Laub orange)
+const FOLIAGE = {
+  '#5E9E40': {spring:'#86C766', autumn:'#D98A2B', winter:'#C6D2CE'}, '#6DB35B': {spring:'#9AD27A', autumn:'#E8B23C', winter:'#D8E1DE'},
+  '#D9483C': {spring:'#F7C3D5', winter:'#EEF2F5'},
+  '#4E8F4B': {autumn:'#C46A2A', winter:'#BCC9C4'}, '#5FA34C': {autumn:'#DE9530', winter:'#D2DCD8'},
+  '#2F6B3A': {winter:'#4F7765'}, '#336F3D': {winter:'#6E9384'}
+};
+let lastSeason = null;
+function applySeason(){
+  const s = envSeason(); if (s === lastSeason) return; lastSeason = s;
+  Object.entries(FOLIAGE).forEach(([base, m]) => mat(base).color.set(m[s] || base));
+  groundSig = ''; buildGround();
+}
+// Lichtstimmung über den Tag: [Stunde, Himmel, Boden, Himmelslicht, Sonnenfarbe, Sonnenstärke, Lampen]
+const SKY = [
+  [0,    '#4F5F96', '#262238', .42, '#9FB4FF', .35, 1.7],
+  [5,    '#4F5F96', '#262238', .42, '#9FB4FF', .35, 1.7],
+  [6.5,  '#FFD2BC', '#6B5A48', .8,  '#FFB07A', 1.2, .9],
+  [8.5,  '#DFEAFF', '#6B5A48', 1.15, '#FFF1D6', 2.1, .45],
+  [17,   '#DFEAFF', '#6B5A48', 1.15, '#FFF1D6', 2.1, .45],
+  [19,   '#FFC4A0', '#5E4A44', .85, '#FF9A5C', 1.3, 1.1],
+  [20.5, '#6A6FA8', '#2E2840', .55, '#B9B8FF', .5, 1.6],
+  [24,   '#4F5F96', '#262238', .42, '#9FB4FF', .35, 1.7]
+];
+const cA = new THREE.Color(), cB = new THREE.Color();
+function lerpSky(h){
+  let i = 0; while (i < SKY.length - 2 && h >= SKY[i + 1][0]) i++;
+  const a = SKY[i], b = SKY[i + 1], k = (h - a[0]) / (b[0] - a[0] || 1);
+  const col = j => '#' + cA.set(a[j]).lerp(cB.set(b[j]), k).getHexString(), num = j => a[j] + (b[j] - a[j]) * k;
+  return {sky:col(1), ground:col(2), hemiI:num(3), sunC:col(4), sunI:num(5), lamp:num(6)};
+}
+let envState = {lamp:.45};
+function updateEnv(){
+  applySeason();
+  const h = envHour(), L = lerpSky(h), w = envWeather(), dim = w === 'clear' ? 1 : .62;
+  hemi.color.set(L.sky); hemi.groundColor.set(L.ground); hemi.intensity = L.hemiI * (w === 'clear' ? 1 : .9);
+  sun.color.set(L.sunC); sun.intensity = L.sunI * dim;
+  const day = h >= 6 && h <= 19, a = day ? (h - 6) / 13 * Math.PI : .9;     // Sonne wandert über den Himmel, nachts steht der Mond fest
+  sun.position.set(Math.cos(a) * 12, day ? 6 + Math.sin(a) * 11 : 14, 7);
+  const lamp = L.lamp * (w === 'clear' ? 1 : 1.25);
+  envState = {lamp, weather:w, hour:h};
+  objects.traverse(o => { if (o.isLight) { if (o.userData.baseI === undefined) o.userData.baseI = o.intensity; o.intensity = o.userData.baseI * lamp; } });
+  matCache.forEach((m, k) => { if (k.endsWith('true')) m.emissiveIntensity = .55 + lamp * .55; });
+  setWeather(w);
+  renderEnvChips();
+}
+// Regen und Schnee als leichte Partikel über dem sichtbaren Bereich
+let weatherFx = null;
+function setWeather(w){
+  const want = reduce || w === 'clear' ? null : w;
+  if ((weatherFx && weatherFx.kind) === want) return;
+  if (weatherFx) { world.remove(weatherFx.obj); weatherFx.obj.geometry.dispose(); weatherFx = null; }
+  if (!want) return;
+  const N = want === 'rain' ? 700 : 500, pos = new Float32Array(N * (want === 'rain' ? 6 : 3)), seeds = [];
+  for (let i = 0; i < N; i++) seeds.push({x:(Math.random() - .5) * 30, y:Math.random() * 12, z:(Math.random() - .5) * 30, s:.7 + Math.random() * .6});
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const obj = want === 'rain'
+    ? new THREE.LineSegments(geo, new THREE.LineBasicMaterial({color:'#BFD6EE', transparent:true, opacity:.55}))
+    : new THREE.Points(geo, new THREE.PointsMaterial({color:'#FFFFFF', size:.09, transparent:true, opacity:.9}));
+  obj.frustumCulled = false; world.add(obj);
+  weatherFx = {kind:want, obj, seeds};
+}
+function stepWeather(dt, tm){
+  if (!weatherFx) return;
+  const {kind, obj, seeds} = weatherFx, a = obj.geometry.attributes.position.array, c = cam.target, rain = kind === 'rain';
+  seeds.forEach((p, i) => {
+    p.y -= (rain ? 11 : 1.2) * p.s * dt; if (!rain) p.x += Math.sin(tm / 900 + i) * .3 * dt;
+    if (p.y < 0) { p.y = 12; p.x = (Math.random() - .5) * 30; p.z = (Math.random() - .5) * 30; }
+    const x = c.x + p.x, z = c.z + p.z;
+    if (rain) { a.set([x, p.y, z, x - .04, p.y + .45, z], i * 6); } else a.set([x, p.y, z], i * 3);
+  });
+  obj.geometry.attributes.position.needsUpdate = true;
+}
+// Testmodus: Tageszeit, Wetter und Jahreszeit durchschalten
+const ENV_STEPS = {hour:[null, 7, 13, 19, 23], weather:[null, 'clear', 'rain', 'snow'], season:[null, 'spring', 'summer', 'autumn', 'winter']};
+const ENV_NAMES = {null:'echt', 7:'Morgen', 13:'Mittag', 19:'Abend', 23:'Nacht', clear:'Sonne', rain:'Regen', snow:'Schnee', spring:'Frühling', summer:'Sommer', autumn:'Herbst', winter:'Winter'};
+function renderEnvChips(){
+  const lab = {hour:t('Tageszeit'), weather:t('Wetter'), season:t('Jahreszeit')};
+  document.querySelectorAll('[data-env]').forEach(b => { const k = b.dataset.env; b.textContent = `${lab[k]}: ${t(ENV_NAMES[ENV[k]])}`; });
+}
+document.querySelectorAll('[data-env]').forEach(b => b.onclick = () => {
+  const k = b.dataset.env, list = ENV_STEPS[k]; ENV[k] = list[(list.indexOf(ENV[k]) + 1) % list.length]; updateEnv();
+});
+setInterval(updateEnv, 5000);
+
 /* ---------- Animationsschleife ---------- */
 let lastT = 0;
-function frame(t){
+function frame(tm){
   requestAnimationFrame(frame);
   if (!renderer) return;
-  const dt = Math.min(.1, (t - (lastT || t)) / 1000); lastT = t;
-  stepNpcs(dt, t);
+  const dt = Math.min(.1, (tm - (lastT || tm)) / 1000); lastT = tm;
+  stepNpcs(dt, tm); stepWeather(dt, tm);
   const k = reduce ? 1 : .12;
   cam.az += (cam.azT - cam.az) * k;
   cam.zoom += (cam.zoomT - cam.zoom) * k;
   cam.target.lerp(cam.targetT, k);
   updateCamera();
   [...objects.children].forEach(g => {
-    if (g.userData.dying) { const k = (t - g.userData.dying) / 220; if (k >= 1) objects.remove(g); else g.scale.setScalar(1 - k); return; }
+    if (g.userData.dying) { const k = (tm - g.userData.dying) / 220; if (k >= 1) objects.remove(g); else g.scale.setScalar(1 - k); return; }
     if (g.userData.rotT !== undefined && g.rotation.y !== g.userData.rotT) {
       let d = g.userData.rotT - g.rotation.y;
       if (d < -Math.PI) { g.rotation.y -= Math.PI * 2; d += Math.PI * 2; }        // von 270° auf 0° den kurzen Weg drehen
       g.rotation.y = Math.abs(d) < .01 || reduce ? g.userData.rotT : g.rotation.y + d * .25;
     }
     if (g.userData.born) {
-      const p = Math.min(1, (t - g.userData.born) / 450), e = 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2);
+      const p = Math.min(1, (tm - g.userData.born) / 450), e = 1 + 2.2 * Math.pow(p - 1, 3) + 1.2 * Math.pow(p - 1, 2);
       g.scale.setScalar(Math.max(.01, e)); if (p >= 1) { g.scale.setScalar(1); delete g.userData.born; }
     }
   });
   if (!reduce) objects.traverse(o => {
-    if (o.userData.flicker) o.scale.set(1 + Math.sin(t / 90) * .06, 1 + Math.sin(t / 70) * .12, 1);
-    if (o.userData.rock) { o.rotation.z = Math.sin(t / 700) * .06; o.rotation.x = Math.sin(t / 900) * .04; }
-    if (o.userData.spin) o.rotation.z = t / 1400;
-    if (o.userData.bees) o.children.forEach((b, i) => { const a = t / (500 + i * 120) + i * 2.1; b.position.set(Math.cos(a) * .22, .62 + Math.sin(a * 1.7) * .08, Math.sin(a) * .18); });
-    if (o.userData.smoke) o.children.forEach((b, i) => { const k = ((t / 2200) + i / 3) % 1; b.position.y = k * .55; b.material.opacity = .75 * (1 - k); b.scale.setScalar(.7 + k * .8); });
+    if (o.userData.flicker) o.scale.set(1 + Math.sin(tm / 90) * .06, 1 + Math.sin(tm / 70) * .12, 1);
+    if (o.userData.rock) { o.rotation.z = Math.sin(tm / 700) * .06; o.rotation.x = Math.sin(tm / 900) * .04; }
+    if (o.userData.spin) o.rotation.z = tm / 1400;
+    if (o.userData.spinY) o.rotation.y = tm / 1600;
+    if (o.userData.bees) o.children.forEach((b, i) => { const a = tm / (500 + i * 120) + i * 2.1; b.position.set(Math.cos(a) * .22, .62 + Math.sin(a * 1.7) * .08, Math.sin(a) * .18); });
+    if (o.userData.smoke) o.children.forEach((b, i) => { const k = ((tm / 2200) + i / 3) % 1; b.position.y = k * .55; b.material.opacity = .75 * (1 - k); b.scale.setScalar(.7 + k * .8); });
   });
-  stepPuffs(t);
+  stepPuffs(tm);
   renderer.render(scene, camera);
-  updateLabels(); updateSpots(); updateStorySpots(); updateHarvestSpots();
+  updateLabels(); updateSpots(); updateStorySpots(); updateHarvestSpots(); updateWishSpots();
 }
 
 
@@ -1812,7 +2076,7 @@ const PROMPTS = [
 ];
 enApply('school');
 const QUIZ_N = 5, RARE_N = 5, QUIZ_SECS = 20, RARE_SECS = 25;
-function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function rng(seed){ return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let tm = Math.imul(seed ^ seed >>> 15, 1 | seed); tm = tm + Math.imul(tm ^ tm >>> 7, 61 | tm) ^ tm; return ((tm ^ tm >>> 14) >>> 0) / 4294967296; }; }
 const norm = w => w.toLowerCase().trim().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
   .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/^(der|die|das|ein|eine|einen|the|a|an)\s+/, '').replace(/[^a-z0-9]/g, '');
 function lev(a, b){
@@ -1857,6 +2121,8 @@ function renderGameList(){
 document.addEventListener('click', e => {
   const st = e.target.closest('[data-start]'); if (st) { closeSheet(); startGame(st.dataset.start); }
   if (e.target.closest('[data-open-school]')) openSheet('school');
+  if (e.target.closest('[data-open-wishes]')) openSheet('wishes');
+  if (e.target.closest('[data-open-album]')) openSheet('album');
 });
 function startGame(kind){
   const rewarded = !S.games[kind];
@@ -1872,7 +2138,7 @@ function startTimer(secs, onEnd){
   G.timer = setInterval(() => {
     const left = Math.max(0, secs - (performance.now() - t0) / 1000), bar = document.querySelector('#gameCard .tbar');
     if (bar) { bar.firstElementChild.style.width = (left / secs * 100) + '%'; bar.classList.toggle('low', left < 5); }
-    const tt = document.getElementById('gTime'); if (tt) tt.textContent = Math.ceil(left) + ' s';
+    const tEl = document.getElementById('gTime'); if (tEl) tEl.textContent = Math.ceil(left) + ' s';
     if (left <= 0) { clearInterval(G.timer); onEnd(); }
   }, 100);
 }
@@ -1914,8 +2180,8 @@ function answerRare(input){
     $('gFb').innerHTML = tt`<span class="tierbadge t-none">Zeit um · +0</span>`;
   }
   $('rareIn').disabled = true;
-  const pick = t => it.a[t].split('|').slice(0, 3).map(x => x.split('/')[0]).join(', ');
-  $('gFb').insertAdjacentHTML('afterend', tt`<p class="examples"><b>Häufig:</b> ${pick('haeufig')}<br><b>Raritäten:</b> ${pick('raritaet')}</p>`);
+  const pickEx = tm => it.a[tm].split('|').slice(0, 3).map(x => x.split('/')[0]).join(', ');
+  $('gFb').insertAdjacentHTML('afterend', tt`<p class="examples"><b>Häufig:</b> ${pickEx('haeufig')}<br><b>Raritäten:</b> ${pickEx('raritaet')}</p>`);
   nextBtn();
 }
 function nextBtn(){
@@ -2007,7 +2273,7 @@ function closePoem(){
   if (canSpeak) speechSynthesis.cancel();
   $('poem').hidden = true;
   if (!S.poemRead) {
-    S.poemRead = true; give(POEM_REWARD); S.stats.poems = (S.stats.poems || 0) + 1;
+    S.poemRead = true; give(POEM_REWARD); { const i = (S.day - 1) % POEMS.length; if (!S.album.poems.includes(i)) S.album.poems.push(i); } S.stats.poems = (S.stats.poems || 0) + 1;
     const msg = checkCompletions(); save(); render(); sfx.coin();
     toast(msg || tt`Wilma freut sich über deinen Besuch: ${rewardText(POEM_REWARD)}`);
   }
@@ -2083,12 +2349,12 @@ function chime(long = false){
   if (!soundOn) return;
   try {
     audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-    const t = audio.currentTime;
+    const tm = audio.currentTime;
     [[528, .14], [792, .05]].forEach(([f, v]) => {
       const o = audio.createOscillator(), g = audio.createGain();
       o.type = 'sine'; o.frequency.value = f;
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v * SET.vol / 70, t + .03); g.gain.exponentialRampToValueAtTime(.0001, t + (long ? 3.5 : 2));
-      o.connect(g).connect(audio.destination); o.start(t); o.stop(t + (long ? 3.6 : 2.1));
+      g.gain.setValueAtTime(0, tm); g.gain.linearRampToValueAtTime(v * SET.vol / 70, tm + .03); g.gain.exponentialRampToValueAtTime(.0001, tm + (long ? 3.5 : 2));
+      o.connect(g).connect(audio.destination); o.start(tm); o.stop(tm + (long ? 3.6 : 2.1));
     });
   } catch(e) {}
 }
@@ -2118,8 +2384,8 @@ function calmTick(){
   $('calmTime').textContent = showNotice ? calm.notice.text : tt`Minute ${minute} von ${CALM_MAX_MIN} · noch 0:${String(Math.ceil(left)).padStart(2, '0')}`;
   if (ex.kind === 'breath' || calm.done) {
     const pat = ex.kind === 'breath' ? ex.pattern : [['Einatmen', 4], ['Ausatmen', 6]];
-    const cyc = pat.reduce((a, [, d]) => a + d, 0); let tt = el % cyc, i = 0;
-    while (tt >= pat[i][1]) { tt -= pat[i][1]; i++; }
+    const cyc = pat.reduce((a, [, d]) => a + d, 0); let tEl = el % cyc, i = 0;
+    while (tEl >= pat[i][1]) { tEl -= pat[i][1]; i++; }
     if (i !== calm.phaseIdx && left > 0) {
       calm.phaseIdx = i; const [name, dur] = pat[i];
       $('calmPhase').textContent = t(name);
@@ -2182,6 +2448,8 @@ function renderField(){
   const all = fieldsOf(), empty = emptyFields(), ripe = ripeFields();
   let html = t('<p class="note">Wähle, was auf diesem Acker wachsen soll. Die Pflanzen wachsen in echter Zeit weiter, auch wenn das Spiel geschlossen ist. Ist ein Acker reif, tippst du ihn an und erntest Kräuter.</p>');
   html += `<p class="note">${tt`Leere Äcker: ${empty.length} · Wachsen: ${all.length - empty.length - ripe.length} · Reif: ${ripe.length}`}</p>`;
+  const crates = Object.values(S.pantry).reduce((a, b) => a + b, 0);
+  if (crates) html += `<p class="note">${tt`Im Vorrat: ${crates} Kisten.`} ${S.placed.some(p => p.id === 'farmstand') ? t('Lene kauft sie im Hofladen.') : t('Baue den Hofladen, dann kannst du sie verkaufen.')}</p>`;
   if (ripe.length) html += `<p><button class="solid" data-harvest-all>${tt`Alles ernten (${ripe.length})`}</button></p>`;
   CROPS.forEach(c => {
     const m = missing(c), n = empty.length, allItem = {cost:c.cost * n, mat:Object.fromEntries(Object.entries(c.mat).map(([k, v]) => [k, v * n]))};
@@ -2192,22 +2460,45 @@ function renderField(){
   });
   $('list').innerHTML = html;
 }
+function renderFarmshop(){
+  const total = CROPS.reduce((a, c) => a + (S.pantry[c.id] || 0) * c.price, 0);
+  let html = `<p class="note">${t('Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.')}</p>`;
+  if (total) html += `<p><button class="solid" data-sell-all>${tt`Alles verkaufen (${fmt(total)} Münzen)`}</button></p>`;
+  CROPS.forEach(c => {
+    const n = S.pantry[c.id] || 0;
+    html += `<div class="gamecard-pick crop-row"><span class="ico">${icon(c.id)}</span>
+      <span><b>${c.name}</b><small>${tt`Im Vorrat: ${n} · ${fmt(c.price)} Münzen pro Kiste`}</small></span>
+      <span class="crop-btns"><button class="claim" data-sell="${c.id}" ${n ? '' : 'disabled'}>${t('1 verkaufen')}</button>${n > 1 ? `<button class="ghost" data-sell-n="${c.id}">${tt`Alle ${n}`}</button>` : ''}</span></div>`;
+  });
+  if (!total) html += `<p class="note" style="margin-top:12px">${t('Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.')}</p>`;
+  $('list').innerHTML = html;
+}
+function sellCrops(list){                                          // list: [[cropId, Anzahl], …]
+  let coinsGot = 0, n = 0;
+  list.forEach(([id, k]) => { k = Math.min(k, S.pantry[id] || 0); if (!k) return; S.pantry[id] -= k; if (!S.pantry[id]) delete S.pantry[id]; coinsGot += k * CROP_BY[id].price; n += k; });
+  if (!n) return;
+  give({coins:coinsGot}); S.stats.sold += n;
+  const msg = checkCompletions(); save(); render(); renderFarmshop(); sfx.coin();
+  toast(msg || tt`${n} ${n === 1 ? t('Kiste') : t('Kisten')} verkauft: +${fmt(coinsGot)} Münzen`);
+}
 function plantOn(list, c){
   const total = {cost:c.cost * list.length, mat:Object.fromEntries(Object.entries(c.mat).map(([k, v]) => [k, v * list.length]))};
   if (!list.length) return;
   if (!canAfford(total)) { toast(tt`Dafür fehlen dir noch ${missText(missing(total))}.`); return; }
   pay(total);
   const now = Date.now(); list.forEach(p => { p.crop = {id:c.id, t0:now}; });
+  S.stats.planted += list.length; const msg = checkCompletions();
   save(); render(); sfx.place();
-  toast(list.length > 1 ? tt`${c.name} auf ${list.length} Äckern gepflanzt` : tt`${c.name} gepflanzt`);
+  toast(msg || (list.length > 1 ? tt`${c.name} auf ${list.length} Äckern gepflanzt` : tt`${c.name} gepflanzt`));
 }
 function harvest(list){
   list = list.filter(p => cropStage(p) === 2); if (!list.length) return;
   let herbs = 0; const name = CROP_BY[list[0].crop.id].name;
-  list.forEach(p => { herbs += CROP_BY[p.crop.id].yield; delete p.crop; if (!reduce) puff(centerOf(p), 1); });
-  S.res.herbs += herbs;
+  list.forEach(p => { const id = p.crop.id; herbs += CROP_BY[id].yield; S.pantry[id] = (S.pantry[id] || 0) + 1; S.album.crops[id] = (S.album.crops[id] || 0) + 1; delete p.crop; if (!reduce) puff(centerOf(p), 1); });
+  S.res.herbs += herbs; S.stats.harvest += list.length;
   const msg = checkCompletions(); save(); render(); sfx.coin();
-  toast(msg || (list.length > 1 ? tt`${list.length} Äcker geerntet: +${herbs} Kräuter` : tt`${name} geerntet: +${herbs} Kräuter`));
+  const crates = list.length === 1 ? t('1 Kiste') : tt`${list.length} Kisten`;
+  toast(msg || (list.length > 1 ? tt`${list.length} Äcker geerntet: +${herbs} Kräuter, ${crates}` : tt`${name} geerntet: +${herbs} Kräuter, ${crates}`));
 }
 function tapField(p, msg){
   const st = cropStage(p);
@@ -2239,6 +2530,152 @@ setInterval(() => {
     if (sheetOpen() && sheetKind === 'field') renderField();
   }
 }, 1000);
+
+/* ---------- Wochenziele: freundlich, ohne Strafen ---------- */
+// Eine Woche = 7 Spieltage. Was nicht geschafft wird, verfällt einfach, nächste Woche gibt es neue Ziele.
+const weekNo = () => Math.floor((S.day - 1) / 7);
+const freshWeek = () => ({n:weekNo(), steps:0, active:0, calm:0, harvest:0, games:0, claimed:[]});
+if (!S.week || S.week.n !== weekNo()) S.week = freshWeek();
+const ACTIVE_DAY = 5000;
+const WEEK_GOALS = [
+  {id:'ws', title:'Wanderwoche',   text:'Gehe diese Woche 50.000 Schritte',              goal:50000, val:() => S.week.steps + S.today,                  reward:{coins:2500, herbs:10}, kind:'step'},
+  {id:'wa', title:'Dranbleiben',   text:'Gehe an 4 Tagen mindestens 5.000 Schritte',      goal:4,     val:() => S.week.active + (S.today >= ACTIVE_DAY ? 1 : 0), reward:{coins:2000, wood:15, stone:15}, kind:'workout'},
+  {id:'wc', title:'Ruhige Woche',  text:'Mach diese Woche 5 Ruhe-Übungen im Dorf',        goal:5,     val:() => S.week.calm + S.stats.calm,              reward:{coins:1200, herbs:15}, kind:'mindful'},
+  {id:'wh', title:'Erntewoche',    text:'Ernte diese Woche 10 Äcker',                     goal:10,    val:() => S.week.harvest + S.stats.harvest,        reward:{coins:1500, wood:10}, kind:'farm'},
+  {id:'wg', title:'Rätselwoche',   text:'Spiele diese Woche 6 Rätselspiele in der Schule', goal:6,    val:() => S.week.games + (S.games.quiz ? 1 : 0) + (S.games.rare ? 1 : 0), reward:{coins:1500, stone:10}, kind:'cozy'}
+];
+function weekGoals(){
+  const extra = WEEK_GOALS.slice(2).filter(g => g.id !== 'wh' || S.placed.some(p => p.id === 'field')).filter(g => g.id !== 'wg' || S.placed.some(p => p.id === 'school'));
+  return [WEEK_GOALS[0], WEEK_GOALS[1], ...(extra.length ? [extra[S.week.n % extra.length]] : [])];
+}
+function endOfDayForWeek(){                                       // wird beim Tageswechsel aufgerufen
+  S.week.steps += S.today; if (S.today >= ACTIVE_DAY) S.week.active++;
+  S.week.calm += S.stats.calm; S.week.harvest += S.stats.harvest; S.week.games += (S.games.quiz ? 1 : 0) + (S.games.rare ? 1 : 0);
+}
+const weekClaimable = () => weekGoals().filter(g => g.val() >= g.goal && !S.week.claimed.includes(g.id));
+function renderWeek(){
+  const dayOfWeek = (S.day - 1) % 7 + 1;
+  $('week').innerHTML = `<div class="week-head"><h3>${t('Diese Woche')}</h3><span>${tt`Tag ${dayOfWeek} von 7`}</span></div>` + weekGoals().map(g => {
+    const v = Math.min(g.val(), g.goal), claimed = S.week.claimed.includes(g.id), done = g.val() >= g.goal;
+    const right = claimed ? t('<span class="claimed">Abgeholt</span>') : done ? `<button class="claim" data-wclaim="${g.id}">${t('Abholen')}</button>` : `<span class="reward multi">${rewardHtml(g.reward)}</span>`;
+    return `<div class="task${claimed ? ' is-claimed' : ''}"><span class="ico">${TICON[g.kind]}</span><div><div class="title">${t(g.title)}</div><div class="text">${t(g.text)}</div>
+      <div class="bar" role="progressbar" aria-label="${t(g.title)}" aria-valuemin="0" aria-valuemax="${g.goal}" aria-valuenow="${v}"><i style="width:${v / g.goal * 100}%"></i></div>
+      <div class="meta"><span>${fmt(v)} / ${fmt(g.goal)}</span></div></div>${right}</div>`;
+  }).join('') + `<p class="note" style="margin:6px 0 0">${t('Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.')}</p>`;
+}
+function claimWeek(id){
+  const g = weekGoals().find(x => x.id === id); if (!g || g.val() < g.goal || S.week.claimed.includes(id)) return;
+  S.week.claimed.push(id); give(g.reward); save(); render(); sfx.grow(); toast(tt`${rewardText(g.reward)} für ${t(g.title)}`);
+}
+
+/* ---------- Album: alles, was du schon gesammelt hast ---------- */
+const albumBuilt = id => S.album.built.includes(id);
+function albumStats(){
+  const items = CATALOG, b = items.filter(x => albumBuilt(x.id)).length, c = CROPS.filter(x => S.album.crops[x.id]).length, pm = S.album.poems.length;
+  const total = items.length + CROPS.length + POEMS.length, have = b + c + pm;
+  return {b, c, pm, total, have, pct:Math.round(have / total * 100)};
+}
+function renderAlbumBox(){
+  const a = albumStats();
+  $('albumBox').innerHTML = `<h3>${t('Album')}</h3><p>${tt`Du hast ${a.pct} % gesammelt: ${a.b} Gebäude, ${a.c} Pflanzen, ${a.pm} Gedichte.`}</p><button class="claim" data-open-album>${t('Album öffnen')}</button>`;
+}
+function renderAlbum(){
+  const a = albumStats(), cell = (ic, label, have) => `<div class="album-cell${have ? '' : ' missing'}">${ic}${have ? label : '?'}</div>`;
+  let html = `<p class="note">${tt`${a.have} von ${a.total} Einträgen gesammelt (${a.pct} %).`}</p><div class="album-bar"><i style="width:${a.pct}%"></i></div>`;
+  html += `<h3>${tt`Gebäude (${a.b} von ${CATALOG.length})`}</h3><div class="album-grid">${CATALOG.map(x => cell(icon(x.id), x.name, albumBuilt(x.id))).join('')}</div>`;
+  html += `<h3>${tt`Ernte (${a.c} von ${CROPS.length})`}</h3><div class="album-grid">${CROPS.map(c => cell(icon(c.id), `${c.name}<br>${tt`${S.album.crops[c.id] || 0}× geerntet`}`, S.album.crops[c.id])).join('')}</div>`;
+  html += `<h3>${tt`Gedichte (${a.pm} von ${POEMS.length})`}</h3><ul class="poem-list">${POEMS.map((pm, i) => S.album.poems.includes(i) ? `<li>${pm.title} <small>(${pm.author.replace(/\s*\(.*\)/, '')})</small></li>` : `<li class="missing">${t('Noch nicht gelesen')}</li>`).join('')}</ul>`;
+  const fr = [...new Set([...residentsNow().map(r => r.name), ...Object.keys(S.friends)])];
+  html += `<h3>${t('Freundschaften')}</h3>` + (fr.length ? fr.map(n => `<div class="set-row"><span><b>${n}</b></span><span class="hearts" style="color:#C95480;letter-spacing:2px">${hearts(S.friends[n] || 0)}</span></div>`).join('')
+    : `<p class="note">${t('Noch keine Bewohner im Dorf.')}</p>`);
+  $('list').innerHTML = html;
+}
+
+/* ---------- Wünsche der Bewohner ---------- */
+const WISH_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" fill="#FFF4F8"/><path d="M12 14.5s-3.5-2.2-3.5-4.6a1.9 1.9 0 0 1 3.5-1 1.9 1.9 0 0 1 3.5 1c0 2.4-3.5 4.6-3.5 4.6Z" fill="#C95480"/></svg>';
+const MAX_HEARTS = 5;
+const hearts = n => '♥'.repeat(n) + '♡'.repeat(MAX_HEARTS - n);
+const owned = id => S.placed.filter(p => p.id === id).length + stored(id);
+function residentsNow(){                                         // alle Menschen, die gerade im Dorf wohnen
+  const out = [];
+  S.placed.forEach(p => (RES[p.id] || []).forEach((r, i) => { if (!r.kind && (!r.need || r.need())) out.push({key:`${p.id}-${i}`, home:p.id, name:r.name, role:r.role}); }));
+  return out;
+}
+function makeWishes(){
+  const res = residentsNow(); if (!res.length) return [];
+  const R = rng(S.day * 7919 + res.length * 31), pick = a => a[Math.floor(R() * a.length)];
+  const budget = Math.max(2500, coins() * .5);
+  const items = CATALOG.filter(b => (b.area === 'any' ? (b.tier === 1 || tier2Open()) : regionOpen(REGIONS.find(r => r.id === b.area)))
+    && (b.multi || !isBuilt(b.id)) && b.id !== 'field' && !b.landmark && b.cost <= budget);
+  const hasFields = S.placed.some(p => p.id === 'field');
+  const list = [], used = new Set();
+  for (let k = 0; k < Math.min(2, res.length); k++) {
+    let who = pick(res), guard = 0; while (used.has(who.key) && guard++ < 10) who = pick(res); if (used.has(who.key)) break; used.add(who.key);
+    if (hasFields && R() < .4) {
+      const c = pick(CROPS.slice(0, 3 + Math.min(2, Math.floor(S.day / 6)))), n = 1 + Math.floor(R() * 2);
+      list.push({...who, type:'deliver', item:c.id, n, reward:{coins:Math.round(c.price * n * 1.4 / 10) * 10, herbs:5}, done:false});
+    } else if (items.length) {
+      const b = pick(items), n = !b.multi ? 1 : b.id === 'path' ? 4 : b.id === 'fence' ? 3 : 2;
+      list.push({...who, type:'build', item:b.id, n, base:owned(b.id), reward:{coins:Math.round((150 + b.cost * n * .3) / 50) * 50, herbs:3}, done:false});
+    }
+  }
+  return list;
+}
+function todaysWishes(){
+  if (!S.wishes || S.wishes.day !== S.day || (!S.wishes.list.length && residentsNow().length)) S.wishes = {day:S.day, list:makeWishes()};
+  return S.wishes.list;
+}
+const wishReady = w => !w.done && (w.type === 'build' ? owned(w.item) >= w.base + w.n : (S.pantry[w.item] || 0) >= w.n);
+const wishText = w => w.type === 'build'
+  ? (w.n === 1 ? tt`Ich würde mich so über ${byId[w.item].name} freuen!` : tt`Ich würde mich über ${w.n} × ${byId[w.item].name} freuen!`)
+  : tt`Hast du ${w.n} ${w.n === 1 ? t('Kiste') : t('Kisten')} ${CROP_BY[w.item].name} für mich?`;
+function renderWishes(){
+  const list = todaysWishes();
+  let html = `<p class="note">${t('Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.')}</p>`;
+  if (!list.length) html += `<p class="note">${t('Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.')}</p>`;
+  list.forEach((w, i) => {
+    const h = S.friends[w.name] || 0, ready = wishReady(w);
+    const status = w.done ? `<b>${t('Erfüllt')}</b>`
+      : w.type === 'build' ? `<small>${tt`${Math.min(w.n, Math.max(0, owned(w.item) - w.base))} von ${w.n} gebaut`}</small>`
+      : `<small>${tt`Im Vorrat: ${S.pantry[w.item] || 0}`}</small>`;
+    const btn = w.done ? '' : ready ? `<button class="claim" data-wish="${i}">${w.type === 'build' ? t('Belohnung abholen') : t('Übergeben')}</button>`
+      : w.type === 'build' ? `<button class="ghost" data-wish-build="${w.item}">${t('Bauen')}</button>` : `<button class="ghost" disabled>${t('Übergeben')}</button>`;
+    html += `<div class="wish-row"><div class="who"><b>${w.name}, ${w.role}</b><span class="hearts" aria-label="${tt`Freundschaft ${h} von ${MAX_HEARTS}`}">${hearts(h)}</span></div>
+      <p class="say">${Q1}${wishText(w)}${Q2}</p><div class="wbtm"><span>${status} · ${rewardText(w.reward)}</span>${btn}</div></div>`;
+  });
+  $('list').innerHTML = html;
+}
+function fulfillWish(i){
+  const w = todaysWishes()[i]; if (!w || !wishReady(w)) return;
+  if (w.type === 'deliver') { S.pantry[w.item] -= w.n; if (!S.pantry[w.item]) delete S.pantry[w.item]; }
+  w.done = true; give(w.reward);
+  const h = S.friends[w.name] = Math.min(MAX_HEARTS, (S.friends[w.name] || 0) + 1);
+  const msg = checkCompletions(); save(); render(); renderWishes(); sfx.grow();
+  toast(msg || tt`${w.name} strahlt: Danke! ${rewardText(w.reward)} · Freundschaft ${hearts(h)}`, 4000);
+}
+function renderWishList(){
+  const list = todaysWishes(), open = list.filter(w => !w.done).length;
+  $('wishList').innerHTML = `<h3>${t('Wünsche der Bewohner')}</h3><p>${list.length ? (open ? tt`Heute noch offen: ${open} von ${list.length}. Tippe im Dorf auf die rosa Sprechblasen.` : t('Alle Wünsche für heute erfüllt. Morgen gibt es neue.'))
+    : t('Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.')}</p>${list.length ? `<button class="claim" data-open-wishes>${t('Wünsche ansehen')}</button>` : ''}`;
+}
+const wishBtns = new Map();
+function updateWishSpots(){
+  const r = renderer.domElement.getBoundingClientRect(), open = todaysWishes().filter(w => !w.done);
+  const homes = new Map(); open.forEach(w => { const p = S.placed.find(q => q.id === w.home); if (p) homes.set(p.uid, {p, w}); });
+  for (const [k, b] of wishBtns) if (!homes.has(k)) { b.remove(); wishBtns.delete(k); }
+  homes.forEach(({p, w}, uid) => {
+    let b = wishBtns.get(uid);
+    if (!b) {
+      b = document.createElement('button'); b.className = 'wishspot'; b.type = 'button'; b.innerHTML = WISH_ICON;
+      b.setAttribute('aria-label', tt`Wunsch von ${w.name}`); b.title = tt`Wunsch von ${w.name}`;
+      b.onclick = e => { e.stopPropagation(); if (mode === 'idle') openSheet('wishes'); };
+      $('labels').appendChild(b); wishBtns.set(uid, b);
+    }
+    const c = centerOf(p); c.y = sizeOf(p.id) * .45 + 1.6; c.project(camera);
+    b.style.left = (c.x + 1) / 2 * r.width + 'px'; b.style.top = (1 - c.y) / 2 * r.height + 'px';
+    b.style.display = Math.abs(c.x) > 1.02 || Math.abs(c.y) > 1.02 ? 'none' : '';
+  });
+}
 
 /* ---------- Eingabe: verschieben, drehen, zoomen, tippen ---------- */
 const pointers = new Map();
@@ -2281,7 +2718,7 @@ if (canvas) {
       const rotate = e.pointerType === 'mouse' && (e.button === 2 || e.button === 1 || e.shiftKey);
       const paint = !rotate && mode === 'place' && placing && placing.multi && (e.pointerType !== 'mouse' || e.button === 0);
       drag = {x:e.clientX, y:e.clientY, lx:e.clientX, ly:e.clientY, az:cam.azT, rotate, paint, button:e.button, painted:new Set()}; moved = false;
-      if (paint) { const t = pick(e.clientX, e.clientY); if (t) { drag.painted.add(t.x + ',' + t.y); tryPlace(t, false); } }
+      if (paint) { const tm = pick(e.clientX, e.clientY); if (tm) { drag.painted.add(tm.x + ',' + tm.y); tryPlace(tm, false); } }
     }
     if (pointers.size === 2) {
       const [a, b] = [...pointers.values()];
@@ -2292,8 +2729,8 @@ if (canvas) {
   canvas.addEventListener('pointermove', e => {
     if (e.pointerType === 'mouse' && !pointers.size) {
       if (mode === 'place' || mode === 'move') showHover(pick(e.clientX, e.clientY));
-      else if (mode === 'edit') { const t = pick(e.clientX, e.clientY); hoverEdit(t && (t.ref || at(t.x, t.y))); }
-      else { const t = pick(e.clientX, e.clientY); canvas.style.cursor = t && (t.ref || t.npc) ? 'pointer' : ''; }
+      else if (mode === 'edit') { const tm = pick(e.clientX, e.clientY); hoverEdit(tm && (tm.ref || at(tm.x, tm.y))); }
+      else { const tm = pick(e.clientX, e.clientY); canvas.style.cursor = tm && (tm.ref || tm.npc) ? 'pointer' : ''; }
     }
     if (!pointers.has(e.pointerId)) return;
     pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
@@ -2309,8 +2746,8 @@ if (canvas) {
       if (!moved && Math.hypot(dx, dy) > 6) moved = true;
       if (moved) {
         if (drag.paint && mode === 'place') {                       // Wege und Deko "malen"
-          const t = pick(e.clientX, e.clientY);
-          if (t && !drag.painted.has(t.x + ',' + t.y)) { drag.painted.add(t.x + ',' + t.y); tryPlace(t, true); }
+          const tm = pick(e.clientX, e.clientY);
+          if (tm && !drag.painted.has(tm.x + ',' + tm.y)) { drag.painted.add(tm.x + ',' + tm.y); tryPlace(tm, true); }
         }
         else if (drag.rotate) { cam.azT = drag.az - dx * .009; cam.az = cam.azT; }
         else if (!drag.paint) panBy(e.clientX - drag.lx, e.clientY - drag.ly);
@@ -2334,7 +2771,7 @@ if (canvas) {
   canvas.addEventListener('pointerleave', () => { if (!pointers.size) { showHover(null); hoverEdit(null); } });
   canvas.addEventListener('dblclick', e => {                         // Doppelklick: Gebäude direkt bearbeiten
     if (mode !== 'idle') return;
-    const t = pick(e.clientX, e.clientY), p = t && !t.npc && (t.ref || at(t.x, t.y));
+    const tm = pick(e.clientX, e.clientY), p = tm && !tm.npc && (tm.ref || at(tm.x, tm.y));
     if (!p) return;
     selected = p; setMode('edit'); selected = p; renderCtx(); showHover(null);
   });
@@ -2359,8 +2796,8 @@ function animateCoins(){
   const target = coins(), from = shownCoins;
   if (reduce || from === target) { shownCoins = target; $('coins').textContent = fmt(target); return; }
   const t0 = performance.now();
-  (function step(t){
-    const k = Math.min(1, (t - t0) / 600), e = 1 - Math.pow(1 - k, 3);
+  (function step(tm){
+    const k = Math.min(1, (tm - t0) / 600), e = 1 - Math.pow(1 - k, 3);
     shownCoins = Math.round(from + (target - from) * e); $('coins').textContent = fmt(shownCoins);
     if (k < 1) requestAnimationFrame(step);
   })(t0);
@@ -2371,7 +2808,7 @@ function renderProgress(){
     ? tt`<span class="pips">${Array.from({length:UNLOCK_T2}, (_, i) => `<span class="pip${i < n ? ' on' : ''}"></span>`).join('')}</span>
        <span>Noch ${UNLOCK_T2 - n} ${UNLOCK_T2 - n === 1 ? t('Objekt') : t('Objekte')} aus Stufe 1 bis Stufe 2</span>`
     : next ? t('Fahre über ein Schloss-Symbol, um zu sehen, wann dein Dorf wächst.')
-    : t('Dein Dorf hat seine volle Größe erreicht.');
+    : (() => { const L = LANDMARKS.find(x => !lmState(x.id).done); return L ? tt`Dein Dorf hat seine volle Größe erreicht. ${byId[L.id].name}: ${lmText(L.id)}` : t('Dein Dorf hat seine volle Größe erreicht.'); })();
 }
 const costHtml = (b, m) => `<span class="cost">${b.cost ? `<span class="${m.coins ? 'miss' : ''}">${COIN}${fmt(b.cost)}</span>` : ''}${Object.entries(b.mat).map(([k, v]) => `<span class="${m[k] ? 'miss' : ''}">${RSRC[k].icon}${v}</span>`).join('')}</span>`;
 function renderList(){
@@ -2390,17 +2827,19 @@ function renderList(){
   ];
   REGIONS.filter(r => r.need).forEach(r => groups.push({
     title: regionOpen(r) ? tt`${r.name} (nur dort baubar)` : tt`${r.name} (noch nicht erschlossen)`,
-    items: CATALOG.filter(b => b.area === r.id), lock: regionOpen(r) ? null : t('Gesperrt')}));
+    items: CATALOG.filter(b => b.area === r.id && !b.landmark), lock: regionOpen(r) ? null : t('Gesperrt')}));
+  groups.push({title:t('Wahrzeichen (wachsen mit deinen Schritten)'), items:CATALOG.filter(b => b.landmark), lock:null});
   groups.forEach(g => {
     html += `<h3>${g.title}</h3>`;
     g.items.forEach(b => {
-      const m = missing(b), done = !b.multi && isBuilt(b.id), poor = Object.keys(m).length > 0, locked = !!g.lock;
+      const lm = b.landmark ? lmState(b.id) : null, prevLm = lm && !lm.open ? byId[LANDMARKS[LANDMARKS.findIndex(L => L.id === b.id) - 1].id].name : '';
+      const m = missing(b), done = !b.multi && isBuilt(b.id), poor = Object.keys(m).length > 0, locked = !!g.lock || (lm && !lm.open);
       const cls = locked ? 'locked' : done ? 'done' : poor ? 'poor' : '';
-      const right = locked ? `<span class="tag">${g.lock}</span>` : done ? `<span class="tag">${isPlaced(b.id) ? t('Gebaut') : t('Im Lager')}</span>` : costHtml(b, m);
+      const right = locked ? `<span class="tag">${g.lock || tt`Nach: ${prevLm}`}</span>` : done ? `<span class="tag">${isPlaced(b.id) ? t('Gebaut') : t('Im Lager')}</span>` : costHtml(b, m);
       const status = locked ? t('gesperrt') : done ? t('bereits gebaut') : poor ? tt`es fehlen ${missText(m)}` : tt`kostet ${missText({coins:b.cost, ...b.mat})}`;
       html += `<button class="item ${cls}" data-id="${b.id}" ${locked || done || poor ? 'disabled' : ''} aria-label="${b.name}, ${status}">
         <span class="ico">${icon(b.id)}</span>
-        <span><span class="name">${b.name}</span><br><span class="desc">${poor && !locked && !done ? `Es fehlen ${missText(m)}` : b.desc}</span></span>
+        <span><span class="name">${b.name}</span><br><span class="desc">${lm ? lmText(b.id) : poor && !locked && !done ? `Es fehlen ${missText(m)}` : b.desc}</span></span>
         ${right}</button>`;
     });
   });
@@ -2421,7 +2860,7 @@ function renderTasks(){
   $('chest').innerHTML = S.chest ? tt`${chestSvg}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>`
     : allClaimed() ? tt`${chestSvg}<p><strong>Alle vier geschafft</strong>Deine Truhe ist bereit.</p><button class="claim" id="openChest">Öffnen</button>`
     : tt`${chestSvg}<p><strong>Tagesbonus: ${rewardText(CHEST)}</strong>Hol alle vier Belohnungen ab, dann öffnet sich die Truhe (${S.claimed.length} von ${n}).</p>`;
-  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0);
+  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0) + weekClaimable().length;
   $('badge').hidden = c === 0; $('badge').textContent = c;
 }
 function renderRes(){
@@ -2434,17 +2873,28 @@ $('resRow').onclick = e => {
   const act = {wood:tt`${S.act.workout} Min Training`, stone:tt`${S.act.floors} Stockwerke`, herbs:tt`${S.act.mindful} Min Achtsamkeit`}[k];
   toast(tt`${RSRC[k].name}: ${RSRC[k].src}. Heute: ${act}.`);
 };
+function checkLandmarks(){
+  LANDMARKS.forEach(L => {
+    const st = lmState(L.id), had = S.lm[L.id] || 0; if (st.phase <= had) return;
+    const gained = st.phase - had, r = Object.fromEntries(Object.entries(L.reward).map(([k, v]) => [k, v * gained]));
+    S.lm[L.id] = st.phase; give(r); save();
+    const name = byId[L.id].name, what = L.id === 'palace' ? t(PALACE_PHASES[st.phase - 1]) : tt`Bauphase ${st.phase} von ${st.phases}`;
+    setTimeout(() => { sfx.grow(); toast(st.done ? tt`${name} ist fertig! ${rewardText(r)}` : tt`${name} wächst: ${what}. ${rewardText(r)}`, 5000); }, 900);
+  });
+}
+const lmText = id => { const st = lmState(id); return !st.open ? byId[id].desc : st.done ? t('Fertig gebaut') : tt`Bauphase ${st.phase} von ${st.phases} · nächste in ${fmt(st.next)} Schritten`; };
 function render(){
+  checkLandmarks();
   $('day').textContent = tt`Tag ${S.day}`;
   $('today').textContent = fmt(S.today);
   $('lifetime').textContent = fmt(S.lifetime);
   animateCoins(); renderRes();
   persistUnlocks();
   if (buildGround()) { fitTarget(); cam.zoomT = cam.fit * cam.user; }
-  syncObjects(); syncNpcs(); renderProgress(); renderTasks(); renderCalmList(); renderGameList();
+  syncObjects(); syncNpcs(); renderProgress(); renderTasks(); renderCalmList(); renderGameList(); renderWishList(); renderWeek(); renderAlbumBox();
 }
 let toastTimer;
-function toast(msg, ms = 2800){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), ms); }
+function toast(msg, ms = 2800){ const tm = $('toast'); tm.textContent = msg; tm.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => tm.classList.remove('show'), ms); }
 
 /* ---------- Leise Klänge ---------- */
 let soundOn = SET.sound;
@@ -2454,12 +2904,12 @@ function tone(freqs, dur, vol, type = 'sine', delay = 0){
   try {
     sfxCtx = sfxCtx || new (window.AudioContext || window.webkitAudioContext)();
     if (sfxCtx.state === 'suspended') sfxCtx.resume();
-    const t = sfxCtx.currentTime + delay;
+    const tm = sfxCtx.currentTime + delay;
     freqs.forEach(([f0, f1], i) => {
       const o = sfxCtx.createOscillator(), g = sfxCtx.createGain();
-      o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur * .6);
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol * SET.vol / 70 / (i + 1), t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-      o.connect(g).connect(sfxCtx.destination); o.start(t); o.stop(t + dur + .05);
+      o.type = type; o.frequency.setValueAtTime(f0, tm); if (f1) o.frequency.exponentialRampToValueAtTime(f1, tm + dur * .6);
+      g.gain.setValueAtTime(0, tm); g.gain.linearRampToValueAtTime(vol * SET.vol / 70 / (i + 1), tm + .01); g.gain.exponentialRampToValueAtTime(.0001, tm + dur);
+      o.connect(g).connect(sfxCtx.destination); o.start(tm); o.stop(tm + dur + .05);
     });
   } catch(e) {}
 }
@@ -2504,73 +2954,73 @@ const MUSIC = (() => {
     for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
     const v = ctx.createConvolver(); v.buffer = buf; return v;
   }
-  function env(g, t, a, peak, dur){ g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + dur); }
+  function env(g, tm, a, peak, dur){ g.gain.setValueAtTime(0, tm); g.gain.linearRampToValueAtTime(peak, tm + a); g.gain.exponentialRampToValueAtTime(.0001, tm + dur); }
   // Gezupfte Zither (Đàn tranh): heller Anschlag, langes Ausklingen, oft von unten in den Ton gebogen
-  function tranh(f, t, vol, bend){
+  function tranh(f, tm, vol, bend){
     const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), g2 = ctx.createGain(), lp = ctx.createBiquadFilter();
     o.type = 'triangle'; o2.type = 'sine';
-    if (bend) { o.frequency.setValueAtTime(f * .89, t); o.frequency.exponentialRampToValueAtTime(f, t + .14); o2.frequency.setValueAtTime(f * 1.78, t); o2.frequency.exponentialRampToValueAtTime(f * 2, t + .14); }
-    else { o.frequency.setValueAtTime(f, t); o2.frequency.setValueAtTime(f * 2, t); }
-    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5; lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * .008, t + .7);
+    if (bend) { o.frequency.setValueAtTime(f * .89, tm); o.frequency.exponentialRampToValueAtTime(f, tm + .14); o2.frequency.setValueAtTime(f * 1.78, tm); o2.frequency.exponentialRampToValueAtTime(f * 2, tm + .14); }
+    else { o.frequency.setValueAtTime(f, tm); o2.frequency.setValueAtTime(f * 2, tm); }
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5; lg.gain.setValueAtTime(0, tm); lg.gain.linearRampToValueAtTime(f * .008, tm + .7);
     lfo.connect(lg); lg.connect(o.frequency);
-    lp.type = 'lowpass'; lp.frequency.setValueAtTime(3800, t); lp.frequency.exponentialRampToValueAtTime(900, t + 1.2);
-    env(g, t, .004, vol, 2.6); env(g2, t, .004, vol * .35, 1.2);
+    lp.type = 'lowpass'; lp.frequency.setValueAtTime(3800, tm); lp.frequency.exponentialRampToValueAtTime(900, tm + 1.2);
+    env(g, tm, .004, vol, 2.6); env(g2, tm, .004, vol * .35, 1.2);
     o.connect(g); o2.connect(g2); g.connect(lp); g2.connect(lp); lp.connect(bus);
-    [o, o2, lfo].forEach(x => { x.start(t); x.stop(t + 2.7); });
+    [o, o2, lfo].forEach(x => { x.start(tm); x.stop(tm + 2.7); });
   }
   // Einsaitige Đàn bầu: weicher, singender Ton mit Vibrato, gleitet vom vorherigen Ton herüber
-  function bau(f, t, dur, vol, from){
+  function bau(f, tm, dur, vol, from){
     const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), g2 = ctx.createGain();
     o.type = 'sine'; o2.type = 'sine';
-    if (from) { o.frequency.setValueAtTime(from, t); o.frequency.exponentialRampToValueAtTime(f, t + .18); o2.frequency.setValueAtTime(from * 2, t); o2.frequency.exponentialRampToValueAtTime(f * 2, t + .18); }
-    else { o.frequency.setValueAtTime(f, t); o2.frequency.setValueAtTime(f * 2, t); }
+    if (from) { o.frequency.setValueAtTime(from, tm); o.frequency.exponentialRampToValueAtTime(f, tm + .18); o2.frequency.setValueAtTime(from * 2, tm); o2.frequency.exponentialRampToValueAtTime(f * 2, tm + .18); }
+    else { o.frequency.setValueAtTime(f, tm); o2.frequency.setValueAtTime(f * 2, tm); }
     const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5.2;
-    lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * .018, t + Math.min(.6, dur * .6));
+    lg.gain.setValueAtTime(0, tm); lg.gain.linearRampToValueAtTime(f * .018, tm + Math.min(.6, dur * .6));
     lfo.connect(lg); lg.connect(o.frequency); lg.connect(o2.frequency);
-    const end = t + dur + .5;
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .09); g.gain.setValueAtTime(vol, t + dur * .7); g.gain.exponentialRampToValueAtTime(.0001, end);
-    g2.gain.setValueAtTime(0, t); g2.gain.linearRampToValueAtTime(vol * .22, t + .09); g2.gain.exponentialRampToValueAtTime(.0001, end);
+    const end = tm + dur + .5;
+    g.gain.setValueAtTime(0, tm); g.gain.linearRampToValueAtTime(vol, tm + .09); g.gain.setValueAtTime(vol, tm + dur * .7); g.gain.exponentialRampToValueAtTime(.0001, end);
+    g2.gain.setValueAtTime(0, tm); g2.gain.linearRampToValueAtTime(vol * .22, tm + .09); g2.gain.exponentialRampToValueAtTime(.0001, end);
     o.connect(g); o2.connect(g2); g.connect(bus); g2.connect(bus);
-    [o, o2, lfo].forEach(x => { x.start(t); x.stop(end + .05); });
+    [o, o2, lfo].forEach(x => { x.start(tm); x.stop(end + .05); });
   }
   // Weicher Klangteppich aus Grundton und Quinte
-  function pad(f, t, dur, vol){
+  function pad(f, tm, dur, vol){
     const lp = ctx.createBiquadFilter(), g = ctx.createGain(); lp.type = 'lowpass'; lp.frequency.value = 520;
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 2.5); g.gain.setValueAtTime(vol, t + dur - 2); g.gain.linearRampToValueAtTime(0, t + dur + 1);
-    [f, f * 1.0035, f * 1.5].forEach(x => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = x; o.connect(lp); o.start(t); o.stop(t + dur + 1.1); });
+    g.gain.setValueAtTime(0, tm); g.gain.linearRampToValueAtTime(vol, tm + 2.5); g.gain.setValueAtTime(vol, tm + dur - 2); g.gain.linearRampToValueAtTime(0, tm + dur + 1);
+    [f, f * 1.0035, f * 1.5].forEach(x => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = x; o.connect(lp); o.start(tm); o.stop(tm + dur + 1.1); });
     lp.connect(g); g.connect(bus);
   }
   // Holzblock (Mõ): kurzes, leises Klopfen
-  function mo(t, vol){
+  function mo(tm, vol){
     const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine';
-    o.frequency.setValueAtTime(1150, t); o.frequency.exponentialRampToValueAtTime(820, t + .05);
-    env(g, t, .002, vol, .14); o.connect(g); g.connect(bus); o.start(t); o.stop(t + .16);
+    o.frequency.setValueAtTime(1150, tm); o.frequency.exponentialRampToValueAtTime(820, tm + .05);
+    env(g, tm, .002, vol, .14); o.connect(g); g.connect(bus); o.start(tm); o.stop(tm + .16);
   }
-  function schedulePhrase(t){
+  function schedulePhrase(tm){
     const [mel, inst, base] = SONG[idx % SONG.length]; idx++;
     const root = ROOT / 2 * Math.pow(2, SCALE[base] / 12);
-    pad(root, t, PHRASE, .03);
+    pad(root, tm, PHRASE, .03);
     for (let bar = 0; bar < 4; bar++) {                                      // leise Zupf-Begleitung
-      const b0 = t + bar * BAR, d = base;
+      const b0 = tm + bar * BAR, d = base;
       tranh(hz(d), b0, .04); tranh(hz(d + 2), b0 + 2 * E, .028); tranh(hz(d + 4), b0 + 4 * E, .032); tranh(hz(d + 2), b0 + 6 * E, .024);
       if (bar % 2 === 0) mo(b0, .035); else mo(b0 + 6 * E, .02);
     }
     if (!mel) {                                                              // Zwischenspiel: sanftes Glissando der Zither
-      [5, 6, 7, 8, 9, 10].forEach((d, i) => tranh(hz(d + base), t + 2 * BAR + i * .11, .045));
+      [5, 6, 7, 8, 9, 10].forEach((d, i) => tranh(hz(d + base), tm + 2 * BAR + i * .11, .045));
       return;
     }
-    let at = t, prev = null;
+    let atT = tm, prev = null;
     MEL[mel].forEach(([d, n]) => {
       const dur = n * E;
       if (d !== null) {
         const f = hz(d) * (inst === 'bau' ? 1 : 2);
         if (inst === 'tranh') {
-          tranh(f, at, .13, n >= 2 && Math.random() < .35);
-          if (n >= 4 && Math.random() < .5) tranh(f, at + dur / 2, .05);           // zartes Nachzupfen bei langen Tönen
-        } else bau(f, at, dur, .1, prev && Math.abs(prev / f - 1) < .5 ? prev : null);
+          tranh(f, atT, .13, n >= 2 && Math.random() < .35);
+          if (n >= 4 && Math.random() < .5) tranh(f, atT + dur / 2, .05);           // zartes Nachzupfen bei langen Tönen
+        } else bau(f, atT, dur, .1, prev && Math.abs(prev / f - 1) < .5 ? prev : null);
         prev = f;
       }
-      at += dur;
+      atT += dur;
     });
   }
   function tick(){
@@ -2618,8 +3068,8 @@ let sheetKind = 'build';
 const sheetScroll = {};
 function openSheet(kind = 'build'){
   sheetKind = kind;
-  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker')}[kind] || t('Bauen');
-  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else renderList();
+  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker'), farmshop:byId.farmstand.name, wishes:t('Wünsche'), album:t('Album')}[kind] || t('Bauen');
+  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else if (kind === 'farmshop') renderFarmshop(); else if (kind === 'wishes') renderWishes(); else if (kind === 'album') renderAlbum(); else renderList();
   document.body.classList.add('open'); $('closeBuild').focus({preventScroll:true});
   $('sheet').scrollTop = sheetScroll[kind] || 0;           // Menü merkt sich, wo du warst
   sfx.open();
@@ -2629,7 +3079,7 @@ const K = k => `<kbd>${k}</kbd>`;
 function renderSettings(){
   $('list').innerHTML = `<h3>${LANG === 'en' ? 'Language' : 'Sprache'}</h3><div class="set-row"><span><b>${LANG === 'en' ? 'Game language' : 'Spielsprache'}</b><small>${LANG === 'en' ? 'Quiz, poems and texts change with it' : 'Quiz, Gedichte und Texte wechseln mit'}</small></span><span class="langs"><button class="lang-btn" data-lang="de" aria-pressed="${LANG === 'de'}">Deutsch</button><button class="lang-btn" data-lang="en" aria-pressed="${LANG === 'en'}">English</button></span></div>` + tt`
     <h3>Ton und Darstellung</h3>
-    ${sw('sound', soundOn, t('Klänge'), t('Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen')) + sw('music', SET.music, t('Hintergrundmusik'), t('Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)'))}
+    ${sw('sound', soundOn, t('Klänge'), t('Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen')) + sw('music', SET.music, t('Hintergrundmusik'), t('Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)')) + sw('env', SET.env, t('Tageszeit, Wetter und Jahreszeiten'), t('Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat'))}
     <div class="set-row"><span><b>Lautstärke</b><small>${SET.vol} %</small></span><input type="range" min="10" max="100" step="10" value="${SET.vol}" data-vol aria-label="Lautstärke"></div>
     ${sw('autoRead', SET.autoRead, t('Gedichte automatisch vorlesen'), canSpeak ? t('Wilma liest das Gedicht des Tages vor, sobald du es öffnest') : t('Dein Browser unterstützt kein Vorlesen'))}
     ${sw('reduce', SET.reduce, t('Animationen reduzieren'), sysReduce ? t('Ist in deinen Systemeinstellungen bereits aktiv') : t('Keine Übergänge, kein Wackeln, kein Pulsieren'))}
@@ -2662,7 +3112,35 @@ function renderSettings(){
     </table>
     <h3>Spielstand</h3>
     <div class="set-row"><span><b>Dorf zurücksetzen</b><small>Beginnt ein ganz neues Dorf. Das lässt sich nicht rückgängig machen.</small></span><button class="danger" id="resetBtn">Zurücksetzen</button></div>
+    ${saveRows()}
     <p class="note" style="margin-top:14px">Lindenbach, Web-Prototyp. Die Gedichte im Erzählhaus sind gemeinfrei.</p>`;
+}
+// Spielstand sichern: als Datei herunterladen und wieder einlesen (z. B. auf einem anderen Gerät oder Browser)
+const saveRows = () => `<div class="set-row"><span><b>${t('Spielstand sichern')}</b><small>${t('Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.')}</small></span><button class="ghost" id="exportBtn">${t('Exportieren')}</button></div>
+    <div class="set-row"><span><b>${t('Spielstand laden')}</b><small>${t('Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.')}</small></span><button class="ghost" id="importBtn">${t('Importieren')}</button></div>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>`;
+function exportSave(){
+  save();
+  const data = JSON.stringify({app:'lindenbach', version:1, saved:new Date().toISOString(), state:S}, null, 1);
+  const a = document.createElement('a'), d = new Date();
+  a.href = URL.createObjectURL(new Blob([data], {type:'application/json'}));
+  a.download = `lindenbach-spielstand-${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.json`;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  toast(t('Spielstand gespeichert. Die Datei liegt in deinen Downloads.'));
+}
+let pendingImport = null;
+function readImport(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const o = JSON.parse(r.result), st = o && o.app === 'lindenbach' ? o.state : o;
+      if (!st || !Array.isArray(st.placed) || typeof st.res !== 'object' || typeof st.day !== 'number') throw new Error('bad');
+      pendingImport = st;
+      const b = $('importBtn'); if (b) { b.className = 'danger'; b.textContent = t('Wirklich laden?'); }
+      toast(tt`Gefunden: Dorf an Tag ${st.day} mit ${st.placed.length} Objekten. Tippe noch einmal, um es zu laden.`, 5000);
+    } catch(e) { pendingImport = null; toast(t('Diese Datei ist kein Lindenbach-Spielstand.')); }
+  };
+  r.readAsText(file);
 }
 function renderTrade(){
   const c = coins();
@@ -2748,6 +3226,7 @@ $('ctxBtns').onclick = e => {
   if (a === 'store') storeSelected();
 };
 $('editBtn').onclick = () => { selected = null; setMode('edit'); };
+$('list').addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) readImport(e.target.files[0]); });
 $('list').addEventListener('input', e => {
   if (!e.target.matches('[data-vol]')) return;
   SET.vol = +e.target.value; saveSet(); MUSIC.update();
@@ -2763,9 +3242,15 @@ $('list').onclick = e => {
     if (k === 'sound') setSound(on);
     else { SET[k] = on; saveSet(); }
     if (k === 'music') { if (on) MUSIC.start(); else MUSIC.stop(); }
+    if (k === 'env' || k === 'reduce') updateEnv();
     if (k === 'reduce') { reduce = sysReduce || on; document.body.classList.toggle('reduce', on); }
     if (k === 'hints') $('hint').style.display = on ? '' : 'none';
     st.setAttribute('aria-checked', on); return;
+  }
+  if (e.target.id === 'exportBtn') { exportSave(); return; }
+  if (e.target.id === 'importBtn') {
+    if (pendingImport) { try { localStorage.setItem(KEY, JSON.stringify(pendingImport)); } catch(err) {} location.reload(); return; }
+    $('importFile').click(); return;
   }
   if (e.target.id === 'resetBtn') {
     const b = e.target;
@@ -2777,6 +3262,12 @@ $('list').onclick = e => {
   const pa = e.target.closest('[data-plant-all]');
   if (pa) { plantOn(emptyFields(), CROP_BY[pa.dataset.plantAll]); closeSheet(); return; }
   if (e.target.closest('[data-harvest-all]')) { harvest(ripeFields()); renderField(); return; }
+  const sb = e.target.closest('[data-sell],[data-sell-n]');
+  if (sb) { const id = sb.dataset.sell || sb.dataset.sellN; sellCrops([[id, sb.dataset.sell ? 1 : S.pantry[id] || 0]]); return; }
+  if (e.target.closest('[data-sell-all]')) { sellCrops(Object.entries(S.pantry)); return; }
+  const wb = e.target.closest('[data-wish]'); if (wb) { fulfillWish(+wb.dataset.wish); return; }
+  const wbb = e.target.closest('[data-wish-build]');
+  if (wbb) { openSheet('build'); const el = $('list').querySelector(`.item[data-id="${wbb.dataset.wishBuild}"]`); if (el) { el.scrollIntoView({block:'center'}); el.classList.add('flash'); } return; }
   const tb = e.target.closest('[data-trade]');
   if (tb) {
     const k = tb.dataset.trade, n = +tb.dataset.n;
@@ -2813,6 +3304,8 @@ function onTap(cx, cy){
     S.stats.visits++; if (n.kind === 'person') S.stats.talks++; const msg = checkCompletions(); save(); renderTasks();
     if (n.home.id === 'storyhouse') { openPoem(); if (msg) toast(msg); return; }
     if (n.home.id === 'school') { openSheet('school'); if (msg) toast(msg); return; }
+    const ow = n.kind === 'person' && todaysWishes().find(w => !w.done && w.name === n.r.name);
+    if (ow) { openSheet('wishes'); toast(msg || `${n.r.name}: ${Q1}${wishText(ow)}${Q2}`, 4000); return; }
     toast(msg || (n.kind === 'person' ? `${n.r.name}, ${n.r.role}: ${Q1}${line}${Q2}` : `${n.r.name} (${n.r.role}) ${n.kind === 'cat' ? line : Q1 + line + Q2}`));
     return;
   }
@@ -2828,6 +3321,8 @@ function onTap(cx, cy){
     if (p.id === 'storyhouse') { openPoem(); if (msg) toast(msg); return; }
     if (p.id === 'school') { openSheet('school'); if (msg) toast(msg); return; }
     if (p.id === 'field') { tapField(p, msg); return; }
+    if (p.id === 'farmstand') { openSheet('farmshop'); if (msg) toast(msg); return; }
+    if (byId[p.id]?.landmark) { toast(msg || `${byId[p.id].name}: ${lmText(p.id)}`, 4000); return; }
     toast(msg || nameOf(p));
     return;
   }
@@ -2852,7 +3347,7 @@ function tryPlace(tap, quiet){
   if (!canAfford(item)) { toast(tt`Dafür fehlen dir noch ${missText(missing(item))}.`); setMode('idle'); return false; }
   const wasT2 = tier2Open(), lvl = homeLevel();
   S.placed.push({id:item.id, x:o.x, y:o.y, rot:placeRot, uid:nextUid++, _new:true});
-  pay(item); S.stats.built++; if (item.id === 'path') S.stats.paths++; if (item.multi && item.id !== 'path') S.stats.deco++;
+  pay(item); if (!S.album.built.includes(item.id)) S.album.built.push(item.id); S.stats.built++; if (item.id === 'path') S.stats.paths++; if (item.multi && item.id !== 'path') S.stats.deco++;
   const done = checkCompletions(), grown = persistUnlocks();
   if (item.multi && canAfford(item)) $('ctxText').textContent = tt`${item.name} gebaut. Weiter platzieren, ziehen zum Malen, Rechtsklick zum Beenden.`;
   else setMode('idle');
@@ -2877,16 +3372,17 @@ document.querySelectorAll('[data-act-sim]').forEach(b => b.onclick = () => {
   S.act[k] += n; S.res[res] += n;
   const msg = checkCompletions(); save(); render(); toast(msg || `+${n} ${RSRC[res].name}`);
 });
-$('newDay').onclick = () => { S.day += 1; S.today = 0; Object.assign(S, freshDay()); checkCompletions(); save(); render(); toast(tt`Guten Morgen, Tag ${S.day}. Vier neue Aufgaben warten.`); };
+$('newDay').onclick = () => { endOfDayForWeek(); S.day += 1; S.today = 0; Object.assign(S, freshDay()); if (S.week.n !== weekNo()) S.week = freshWeek(); checkCompletions(); save(); render(); toast(tt`Guten Morgen, Tag ${S.day}. Vier neue Aufgaben warten.`); };
 $('growHour').onclick = () => { S.placed.forEach(p => { if (p.crop) p.crop.t0 -= 3600000; }); save(); syncObjects(); toast(t('Die Pflanzen sind eine Stunde weiter gewachsen.')); };
 $('settingsBtn').onclick = () => { if (sheetOpen() && sheetKind === 'settings') closeSheet(); else { setMode('idle'); openSheet('settings'); } };
 $('viewTasks').onclick = e => {
   const b = e.target.closest('[data-claim]');
   if (b) {
-    const t = todaysTasks().find(x => x.id === b.dataset.claim);
-    if (!t || !isDone(t) || S.claimed.includes(t.id)) return;
-    S.claimed.push(t.id); give(t.reward); checkCompletions(); save(); render(); sfx.coin(); toast(tt`${rewardText(t.reward)} für ${t.title}`); return;
+    const tm = todaysTasks().find(x => x.id === b.dataset.claim);
+    if (!tm || !isDone(tm) || S.claimed.includes(tm.id)) return;
+    S.claimed.push(tm.id); give(tm.reward); checkCompletions(); save(); render(); sfx.coin(); toast(tt`${rewardText(tm.reward)} für ${tm.title}`); return;
   }
+  const wc = e.target.closest('[data-wclaim]'); if (wc) { claimWeek(wc.dataset.wclaim); return; }
   if (e.target.closest('#openChest') && allClaimed() && !S.chest) { S.chest = true; give(CHEST); checkCompletions(); save(); render(); sfx.grow(); toast(tt`Truhe geöffnet: ${rewardText(CHEST)}`); }
 };
 function showTab(name){
@@ -2907,7 +3403,7 @@ if (LANG === 'en') {
   if (EN[document.title]) document.title = EN[document.title];
 }
 checkCompletions(); save();
-render(); resize();
+updateEnv(); render(); resize();
 if (migrated) setTimeout(() => toast(t('Dein Dorf wurde neu vermessen. Alle Gebäude liegen im Lager und warten auf einen neuen Platz.'), 6000), 600);
 cam.zoom = cam.zoomT; cam.target.copy(cam.targetT);
 requestAnimationFrame(frame);
