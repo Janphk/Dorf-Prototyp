@@ -434,7 +434,7 @@ Object.assign(EN, {"Acker": "Field", "Pflanzen": "Plant", "Alle {}": "All {}", "
   "Leere Äcker: {} · Wachsen: {} · Reif: {}": "Empty fields: {} · Growing: {} · Ripe: {}",
   "{} gepflanzt": "{} planted", "{} auf {} Äckern gepflanzt": "{} planted on {} fields", "{} wachsen noch {}.": "{} still need {}.",
   "{} geerntet: +{} Kräuter": "{} harvested: +{} herbs", "Ernten: {}": "Harvest: {}", "Die Pflanzen sind eine Stunde weiter gewachsen.": "The plants have grown for another hour.",
-  "Äcker: +1 Std": "Fields: +1 h", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
+  "Äcker: +1 Std": "Fields: +1 h", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
 const t = s => LANG === 'en' ? (EN[s] ?? s) : s;
 function tt(strings, ...vals){ const key = strings.join('{}'); const tr = LANG === 'en' ? (EN[key] ?? key) : key; let i = 0;
   return tr.replace(/\{(\d*)\}/g, (_, d) => String(vals[d === '' ? i++ : +d] ?? '')); }
@@ -965,7 +965,7 @@ const rewardHtml = r => Object.entries(r).filter(([, v]) => v).map(([k, v]) => `
 const $ = id => document.getElementById(id);
 const sceneEl = $('scene');
 const sysReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let SET = {sound:true, vol:70, reduce:false, hints:true, autoRead:false};
+let SET = {sound:true, music:true, vol:70, reduce:false, hints:true, autoRead:false};
 try { SET = Object.assign(SET, JSON.parse(localStorage.getItem('lindenbach-settings')) || {}); if (localStorage.getItem('lindenbach-sound') === 'off') SET.sound = false; } catch(e) {}
 let reduce = sysReduce || SET.reduce;
 document.body.classList.toggle('reduce', SET.reduce);
@@ -2095,6 +2095,7 @@ function chime(long = false){
 function startCalm(p){
   if (mode !== 'idle') return;
   const ex = EXERCISES[p.id];
+  MUSIC.duck(.3);
   calm = {p, ex, done:0, secs:window.__fastCalm ? 3 : CALM_SECONDS, phaseIdx:-1, stepIdx:-1, timer:null, notice:null};
   try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch(e) {}
   $('calmPlace').textContent = ex.place; $('calmTitle').textContent = ex.title;
@@ -2151,6 +2152,7 @@ function calmTick(){
 }
 function endCalm(){
   if (!calm) return;
+  MUSIC.duck(1);
   clearInterval(calm.timer);
   const min = calm.done;
   if (min > 0) {
@@ -2472,8 +2474,141 @@ const sfx = {
 const SPK_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
 const SPK_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9Z"/><path d="m17 9 5 6M22 9l-5 6"/></svg>';
 function renderSound(){ $('soundBtn').innerHTML = soundOn ? SPK_ON : SPK_OFF; $('soundBtn').setAttribute('aria-label', soundOn ? t('Ton ausschalten') : t('Ton einschalten')); }
-function setSound(on){ soundOn = SET.sound = on; saveSet(); renderSound(); if (on) sfx.open(); }
+function setSound(on){ soundOn = SET.sound = on; saveSet(); renderSound(); if (on) { sfx.open(); MUSIC.start(); } else MUSIC.stop(); }
 $('soundBtn').onclick = () => setSound(!soundOn);
+/* ---------- Hintergrundmusik ----------
+   Ruhige Musik im Stil vietnamesischer Volksmusik: pentatonische Melodien (Tonleiter „Hơi Bắc“),
+   ein gezupftes Zither-Instrument wie die Đàn tranh, ein singender Ton mit Vibrato wie die Đàn bầu,
+   ein weicher Klangteppich und ein leises Holzblock-Klopfen (Mõ).
+   Alles wird live im Browser erzeugt. Es gibt keine Audio-Dateien, und die Melodien sind eigene
+   Kompositionen für dieses Spiel. Damit ist die Musik frei von Rechten Dritter (GEMA-frei). */
+const MUSIC = (() => {
+  let ctx = null, master = null, bus = null, timer = null, phraseT = 0, idx = 0, playing = false, duckK = 1;
+  const BEAT = 60 / 66, E = BEAT / 2, BAR = 8 * E, PHRASE = 4 * BAR;          // 66 Schläge pro Minute, Phrase = 4 Takte
+  const ROOT = 146.83, SCALE = [0, 2, 5, 7, 9];                               // D-Pentatonik: D E G A H
+  const hz = d => ROOT * Math.pow(2, Math.floor(d / 5) + SCALE[((d % 5) + 5) % 5] / 12);
+  // Melodien: [Tonstufe, Länge in Achteln]; null = Pause. 5 = D4, 10 = D5
+  const MEL = {
+    A: [[10,2],[9,1],[8,1],[7,2],[8,2], [9,3],[8,1],[7,4], [5,2],[7,2],[8,2],[10,2], [9,6],[null,2]],
+    B: [[7,2],[8,1],[9,1],[10,4], [11,2],[10,2],[9,2],[8,2], [7,3],[8,1],[9,2],[7,2], [5,6],[null,2]],
+    C: [[12,4],[11,2],[10,2], [11,6],[10,2], [9,4],[8,2],[7,2], [8,8]],
+    D: [[8,2],[7,2],[5,2],[7,2], [8,4],[9,2],[8,2], [7,2],[5,2],[4,2],[5,2], [5,8]],
+    E: [[5,2],[7,2],[8,4], [10,2],[9,2],[8,4], [7,2],[8,1],[7,1],[5,4], [4,4],[5,4]]
+  };
+  // Ablauf: [Melodie, Instrument, Grundton der Begleitung]; tranh = Zither, bau = Đàn bầu
+  const SONG = [[null, null, 0], ['A', 'tranh', 0], ['B', 'tranh', 3], ['C', 'bau', 3], ['D', 'bau', 0],
+                ['E', 'tranh', 0], ['A', 'bau', 0], ['B', 'tranh', 3], ['D', 'tranh', 0], [null, null, 3]];
+
+  function makeVerb(){
+    const len = ctx.sampleRate * 2.8, buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    const v = ctx.createConvolver(); v.buffer = buf; return v;
+  }
+  function env(g, t, a, peak, dur){ g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + dur); }
+  // Gezupfte Zither (Đàn tranh): heller Anschlag, langes Ausklingen, oft von unten in den Ton gebogen
+  function tranh(f, t, vol, bend){
+    const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), g2 = ctx.createGain(), lp = ctx.createBiquadFilter();
+    o.type = 'triangle'; o2.type = 'sine';
+    if (bend) { o.frequency.setValueAtTime(f * .89, t); o.frequency.exponentialRampToValueAtTime(f, t + .14); o2.frequency.setValueAtTime(f * 1.78, t); o2.frequency.exponentialRampToValueAtTime(f * 2, t + .14); }
+    else { o.frequency.setValueAtTime(f, t); o2.frequency.setValueAtTime(f * 2, t); }
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5; lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * .008, t + .7);
+    lfo.connect(lg); lg.connect(o.frequency);
+    lp.type = 'lowpass'; lp.frequency.setValueAtTime(3800, t); lp.frequency.exponentialRampToValueAtTime(900, t + 1.2);
+    env(g, t, .004, vol, 2.6); env(g2, t, .004, vol * .35, 1.2);
+    o.connect(g); o2.connect(g2); g.connect(lp); g2.connect(lp); lp.connect(bus);
+    [o, o2, lfo].forEach(x => { x.start(t); x.stop(t + 2.7); });
+  }
+  // Einsaitige Đàn bầu: weicher, singender Ton mit Vibrato, gleitet vom vorherigen Ton herüber
+  function bau(f, t, dur, vol, from){
+    const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain(), g2 = ctx.createGain();
+    o.type = 'sine'; o2.type = 'sine';
+    if (from) { o.frequency.setValueAtTime(from, t); o.frequency.exponentialRampToValueAtTime(f, t + .18); o2.frequency.setValueAtTime(from * 2, t); o2.frequency.exponentialRampToValueAtTime(f * 2, t + .18); }
+    else { o.frequency.setValueAtTime(f, t); o2.frequency.setValueAtTime(f * 2, t); }
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5.2;
+    lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * .018, t + Math.min(.6, dur * .6));
+    lfo.connect(lg); lg.connect(o.frequency); lg.connect(o2.frequency);
+    const end = t + dur + .5;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .09); g.gain.setValueAtTime(vol, t + dur * .7); g.gain.exponentialRampToValueAtTime(.0001, end);
+    g2.gain.setValueAtTime(0, t); g2.gain.linearRampToValueAtTime(vol * .22, t + .09); g2.gain.exponentialRampToValueAtTime(.0001, end);
+    o.connect(g); o2.connect(g2); g.connect(bus); g2.connect(bus);
+    [o, o2, lfo].forEach(x => { x.start(t); x.stop(end + .05); });
+  }
+  // Weicher Klangteppich aus Grundton und Quinte
+  function pad(f, t, dur, vol){
+    const lp = ctx.createBiquadFilter(), g = ctx.createGain(); lp.type = 'lowpass'; lp.frequency.value = 520;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 2.5); g.gain.setValueAtTime(vol, t + dur - 2); g.gain.linearRampToValueAtTime(0, t + dur + 1);
+    [f, f * 1.0035, f * 1.5].forEach(x => { const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = x; o.connect(lp); o.start(t); o.stop(t + dur + 1.1); });
+    lp.connect(g); g.connect(bus);
+  }
+  // Holzblock (Mõ): kurzes, leises Klopfen
+  function mo(t, vol){
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine';
+    o.frequency.setValueAtTime(1150, t); o.frequency.exponentialRampToValueAtTime(820, t + .05);
+    env(g, t, .002, vol, .14); o.connect(g); g.connect(bus); o.start(t); o.stop(t + .16);
+  }
+  function schedulePhrase(t){
+    const [mel, inst, base] = SONG[idx % SONG.length]; idx++;
+    const root = ROOT / 2 * Math.pow(2, SCALE[base] / 12);
+    pad(root, t, PHRASE, .03);
+    for (let bar = 0; bar < 4; bar++) {                                      // leise Zupf-Begleitung
+      const b0 = t + bar * BAR, d = base;
+      tranh(hz(d), b0, .04); tranh(hz(d + 2), b0 + 2 * E, .028); tranh(hz(d + 4), b0 + 4 * E, .032); tranh(hz(d + 2), b0 + 6 * E, .024);
+      if (bar % 2 === 0) mo(b0, .035); else mo(b0 + 6 * E, .02);
+    }
+    if (!mel) {                                                              // Zwischenspiel: sanftes Glissando der Zither
+      [5, 6, 7, 8, 9, 10].forEach((d, i) => tranh(hz(d + base), t + 2 * BAR + i * .11, .045));
+      return;
+    }
+    let at = t, prev = null;
+    MEL[mel].forEach(([d, n]) => {
+      const dur = n * E;
+      if (d !== null) {
+        const f = hz(d) * (inst === 'bau' ? 1 : 2);
+        if (inst === 'tranh') {
+          tranh(f, at, .13, n >= 2 && Math.random() < .35);
+          if (n >= 4 && Math.random() < .5) tranh(f, at + dur / 2, .05);           // zartes Nachzupfen bei langen Tönen
+        } else bau(f, at, dur, .1, prev && Math.abs(prev / f - 1) < .5 ? prev : null);
+        prev = f;
+      }
+      at += dur;
+    });
+  }
+  function tick(){
+    if (!playing) return;
+    while (phraseT < ctx.currentTime + 2) { schedulePhrase(phraseT); phraseT += PHRASE; }
+  }
+  const level = () => SET.vol / 100 * .8 * duckK;
+  function start(){
+    if (!SET.music || !soundOn) return;
+    if (playing) { if (ctx.state === 'suspended') ctx.resume(); return; }
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state === 'suspended') ctx.resume();
+      master = ctx.createGain(); master.gain.setValueAtTime(0, ctx.currentTime); master.gain.linearRampToValueAtTime(level(), ctx.currentTime + 3);
+      master.connect(ctx.destination);
+      bus = ctx.createGain(); const dry = ctx.createGain(), wet = ctx.createGain(), verb = makeVerb();
+      dry.gain.value = .8; wet.gain.value = .45;
+      bus.connect(dry); bus.connect(verb); verb.connect(wet); dry.connect(master); wet.connect(master);
+      playing = true; phraseT = ctx.currentTime + .3;
+      tick(); timer = setInterval(tick, 300);
+    } catch(e) { playing = false; }
+  }
+  function stop(){
+    if (!playing) return;
+    playing = false; clearInterval(timer);
+    const m = master, now = ctx.currentTime;
+    m.gain.cancelScheduledValues(now); m.gain.setValueAtTime(m.gain.value, now); m.gain.linearRampToValueAtTime(0, now + 1.2);
+    setTimeout(() => m.disconnect(), 1500);
+  }
+  function update(){ if (playing) { const now = ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(level(), now + .6); } }
+  return { start, stop, update, duck(k){ duckK = k; update(); }, get playing(){ return playing; } };
+})();
+// Browser erlauben Ton erst nach der ersten Berührung: dann startet die Musik
+document.addEventListener('pointerdown', () => MUSIC.start());
+document.addEventListener('keydown', () => MUSIC.start());
+// Im Hintergrund (anderer Tab, Handy gesperrt) pausieren
+document.addEventListener('visibilitychange', () => { if (document.hidden) MUSIC.stop(); else MUSIC.start(); });
+
 renderSound();
 if (!SET.hints) $('hint').style.display = 'none';
 
@@ -2494,7 +2629,7 @@ const K = k => `<kbd>${k}</kbd>`;
 function renderSettings(){
   $('list').innerHTML = `<h3>${LANG === 'en' ? 'Language' : 'Sprache'}</h3><div class="set-row"><span><b>${LANG === 'en' ? 'Game language' : 'Spielsprache'}</b><small>${LANG === 'en' ? 'Quiz, poems and texts change with it' : 'Quiz, Gedichte und Texte wechseln mit'}</small></span><span class="langs"><button class="lang-btn" data-lang="de" aria-pressed="${LANG === 'de'}">Deutsch</button><button class="lang-btn" data-lang="en" aria-pressed="${LANG === 'en'}">English</button></span></div>` + tt`
     <h3>Ton und Darstellung</h3>
-    ${sw('sound', soundOn, t('Klänge'), t('Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen'))}
+    ${sw('sound', soundOn, t('Klänge'), t('Leise Klänge beim Bauen, Belohnen und in den Ruhe-Übungen')) + sw('music', SET.music, t('Hintergrundmusik'), t('Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)'))}
     <div class="set-row"><span><b>Lautstärke</b><small>${SET.vol} %</small></span><input type="range" min="10" max="100" step="10" value="${SET.vol}" data-vol aria-label="Lautstärke"></div>
     ${sw('autoRead', SET.autoRead, t('Gedichte automatisch vorlesen'), canSpeak ? t('Wilma liest das Gedicht des Tages vor, sobald du es öffnest') : t('Dein Browser unterstützt kein Vorlesen'))}
     ${sw('reduce', SET.reduce, t('Animationen reduzieren'), sysReduce ? t('Ist in deinen Systemeinstellungen bereits aktiv') : t('Keine Übergänge, kein Wackeln, kein Pulsieren'))}
@@ -2613,6 +2748,11 @@ $('ctxBtns').onclick = e => {
   if (a === 'store') storeSelected();
 };
 $('editBtn').onclick = () => { selected = null; setMode('edit'); };
+$('list').addEventListener('input', e => {
+  if (!e.target.matches('[data-vol]')) return;
+  SET.vol = +e.target.value; saveSet(); MUSIC.update();
+  const sm = e.target.closest('.set-row').querySelector('small'); if (sm) sm.textContent = SET.vol + ' %';
+});
 $('list').onclick = e => {
   if (e.target.closest('[data-open-trade]')) { openSheet('trade'); return; }
   const lb = e.target.closest('[data-lang]');
@@ -2622,6 +2762,7 @@ $('list').onclick = e => {
     const k = st.dataset.set, on = st.getAttribute('aria-checked') !== 'true';
     if (k === 'sound') setSound(on);
     else { SET[k] = on; saveSet(); }
+    if (k === 'music') { if (on) MUSIC.start(); else MUSIC.stop(); }
     if (k === 'reduce') { reduce = sysReduce || on; document.body.classList.toggle('reduce', on); }
     if (k === 'hints') $('hint').style.display = on ? '' : 'none';
     st.setAttribute('aria-checked', on); return;
@@ -2650,35 +2791,35 @@ $('list').onclick = e => {
 function stopPlacing(){ setMode('idle'); }
 
 function onTap(cx, cy){
-  const t = pick(cx, cy); if (!t) return;
+  const tap = pick(cx, cy); if (!tap) return;
   if (mode === 'edit') {
-    const p = t.ref || at(t.x, t.y);
+    const p = tap.ref || at(tap.x, tap.y);
     selected = p || null; renderCtx(); showHover(null);
-    if (!p && !tileOpen(t.x, t.y)) toast(tt`${regionAt(t.x, t.y).name}: noch nicht erschlossen`);
+    if (!p && !tileOpen(tap.x, tap.y)) toast(tt`${regionAt(tap.x, tap.y).name}: noch nicht erschlossen`);
     return;
   }
   if (mode === 'move') {
-    const o = originFor(placing, t), err = canPlace(placing, o.x, o.y, selected);
-    showHover(t);
+    const o = originFor(placing, tap), err = canPlace(placing, o.x, o.y, selected);
+    showHover(tap);
     if (err) { toast(err); return; }
     selected.x = o.x; selected.y = o.y; selected.rot = placeRot; selected._new = true;
     const name = nameOf(selected).replace(t('Dein Zuhause: '), '');
     placing = null; save(); render(); setMode('edit'); showHover(null);
-    sfx.place(); toast(`${name} verschoben`);
+    sfx.place(); toast(tt`${name} verschoben`);
     return;
   }
-  if (mode === 'idle' && t.npc) {
-    const n = t.npc, line = n.r.lines[Math.floor(Math.random() * n.r.lines.length)];
+  if (mode === 'idle' && tap.npc) {
+    const n = tap.npc, line = n.r.lines[Math.floor(Math.random() * n.r.lines.length)];
     S.stats.visits++; if (n.kind === 'person') S.stats.talks++; const msg = checkCompletions(); save(); renderTasks();
     if (n.home.id === 'storyhouse') { openPoem(); if (msg) toast(msg); return; }
     if (n.home.id === 'school') { openSheet('school'); if (msg) toast(msg); return; }
     toast(msg || (n.kind === 'person' ? `${n.r.name}, ${n.r.role}: ${Q1}${line}${Q2}` : `${n.r.name} (${n.r.role}) ${n.kind === 'cat' ? line : Q1 + line + Q2}`));
     return;
   }
-  if (mode === 'edit' || mode === 'move' || mode === 'place') { if (t.npc) return; }
+  if (mode === 'edit' || mode === 'move' || mode === 'place') { if (tap.npc) return; }
   if (mode === 'idle') {
-    const p = t.ref || at(t.x, t.y), d = decorAt(t.x, t.y);
-    if (!tileOpen(t.x, t.y) && !p) { toast(tt`${regionAt(t.x, t.y).name}: noch nicht erschlossen`); return; }
+    const p = tap.ref || at(tap.x, tap.y), d = decorAt(tap.x, tap.y);
+    if (!tileOpen(tap.x, tap.y) && !p) { toast(tt`${regionAt(tap.x, tap.y).name}: noch nicht erschlossen`); return; }
     if (d && !p) { toast(DECOR_NAME[d]); return; }
     if (!p) return;
     S.stats.visits++;
@@ -2691,13 +2832,13 @@ function onTap(cx, cy){
     return;
   }
   // mode === 'place'
-  tryPlace(t, false);
+  tryPlace(tap, false);
 }
 // Platzieren (auch beim "Malen" von Wegen); quiet = keine Fehlermeldung bei belegten Feldern
-function tryPlace(t, quiet){
+function tryPlace(tap, quiet){
   if (mode !== 'place' || !placing) return false;
-  const o = originFor(placing, t);
-  showHover(t);
+  const o = originFor(placing, tap);
+  showHover(tap);
   const err = canPlace(placing, o.x, o.y);
   if (err) { if (!quiet) toast(err); return false; }
   const item = placing;

@@ -211,7 +211,12 @@ Die Dorfschule ist ein Stufe-1-Gebäude (3 × 3 Felder, 1.200 Münzen, 15 Holz, 
 **Einschränkung im Prototyp:** Ohne Server gibt es keine echten Spielerdaten. Die Seltenheit ist deshalb vorab festgelegt, und die Antwortlisten (10 Fragen) sind begrenzt. In der App könnte ein Server die echte Seltenheit aus allen Spielerantworten berechnen, wie bei Krillion.
 
 ## Einstellungen (im Web-Prototyp umgesetzt)
-Über das Zahnrad neben dem Tag erreichbar: Spielsprache (Deutsch/Englisch), Klänge an/aus, Lautstärke, Gedichte automatisch vorlesen, Animationen reduzieren, Steuerungs-Hinweis ein-/ausblenden, Übersicht über Maus-, Touch- und Tastatursteuerung sowie „Dorf zurücksetzen“ (mit Sicherheitsabfrage). Die Einstellungen werden im Browser gespeichert.
+Über das Zahnrad neben dem Tag erreichbar: Spielsprache (Deutsch/Englisch), Klänge an/aus, Hintergrundmusik an/aus, Lautstärke (gilt für Klänge und Musik), Gedichte automatisch vorlesen, Animationen reduzieren, Steuerungs-Hinweis ein-/ausblenden, Übersicht über Maus-, Touch- und Tastatursteuerung sowie „Dorf zurücksetzen“ (mit Sicherheitsabfrage). Die Einstellungen werden im Browser gespeichert.
+
+## Hintergrundmusik (im Web-Prototyp umgesetzt)
+Ruhige, gemütliche Musik im Stil vietnamesischer Volksmusik. Die Melodien nutzen die fünftönige Tonleiter „Hơi Bắc“ (auf D: D, E, G, A, H). Zu hören sind ein gezupftes Zither-Instrument, das an die Đàn tranh erinnert (mit typischem Hochbiegen in den Ton), ein singender Ton mit Vibrato wie bei der einsaitigen Đàn bầu, ein weicher Klangteppich und ein leises Holzblock-Klopfen (Mõ). Ein Durchlauf dauert etwa 2,5 Minuten und wiederholt sich dann mit kleinen Abweichungen.
+
+Die Musik wird **live im Browser erzeugt**, es gibt keine Audio-Dateien. Die Melodien sind eigene Kompositionen für Lindenbach, deshalb ist die Musik frei von Rechten Dritter (GEMA-frei). Sie startet nach der ersten Berührung (Browser erlauben vorher keinen Ton), pausiert, wenn das Spiel im Hintergrund ist, und wird während der Ruhe-Übungen leiser. Der Lautsprecher-Knopf oben schaltet Klänge und Musik gemeinsam stumm. Für die iPhone-App sollte die Musik später als fertige Audiodatei aus demselben Material erzeugt werden.
 
 ## Komfort und Spielgefühl (im Web-Prototyp umgesetzt)
 - **Abbrechen:** Rechtsklick oder Esc schließt Menüs, beendet Bauen oder Verschieben und hebt eine Auswahl auf.
