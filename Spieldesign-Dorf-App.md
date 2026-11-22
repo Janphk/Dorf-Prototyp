@@ -227,6 +227,51 @@ Antippen zeigt einen kleinen Naturfakt; jede Sichtung wird im Album gezählt (h�
 
 **Haustiere:** Neben der Katze Minka (Zuhause) gibt es die **Hundehütte** (2.500 Münzen, 15 Holz) mit dem Hund Bello. Haustiere lassen sich antippen und streicheln: Ein Herz steigt auf, und einmal pro Tag und Tier gibt es +3 Kräuter.
 
+## Einführung für neue Spieler (im Web-Prototyp umgesetzt)
+Wer ein neues Dorf beginnt, bekommt eine kurze, freundliche Tour in sieben Schritten. Eine kleine Karte unten im Bild erklärt jeweils eine Sache und hebt den passenden Knopf hervor:
+1. Begrüßung: Das Dorf wächst mit echten Schritten.
+2. Rohstoffe: Schritte = Münzen, Stockwerke = Stein, Training = Holz, Achtsamkeit = Kräuter.
+3. Erstes Bauen: „Bauen“ antippen und etwas platzieren (geht automatisch weiter, sobald etwas steht).
+4. Steuerung: Karte verschieben, zoomen, drehen, Doppeltipp zum Verschieben.
+5. Aufgaben: Tab „Aufgaben“ öffnen (geht automatisch weiter).
+6. Belohnungen, Wünsche, Ruhe-Übungen und Rätsel, alles ohne Druck.
+7. Bewohner und Tiere antippen.
+
+Die Tour lässt sich jederzeit überspringen und in den Einstellungen („Einführung ansehen“) wiederholen. Bestehende Dörfer sehen sie nicht automatisch. Während ein Menü offen ist, blendet sich die Karte aus.
+
+## Geschichten der Bewohner (im Web-Prototyp umgesetzt)
+Ab einem Herz Freundschaft hat ein Bewohner eine kleine, freiwillige Geschichte. Damit sie nicht nerven, gilt:
+- keine Benachrichtigungen, keine Frist, kein Nachfragen; sie erscheinen nur leise in den Aufgaben unter „Geschichten aus dem Dorf“
+- beim Anhören kann man „Gern helfen“, „Vielleicht später“ oder „Kein Interesse“ wählen; angenommene Geschichten lassen sich jederzeit wieder abgeben („Lieber doch nicht“)
+- in den Einstellungen lassen sich alle Geschichten ausschalten
+
+Zum Abschluss tippt man in den Aufgaben auf „Übergeben/Abschließen“ oder tippt den Bewohner im Dorf an. Belohnung: ein Herz mehr Freundschaft und ein persönliches Deko-Geschenk, das es nur so gibt (landet im Lager).
+
+| Bewohner | Geschichte | Aufgabe | Geschenk |
+|---|---|---|---|
+| Lotte | Lottes Garten | 15 Kräuter bringen | Rosenbeet |
+| Greta | Das gerissene Netz | 10 Holz und 5 Kräuter bringen | Netzgestell |
+| Bruno | Zwei für einen | 3 Bäume pflanzen | Holzbär |
+| Hanne | Die verlorene Pfeife | 6.000 Schritte gehen | Pilzkreis |
+| Mo | Ein Drachen für Mo | 3.000 Schritte gehen | Drachen |
+| Frieda | Kuchen fürs Erntefest | 3 Kisten aus dem Vorrat bringen | Vogelscheuche |
+| Konrad | Sterne zählen | 2 Ruhe-Übungen | Fernrohr |
+| Wilma | Eine neue Geschichte | 1 Fisch fangen | Bücherkiste |
+
+Schritte, Bäume, Übungen und Fische zählen ab dem Annehmen der Geschichte.
+
+## Kleine Momente (im Web-Prototyp umgesetzt)
+Seltene, schöne Ereignisse, die man im richtigen Moment entdeckt. Sie werden im Album unter „Momente“ gezählt:
+- **Sternschnuppe:** in klaren Nächten (21–4:30 Uhr) etwa alle 1–4 Minuten. Ein Lichtstreif zieht über den Himmel, dazu erscheint kurz „Sternschnuppe! Wünsch dir was“. Antippen bringt eine kleine Überraschung (300 Münzen oder 5 Holz, Stein oder Kräuter), höchstens dreimal am Tag.
+- **Regenbogen:** in der ersten Dreiviertelstunde, nachdem ein Regen vorbei ist (tagsüber, nicht im Winter). Antippen: „Am Ende des Regenbogens“ +500 Münzen, einmal pro Regenbogen.
+- **Morgennebel:** an etwa jedem dritten Morgen (5–9:30 Uhr) ziehen sanfte Nebelschwaden übers Dorf. Rein zum Anschauen.
+- **Wanderhändler Fiete:** kommt jeden Samstag und Sonntag mit seinem Wagen und hält in der Nähe des Tauschstands. Jede Woche hat er drei von sechs seltenen Dingen dabei, die es nur bei ihm gibt (je einmal pro Besuch kaufbar, landen im Lager): Windspiel, Sonnenuhr, Wunschbrunnen, Hängematte, Lichterbaum, Honigstand.
+
+Im Testmodus lassen sich alle Momente auslösen.
+
+## Steuerung
+Die Kamera-Knöpfe unten rechts sind kompakter (32 px statt 40 px), damit sie weniger vom Dorf verdecken.
+
 ## Tägliche Aufgaben (im Web-Prototyp umgesetzt)
 Jeden Tag gibt es **vier** Aufgaben: eine zu Schritten, eine zu Treppen, Training oder Achtsamkeit (im Wechsel), eine zum Bauen und eine im Dorf. Belohnungen sind Münzen und passende Rohstoffe. Bonus-Münzen zählen nicht zu den Lebensschritten. Es gibt keine Strafen und keine Streaks.
 
