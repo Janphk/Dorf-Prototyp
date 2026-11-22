@@ -109,7 +109,7 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Seeufer | Osten, 8 × 16 | 6 Gebäude oder 20.000 ausgegeben | Sand, See am Rand | Schilf (400, Deko), Ruderboot (3.000), Bootssteg (6.000), Muschelstand (9.000), Fischerhütte (14.000) |
 | Waldrand | Norden, 24 × 8 | 11 Gebäude oder 60.000 ausgegeben | Moosgrün, alte Tannen | Tanne (700, Deko), Pilzkreis (2.500), Holzfällerhütte (18.000), Baumhaus (24.000), Försterhaus (30.000) |
 | Bergwiese | Westen, 8 × 24 | 16 Gebäude oder 150.000 ausgegeben | Helle Almwiese, Felsen | Lavendel (900, Deko), Aussichtsbank (4.000), Ziegenstall (20.000), Steinbruch (28.000), Bergkapelle (40.000) |
-| Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
+| Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Apfelbäume am Rand | Acker (300, beliebig oft, siehe unten), Sonnenblumen (800, 3 Kräuter, Deko), Silo (14.000, 20 Holz, 40 Stein, Lene zahlt im Hofladen 10 % mehr pro Kiste), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
 | Waldsee | Norden hinter dem Waldrand, 18 × 12 | 24 Gebäude oder 400.000 ausgegeben | Dichter Tannenwald rundherum, See in der Mitte, nur ein schmaler Pfad führt durch die Bäume (vom Waldrand aus) | Seerosen (600, 3 Kräuter, Deko, im Wasser), Angelsteg (5.000, 30 Holz, im Wasser, nur einmal baubar), Hochsitz (2.500, 25 Holz), Picknickplatz (4.000, 10 Holz, 5 Kräuter, Ruheort „Waldbaden“) |
 | Gebirge | Nordwesten, hinter Bergwiese und Waldrand, 14 × 12 | 28 Gebäude oder 600.000 ausgegeben | Graugrüne Almfläche, schneebedeckte Gipfel am Rand, Felsen | Gipfelkreuz (3.000, 10 Holz, 20 Stein, Ruheort „Gipfelblick“), Kristallmine (25.000, 40 Holz, 30 Stein), Berghütte (30.000, 80 Holz, 40 Stein, mit Hüttenwirt Sepp und zwei Steinböcken), Seilbahn (45.000, 40 Holz, 80 Stein, Gondel fährt auf und ab) |
 | Küste | Osten hinter Seewasser und Sonnenfeldern, 12 × 24 | 20 Gebäude oder 250.000 ausgegeben | Das Seewasser geht ins Meer über, neben den Sonnenfeldern liegt erst ein Sandstrand, im Meer eine Insel mit Felsen, dazu ein paar Klippen | Fischerboot (9.000, 50 Holz, im Meer, nur einmal baubar), Strandkorb (800, 4 Holz, 2 Kräuter, Deko), Leuchtturm (Wahrzeichen, nur auf dem Felsen der Insel) |
@@ -120,7 +120,8 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Größe | Gebäude |
 |---|---|
 | 1 × 1 | Pfad, Zaun, Laterne, Schilf, Tanne, Lavendel, Sonnenblumen |
-| 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen, Acker |
+| 2 × 1 | Holzbank (beim Drehen um 90° wird sie 1 × 2) |
+| 2 × 2 | Lagerfeuer, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen, Acker |
 | 3 × 3 | Gemüsegarten, Hütte, Teich, Gästehaus, Fischerhütte, Holzfällerhütte, Baumhaus, Försterhaus, Ziegenstall, Steinbruch, Bergkapelle, Bauernhof, Windmühle |
 | 4 × 4 | Dein Zuhause |
 | 5 × 5 | Kleiner Palast |
@@ -160,6 +161,10 @@ Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leich
 | Legendär | Goldener Thunfisch 0,3 % (30.000 + 50 Kräuter) |
 
 **Kristallmine im Gebirge:** Funktioniert wie das Angeln, dauert aber **20 Minuten**. Man findet eines von **12 Mineralien** und bekommt Stein und Münzen: Quarz 20 %, Glimmer 16 %, Feldspat 14 %, Bergkristall 12 %, Achat 9 %, Rosenquarz 8 %, Amethyst 7 %, Malachit 5,5 %, Topas 4 %, Smaragd 2,5 %, Goldnugget 1,6 %, Diamant 0,4 % (legendär, 15.000 Münzen + 30 Stein). Bergfrau Rike wohnt an der Mine. Im Testmodus spult „Zeit: +15 Min“ Äcker, Angeln und Mine vor.
+
+**Mehrfach baubar:** Wege, Zäune, Laternen, Holzbänke, Deko-Pflanzen, Äcker, Seerosen, Strandkörbe und Kanus kann man beliebig oft bauen. Alle anderen Gebäude gibt es nur einmal.
+
+**Wasser:** Der Waldsee ist hellblau, das Meer tiefer blau. Vom Seeufer zur Küste geht die Farbe weich ineinander über, und am Ufer, an der Insel und an den Klippen ist das Wasser heller, wie flaches Wasser.
 
 **Hofladen und Kisten:** Jeder geerntete Acker ergibt zusätzlich zu den Kräutern eine Kiste der Pflanze im Vorrat. Lene im Hofladen kauft die Kisten (Antippen des Hofladens): Radieschen 150, Karotten 350, Kartoffeln 600, Kürbisse 1.500, Erdbeeren 3.000 Münzen pro Kiste. Ohne Hofladen sammeln sich die Kisten einfach an. Kisten kann man auch Bewohnern schenken (siehe Wünsche). Den Vorrat sieht man jederzeit über das Kisten-Symbol in der Rohstoffzeile oben: Es zeigt, wie viele Kisten man von jeder Pflanze hat und welcher Bewohner sich gerade welche wünscht.
 
