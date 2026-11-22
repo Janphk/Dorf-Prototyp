@@ -197,6 +197,36 @@ Die Werte stehen im Code zentral in der Liste `CROPS` und lassen sich dort leich
 
 **Darstellung:** Low-Poly-3D mit Three.js. Die Kamera lässt sich verschieben, drehen und zoomen, damit kein Gebäude dauerhaft verdeckt wird. Steuerung: Ziehen verschiebt die Karte, die rechte Maustaste (oder Shift + Ziehen) dreht, das Mausrad zoomt zum Mauszeiger hin. Auf dem Handy: ein Finger verschiebt, zwei Finger zoomen und drehen. Ein Knopf setzt die Ansicht zurück. Gebäude lassen sich beim Platzieren, beim Verschieben und im Bearbeiten-Modus in 90°-Schritten drehen (Knopf oder Taste R). Bewohner treten immer an der Vorderseite aus ihrem Haus. Beim Platzieren zeigt eine halbtransparente Vorschau, wo das Gebäude landet.
 
+## Gebäude ausbauen (im Web-Prototyp umgesetzt)
+Wohn- und Arbeitshäuser (Hütte, Gästehaus, Fischerhütte, Holzfällerhütte, Försterhaus, Berghütte, Bootshaus) lassen sich in zwei Stufen ausbauen. Das Haus selbst bleibt bewusst gleich groß und schlicht; der Ausbau zeigt sich nur in kleinen, gemütlichen Details rund ums Haus:
+- **Stufe 2 „Gemütlich“:** Blumen vor dem Haus, ein kleiner weißer Zaun und eine Laterne an der Tür (leuchtet abends). Kosten: halber Baupreis, 20 Holz, 10 Stein.
+- **Stufe 3 „Liebevoll eingerichtet“:** Gemüsebeet, Bank vor dem Haus, Kletterrosen und ein kleiner Schuppen. Kosten: voller Baupreis, 40 Holz, 25 Stein, 10 Kräuter.
+
+Ausbauen geht über „Ausbauen“ im Bearbeiten-Menü oder durch Antippen des Hauses. Die Ausbaustufe bleibt erhalten, wenn das Haus eingelagert und wieder aufgestellt wird.
+
+## Jahreszeiten-Feste (im Web-Prototyp umgesetzt)
+Zu jeder Jahreszeit (nach dem echten Monat) feiert das Dorf ein Fest:
+- **Frühling – Blütenfest** (bis 31. Mai): Blumenbogen, Maibaum, Vogelhäuschen
+- **Sommer – Sommerfest** (bis 31. August): Lampionkette, Sonnenschirm mit Liegestuhl, Eiswagen
+- **Herbst – Erntedankfest** (bis 30. November): Kürbislaterne, Strohballen, Erntewagen
+- **Winter – Wintermarkt** (bis Ende Februar): geschmückter Tannenbaum, Schneemann, Marktbude
+
+Die Festdeko ist nur während des Festes im Bau-Menü (eigene Gruppe) kaufbar, darf mehrfach gebaut werden und bleibt danach im Dorf. Sie taucht nicht in den Bewohnerwünschen auf.
+
+Zu jedem Fest gibt es eine Festkarte in den Aufgaben mit drei Festaufgaben, die ab Festbeginn zählen:
+1. **Schmücke das Dorf:** 3 Festdekorationen bauen → 1.500 Münzen, 10 Kräuter
+2. **Festspaziergang:** 30.000 Schritte während des Festes → 2.500 Münzen, 15 Holz, 15 Stein
+3. **Fest-Aufgabe der Jahreszeit:** Frühling 3 Bäume pflanzen, Sommer 3 Fische fangen, Herbst 5 Äcker ernten, Winter 3 Ruhe-Übungen → 1.500 Münzen, 10 Kräuter
+
+Wer alle drei abholt, bekommt ein Festabzeichen im Album („× gefeiert“). Zu Festbeginn erscheint einmalig ein Hinweis. Keine Strafen: Was nicht geschafft wird, verfällt mit dem Fest.
+
+## Tiere (im Web-Prototyp umgesetzt)
+**Wildtiere** leben in ihren Gebieten, sobald diese erschlossen sind, und bewegen sich frei (laufen, schwimmen, fliegen):
+Igel (Lichtung), Schwan (Seeufer), Eichhörnchen (Waldrand), Feldhase (Sonnenfelder), Murmeltier (Bergwiese), Reh und Stockente (Waldsee), Gämse (Gebirge), Möwe (Küste, kreist über dem Meer), Fuchs (Waldbucht).
+Antippen zeigt einen kleinen Naturfakt; jede Sichtung wird im Album gezählt (höchstens einmal pro 30 Sekunden je Tier), neue Tiere sind mit „Neu im Album!“ markiert. Das Album hat dafür einen eigenen Abschnitt „Tiere“.
+
+**Haustiere:** Neben der Katze Minka (Zuhause) gibt es die **Hundehütte** (2.500 Münzen, 15 Holz) mit dem Hund Bello. Haustiere lassen sich antippen und streicheln: Ein Herz steigt auf, und einmal pro Tag und Tier gibt es +3 Kräuter.
+
 ## Tägliche Aufgaben (im Web-Prototyp umgesetzt)
 Jeden Tag gibt es **vier** Aufgaben: eine zu Schritten, eine zu Treppen, Training oder Achtsamkeit (im Wechsel), eine zum Bauen und eine im Dorf. Belohnungen sind Münzen und passende Rohstoffe. Bonus-Münzen zählen nicht zu den Lebensschritten. Es gibt keine Strafen und keine Streaks.
 

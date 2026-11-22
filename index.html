@@ -61,6 +61,8 @@
   .hint{position:absolute;left:20px;top:10px;font-size:13px;color:var(--muted);transition:opacity .6s;pointer-events:none}
   .hint.gone{opacity:0}
   .labels{position:absolute;inset:0;pointer-events:none}
+  .pet-heart{position:absolute;transform:translate(-50%,-50%);font-size:26px;color:#F28DB2;pointer-events:none;animation:petHeart 1.3s ease-out forwards;text-shadow:0 1px 3px rgba(0,0,0,.25)}
+  @keyframes petHeart{0%{opacity:0;transform:translate(-50%,-30%) scale(.6)}20%{opacity:1;transform:translate(-50%,-60%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-220%) scale(1)}}
   .rlock{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--night-3);
     background:rgba(38,48,74,.9);display:grid;place-items:center;padding:0;color:var(--gold)}
   .rlock > svg{width:15px;height:15px}
@@ -395,6 +397,7 @@
     </div>
     <div id="tasks"></div>
     <div class="chest" id="chest"></div>
+    <div id="festBox"></div>
     <div id="week"></div>
     <div class="calmlist" id="albumBox"></div>
     <div class="calmlist" id="calmList"></div>
@@ -485,7 +488,7 @@ Object.assign(EN, {"Acker": "Field", "Pflanzen": "Plant", "Alle {}": "All {}", "
   "Leere Äcker: {} · Wachsen: {} · Reif: {}": "Empty fields: {} · Growing: {} · Ripe: {}",
   "{} gepflanzt": "{} planted", "{} auf {} Äckern gepflanzt": "{} planted on {} fields", "{} wachsen noch {}.": "{} still need {}.",
   "{} geerntet: +{} Kräuter": "{} harvested: +{} herbs", "Ernten: {}": "Harvest: {}", "Die Pflanzen sind eine Stunde weiter gewachsen.": "The plants have grown for another hour.",
-  "Äcker: +1 Std": "Fields: +1 h", "{} gehört auf einen Berggipfel. Tippe auf einen Gipfel.": "{} belongs on a mountain peak. Tap a peak.", "Bäume": "Trees", "{} von {}": "{} of {}", "Höchstzahl erreicht ({})": "Maximum reached ({})", "Mehr als {} × {} geht nicht.": "You can't have more than {} × {}.", "Zum Drehen ist hier kein Platz.": "There's no room to rotate here.", "Vorrat": "Stock", "Vorrat: {} Kisten": "Stock: {} crates", "Vorrat: geerntete Kisten": "Stock: harvested crates", "Jeder geerntete Acker ergibt eine Kiste. Kisten kannst du Bewohnern schenken, die sich welche wünschen, oder im Hofladen verkaufen.": "Every harvested field gives one crate. You can give crates to residents who wish for them or sell them at the farm shop.", "{} wünscht sich {}": "{} wishes for {}", "Zum Hofladen": "Go to the farm shop", "Noch keine Kisten im Vorrat. Bepflanze einen Acker auf den Sonnenfeldern und ernte ihn, wenn er reif ist.": "No crates in stock yet. Plant a field in the Sunny Fields and harvest it when it's ripe.", "Im Vorrat: {} von {} Kisten": "In stock: {} of {} crates", "Pflanze {} auf einem Acker und ernte sie": "Plant {} on a field and harvest them", "{} passt nur auf den Felsen der Insel.": "{} only fits on the rock of the island.", "Das Boot fährt hinaus aufs Meer. In 15 Minuten siehst du, was angebissen hat.": "The boat heads out to sea. In 15 minutes you'll see what bit.", "Meeresfische ({} von {})": "Sea fish ({} of {})", "Fange diese Woche 6 Fische": "Catch 6 fish this week", "{} gebaut. Tippen setzt weitere, kurz halten und ziehen malt, Rechtsklick beendet.": "{} built. Tap to place more, press and hold then drag to paint, right-click to finish.", "Die Angel ist ausgeworfen. In 15 Minuten siehst du, was angebissen hat.": "Your line is cast. In 15 minutes you'll see what bit.", "Die Schürfarbeit beginnt. In 20 Minuten weißt du, was im Berg steckt.": "The digging begins. In 20 minutes you'll know what the mountain holds.", "Länge: {} cm": "Length: {} cm", "Neuer Rekord!": "New record!", "Neu im Album!": "New in your album!", "Nochmal angeln": "Fish again", "Nochmal schürfen": "Dig again", "Noch {}, dann weißt du mehr.": "{} to go, then you'll know more.", "Fang ansehen": "See your catch", "Fund ansehen": "See your find", "Läuft noch": "Still running", "Fang": "Catch", "Fund": "Find", "Fische ({} von {})": "Fish ({} of {})", "{}× · bis {} cm": "{}× · up to {} cm", "Mineralien ({} von {})": "Minerals ({} of {})", "{}× gefunden": "found {}×", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Fische, {} Mineralien, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} fish, {} minerals, {} poems.", "Angelwoche": "Fishing week", "Fange diese Woche 6 Fische am Waldsee": "Catch 6 fish at the forest lake this week", "Zeit: +15 Min": "Time: +15 min", "15 Minuten vorgespult.": "Skipped ahead 15 minutes.", "Uhrzeit: {}": "Time: {}", "Uhrzeit": "Time", "Diese Woche": "This week", "Tag {} von 7": "Day {} of 7", "Abholen": "Collect", "Wanderwoche": "Hiking week", "Gehe diese Woche 50.000 Schritte": "Walk 50,000 steps this week", "Dranbleiben": "Keep it up", "Gehe an 4 Tagen mindestens 5.000 Schritte": "Walk at least 5,000 steps on 4 days", "Ruhige Woche": "Calm week", "Mach diese Woche 5 Ruhe-Übungen im Dorf": "Do 5 calm exercises in your village this week", "Erntewoche": "Harvest week", "Ernte diese Woche 10 Äcker": "Harvest 10 fields this week", "Rätselwoche": "Puzzle week", "Spiele diese Woche 6 Rätselspiele in der Schule": "Play 6 puzzle games at the school this week", "Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.": "No penalties: whatever you don't finish simply expires. New goals next week.", "Album": "Album", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} poems.", "Album öffnen": "Open album", "{} von {} Einträgen gesammelt ({} %).": "{} of {} entries collected ({} %).", "Gebäude ({} von {})": "Buildings ({} of {})", "Ernte ({} von {})": "Harvest ({} of {})", "{}× geerntet": "harvested {}×", "Gedichte ({} von {})": "Poems ({} of {})", "Noch nicht gelesen": "Not read yet", "Freundschaften": "Friendships", "Noch keine Bewohner im Dorf.": "No residents in the village yet.", "Wahrzeichen (wachsen mit deinen Schritten)": "Landmarks (grow with your steps)", "Nach: {}": "After: {}", "Fertig gebaut": "Completed", "Bauphase {} von {} · nächste in {} Schritten": "Construction phase {} of {} · next in {} steps", "Bauphase {} von {}": "construction phase {} of {}", "{} ist fertig! {}": "{} is finished! {}", "{} wächst: {}. {}": "{} is growing: {}. {}", "Dein Dorf hat seine volle Größe erreicht. {}: {}": "Your village has reached its full size. {}: {}", "Fundament": "foundation", "Mauern": "walls", "Tor": "gate", "Erster Turm": "first tower", "Zweiter Turm": "second tower", "Dach": "roof", "Fenster": "windows", "Innenhof": "courtyard", "Garten": "garden", "Fahnen und Einweihungsfest": "flags and grand opening", "Tageszeit": "Time of day", "Wetter": "Weather", "Jahreszeit": "Season", "echt": "real", "Morgen": "morning", "Mittag": "noon", "Abend": "evening", "Nacht": "night", "Sonne": "sun", "Regen": "rain", "Schnee": "snow", "Frühling": "spring", "Sommer": "summer", "Herbst": "autumn", "Winter": "winter", "Tageszeit, Wetter und Jahreszeiten": "Time of day, weather and seasons", "Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat": "Light follows the real time, sometimes rain or snow, trees and meadows change with the month", "Wünsche": "Wishes", "Wünsche der Bewohner": "Residents' wishes", "Wünsche ansehen": "See wishes", "Erfüllt": "Fulfilled", "Belohnung abholen": "Collect reward", "Übergeben": "Hand over", "Ich würde mich so über {} freuen!": "I would love a {}!", "Ich würde mich über {} × {} freuen!": "I would love {} × {}!", "Hast du {} {} {} für mich?": "Do you have {} {} of {} for me?", "Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.": "Every day one or two residents have a small wish. Fulfil it for a reward, and your friendship grows.", "Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.": "As soon as residents live in your village (e.g. in the village school or guest house), their wishes appear here.", "{} von {} gebaut": "{} of {} built", "Im Vorrat: {}": "In stock: {}", "Freundschaft {} von {}": "Friendship {} of {}", "{} strahlt: Danke! {} · Freundschaft {}": "{} beams: Thank you! {} · Friendship {}", "Heute noch offen: {} von {}. Tippe im Dorf auf die rosa Sprechblasen.": "Still open today: {} of {}. Tap the pink speech bubbles in your village.", "Alle Wünsche für heute erfüllt. Morgen gibt es neue.": "All wishes fulfilled for today. New ones tomorrow.", "Wunsch von {}": "Wish from {}", "1 Kiste": "1 crate", "{} Kisten": "{} crates", "Kiste": "crate", "Kisten": "crates", "{} Äcker geerntet: +{} Kräuter, {}": "{} fields harvested: +{} herbs, {}", "{} geerntet: +{} Kräuter, {}": "{} harvested: +{} herbs, {}", "Im Vorrat: {} Kisten.": "In stock: {} crates.", "Lene kauft sie im Hofladen.": "Lene buys them at the farm shop.", "Baue den Hofladen, dann kannst du sie verkaufen.": "Build the farm shop to sell them.", "Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.": "Lene buys your harvest. Every harvested field gives one crate.", "Alles verkaufen ({} Münzen)": "Sell everything ({} coins)", "Im Vorrat: {} · {} Münzen pro Kiste": "In stock: {} · {} coins per crate", "1 verkaufen": "Sell 1", "Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.": "No crates in stock yet. Harvest ripe fields in the Sunny Fields.", "{} {} verkauft: +{} Münzen": "{} {} sold: +{} coins", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Spielstand sichern": "Back up saved game", "Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.": "Downloads your village as a file so you can restore it later or on another device.", "Exportieren": "Export", "Spielstand laden": "Load saved game", "Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.": "Replaces your current village with a backup file.", "Importieren": "Import", "Spielstand gespeichert. Die Datei liegt in deinen Downloads.": "Game saved. The file is in your downloads.", "Wirklich laden?": "Really load?", "Gefunden: Dorf an Tag {} mit {} Objekten. Tippe noch einmal, um es zu laden.": "Found: village on day {} with {} objects. Tap again to load it.", "Diese Datei ist kein Lindenbach-Spielstand.": "This file is not a Lindenbach saved game.", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
+  "Äcker: +1 Std": "Fields: +1 h", "+3 Kräuter fürs Streicheln": "+3 herbs for the cuddle", "Igel": "Hedgehog", "Schwan": "Swan", "Eichhörnchen": "Squirrel", "Feldhase": "Hare", "Murmeltier": "Marmot", "Reh": "Roe deer", "Stockente": "Mallard", "Gämse": "Chamois", "Möwe": "Gull", "Fuchs": "Fox", "Igel sind nachts unterwegs und fressen am liebsten Käfer und Schnecken.": "Hedgehogs are out at night and love eating beetles and snails.", "Schwäne bleiben oft ein Leben lang mit ihrem Partner zusammen.": "Swans often stay with their partner for life.", "Eichhörnchen vergraben im Herbst Tausende Nüsse und finden längst nicht alle wieder.": "Squirrels bury thousands of nuts in autumn and don't find nearly all of them again.", "Feldhasen schaffen kurze Sprints mit bis zu 70 Kilometern pro Stunde.": "Hares can sprint briefly at up to 70 kilometres per hour.", "Murmeltiere warnen sich mit einem lauten Pfiff, wenn Gefahr droht.": "Marmots warn each other with a loud whistle when danger is near.", "Rehe kommen gern in der Dämmerung ans Wasser.": "Roe deer like to come to the water at dusk.", "Nur die Erpel haben den grün schimmernden Kopf.": "Only the drakes have the shimmering green head.", "Gämsen klettern sicher über steile Felsen.": "Chamois climb confidently over steep rocks.", "Möwen können sogar Salzwasser trinken.": "Gulls can even drink salt water.", "Füchse hören eine Maus noch unter dem Schnee rascheln.": "Foxes can hear a mouse rustling even under snow.", "Blütenfest": "Blossom Festival", "Sommerfest": "Summer Festival", "Erntedankfest": "Harvest Festival", "Wintermarkt": "Winter Market", "Der Frühling ist da! Das Dorf feiert mit Blumen, Bändern und Vogelgezwitscher.": "Spring is here! The village celebrates with flowers, ribbons and birdsong.", "Lange, warme Abende: Lampions, Eis und ein Sprung ins kühle Wasser.": "Long, warm evenings: lanterns, ice cream and a dip in cool water.", "Die Ernte ist eingebracht. Das Dorf dankt mit Kürbislaternen, Strohballen und vollen Wagen.": "The harvest is in. The village gives thanks with pumpkin lanterns, hay bales and full carts.", "Lichter, Punsch und Schnee: Der Wintermarkt macht die dunklen Tage hell.": "Lights, punch and snow: the winter market brightens the dark days.", "Frühlingsgrün": "Spring green", "Pflanze 3 Bäume": "Plant 3 trees", "Sommerfang": "Summer catch", "Fange 3 Fische": "Catch 3 fish", "Reiche Ernte": "Rich harvest", "Ernte 5 Äcker": "Harvest 5 fields", "Innere Ruhe": "Inner calm", "Mach 3 Ruhe-Übungen": "Do 3 calm exercises", "Schmücke das Dorf": "Decorate the village", "Baue 3 Festdekorationen": "Build 3 festival decorations", "Festspaziergang": "Festival walk", "Gehe während des Festes 30.000 Schritte": "Walk 30,000 steps during the festival", "bis {}": "until {}", "Festdeko ansehen": "See festival decorations", "Festabzeichen im Album!": "Festival badge in your album!", "{} hat begonnen! Neue Festdeko im Bau-Menü und drei Festaufgaben warten.": "The {} has begun! New festival decorations in the build menu and three festival tasks are waiting.", "Festdeko: {} (nur während des Festes)": "Festival decorations: {} (only during the festival)", "Feste": "Festivals", "{}× gefeiert": "celebrated {}×", "Tiere ({} von {})": "Animals ({} of {})", "{}× gesehen": "seen {}×", "Gemütlich": "Cosy", "Liebevoll eingerichtet": "Lovingly furnished", "Blumen vor dem Haus, ein kleiner weißer Zaun und eine Laterne an der Tür": "Flowers out front, a little white fence and a lantern by the door", "Ein Gemüsebeet, eine Bank vor dem Haus, Kletterrosen und ein kleiner Schuppen": "A vegetable patch, a bench out front, climbing roses and a little shed", "Ausbauen": "Upgrade", "Stufe {} von 3": "Level {} of 3", "Voll ausgebaut. Hier wohnt man richtig gemütlich.": "Fully upgraded. A truly cosy place to live.", "Stufe {}: {}": "Level {}: {}", "{}: {}!": "{}: {}!", "{} gehört auf einen Berggipfel. Tippe auf einen Gipfel.": "{} belongs on a mountain peak. Tap a peak.", "Bäume": "Trees", "{} von {}": "{} of {}", "Höchstzahl erreicht ({})": "Maximum reached ({})", "Mehr als {} × {} geht nicht.": "You can't have more than {} × {}.", "Zum Drehen ist hier kein Platz.": "There's no room to rotate here.", "Vorrat": "Stock", "Vorrat: {} Kisten": "Stock: {} crates", "Vorrat: geerntete Kisten": "Stock: harvested crates", "Jeder geerntete Acker ergibt eine Kiste. Kisten kannst du Bewohnern schenken, die sich welche wünschen, oder im Hofladen verkaufen.": "Every harvested field gives one crate. You can give crates to residents who wish for them or sell them at the farm shop.", "{} wünscht sich {}": "{} wishes for {}", "Zum Hofladen": "Go to the farm shop", "Noch keine Kisten im Vorrat. Bepflanze einen Acker auf den Sonnenfeldern und ernte ihn, wenn er reif ist.": "No crates in stock yet. Plant a field in the Sunny Fields and harvest it when it's ripe.", "Im Vorrat: {} von {} Kisten": "In stock: {} of {} crates", "Pflanze {} auf einem Acker und ernte sie": "Plant {} on a field and harvest them", "{} passt nur auf den Felsen der Insel.": "{} only fits on the rock of the island.", "Das Boot fährt hinaus aufs Meer. In 15 Minuten siehst du, was angebissen hat.": "The boat heads out to sea. In 15 minutes you'll see what bit.", "Meeresfische ({} von {})": "Sea fish ({} of {})", "Fange diese Woche 6 Fische": "Catch 6 fish this week", "{} gebaut. Tippen setzt weitere, kurz halten und ziehen malt, Rechtsklick beendet.": "{} built. Tap to place more, press and hold then drag to paint, right-click to finish.", "Die Angel ist ausgeworfen. In 15 Minuten siehst du, was angebissen hat.": "Your line is cast. In 15 minutes you'll see what bit.", "Die Schürfarbeit beginnt. In 20 Minuten weißt du, was im Berg steckt.": "The digging begins. In 20 minutes you'll know what the mountain holds.", "Länge: {} cm": "Length: {} cm", "Neuer Rekord!": "New record!", "Neu im Album!": "New in your album!", "Nochmal angeln": "Fish again", "Nochmal schürfen": "Dig again", "Noch {}, dann weißt du mehr.": "{} to go, then you'll know more.", "Fang ansehen": "See your catch", "Fund ansehen": "See your find", "Läuft noch": "Still running", "Fang": "Catch", "Fund": "Find", "Fische ({} von {})": "Fish ({} of {})", "{}× · bis {} cm": "{}× · up to {} cm", "Mineralien ({} von {})": "Minerals ({} of {})", "{}× gefunden": "found {}×", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Fische, {} Mineralien, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} fish, {} minerals, {} poems.", "Angelwoche": "Fishing week", "Fange diese Woche 6 Fische am Waldsee": "Catch 6 fish at the forest lake this week", "Zeit: +15 Min": "Time: +15 min", "15 Minuten vorgespult.": "Skipped ahead 15 minutes.", "Uhrzeit: {}": "Time: {}", "Uhrzeit": "Time", "Diese Woche": "This week", "Tag {} von 7": "Day {} of 7", "Abholen": "Collect", "Wanderwoche": "Hiking week", "Gehe diese Woche 50.000 Schritte": "Walk 50,000 steps this week", "Dranbleiben": "Keep it up", "Gehe an 4 Tagen mindestens 5.000 Schritte": "Walk at least 5,000 steps on 4 days", "Ruhige Woche": "Calm week", "Mach diese Woche 5 Ruhe-Übungen im Dorf": "Do 5 calm exercises in your village this week", "Erntewoche": "Harvest week", "Ernte diese Woche 10 Äcker": "Harvest 10 fields this week", "Rätselwoche": "Puzzle week", "Spiele diese Woche 6 Rätselspiele in der Schule": "Play 6 puzzle games at the school this week", "Keine Strafen: Was du nicht schaffst, verfällt einfach. Nächste Woche gibt es neue Ziele.": "No penalties: whatever you don't finish simply expires. New goals next week.", "Album": "Album", "Du hast {} % gesammelt: {} Gebäude, {} Pflanzen, {} Gedichte.": "You have collected {} %: {} buildings, {} plants, {} poems.", "Album öffnen": "Open album", "{} von {} Einträgen gesammelt ({} %).": "{} of {} entries collected ({} %).", "Gebäude ({} von {})": "Buildings ({} of {})", "Ernte ({} von {})": "Harvest ({} of {})", "{}× geerntet": "harvested {}×", "Gedichte ({} von {})": "Poems ({} of {})", "Noch nicht gelesen": "Not read yet", "Freundschaften": "Friendships", "Noch keine Bewohner im Dorf.": "No residents in the village yet.", "Wahrzeichen (wachsen mit deinen Schritten)": "Landmarks (grow with your steps)", "Nach: {}": "After: {}", "Fertig gebaut": "Completed", "Bauphase {} von {} · nächste in {} Schritten": "Construction phase {} of {} · next in {} steps", "Bauphase {} von {}": "construction phase {} of {}", "{} ist fertig! {}": "{} is finished! {}", "{} wächst: {}. {}": "{} is growing: {}. {}", "Dein Dorf hat seine volle Größe erreicht. {}: {}": "Your village has reached its full size. {}: {}", "Fundament": "foundation", "Mauern": "walls", "Tor": "gate", "Erster Turm": "first tower", "Zweiter Turm": "second tower", "Dach": "roof", "Fenster": "windows", "Innenhof": "courtyard", "Garten": "garden", "Fahnen und Einweihungsfest": "flags and grand opening", "Tageszeit": "Time of day", "Wetter": "Weather", "Jahreszeit": "Season", "echt": "real", "Morgen": "morning", "Mittag": "noon", "Abend": "evening", "Nacht": "night", "Sonne": "sun", "Regen": "rain", "Schnee": "snow", "Frühling": "spring", "Sommer": "summer", "Herbst": "autumn", "Winter": "winter", "Tageszeit, Wetter und Jahreszeiten": "Time of day, weather and seasons", "Licht nach der echten Uhrzeit, ab und zu Regen oder Schnee, Bäume und Wiesen je nach Monat": "Light follows the real time, sometimes rain or snow, trees and meadows change with the month", "Wünsche": "Wishes", "Wünsche der Bewohner": "Residents' wishes", "Wünsche ansehen": "See wishes", "Erfüllt": "Fulfilled", "Belohnung abholen": "Collect reward", "Übergeben": "Hand over", "Ich würde mich so über {} freuen!": "I would love a {}!", "Ich würde mich über {} × {} freuen!": "I would love {} × {}!", "Hast du {} {} {} für mich?": "Do you have {} {} of {} for me?", "Jeden Tag haben ein oder zwei Bewohner einen kleinen Wunsch. Erfüllst du ihn, gibt es eine Belohnung und eure Freundschaft wächst.": "Every day one or two residents have a small wish. Fulfil it for a reward, and your friendship grows.", "Sobald Bewohner im Dorf leben (z. B. in der Dorfschule oder im Gästehaus), äußern sie hier ihre Wünsche.": "As soon as residents live in your village (e.g. in the village school or guest house), their wishes appear here.", "{} von {} gebaut": "{} of {} built", "Im Vorrat: {}": "In stock: {}", "Freundschaft {} von {}": "Friendship {} of {}", "{} strahlt: Danke! {} · Freundschaft {}": "{} beams: Thank you! {} · Friendship {}", "Heute noch offen: {} von {}. Tippe im Dorf auf die rosa Sprechblasen.": "Still open today: {} of {}. Tap the pink speech bubbles in your village.", "Alle Wünsche für heute erfüllt. Morgen gibt es neue.": "All wishes fulfilled for today. New ones tomorrow.", "Wunsch von {}": "Wish from {}", "1 Kiste": "1 crate", "{} Kisten": "{} crates", "Kiste": "crate", "Kisten": "crates", "{} Äcker geerntet: +{} Kräuter, {}": "{} fields harvested: +{} herbs, {}", "{} geerntet: +{} Kräuter, {}": "{} harvested: +{} herbs, {}", "Im Vorrat: {} Kisten.": "In stock: {} crates.", "Lene kauft sie im Hofladen.": "Lene buys them at the farm shop.", "Baue den Hofladen, dann kannst du sie verkaufen.": "Build the farm shop to sell them.", "Lene kauft deine Ernte. Jeder geerntete Acker ergibt eine Kiste.": "Lene buys your harvest. Every harvested field gives one crate.", "Alles verkaufen ({} Münzen)": "Sell everything ({} coins)", "Im Vorrat: {} · {} Münzen pro Kiste": "In stock: {} · {} coins per crate", "1 verkaufen": "Sell 1", "Noch keine Kisten im Vorrat. Ernte reife Äcker auf den Sonnenfeldern.": "No crates in stock yet. Harvest ripe fields in the Sunny Fields.", "{} {} verkauft: +{} Münzen": "{} {} sold: +{} coins", "{} verschoben": "{} moved", "Hintergrundmusik": "Background music", "Spielstand sichern": "Back up saved game", "Lädt dein Dorf als Datei herunter. Damit kannst du es später oder auf einem anderen Gerät wiederherstellen.": "Downloads your village as a file so you can restore it later or on another device.", "Exportieren": "Export", "Spielstand laden": "Load saved game", "Ersetzt dein aktuelles Dorf durch eine gesicherte Datei.": "Replaces your current village with a backup file.", "Importieren": "Import", "Spielstand gespeichert. Die Datei liegt in deinen Downloads.": "Game saved. The file is in your downloads.", "Wirklich laden?": "Really load?", "Gefunden: Dorf an Tag {} mit {} Objekten. Tippe noch einmal, um es zu laden.": "Found: village on day {} with {} objects. Tap again to load it.", "Diese Datei ist kein Lindenbach-Spielstand.": "This file is not a Lindenbach saved game.", "Ruhige, eigens für Lindenbach komponierte Musik im Stil vietnamesischer Volksmusik (Zither und Đàn bầu)": "Calm music composed for Lindenbach in the style of Vietnamese folk music (zither and đàn bầu)", "Alles ernten ({})": "Harvest all ({})", "{} Äcker geerntet: +{} Kräuter": "{} fields harvested: +{} herbs"});
 const t = s => LANG === 'en' ? (EN[s] ?? s) : s;
 function tt(strings, ...vals){ const key = strings.join('{}'); const tr = LANG === 'en' ? (EN[key] ?? key) : key; let i = 0;
   return tr.replace(/\{(\d*)\}/g, (_, d) => String(vals[d === '' ? i++ : +d] ?? '')); }
@@ -502,7 +505,11 @@ const EN_DATA = {
     pine:['Fir tree', 'Decoration for the forest'], mushrooms:['Mushroom ring', 'They say fairies dance here'], lumberhut:['Woodcutter’s hut', 'With a woodpile by the door'],
     treehouse:['Tree house', 'A hideout up high'], forester:['Forester’s house', 'The forester knows every tree'],
     lavender:['Lavender', 'Fragrant decoration'], viewbench:['Viewpoint bench', 'The best view in the village'], goatbarn:['Goat barn', 'With curious goats'],
-    quarry:['Quarry', 'Stone is cut here'], graveyard:['Little cemetery', 'A quiet place beside the mountain chapel'], chapel:['Mountain chapel', 'Its bell can be heard across the valley'],
+    quarry:['Quarry', 'Stone is cut here'], flowerarch:['Flower arch', 'An arch full of spring flowers'], maypole:['Maypole', 'With a wreath and colourful ribbons'], birdhouse:['Bird house', 'For the first tits of spring'],
+    lampions:['Lantern string', 'Colourful lanterns for warm evenings'], parasol:['Parasol', 'With a deck chair'], icecart:['Ice cream cart', 'Three scoops, please!'],
+    pumpkinlamp:['Pumpkin lantern', 'Glows warmly at dusk'], haybales:['Hay bales', 'For sitting on'], harvestcart:['Harvest cart', 'Full of pumpkins and apples'],
+    xmastree:['Decorated fir tree', 'With lights and a star'], snowman:['Snowman', 'With a carrot nose'], marketstall:['Market stall', 'Hot apple punch and gingerbread'],
+    doghouse:['Dog house', 'Home of your dog Bello'], graveyard:['Little cemetery', 'A quiet place beside the mountain chapel'], chapel:['Mountain chapel', 'Its bell can be heard across the valley'],
     sunflower:['Sunflowers', 'They turn to follow the sun'], beehive:['Beehives', 'Buzzing and smelling of honey'], farmstand:['Farm shop', 'Apples, pumpkins and fresh eggs'],
     farm:['Farm', 'With a barn, a silo and chickens'], windmill:['Windmill', 'Its sails turn in the wind'],
     field:['Field', 'Plant crops here and harvest herbs'],
@@ -567,6 +574,7 @@ const EN_DATA = {
     school:[['Teacher', ['Fancy a little puzzle? Come to the school!', 'Asking questions is how you win.']]],
     storyhouse:[['Storyteller', ['Come to my house, I have a poem for you today.']]],
     home:[['your cat', ['purrs contentedly.', 'is washing herself in the sun.', 'would like to be stroked.']]],
+    doghouse:[['your dog', ['wags his tail happily.', 'brings you a stick.', 'sniffs curiously at everything.']]],
     hut:[['Neighbour', ['What a lovely day for a walk!', 'Have you done your steps today?']]],
     guesthouse:[['Guest', ['I’m staying a few more days. It’s so peaceful here.']], ['Guest', ['The guest house is really cosy.', 'Tomorrow I’m going to explore the forest.']]],
     fisherhut:[['Fisher', ['They’re really biting today!', 'The lake is as smooth as glass.']]],
@@ -750,6 +758,19 @@ Object.assign(ART, {
   windmill:'<path d="M16 45 19 20h10l3 25Z" fill="#F3EBDD"/><path d="M17 20 24 11l7 9Z" fill="#B5533C"/><rect x="21" y="36" width="6" height="9" fill="#5A3D2B"/><g transform="rotate(20 24 17)"><rect x="22.5" y="1" width="3" height="32" fill="#6E4329"/><rect x="8" y="15.5" width="32" height="3" fill="#6E4329"/><rect x="25.5" y="2" width="5" height="12" fill="#F3EBDD"/><rect x="17.5" y="20" width="5" height="12" fill="#F3EBDD"/><rect x="9" y="11.5" width="12" height="4" fill="#F3EBDD"/><rect x="27" y="18.5" width="12" height="4" fill="#F3EBDD"/></g><circle cx="24" cy="17" r="2.5" fill="#3F3A4A"/>'
 });
 Object.assign(ART, {
+  flowerarch:'<path d="M10 44V24a14 14 0 0 1 28 0v20" stroke="#5FA34B" stroke-width="4" fill="none"/><g fill="#F28DB2"><circle cx="10" cy="30" r="3"/><circle cx="14" cy="16" r="3"/><circle cx="24" cy="10" r="3"/><circle cx="34" cy="16" r="3"/><circle cx="38" cy="30" r="3"/></g><g fill="#FFD166"><circle cx="11" cy="22" r="2.4"/><circle cx="19" cy="12" r="2.4"/><circle cx="29" cy="12" r="2.4"/><circle cx="37" cy="22" r="2.4"/></g>',
+  maypole:'<rect x="22.5" y="6" width="3" height="39" fill="#F3EBDD"/><ellipse cx="24" cy="10" rx="9" ry="3" fill="none" stroke="#5FA34B" stroke-width="3"/><path d="M24 11 12 40M24 11 18 42M24 11 30 42M24 11 36 40" stroke-width="2" stroke="#F28DB2"/><path d="M24 11 15 41M24 11 33 41" stroke-width="2" stroke="#5FA8C9"/>',
+  birdhouse:'<rect x="22.5" y="26" width="3" height="19" fill="#8A5634"/><rect x="15" y="14" width="18" height="14" fill="#C79A6B"/><path d="M12 15 24 5l12 10Z" fill="#C8473C"/><circle cx="24" cy="21" r="3" fill="#3F3A4A"/><circle cx="35" cy="10" r="3" fill="#5FA8C9"/>',
+  lampions:'<path d="M6 44V12M42 44V12" stroke="#8A5634" stroke-width="3"/><path d="M6 14q18 10 36 0" stroke="#3F3A4A" stroke-width="1" fill="none"/><g><ellipse cx="13" cy="20" rx="3" ry="4" fill="#E0523F"/><ellipse cx="20" cy="22" rx="3" ry="4" fill="#FFD166"/><ellipse cx="28" cy="22" rx="3" ry="4" fill="#5FA8C9"/><ellipse cx="35" cy="20" rx="3" ry="4" fill="#B79CED"/></g>',
+  parasol:'<rect x="23" y="16" width="2" height="29" fill="#8A5634"/><path d="M6 18a18 10 0 0 1 36 0Z" fill="#E0523F"/><path d="M15 18a9 10 0 0 1 9-10 9 10 0 0 1 9 10" fill="#F3EBDD"/><path d="M28 44l6-12h8" stroke="#5FA8C9" stroke-width="3" fill="none"/>',
+  icecart:'<rect x="8" y="24" width="30" height="14" rx="2" fill="#F3EBDD"/><rect x="8" y="30" width="30" height="3" fill="#F28DB2"/><circle cx="14" cy="41" r="4" fill="#3F3A4A"/><circle cx="32" cy="41" r="4" fill="#3F3A4A"/><path d="M23 24V10" stroke="#8A5634" stroke-width="2"/><path d="M11 12a12 7 0 0 1 24 0Z" fill="#5FA8C9"/><circle cx="17" cy="21" r="3" fill="#F7C6D7"/><circle cx="23" cy="20" r="3" fill="#FFF4E0"/><circle cx="29" cy="21" r="3" fill="#C79A6B"/>',
+  pumpkinlamp:'<path d="M24 12c0-3 2-5 4-6" stroke="#6E4329" stroke-width="3" fill="none"/><ellipse cx="24" cy="30" rx="16" ry="13" fill="#F08A3C"/><path d="M17 26l3 3h-6ZM31 26l3 3h-6Z" fill="#FFE08A"/><path d="M15 34q9 6 18 0l-3 2-3-2-3 2-3-2-3 2Z" fill="#FFE08A"/>',
+  haybales:'<rect x="4" y="28" width="20" height="16" rx="3" fill="#E2BE5C"/><rect x="24" y="28" width="20" height="16" rx="3" fill="#D8B04E"/><rect x="14" y="13" width="20" height="16" rx="3" fill="#E8C86A"/><path d="M4 33h20M24 33h20M14 18h20" stroke="#B9953E" stroke-width="1.5"/>',
+  harvestcart:'<rect x="6" y="24" width="34" height="12" fill="#A8693F"/><circle cx="14" cy="39" r="5" fill="#6E4329"/><circle cx="32" cy="39" r="5" fill="#6E4329"/><path d="M40 30h6" stroke="#6E4329" stroke-width="2"/><circle cx="14" cy="21" r="5" fill="#F08A3C"/><circle cx="24" cy="20" r="6" fill="#F08A3C"/><circle cx="33" cy="22" r="3" fill="#D9483B"/><circle cx="37" cy="21" r="3" fill="#D9483B"/>',
+  xmastree:'<rect x="22" y="38" width="4" height="7" fill="#6E4329"/><path d="M24 6 36 22H30l8 10H10l8-10h-6Z" fill="#2F6B3A"/><path d="M24 2l1.5 3 3 .4-2.2 2 .6 3L24 9l-2.9 1.4.6-3-2.2-2 3-.4Z" fill="#F2C14E"/><g fill="#E0523F"><circle cx="20" cy="18" r="1.6"/><circle cx="30" cy="27" r="1.6"/></g><g fill="#FFD166"><circle cx="27" cy="16" r="1.6"/><circle cx="17" cy="28" r="1.6"/></g>',
+  snowman:'<circle cx="24" cy="36" r="9" fill="#F5F7FA"/><circle cx="24" cy="21" r="7" fill="#F5F7FA"/><rect x="17" y="10" width="14" height="3" fill="#3F3A4A"/><rect x="19" y="4" width="10" height="7" fill="#3F3A4A"/><path d="M24 21l7 2-7 1Z" fill="#F08A3C"/><circle cx="21" cy="19" r="1" fill="#3F3A4A"/><circle cx="27" cy="19" r="1" fill="#3F3A4A"/><path d="M17 26h14" stroke="#C8473C" stroke-width="3"/>',
+  marketstall:'<rect x="6" y="26" width="36" height="18" fill="#A8693F"/><path d="M4 26 8 14h32l4 12Z" fill="#F3EBDD"/><path d="M10 14l-2 12M18 14v12M26 14v12M34 14l2 12" stroke="#C8473C" stroke-width="4"/><rect x="6" y="26" width="36" height="4" fill="#8A5634"/><g fill="#FFE08A"><circle cx="12" cy="17" r="1.4"/><circle cx="22" cy="16" r="1.4"/><circle cx="32" cy="17" r="1.4"/></g>',
+  doghouse:'<rect x="10" y="22" width="28" height="22" fill="#C79A6B"/><path d="M6 24 24 8l18 16Z" fill="#C8473C"/><path d="M18 44V34a6 6 0 0 1 12 0v10Z" fill="#3F3A4A"/><rect x="18" y="20" width="12" height="4" fill="#F3EBDD"/>',
   graveyard:'<rect x="4" y="36" width="40" height="9" rx="2" fill="#7FAE5E"/><path d="M4 36h16M28 36h16" stroke="#9C978C" stroke-width="4"/><path d="M12 36V24a4 4 0 0 1 8 0v12Z" fill="#B9B4A8"/><path d="M28 36V26a3.5 3.5 0 0 1 7 0v10Z" fill="#C9C4B8"/><path d="M38 36V22M35 26h6" stroke="#6E4329" stroke-width="2"/><path d="M6 36 10 14l4 22Z" fill="#3F6B45"/><circle cx="23" cy="34" r="1.6" fill="#F28DB2"/><circle cx="26" cy="35" r="1.4" fill="#FFF4E0"/>',
   appletree:'<rect x="22" y="30" width="4" height="15" fill="#6E4329"/><circle cx="24" cy="21" r="13" fill="#5E9E40"/><circle cx="31" cy="17" r="7" fill="#6DB35B"/><g fill="#D9483C"><circle cx="18" cy="22" r="2"/><circle cx="27" cy="26" r="2"/><circle cx="24" cy="14" r="2"/><circle cx="31" cy="20" r="2"/></g>',
   birch:'<rect x="22" y="18" width="4" height="27" fill="#F1EEE6"/><g fill="#3F3A4A"><rect x="22" y="24" width="2" height="1"/><rect x="24" y="31" width="2" height="1"/><rect x="22" y="38" width="2" height="1"/></g><ellipse cx="24" cy="16" rx="10" ry="13" fill="#8CC65B"/><ellipse cx="29" cy="12" rx="5" ry="6" fill="#9AD06B"/>',
@@ -817,6 +838,20 @@ const CATALOG = [
   {id:'field',     name:'Acker',          area:'felder', cost:300,   multi:true, max:14, desc:'Hier pflanzt du an und erntest Kräuter'},
   {id:'sunflower', name:'Sonnenblumen',   area:'felder', cost:1000,  multi:true, desc:'Drehen sich nach der Sonne'},
   {id:'silo',      name:'Silo',           area:'felder', cost:14000, desc:'Lagert die Ernte: Lene zahlt 10 % mehr pro Kiste'},
+  // Festdeko: nur während des passenden Jahreszeiten-Fests kaufbar, bleibt danach im Dorf
+  {id:'flowerarch', name:'Blumenbogen',    cost:1200, multi:true, fest:'spring', desc:'Ein Bogen voller Frühlingsblumen'},
+  {id:'maypole',    name:'Maibaum',        cost:2000, multi:true, fest:'spring', desc:'Mit Kranz und bunten Bändern'},
+  {id:'birdhouse',  name:'Vogelhäuschen',  cost:600,  multi:true, fest:'spring', desc:'Für die ersten Meisen'},
+  {id:'lampions',   name:'Lampionkette',   cost:1200, multi:true, fest:'summer', desc:'Bunte Lampions für laue Abende'},
+  {id:'parasol',    name:'Sonnenschirm',   cost:900,  multi:true, fest:'summer', desc:'Mit Liegestuhl'},
+  {id:'icecart',    name:'Eiswagen',       cost:2500, multi:true, fest:'summer', desc:'Drei Kugeln, bitte!'},
+  {id:'pumpkinlamp',name:'Kürbislaterne',  cost:700,  multi:true, fest:'autumn', desc:'Leuchtet warm in der Dämmerung'},
+  {id:'haybales',   name:'Strohballen',    cost:600,  multi:true, fest:'autumn', desc:'Zum Draufsitzen'},
+  {id:'harvestcart',name:'Erntewagen',     cost:2200, multi:true, fest:'autumn', desc:'Voller Kürbisse und Äpfel'},
+  {id:'xmastree',   name:'Geschmückter Tannenbaum', cost:2000, multi:true, fest:'winter', desc:'Mit Lichtern und Stern'},
+  {id:'snowman',    name:'Schneemann',     cost:500,  multi:true, fest:'winter', desc:'Mit Karottennase'},
+  {id:'marketstall',name:'Marktbude',      cost:2500, multi:true, fest:'winter', desc:'Heißer Apfelpunsch und Lebkuchen'},
+  {id:'doghouse',   name:'Hundehütte',     cost:2500, desc:'Hier wohnt dein Hund Bello'},
   {id:'appletree',  name:'Apfelbaum',      cost:900,  multi:true, tree:true, desc:'Mit roten Äpfeln, im Frühling rosa Blüten'},
   {id:'birch',      name:'Birke',          cost:900,  multi:true, tree:true, desc:'Weißer Stamm, helles Laub'},
   {id:'oak',        name:'Eiche',          cost:1400, multi:true, tree:true, desc:'Groß, rund und alt'},
@@ -876,7 +911,7 @@ const MATS = {
   pine:{herbs:3}, mushrooms:{herbs:8}, lumberhut:{wood:40, stone:20}, treehouse:{wood:70}, forester:{wood:60, stone:30, herbs:10},
   lavender:{herbs:4}, viewbench:{wood:10, stone:15}, goatbarn:{wood:60, stone:20}, quarry:{wood:10, stone:60}, chapel:{wood:30, stone:100},
   sunflower:{herbs:3}, beehive:{wood:12, herbs:8}, farmstand:{wood:30, stone:5}, farm:{wood:70, stone:25, herbs:5}, windmill:{wood:60, stone:60, herbs:10},
-  lilies:{herbs:3}, jetty:{wood:30}, hochsitz:{wood:25}, picnic:{wood:10, herbs:5}, summitcross:{wood:10, stone:20}, mine:{wood:40, stone:30}, berghut:{wood:80, stone:40}, cablecar:{wood:40, stone:80}, boat:{wood:50}, beachchair:{wood:4, herbs:2}, boathouse:{wood:40, stone:10}, canoe:{wood:10}, silo:{wood:20, stone:40}, graveyard:{wood:10, stone:25, herbs:4}, appletree:{herbs:3}, birch:{herbs:3}, oak:{herbs:5}, cherry:{herbs:6}, willow:{herbs:8}
+  lilies:{herbs:3}, jetty:{wood:30}, hochsitz:{wood:25}, picnic:{wood:10, herbs:5}, summitcross:{wood:10, stone:20}, mine:{wood:40, stone:30}, berghut:{wood:80, stone:40}, cablecar:{wood:40, stone:80}, boat:{wood:50}, beachchair:{wood:4, herbs:2}, boathouse:{wood:40, stone:10}, canoe:{wood:10}, silo:{wood:20, stone:40}, graveyard:{wood:10, stone:25, herbs:4}, flowerarch:{herbs:6}, maypole:{wood:12}, birdhouse:{wood:3}, lampions:{wood:6}, parasol:{wood:4}, icecart:{wood:15}, pumpkinlamp:{herbs:3}, haybales:{herbs:2}, harvestcart:{wood:15, herbs:5}, xmastree:{wood:8, herbs:4}, snowman:{}, marketstall:{wood:20, stone:5}, doghouse:{wood:15}, appletree:{herbs:3}, birch:{herbs:3}, oak:{herbs:5}, cherry:{herbs:6}, willow:{herbs:8}
 };
 const COINS = {school:1200, storyhouse:10000, path:50, fence:300, campfire:400, bench:800, lantern:1200, flowerbed:1500, garden:6000, hut:8000, pond:9000, well:12000, guesthouse:16000,
   reeds:300, rowboat:2500, dock:5000, shellstand:7000, fisherhut:11000, pine:500, mushrooms:2000, lumberhut:14000, treehouse:18000, forester:24000,
@@ -991,12 +1026,12 @@ enApply('base');
 const SPECIAL = {home:HOME_ITEM, market:MARKET_ITEM};       // gehören zum Dorf, können nicht ins Lager
 // Grundfläche in Feldern: Wege und kleine Deko 1 × 1, kleinere Bauten 2 × 2, Häuser 3 × 3, Zuhause 4 × 4
 const FOOT = {path:1, fence:1, lantern:1, reeds:1, pine:1, lavender:1,
-  campfire:2, bench:[2, 1], flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:5, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, boat:2, beachchair:1, boathouse:2, canoe:1, silo:2, graveyard:2, appletree:1, birch:1, oak:1, cherry:1, willow:1, home:4, market:2};
+  campfire:2, bench:[2, 1], flowerbed:2, well:2, mushrooms:2, rowboat:2, dock:2, shellstand:2, viewbench:2, sunflower:1, beehive:2, farmstand:2, field:2, palace:5, lilies:1, jetty:2, hochsitz:1, picnic:2, summitcross:1, boat:2, beachchair:1, boathouse:2, canoe:1, silo:2, graveyard:2, flowerarch:[2, 1], maypole:1, birdhouse:1, lampions:[2, 1], parasol:1, icecart:1, pumpkinlamp:1, haybales:1, harvestcart:[2, 1], xmastree:1, snowman:1, marketstall:[2, 1], doghouse:1, appletree:1, birch:1, oak:1, cherry:1, willow:1, home:4, market:2};
 // Grundfläche [Breite, Tiefe]; bei 90°/270° Drehung tauschen Breite und Tiefe (z. B. Holzbank 2 × 1)
 const footOf = (id, rot = 0) => { const f = FOOT[id] ?? 3, [w, d] = Array.isArray(f) ? f : [f, f]; return rot % 2 ? [d, w] : [w, d]; };
 const sizeOf = id => Math.max(...footOf(id));
 // Sichtbare Größe der Modelle (die Modelle sind für 1 Feld gebaut)
-const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], palace:[5, 6.8, 5], reef:[1.7, 1.7, 1.7], beachchair:[1.4, 1.4, 1.4], canoe:[1.3, 1.3, 1.3], birch:[1.7, 1.7, 1.7], oak:[1.8, 1.8, 1.8], cherry:[1.7, 1.7, 1.7], willow:[1.8, 1.8, 1.8], home:[2, 2, 2]};
+const VIS = {path:[1, 1, 1], fence:[1, 1.7, 1], lantern:[1.6, 1.6, 1.6], reeds:[1.4, 1.4, 1.4], pine:[1.7, 1.7, 1.7], lavender:[1.5, 1.5, 1.5], rock:[1.5, 1.5, 1.5], sunflower:[1.5, 1.5, 1.5], appletree:[1.6, 1.6, 1.6], peak:[2.6, 2.6, 2.6], lilies:[1.3, 1.3, 1.3], hochsitz:[1.6, 1.6, 1.6], summitcross:[1.7, 1.7, 1.7], palace:[5, 6.8, 5], reef:[1.7, 1.7, 1.7], beachchair:[1.4, 1.4, 1.4], canoe:[1.3, 1.3, 1.3], maypole:[1.7, 1.7, 1.7], birdhouse:[1.4, 1.4, 1.4], parasol:[1.5, 1.5, 1.5], icecart:[1.5, 1.5, 1.5], pumpkinlamp:[1.4, 1.4, 1.4], haybales:[1.4, 1.4, 1.4], xmastree:[1.7, 1.7, 1.7], snowman:[1.4, 1.4, 1.4], doghouse:[1.4, 1.4, 1.4], birch:[1.7, 1.7, 1.7], oak:[1.8, 1.8, 1.8], cherry:[1.7, 1.7, 1.7], willow:[1.8, 1.8, 1.8], home:[2, 2, 2]};
 const scaleOf = id => VIS[id] || [sizeOf(id), sizeOf(id), sizeOf(id)];
 const itemOf = p => SPECIAL[p.id] || byId[p.id];
 
@@ -1545,6 +1580,39 @@ MODELS.field = p => {
 
 /* ---------- Waldsee und Gebirge ---------- */
 Object.assign(MODELS, {
+  flowerarch: () => { const arch = put(new THREE.TorusGeometry(.3, .035, 6, 14, Math.PI), '#5FA34B', 0, .3, 0);
+    const g = group([-.3, .3].map(x => box(.06, .3, .06, '#5FA34B', x, 0, 0)), arch);
+    for (let i = 0; i <= 8; i++) { const a = i / 8 * Math.PI; g.add(ball(.035, ['#F28DB2', '#FFD166', '#FFF4E0', '#B79CED'][i % 4], Math.cos(a) * .3, .3 + Math.sin(a) * .3, .02)); }
+    [-.3, .3].forEach(x => g.add(ball(.05, '#F28DB2', x, .05, .06), ball(.04, '#FFD166', x + .05, .04, .02))); return g; },
+  maypole: () => { const g = group(cyl(.025, .03, .9, '#F3EBDD', 0, 0, 0, 8), put(new THREE.TorusGeometry(.13, .025, 6, 14), '#5FA34B', 0, .78, 0), ball(.04, '#F2C14E', 0, .92, 0));
+    g.children[1].rotation.x = Math.PI / 2;
+    ['#F28DB2', '#5FA8C9', '#FFD166', '#B79CED', '#E0523F', '#6DB35A'].forEach((c, i) => { const a = i / 6 * Math.PI * 2, r = box(.012, .7, .012, c, 0, 0, 0); r.position.set(Math.cos(a) * .17, .42, Math.sin(a) * .17); r.rotation.set(Math.sin(a) * .25, 0, -Math.cos(a) * .25); g.add(r); }); return g; },
+  birdhouse: () => group(box(.03, .4, .03, '#8A5634', 0, 0, 0), box(.16, .14, .14, '#C79A6B', 0, .4, 0), gable(.2, .08, .2, '#C8473C', 0, .54, 0), cyl(.025, .025, .01, '#3F3A4A', 0, .46, .075, 8), ball(.03, '#5FA8C9', .1, .62, .05)),
+  lampions: () => { const g = group(box(.04, .5, .04, '#8A5634', -.42, 0, 0), box(.04, .5, .04, '#8A5634', .42, 0, 0));
+    for (let i = 0; i < 7; i++) { const x = -.36 + i * .12, y = .44 - Math.sin(i / 6 * Math.PI) * .08; g.add(box(.004, .03, .004, '#3F3A4A', x, y, 0), (() => { const b = ball(.035, ['#E0523F', '#FFD166', '#5FA8C9', '#B79CED'][i % 4], x, y - .03, 0); b.material = mat(['#E0523F', '#FFD166', '#5FA8C9', '#B79CED'][i % 4], true); b.scale.y = 1.25; return b; })()); }
+    g.add(box(.84, .006, .006, '#3F3A4A', 0, .46, 0)); return g; },
+  parasol: () => group(cyl(.012, .012, .42, '#8A5634', 0, 0, 0, 6), cone(.3, .1, '#E0523F', 0, .42, 0, 8), cone(.18, .07, '#F3EBDD', 0, .455, 0, 8),
+    box(.12, .015, .26, '#5FA8C9', .2, .06, .05), box(.12, .1, .015, '#5FA8C9', .2, .07, -.08), box(.01, .06, .01, WOOD_D, .15, 0, .16), box(.01, .06, .01, WOOD_D, .25, 0, .16)),
+  icecart: () => group(box(.4, .18, .22, '#F3EBDD', 0, .06, 0), box(.41, .04, .225, '#F28DB2', 0, .14, 0), [-.13, .13].map(x => cyl(.06, .06, .03, '#3F3A4A', x, .06, .12, 10)),
+    box(.012, .3, .012, '#8A5634', 0, .24, 0), cone(.22, .08, '#5FA8C9', 0, .54, 0, 8), ball(.035, '#F7C6D7', -.08, .27, 0), ball(.035, '#FFF4E0', 0, .27, 0), ball(.035, '#C79A6B', .08, .27, 0)),
+  pumpkinlamp: () => { const b = ball(.17, '#F08A3C', 0, .14, 0, 1); b.scale.y = .8;
+    return group(b, box(.025, .06, .025, '#6E4329', 0, .26, 0), box(.05, .04, .02, WIN, -.06, .17, .15, true), box(.05, .04, .02, WIN, .06, .17, .15, true), box(.12, .025, .02, WIN, 0, .08, .155, true), ball(.05, '#5FA34B', .12, .03, .1)); },
+  haybales: () => { const a = cyl(.11, .11, .24, '#E2BE5C', 0, 0, 0, 10), b2 = cyl(.11, .11, .24, '#D8B04E', 0, 0, 0, 10), c = cyl(.11, .11, .24, '#E8C86A', 0, 0, 0, 10);
+    [a, b2, c].forEach(o => { o.rotation.z = Math.PI / 2; }); a.position.set(-.12, .11, .08); b2.position.set(.13, .11, .06); c.position.set(0, .31, .07); return group(a, b2, c); },
+  harvestcart: () => group(box(.6, .14, .3, '#A8693F', 0, .12, 0), box(.62, .02, .32, '#8A5634', 0, .26, 0), [-.18, .18].map(x => { const w = cyl(.1, .1, .03, '#6E4329', x, 0, .16, 10); w.rotation.x = Math.PI / 2; w.position.y = .1; return w; }),
+    box(.22, .02, .02, '#6E4329', .4, .14, 0), ball(.08, '#F08A3C', -.16, .32, 0), ball(.1, '#F08A3C', .02, .34, .02), [[.18, -.06], [.22, .06], [.14, .08]].map(([x, z]) => ball(.04, '#D9483B', x, .3, z)), box(.04, .16, .04, '#E2BE5C', -.24, .26, -.08)),
+  xmastree: () => { const g = group(cyl(.04, .05, .1, WOOD_DD, 0, 0, 0, 6), cone(.3, .3, '#2F6B3A', 0, .08, 0, 8), cone(.23, .26, '#336F3D', 0, .28, 0, 8), cone(.15, .22, '#2F6B3A', 0, .46, 0, 8), ball(.045, '#F2C14E', 0, .7, 0));
+    g.children[4].material = mat('#F2C14E', true);
+    [[.18, .16, .1], [-.15, .22, .13], [.1, .36, -.14], [-.1, .44, .1], [.05, .55, .07], [-.2, .12, -.1], [.15, .3, .12]].forEach(([x, y, z], i) => g.add((() => { const b = ball(.025, '#E0523F', x, y, z); b.material = mat(['#E0523F', '#FFD166', '#5FA8C9'][i % 3], true); return b; })()));
+    return g; },
+  snowman: () => group(ball(.16, '#F5F7FA', 0, .14, 0, 1), ball(.11, '#F5F7FA', 0, .36, 0, 1), ball(.08, '#F5F7FA', 0, .52, 0, 1), cyl(.09, .09, .015, '#3F3A4A', 0, .59, 0, 10), cyl(.06, .06, .09, '#3F3A4A', 0, .6, 0, 10),
+    (() => { const n = cone(.02, .08, '#F08A3C', 0, .52, .1, 6); n.rotation.x = Math.PI / 2; n.position.set(0, .52, .11); return n; })(), box(.015, .015, .01, '#3F3A4A', -.03, .55, .075), box(.015, .015, .01, '#3F3A4A', .03, .55, .075),
+    box(.2, .03, .2, '#C8473C', 0, .43, 0), box(.03, .1, .02, '#C8473C', .06, .34, .1)),
+  marketstall: () => { const g = group(box(.8, .2, .3, '#A8693F', 0, 0, .05), box(.82, .03, .32, '#8A5634', 0, .2, .05), [[-.38, -.08], [.38, -.08], [-.38, .18], [.38, .18]].map(([x, z]) => box(.03, .5, .03, '#8A5634', x, 0, z)));
+    [-.3, -.18, -.06, .06, .18, .3].forEach((x, i) => { const s = box(.12, .025, .42, i % 2 ? '#F3EBDD' : '#C8473C', x, .52, .05); s.rotation.x = .2; g.add(s); });
+    [-.3, -.1, .1, .3].forEach((x, i) => g.add((() => { const b = ball(.018, '#FFE08A', x, .47, .24); b.material = mat('#FFE08A', true); return b; })()));
+    g.add(cyl(.025, .02, .05, '#C8473C', -.15, .23, .1, 8), cyl(.025, .02, .05, '#F3EBDD', -.05, .23, .1, 8), box(.1, .02, .07, '#C79A6B', .15, .23, .1)); return g; },
+  doghouse: () => group(box(.3, .22, .3, '#C79A6B', 0, 0, 0), gable(.36, .14, .36, '#C8473C', 0, .22, 0), box(.12, .14, .01, '#3F3A4A', 0, 0, .152), box(.12, .03, .01, '#F3EBDD', 0, .2, .153), cyl(.06, .06, .02, '#B9B4A8', .22, 0, .1, 10)),
   graveyard: () => {
     const STONE = '#9C978C', g = group(box(.94, .02, .94, '#7FAE5E'));
     g.add(box(.94, .07, .05, STONE, 0, .02, -.445), box(.05, .07, .94, STONE, -.445, .02, 0), box(.05, .07, .94, STONE, .445, .02, 0), box(.32, .07, .05, STONE, -.31, .02, .445), box(.32, .07, .05, STONE, .31, .02, .445));
@@ -1745,6 +1813,31 @@ MODELS.palace = () => {                                           // 5 × 5 Feld
   return g;
 };
 
+/* ---------- Gemütliche Ausbaustufen für Wohnhäuser ---------- */
+const UPGRADABLE = ['hut', 'guesthouse', 'fisherhut', 'lumberhut', 'forester', 'berghut', 'boathouse'];
+const UPG = {2:{name:'Gemütlich', text:'Blumen vor dem Haus, ein kleiner weißer Zaun und eine Laterne an der Tür'},
+             3:{name:'Liebevoll eingerichtet', text:'Ein Gemüsebeet, eine Bank vor dem Haus, Kletterrosen und ein kleiner Schuppen'}};
+const upgCost = (id, lvl) => { const c = byId[id].cost; return lvl === 2 ? {cost:Math.round(c * .5 / 100) * 100, mat:{wood:20, stone:10}} : {cost:Math.round(c / 100) * 100, mat:{wood:40, stone:25, herbs:10}}; };
+function cozyExtras(lvl){                                         // im Modell-Maßstab eines Feldes, wird mit dem Haus skaliert
+  const g = group(), WHITE = '#F3EBDD';
+  if (lvl >= 2) {
+    [-1, 1].forEach(s => {
+      g.add(box(.26, .03, .012, WHITE, s * .28, .05, .465));
+      [.16, .28, .4].forEach(x => g.add(box(.014, .085, .014, WHITE, s * x, 0, .465)));
+      ['#F28DB2', '#FFD166', '#B79CED', '#FFF4E0'].forEach((c, i) => g.add(ball(.018, c, s * (.19 + i * .06), .03, .43)));
+    });
+    g.add(box(.012, .17, .012, '#3F3A4A', .13, 0, .4), box(.03, .035, .03, WIN, .13, .17, .4, true));
+    const l = new THREE.PointLight('#ffd98a', .35, 1.2, 1.5); l.position.set(.13, .2, .42); g.add(l);
+  }
+  if (lvl >= 3) {
+    g.add(box(.18, .02, .13, '#7A5232', -.36, 0, -.34), [-.42, -.36, -.3].map(x => ball(.022, '#5FA34B', x, .035, -.34)), ball(.02, '#F08A3C', -.39, .03, -.3));
+    g.add(box(.15, .015, .05, WOOD, -.24, .05, .4), box(.15, .045, .01, WOOD, -.24, .065, .375), box(.012, .05, .04, WOOD_D, -.31, 0, .4), box(.012, .05, .04, WOOD_D, -.17, 0, .4));
+    [[-.4, .44], [-.16, .44], [.4, .44]].forEach(([x, z]) => g.add(ball(.024, '#E0607E', x, .09, z), ball(.018, '#5FA34B', x + .02, .07, z - .01)));
+    g.add(box(.13, .12, .12, '#A8693F', .37, 0, -.35), gable(.15, .06, .14, '#6E4329', .37, .12, -.35), box(.04, .07, .01, '#5A3D2B', .37, 0, -.288));
+  }
+  return g;
+}
+
 /* ---------- Dein Zuhause (2 × 2) ---------- */
 function smoke(x, y, z){
   const g = group([0, 1, 2].map(i => { const b = ball(.07 + i * .025, '#E8E4DC', 0, i * .18, 0); b.castShadow = false; b.material = b.material.clone(); b.material.transparent = true; b.material.opacity = .75; return b; }));
@@ -1826,6 +1919,7 @@ MODELS.market = () => group(
 /* ---------- Boden (effizient: ein Mesh für alle Felder) ---------- */
 function buildModel(id, p){
   const inner = MODELS[id](p), sc = scaleOf(id);
+  if (p && p.lvl > 1 && UPGRADABLE.includes(id)) inner.add(cozyExtras(p.lvl));
   inner.scale.set(sc[0], sc[1], sc[2]);
   inner.traverse(o => { if (o.isLight) o.distance *= Math.max(...sc); });
   const g = new THREE.Group(); g.add(inner); return g;
@@ -1884,7 +1978,7 @@ function syncObjects(){
     if (reduce) objects.remove(g); else g.userData.dying = performance.now();
   }
   S.placed.forEach(p => {
-    const sig = p.id + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '') + (byId[p.id]?.landmark ? lmPhase(p.id) : '') + (p.job ? 'j' : '');
+    const sig = p.id + (p.lvl || '') + (p.id === 'home' ? homeLevel() : '') + (p.id === 'field' ? fieldSig(p) : '') + (byId[p.id]?.landmark ? lmPhase(p.id) : '') + (p.job ? 'j' : '');
     let g = objMap.get(p.uid);
     if (g && g.userData.sig !== sig) { objects.remove(g); objMap.delete(p.uid); g = null; if (p.id !== 'field') p._new = true; }
     if (!g) {
@@ -1931,7 +2025,8 @@ const RES = {
               lines:['Komm zu meinem Haus, ich habe heute ein Gedicht für dich.']}],
   market:    [{name:'Emil', role:'Händler', range:3, look:{shirt:'#8C4A6B', pants:'#3F3A4A', skin:'#E8B98F', hat:'cap', hatColor:'#E39B4A', beard:'#B9B4A8'},
               lines:['Frisches Holz, guter Stein, duftende Kräuter!', 'Tippe auf meinen Stand, wenn dir etwas fehlt.']}],
-  home:      [{kind:'cat', name:'Minka', role:'deine Katze', lines:['schnurrt zufrieden.', 'putzt sich in der Sonne.', 'möchte gestreichelt werden.']}],
+  home:      [{kind:'cat', pet:true, name:'Minka', role:'deine Katze', lines:['schnurrt zufrieden.', 'putzt sich in der Sonne.', 'möchte gestreichelt werden.']}],
+  doghouse:  [{kind:'dog', pet:true, name:'Bello', role:'dein Hund', lines:['wedelt fröhlich mit dem Schwanz.', 'bringt dir einen Stock.', 'schnuppert neugierig an allem.']}],
   hut:       [{name:'Lotte', role:'Nachbarin', look:{shirt:'#E26D8A', pants:'#4F6D9A', skin:'#F1C9A5', hair:'#6E4329'},
               lines:['Was für ein schöner Tag zum Spazierengehen!', 'Hast du heute schon deine Schritte gemacht?']}],
   guesthouse:[{name:'Paul', role:'Gast', look:{shirt:'#5BA8A0', pants:'#3F3A4A', skin:'#C68E64', hat:'cap', hatColor:'#F2C14E'},
@@ -1975,7 +2070,7 @@ const RES = {
               lines:['Willkommen in meinem kleinen Palast!', 'Lindenbach ist das schönste Dorf im ganzen Land.']}]
 };
 enApply('res');
-const SPEED = {person:1.8, cat:2.4, goat:1, hen:1.2}, RANGE = {person:9, cat:5, goat:5, hen:3}, NPC_SCALE = 2.2;
+const SPEED = {person:1.8, cat:2.4, goat:1, hen:1.2, dog:2.8}, RANGE = {person:9, cat:5, goat:5, hen:3, dog:6}, NPC_SCALE = 2.2;
 const npcGroup = new THREE.Group(); world.add(npcGroup);
 
 function personModel(L){
@@ -2004,6 +2099,14 @@ function catModel(){
   const tail = cyl(.012, .015, .16, '#C9803A', 0, 0, 0, 5); tail.rotation.x = -.7; tail.position.set(0, .14, -.14);
   g.add(tail); g.userData.tail = tail; return g;
 }
+function dogModel(){
+  const g = group(box(.09, .08, .2, '#B98A5A', 0, .06), box(.09, .09, .1, '#B98A5A', 0, .12, .13), box(.05, .04, .05, '#E8D9C0', 0, .13, .19),
+    box(.02, .02, .01, '#2A2F45', 0, .16, .216), box(.025, .05, .02, '#7A5636', -.045, .17, .11), box(.025, .05, .02, '#7A5636', .045, .17, .11),
+    box(.012, .012, .01, '#2A2F45', -.022, .18, .181), box(.012, .012, .01, '#2A2F45', .022, .18, .181), box(.1, .02, .02, '#C8473C', 0, .11, .085),
+    [[-.03, .07], [.03, .07], [-.03, -.07], [.03, -.07]].map(([x, z]) => box(.025, .06, .025, '#A47A4C', x, 0, z)));
+  const tail = cyl(.012, .015, .1, '#A47A4C', 0, 0, 0, 5); tail.rotation.x = -1.1; tail.position.set(0, .14, -.12);
+  g.add(tail); g.userData.tail = tail; return g;
+}
 function goatModel(){
   return group(box(.12, .12, .24, '#F3EBDD', 0, .09), box(.08, .09, .1, '#F3EBDD', 0, .17, .15),
     cone(.015, .06, '#8A8272', -.025, .26, .14, 4), cone(.015, .06, '#8A8272', .025, .26, .14, 4),
@@ -2017,6 +2120,107 @@ function henModel(){
     box(.07, .05, .03, '#E8E4DC', 0, .09, -.07), [-.025, .025].map(x => box(.01, .05, .01, '#F2C14E', x, 0, 0)));
 }
 
+/* ---------- Wildtiere: leben in ihren Gebieten, lassen sich antippen und landen im Album ---------- */
+const WILD = [
+  {id:'igel',     name:'Igel',         region:'lichtung', move:'walk', speed:.6,  color:'#7A5E46', fact:'Igel sind nachts unterwegs und fressen am liebsten Käfer und Schnecken.'},
+  {id:'schwan',   name:'Schwan',       region:'see',      move:'swim', speed:.5,  color:'#F5F5F2', fact:'Schwäne bleiben oft ein Leben lang mit ihrem Partner zusammen.'},
+  {id:'eichhorn', name:'Eichhörnchen', region:'wald',     move:'walk', speed:2.2, color:'#C2602F', fact:'Eichhörnchen vergraben im Herbst Tausende Nüsse und finden längst nicht alle wieder.'},
+  {id:'hase',     name:'Feldhase',     region:'felder',   move:'walk', speed:2,   color:'#A88A66', fact:'Feldhasen schaffen kurze Sprints mit bis zu 70 Kilometern pro Stunde.'},
+  {id:'murmel',   name:'Murmeltier',   region:'berg',     move:'walk', speed:1,   color:'#9A7B57', fact:'Murmeltiere warnen sich mit einem lauten Pfiff, wenn Gefahr droht.'},
+  {id:'reh',      name:'Reh',          region:'waldsee',  move:'walk', speed:1.2, color:'#B07A4A', fact:'Rehe kommen gern in der Dämmerung ans Wasser.'},
+  {id:'ente',     name:'Stockente',    region:'waldsee',  move:'swim', speed:.7,  color:'#6B8F4E', fact:'Nur die Erpel haben den grün schimmernden Kopf.'},
+  {id:'gams',     name:'Gämse',        region:'gebirge',  move:'walk', speed:1.3, color:'#6E5A45', fact:'Gämsen klettern sicher über steile Felsen.'},
+  {id:'moewe',    name:'Möwe',         region:'kueste',   move:'fly',  speed:.5,  color:'#F3F3F0', fact:'Möwen können sogar Salzwasser trinken.'},
+  {id:'fuchs',    name:'Fuchs',        region:'bucht',    move:'walk', speed:1.6, color:'#D9702F', fact:'Füchse hören eine Maus noch unter dem Schnee rascheln.'}
+];
+function wildModel(w){
+  const c = w.color, g = new THREE.Group(), legs = (h, s, dz) => [[-s, dz], [s, dz], [-s, -dz], [s, -dz]].map(([x, z]) => box(.022, h, .022, c, x, 0, z));
+  switch (w.id) {
+    case 'igel': { const b = ball(.09, '#5E4636', 0, .07, -.01, 1); b.scale.set(1, .75, 1.25); g.add(b, ball(.04, '#C9A27E', 0, .05, .1), ball(.012, '#2A2F45', 0, .055, .14)); break; }
+    case 'schwan': { const b = ball(.1, c, 0, .05, 0, 1); b.scale.set(.8, .6, 1.3); const n = cyl(.018, .022, .16, c, 0, .06, .08, 6); n.rotation.x = .25; g.add(b, n, ball(.035, c, 0, .24, .12), cone(.015, .04, '#F08A3C', 0, .22, .16, 4)); g.children[3].rotation.x = Math.PI / 2; break; }
+    case 'ente': { const b = ball(.07, '#9A7B57', 0, .04, 0, 1); b.scale.set(.85, .6, 1.25); g.add(b, ball(.04, '#2F6B3A', 0, .11, .07), box(.03, .012, .04, '#F2C14E', 0, .1, .12)); break; }
+    case 'moewe': { const b = ball(.06, c, 0, 0, 0, 1); b.scale.set(.8, .7, 1.4);
+      const wl = box(.18, .01, .06, '#B9C2CC', -.09, 0, 0), wr = box(.18, .01, .06, '#B9C2CC', .09, 0, 0), L = group(wl), R = group(wr);
+      g.add(b, L, R, ball(.03, c, 0, .03, .08), cone(.01, .03, '#F2C14E', 0, .02, .12, 4)); g.children[4].rotation.x = Math.PI / 2; g.userData.wings = [L, R]; break; }
+    case 'eichhorn': { g.add(box(.05, .06, .09, c, 0, .02), box(.05, .05, .05, c, 0, .07, .05), cone(.01, .025, c, -.015, .12, .05, 4), cone(.01, .025, c, .015, .12, .05, 4),
+      box(.01, .01, .01, '#2A2F45', -.015, .1, .076), box(.01, .01, .01, '#2A2F45', .015, .1, .076));
+      const tail = ball(.05, c, 0, .1, -.07, 1); tail.scale.set(.7, 1.4, .7); g.add(tail); g.userData.tail = tail; break; }
+    case 'hase': { g.add(box(.07, .07, .12, c, 0, .02), box(.06, .06, .06, c, 0, .07, .07), box(.015, .07, .02, c, -.015, .13, .06), box(.015, .07, .02, c, .015, .13, .06),
+      ball(.02, '#F5F2EA', 0, .06, -.07), box(.01, .01, .01, '#2A2F45', -.02, .1, .1), box(.01, .01, .01, '#2A2F45', .02, .1, .1)); break; }
+    case 'murmel': { g.add(box(.08, .12, .08, c, 0, 0), box(.07, .06, .06, c, 0, .12, .01), box(.03, .02, .02, '#C9A27E', 0, .13, .045), box(.01, .01, .01, '#2A2F45', -.02, .16, .041), box(.01, .01, .01, '#2A2F45', .02, .16, .041)); break; }
+    case 'fuchs': { g.add(box(.07, .07, .18, c, 0, .06), box(.07, .07, .07, c, 0, .1, .11), box(.04, .03, .05, '#F5F2EA', 0, .09, .16), box(.012, .012, .01, '#2A2F45', 0, .11, .187),
+      cone(.018, .04, c, -.022, .17, .1, 4), cone(.018, .04, c, .022, .17, .1, 4), legs(.06, .025, .06));
+      const tail = cyl(.03, .015, .13, c, 0, 0, 0, 6); tail.rotation.x = -1.2; tail.position.set(0, .1, -.14); g.add(tail, ball(.02, '#F5F2EA', 0, .085, -.21)); g.userData.tail = tail; break; }
+    default: { const leg = w.id === 'reh' ? .12 : .1; g.add(box(.09, .09, .2, c, 0, leg), box(.045, .08, .05, c, 0, leg + .07, .1), box(.06, .06, .08, c, 0, leg + .12, .14),
+      box(.012, .012, .01, '#2A2F45', -.02, leg + .16, .181), box(.012, .012, .01, '#2A2F45', .02, leg + .16, .181), cone(.015, .04, c, -.025, leg + .18, .12, 4), cone(.015, .04, c, .025, leg + .18, .12, 4), legs(leg, .03, .07));
+      if (w.id === 'reh') g.add(ball(.025, '#F5F2EA', 0, leg + .07, -.1));
+      else g.add(cone(.008, .05, '#2A2F45', -.02, leg + .19, .13, 4), cone(.008, .05, '#2A2F45', .02, leg + .19, .13, 4)); }
+  }
+  g.traverse(o => { o.castShadow = true; });
+  const hit = new THREE.Mesh(new THREE.SphereGeometry(.14, 8, 6), new THREE.MeshBasicMaterial({transparent:true, opacity:0, depthWrite:false}));
+  hit.position.y = .08; hit.castShadow = false; g.add(hit);                      // größere, unsichtbare Tippfläche
+  return g;
+}
+const animalSvg = w => `<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="22" cy="30" rx="14" ry="${w.move === 'fly' ? 5 : 9}" fill="${w.color}" stroke="#3F3A4A" stroke-width="1"/><circle cx="36" cy="${w.move === 'swim' ? 16 : 22}" r="7" fill="${w.id === 'ente' ? '#2F6B3A' : w.color}" stroke="#3F3A4A" stroke-width="1"/><circle cx="38" cy="${w.move === 'swim' ? 15 : 21}" r="1.4" fill="#2A2F45"/>${w.move === 'fly' ? '<path d="M10 28 2 18M30 28l8-10" stroke="#B9C2CC" stroke-width="4"/>' : w.move === 'walk' ? '<path d="M14 37v7M28 37v7" stroke="#3F3A4A" stroke-width="2.5"/>' : ''}</svg>`;
+const wildGroup = new THREE.Group(); world.add(wildGroup);
+const wilds = new Map();
+const wildTiles = (w, x0, y0, R) => {
+  const q = REGIONS.find(r => r.id === w.region), out = [];
+  for (let y = Math.max(q.y0, y0 - R); y <= Math.min(q.y1, y0 + R); y++) for (let x = Math.max(q.x0, x0 - R); x <= Math.min(q.x1, x0 + R); x++) {
+    const ok = w.move === 'swim' ? isWater(decorAt(x, y)) && !at(x, y) : walkable(x, y);
+    if (ok) out.push({x, y});
+  }
+  return out;
+};
+function syncWild(){
+  WILD.forEach(w => {
+    const q = REGIONS.find(r => r.id === w.region), open = q && regionOpen(q);
+    if (!open) { const ex = wilds.get(w.id); if (ex) { wildGroup.remove(ex.mesh); wilds.delete(w.id); } return; }
+    if (wilds.has(w.id)) return;
+    const c = wildTiles(w, (q.x0 + q.x1) >> 1, (q.y0 + q.y1) >> 1, 40); if (!c.length && w.move !== 'fly') return;
+    const s = c.length ? c[Math.floor(Math.random() * c.length)] : {x:(q.x0 + q.x1) / 2, y:(q.y0 + q.y1) / 2};
+    const mesh = wildModel(w); mesh.scale.setScalar(NPC_SCALE); mesh.traverse(o => { o.userData.wild = w.id; });
+    const n = {w, mesh, pos:{x:s.x, y:s.y}, path:[], wait:Math.random() * 3, phase:Math.random() * 6, ang:Math.random() * 6, cx:(q.x0 + q.x1) / 2, cy:(q.y0 + q.y1) / 2};
+    const p0 = toWorld(s.x, s.y); mesh.position.copy(p0); mesh.rotation.y = Math.random() * 6;
+    wildGroup.add(mesh); wilds.set(w.id, n);
+  });
+}
+function stepWild(dt, tm){
+  wilds.forEach(n => {
+    const m = n.mesh, w = n.w;
+    if (w.move === 'fly') {                                       // Möwe kreist über dem Meer
+      if (!reduce) n.ang += dt * w.speed * .4;
+      const R = 4.5, p0 = toWorld(n.cx + Math.cos(n.ang) * R, n.cy + Math.sin(n.ang) * R);
+      m.position.set(p0.x, 2.6 + Math.sin(tm / 900) * .3, p0.z); m.rotation.y = -n.ang;
+      const f = Math.sin(tm / 160) * .5; m.userData.wings[0].rotation.z = f; m.userData.wings[1].rotation.z = -f; return;
+    }
+    if (m.userData.tail) m.userData.tail.rotation.z = Math.sin(tm / 400) * .25;
+    if (!n.path.length) {
+      m.position.y = w.move === 'swim' ? .02 + Math.sin(tm / 600) * .01 : 0;
+      n.wait -= dt; if (n.wait > 0 || reduce) return;
+      const sx = Math.round(n.pos.x), sy = Math.round(n.pos.y), c = wildTiles(w, sx, sy, 5);
+      if (!c.length) { n.wait = 3; return; }
+      const tg = c[Math.floor(Math.random() * c.length)];
+      if (w.move === 'swim') n.path = [{x:tg.x, y:tg.y}];
+      else n.path = (findPath(sx, sy, tg.x, tg.y, {x0:sx - 6, y0:sy - 6, x1:sx + 6, y1:sy + 6}) || []).map(([x, y]) => ({x:x + (Math.random() - .5) * .3, y:y + (Math.random() - .5) * .3})).slice(0, 12);
+      n.wait = 2 + Math.random() * 6; return;
+    }
+    const wp = n.path[0], dx = wp.x - n.pos.x, dy = wp.y - n.pos.y, dist = Math.hypot(dx, dy), v = w.speed * dt;
+    if (dist <= v) { n.pos.x = wp.x; n.pos.y = wp.y; n.path.shift(); } else { n.pos.x += dx / dist * v; n.pos.y += dy / dist * v; }
+    const p0 = toWorld(n.pos.x, n.pos.y); n.phase += dt * w.speed * 10;
+    const hop = w.id === 'hase' || w.id === 'eichhorn' ? Math.abs(Math.sin(n.phase * .6)) * .12 : w.move === 'swim' ? .02 : Math.abs(Math.sin(n.phase)) * .03;
+    m.position.set(p0.x, hop, p0.z);
+    let diff = Math.atan2(dx, dy) - m.rotation.y; diff = Math.atan2(Math.sin(diff), Math.cos(diff)); m.rotation.y += diff * Math.min(1, dt * 8);
+  });
+}
+function floatHeart(pos){
+  const r = renderer.domElement.getBoundingClientRect(), c = pos.clone(); c.y += .8; c.project(camera);
+  const el = document.createElement('div'); el.className = 'pet-heart'; el.textContent = '♥';
+  el.style.left = (c.x + 1) / 2 * r.width + 'px'; el.style.top = (1 - c.y) / 2 * r.height + 'px';
+  labelsEl.appendChild(el); setTimeout(() => el.remove(), 1400);
+}
+const wildSeen = {};
+
 const npcs = new Map();
 const blocks = (x, y) => { const o = at(x, y); return o && o.id !== 'path'; };
 const walkable = (x, y) => tileOpen(x, y) && !decorAt(x, y) && !blocks(x, y);
@@ -2028,7 +2232,7 @@ function doorOf(p){
   const d = c.find(([x, y]) => walkable(x, y));
   return d ? {x:d[0], y:d[1]} : null;
 }
-function findPath(sx, sy, tx, ty){                                  // Dijkstra, Wege sind "billiger"
+function findPath(sx, sy, tx, ty, lim){                             // Dijkstra, Wege sind "billiger"; lim begrenzt die Suche auf ein Rechteck
   const key = (x, y) => y * W + x, dist = new Map([[key(sx, sy), 0]]), prev = new Map(), open = [[0, sx, sy]];
   while (open.length) {
     open.sort((a, b) => a[0] - b[0]);
@@ -2036,7 +2240,7 @@ function findPath(sx, sy, tx, ty){                                  // Dijkstra,
     if (x === tx && y === ty) break;
     if (d > (dist.get(key(x, y)) ?? Infinity)) continue;
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-      const nx = x + dx, ny = y + dy; if (!walkable(nx, ny)) continue;
+      const nx = x + dx, ny = y + dy; if (!walkable(nx, ny) || (lim && (nx < lim.x0 || nx > lim.x1 || ny < lim.y0 || ny > lim.y1))) continue;
       const nd = d + (at(nx, ny)?.id === 'path' ? .4 : 1);
       if (nd < (dist.get(key(nx, ny)) ?? Infinity)) { dist.set(key(nx, ny), nd); prev.set(key(nx, ny), [x, y]); open.push([nd, nx, ny]); }
     }
@@ -2054,7 +2258,7 @@ function syncNpcs(){
     const ex = npcs.get(k); if (ex) { ex.home = p; continue; }
     const d = doorOf(p); if (!d) continue;
     const kind = r.kind || 'person';
-    const mesh = kind === 'cat' ? catModel() : kind === 'goat' ? goatModel() : kind === 'hen' ? henModel() : personModel(r.look);
+    const mesh = kind === 'dog' ? dogModel() : kind === 'cat' ? catModel() : kind === 'goat' ? goatModel() : kind === 'hen' ? henModel() : personModel(r.look);
     if (kind !== 'person') mesh.scale.setScalar(NPC_SCALE);
     mesh.traverse(o => { o.userData.npc = k; });
     const n = {key:k, home:p, r, kind, mesh, pos:{x:d.x, y:d.y}, path:[], wait:Math.random() * 2, phase:Math.random() * 6};
@@ -2067,7 +2271,7 @@ function stepNpcs(dt, tm){
     const m = n.mesh;
     if (!n.path.length) {
       if (m.userData.limbs) { const L = m.userData.limbs; L.legL.rotation.x = L.legR.rotation.x = L.armL.rotation.x = L.armR.rotation.x = 0; }
-      if (m.userData.tail) m.userData.tail.rotation.z = Math.sin(tm / 300) * .4;
+      if (m.userData.tail) m.userData.tail.rotation.z = Math.sin(tm / (n.kind === 'dog' ? 90 : 300)) * .4;
       m.position.y = 0;
       n.wait -= dt; if (n.wait > 0 || reduce) return;
       const d = doorOf(n.home) || n.pos, R = n.r.range || RANGE[n.kind];
@@ -2080,7 +2284,7 @@ function stepNpcs(dt, tm){
       }
       const path = findPath(sx, sy, target.x, target.y);
       n.path = (path || []).map(([x, y]) => ({x:x + (Math.random() - .5) * .3, y:y + (Math.random() - .5) * .3}));
-      n.wait = n.kind === 'cat' ? 2 + Math.random() * 5 : n.kind === 'goat' || n.kind === 'hen' ? 1 + Math.random() * 3 : 1.5 + Math.random() * 3.5;
+      n.wait = n.kind === 'dog' ? 1 + Math.random() * 3 : n.kind === 'cat' ? 2 + Math.random() * 5 : n.kind === 'goat' || n.kind === 'hen' ? 1 + Math.random() * 3 : 1.5 + Math.random() * 3.5;
       return;
     }
     const wp = n.path[0], dx = wp.x - n.pos.x, dy = wp.y - n.pos.y, dist = Math.hypot(dx, dy), v = SPEED[n.kind] * dt;
@@ -2178,6 +2382,8 @@ function pick(cx, cy){
   if (mode === 'idle') {
     const nh = ray.intersectObjects(npcGroup.children, true);
     if (nh.length && nh[0].object.userData.npc) return {npc:npcs.get(nh[0].object.userData.npc)};
+    const wh = ray.intersectObjects(wildGroup.children, true);
+    if (wh.length && wh[0].object.userData.wild) return {wild:wilds.get(wh[0].object.userData.wild)};
   }
   const hits = ray.intersectObjects(objects.children, true);
   plane.constant = (mode === 'place' || mode === 'move') && placing && placing.onPeak ? -1.6 : 0;
@@ -2330,7 +2536,7 @@ function frame(tm){
   requestAnimationFrame(frame);
   if (!renderer) return;
   const dt = Math.min(.1, (tm - (lastT || tm)) / 1000); lastT = tm;
-  stepNpcs(dt, tm); stepWeather(dt, tm);
+  stepNpcs(dt, tm); stepWild(dt, tm); stepWeather(dt, tm);
   const k = reduce ? 1 : .12;
   cam.az += (cam.azT - cam.az) * k;
   cam.zoom += (cam.zoomT - cam.zoom) * k;
@@ -2508,6 +2714,7 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-open-wishes]')) openSheet('wishes');
   if (e.target.closest('[data-open-album]')) openSheet('album');
   if (e.target.closest('[data-open-shop]')) openSheet('farmshop');
+  if (e.target.closest('[data-open-festdeco]')) { openSheet('build'); const h = $('list').querySelector('[data-fest-group]'); if (h) h.scrollIntoView({block:'start'}); }
 });
 function startGame(kind){
   const rewarded = !S.games[kind];
@@ -2810,7 +3017,7 @@ function endCalm(){
   const min = calm.done;
   if (min > 0) {
     const herbs = min * CALM_HERBS_PER_MIN;
-    S.calmDone.push(calm.p.uid); S.res.herbs += herbs; S.act.mindful += min; S.stats.calm++;
+    S.calmDone.push(calm.p.uid); S.res.herbs += herbs; S.act.mindful += min; S.stats.calm++; S.calmTotal = (S.calmTotal || 0) + 1;
     const msg = checkCompletions(); save(); render();
     toast(msg || tt`+${herbs} Kräuter. Schön, dass du dir ${min === 1 ? t('die Minute') : min + t(' Minuten')} genommen hast.`);
   }
@@ -2987,6 +3194,63 @@ function updateJobSpots(){
   });
 }
 
+/* ---------- Jahreszeiten-Feste ----------
+   Zu jeder Jahreszeit gibt es ein Fest mit eigener Deko (nur dann kaufbar) und drei Festaufgaben. */
+const FESTS = {
+  spring:{id:'bluetenfest', name:'Blütenfest',    text:'Der Frühling ist da! Das Dorf feiert mit Blumen, Bändern und Vogelgezwitscher.', end:[4, 31],
+          extra:{title:'Frühlingsgrün', text:'Pflanze 3 Bäume', goal:3, now:() => CATALOG.filter(b => b.tree).reduce((a, b) => a + owned(b.id), 0)}},
+  summer:{id:'sommerfest',  name:'Sommerfest',    text:'Lange, warme Abende: Lampions, Eis und ein Sprung ins kühle Wasser.', end:[7, 31],
+          extra:{title:'Sommerfang', text:'Fange 3 Fische', goal:3, now:() => fishTotal()}},
+  autumn:{id:'erntedank',   name:'Erntedankfest', text:'Die Ernte ist eingebracht. Das Dorf dankt mit Kürbislaternen, Strohballen und vollen Wagen.', end:[10, 30],
+          extra:{title:'Reiche Ernte', text:'Ernte 5 Äcker', goal:5, now:() => Object.values(S.album.crops).reduce((a, b) => a + b, 0)}},
+  winter:{id:'wintermarkt', name:'Wintermarkt',   text:'Lichter, Punsch und Schnee: Der Wintermarkt macht die dunklen Tage hell.', end:[1, 28],
+          extra:{title:'Innere Ruhe', text:'Mach 3 Ruhe-Übungen', goal:3, now:() => S.calmTotal || 0}}
+};
+const fishTotal = () => [...Object.values(S.album.fish), ...Object.values(S.album.sea)].reduce((a, b) => a + b.n, 0);
+const festSeason = () => ENV.season || SEASON_OF_MONTH[new Date().getMonth()];
+const festDeco = s => CATALOG.filter(b => b.fest === s);
+function festKey(){ const d = new Date(), s = festSeason(), y = s === 'winter' && d.getMonth() <= 1 ? d.getFullYear() - 1 : d.getFullYear(); return `${FESTS[s].id}-${y}`; }
+function festState(){
+  const s = festSeason(), F = FESTS[s], key = festKey();
+  if (!S.fest || S.fest.key !== key) {
+    S.fest = {key, season:s, claimed:[], announced:false,
+      base:{lifetime:S.lifetime, deco:festDeco(s).reduce((a, b) => a + owned(b.id), 0), extra:F.extra.now()}};
+  }
+  return S.fest;
+}
+function festGoals(){
+  const st = festState(), F = FESTS[st.season];
+  return [
+    {id:'deco', title:'Schmücke das Dorf', text:'Baue 3 Festdekorationen', goal:3, val:festDeco(st.season).reduce((a, b) => a + owned(b.id), 0) - st.base.deco, reward:{coins:1500, herbs:10}, kind:'build'},
+    {id:'walk', title:'Festspaziergang', text:'Gehe während des Festes 30.000 Schritte', goal:30000, val:S.lifetime - st.base.lifetime, reward:{coins:2500, wood:15, stone:15}, kind:'step'},
+    {id:'extra', title:F.extra.title, text:F.extra.text, goal:F.extra.goal, val:F.extra.now() - st.base.extra, reward:{coins:1500, herbs:10}, kind:'cozy'}
+  ];
+}
+const festClaimable = () => festGoals().filter(g => g.val >= g.goal && !S.fest.claimed.includes(g.id));
+function renderFest(){
+  const st = festState(), F = FESTS[st.season], end = new Date(new Date().getFullYear() + (st.season === 'winter' && new Date().getMonth() >= 11 ? 1 : 0), F.end[0], F.end[1]);
+  const endTxt = end.toLocaleDateString(LANG === 'en' ? 'en-GB' : 'de-DE', {day:'numeric', month:'long'});
+  $('festBox').innerHTML = `<div class="week-head"><h3>${t(F.name)}</h3><span>${tt`bis ${endTxt}`}</span></div><p class="note" style="margin:0 0 6px">${t(F.text)}</p>` + festGoals().map(g => {
+    const v = Math.max(0, Math.min(g.val, g.goal)), claimed = st.claimed.includes(g.id), done = g.val >= g.goal;
+    const right = claimed ? t('<span class="claimed">Abgeholt</span>') : done ? `<button class="claim" data-fclaim="${g.id}">${t('Abholen')}</button>` : `<span class="reward multi">${rewardHtml(g.reward)}</span>`;
+    return `<div class="task${claimed ? ' is-claimed' : ''}"><span class="ico">${TICON[g.kind]}</span><div><div class="title">${t(g.title)}</div><div class="text">${t(g.text)}</div>
+      <div class="bar" role="progressbar" aria-label="${t(g.title)}" aria-valuemin="0" aria-valuemax="${g.goal}" aria-valuenow="${v}"><i style="width:${v / g.goal * 100}%"></i></div>
+      <div class="meta"><span>${fmt(v)} / ${fmt(g.goal)}</span></div></div>${right}</div>`;
+  }).join('') + `<p style="margin:8px 0 0"><button class="claim" data-open-festdeco>${t('Festdeko ansehen')}</button></p>`;
+}
+function claimFest(id){
+  const g = festGoals().find(x => x.id === id); if (!g || g.val < g.goal || S.fest.claimed.includes(id)) return;
+  S.fest.claimed.push(id); give(g.reward);
+  let extra = '';
+  if (S.fest.claimed.length === 3) { const fid = FESTS[S.fest.season].id; S.album.fests[fid] = (S.album.fests[fid] || 0) + 1; extra = ' ' + t('Festabzeichen im Album!'); }
+  save(); render(); sfx.grow(); toast(tt`${rewardText(g.reward)} für ${t(g.title)}` + extra, 4000);
+}
+function announceFest(){
+  const st = festState(); if (st.announced) return;
+  st.announced = true; save();
+  setTimeout(() => toast(tt`${t(FESTS[st.season].name)} hat begonnen! Neue Festdeko im Bau-Menü und drei Festaufgaben warten.`, 6000), 1500);
+}
+
 /* ---------- Wochenziele: freundlich, ohne Strafen ---------- */
 // Eine Woche = 7 Spieltage. Was nicht geschafft wird, verfällt einfach, nächste Woche gibt es neue Ziele.
 const weekNo = () => Math.floor((S.day - 1) / 7);
@@ -3026,7 +3290,8 @@ function claimWeek(id){
 }
 
 /* ---------- Album: alles, was du schon gesammelt hast ---------- */
-S.album.fish = S.album.fish || {}; S.album.gems = S.album.gems || {}; S.album.sea = S.album.sea || {};
+S.album.fish = S.album.fish || {}; S.album.gems = S.album.gems || {}; S.album.sea = S.album.sea || {}; S.album.fests = S.album.fests || {}; S.album.animals = S.album.animals || {};
+S.calmTotal = S.calmTotal || 0;
 const albumBuilt = id => S.album.built.includes(id);
 function albumStats(){
   const items = CATALOG, b = items.filter(x => albumBuilt(x.id)).length, c = CROPS.filter(x => S.album.crops[x.id]).length, pm = S.album.poems.length;
@@ -3048,6 +3313,8 @@ function renderAlbum(){
   html += `<h3>${tt`Meeresfische (${a.sf} von ${SEAFISH.length})`}</h3><div class="album-grid">${SEAFISH.map(f => { const d = S.album.sea[f.id];
     return cell(fishSvg(f), `${f.name}<br>${tt`${d ? d.n : 0}× · bis ${d ? d.best : 0} cm`}<br><span style="color:${RARITY[f.tier].color}">${fmtPct(f.p)}</span>`, d); }).join('')}</div>`;
   html += `<h3>${tt`Mineralien (${a.g} von ${GEMS.length})`}</h3><div class="album-grid">${GEMS.map(g => cell(gemSvg(g), `${g.name}<br>${tt`${S.album.gems[g.id] || 0}× gefunden`}<br><span style="color:${RARITY[g.tier].color}">${fmtPct(g.p)}</span>`, S.album.gems[g.id])).join('')}</div>`;
+  html += `<h3>${t('Feste')}</h3><div class="album-grid">${Object.entries(FESTS).map(([s, F]) => cell(icon(festDeco(s)[0].id), `${t(F.name)}<br>${tt`${S.album.fests[F.id] || 0}× gefeiert`}`, S.album.fests[F.id])).join('')}</div>`;
+  html += `<h3>${tt`Tiere (${WILD.filter(w => S.album.animals[w.id]).length} von ${WILD.length})`}</h3><div class="album-grid">${WILD.map(w => cell(animalSvg(w), `${w.name}<br>${tt`${S.album.animals[w.id] || 0}× gesehen`}`, S.album.animals[w.id])).join('')}</div>`;
   html += `<h3>${tt`Gedichte (${a.pm} von ${POEMS.length})`}</h3><ul class="poem-list">${POEMS.map((pm, i) => S.album.poems.includes(i) ? `<li>${pm.title} <small>(${pm.author.replace(/\s*\(.*\)/, '')})</small></li>` : `<li class="missing">${t('Noch nicht gelesen')}</li>`).join('')}</ul>`;
   const fr = [...new Set([...residentsNow().map(r => r.name), ...Object.keys(S.friends)])];
   html += `<h3>${t('Freundschaften')}</h3>` + (fr.length ? fr.map(n => `<div class="set-row"><span><b>${n}</b></span><span class="hearts" style="color:#C95480;letter-spacing:2px">${hearts(S.friends[n] || 0)}</span></div>`).join('')
@@ -3070,7 +3337,7 @@ function makeWishes(){
   const R = rng(S.day * 7919 + res.length * 31), pick = a => a[Math.floor(R() * a.length)];
   const budget = Math.max(2500, coins() * .5);
   const items = CATALOG.filter(b => (b.area === 'any' ? (b.tier === 1 || tier2Open()) : regionOpen(REGIONS.find(r => r.id === b.area)))
-    && (b.multi || !isBuilt(b.id)) && b.id !== 'field' && !b.landmark && b.cost <= budget);
+    && (b.multi || !isBuilt(b.id)) && b.id !== 'field' && !b.landmark && !b.fest && b.cost <= budget);
   const hasFields = S.placed.some(p => p.id === 'field');
   const list = [], used = new Set();
   for (let k = 0; k < Math.min(2, res.length); k++) {
@@ -3295,10 +3562,11 @@ function renderList(){
   REGIONS.filter(r => r.need).forEach(r => groups.push({
     title: regionOpen(r) ? tt`${r.name} (nur dort baubar)` : tt`${r.name} (noch nicht erschlossen)`,
     items: CATALOG.filter(b => b.area === r.id && !b.landmark), lock: regionOpen(r) ? null : t('Gesperrt')}));
-  groups.push({title:t('Bäume'), items:CATALOG.filter(b => b.tree), lock:null});
+  groups.push({title:tt`Festdeko: ${t(FESTS[festSeason()].name)} (nur während des Festes)`, items:festDeco(festSeason()), lock:null, fest:true});
+  groups.push({title:t('Bäume'), items:CATALOG.filter(b => b.tree || b.id === 'doghouse'), lock:null});
   groups.push({title:t('Wahrzeichen (wachsen mit deinen Schritten)'), items:CATALOG.filter(b => b.landmark), lock:null});
   groups.forEach(g => {
-    html += `<h3>${g.title}</h3>`;
+    html += `<h3 ${g.fest ? 'data-fest-group' : ''}>${g.title}</h3>`;
     g.items.forEach(b => {
       const lm = b.landmark ? lmState(b.id) : null, prevLm = lm && !lm.open ? byId[LANDMARKS[LANDMARKS.findIndex(L => L.id === b.id) - 1].id].name : '';
       const full = b.max && owned(b.id) >= b.max;
@@ -3329,7 +3597,7 @@ function renderTasks(){
   $('chest').innerHTML = S.chest ? tt`${chestSvg}<p><strong>Tagesbonus abgeholt</strong>Morgen gibt es neue Aufgaben.</p>`
     : allClaimed() ? tt`${chestSvg}<p><strong>Alle vier geschafft</strong>Deine Truhe ist bereit.</p><button class="claim" id="openChest">Öffnen</button>`
     : tt`${chestSvg}<p><strong>Tagesbonus: ${rewardText(CHEST)}</strong>Hol alle vier Belohnungen ab, dann öffnet sich die Truhe (${S.claimed.length} von ${n}).</p>`;
-  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0) + weekClaimable().length;
+  const c = claimable().length + (allClaimed() && !S.chest ? 1 : 0) + weekClaimable().length + festClaimable().length;
   $('badge').hidden = c === 0; $('badge').textContent = c;
 }
 function renderRes(){
@@ -3375,7 +3643,7 @@ function render(){
   animateCoins(); renderRes();
   persistUnlocks();
   if (buildGround()) { fitTarget(); cam.zoomT = cam.fit * cam.user; }
-  syncObjects(); syncNpcs(); renderProgress(); renderTasks(); renderCalmList(); renderGameList(); renderWishList(); renderWeek(); renderAlbumBox();
+  syncObjects(); syncNpcs(); syncWild(); renderProgress(); renderTasks(); renderCalmList(); renderGameList(); renderWishList(); renderFest(); renderWeek(); renderAlbumBox();
 }
 let toastTimer;
 function toast(msg, ms = 2800){ const tm = $('toast'); tm.textContent = msg; tm.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => tm.classList.remove('show'), ms); }
@@ -3552,8 +3820,8 @@ let sheetKind = 'build';
 const sheetScroll = {};
 function openSheet(kind = 'build'){
   sheetKind = kind;
-  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker'), farmshop:byId.farmstand.name, wishes:t('Wünsche'), album:t('Album'), pantry:t('Vorrat'), catch:lastCatch && lastCatch.kind === 'mine' ? t('Fund') : t('Fang')}[kind] || t('Bauen');
-  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else if (kind === 'farmshop') renderFarmshop(); else if (kind === 'wishes') renderWishes(); else if (kind === 'album') renderAlbum(); else if (kind === 'catch') renderCatch(); else if (kind === 'pantry') renderPantry(); else renderList();
+  $('sheetTitle').textContent = {trade:t('Tauschstand'), settings:t('Einstellungen'), school:t('Dorfschule'), field:t('Acker'), farmshop:byId.farmstand.name, wishes:t('Wünsche'), album:t('Album'), pantry:t('Vorrat'), upgrade:t('Ausbauen'), catch:lastCatch && lastCatch.kind === 'mine' ? t('Fund') : t('Fang')}[kind] || t('Bauen');
+  if (kind === 'trade') renderTrade(); else if (kind === 'settings') renderSettings(); else if (kind === 'school') renderSchool(); else if (kind === 'field') renderField(); else if (kind === 'farmshop') renderFarmshop(); else if (kind === 'wishes') renderWishes(); else if (kind === 'album') renderAlbum(); else if (kind === 'catch') renderCatch(); else if (kind === 'pantry') renderPantry(); else if (kind === 'upgrade') renderUpgrade(); else renderList();
   document.body.classList.add('open'); $('closeBuild').focus({preventScroll:true});
   $('sheet').scrollTop = sheetScroll[kind] || 0;           // Menü merkt sich, wo du warst
   sfx.open();
@@ -3627,6 +3895,26 @@ function readImport(file){
   };
   r.readAsText(file);
 }
+let upgTarget = null;
+function renderUpgrade(){
+  const p = upgTarget; if (!p) { $('list').innerHTML = ''; return; }
+  const lv = p.lvl || 1, b = byId[p.id];
+  let html = `<div class="gamecard-pick crop-row"><span class="ico">${icon(p.id)}</span><span><b>${b.name}</b><small>${tt`Stufe ${lv} von 3`}${lv > 1 ? ' · ' + t(UPG[lv].name) : ''}</small></span><span></span></div>`;
+  if (lv >= 3) html += `<p class="note">${t('Voll ausgebaut. Hier wohnt man richtig gemütlich.')}</p>`;
+  else {
+    const c = upgCost(p.id, lv + 1), m = missing(c);
+    html += `<h3>${tt`Stufe ${lv + 1}: ${t(UPG[lv + 1].name)}`}</h3><p>${t(UPG[lv + 1].text)}.</p><p>${costHtml(c, m)}</p>
+      <div class="catch-btns"><button class="solid" data-upgrade ${Object.keys(m).length ? 'disabled' : ''}>${t('Ausbauen')}</button></div>`;
+    if (Object.keys(m).length) html += `<p class="note">${tt`Dafür fehlen dir noch ${missText(m)}.`}</p>`;
+  }
+  $('list').innerHTML = html;
+}
+function doUpgrade(){
+  const p = upgTarget; if (!p || (p.lvl || 1) >= 3) return;
+  const nl = (p.lvl || 1) + 1, c = upgCost(p.id, nl); if (!canAfford(c)) return;
+  pay(c); p.lvl = nl; p._new = true; save(); render(); renderUpgrade(); sfx.grow();
+  toast(tt`${byId[p.id].name}: ${t(UPG[nl].name)}!`);
+}
 function renderTrade(){
   const c = coins();
   $('list').innerHTML = tt`<p class="note">Emil tauscht deine Münzen gegen Rohstoffe: ${RATE} Münzen pro Stück.</p>` +
@@ -3682,7 +3970,7 @@ function renderCtx(){
   } else if (mode === 'edit') {
     if (selected) {
       txt.innerHTML = `<b>${nameOf(selected)}</b>`;
-      btns.innerHTML = tt`<button class="icon-btn" data-act="rot" aria-label="Gebäude drehen (Taste R)" title="Drehen (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg></button><button class="solid" data-act="move">Verschieben</button>${SPECIAL[selected.id] ? '' : t('<button class="ghost" data-act="store">Ins Lager</button>')}<button class="ghost" data-act="done">Fertig</button>`;
+      btns.innerHTML = tt`<button class="icon-btn" data-act="rot" aria-label="Gebäude drehen (Taste R)" title="Drehen (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.5-5.8"/><path d="M20 4v4h-4"/></svg></button><button class="solid" data-act="move">Verschieben</button>${(UPGRADABLE.includes(selected.id) ? `<button class="ghost" data-act="upgrade">${t('Ausbauen')}</button>` : '') + (SPECIAL[selected.id] ? '' : t('<button class="ghost" data-act="store">Ins Lager</button>'))}<button class="ghost" data-act="done">Fertig</button>`;
     } else {
       txt.textContent = t('Bearbeiten: Tippe auf ein Gebäude.');
       btns.innerHTML = t('<button class="ghost" data-act="done">Fertig</button>');
@@ -3694,6 +3982,7 @@ function renderCtx(){
 }
 function storeSelected(){
   const p = selected; if (!p || SPECIAL[p.id]) return;
+  if (p.lvl > 1) { S.lvlStore = S.lvlStore || {}; S.lvlStore[p.id] = p.lvl; }   // Ausbaustufe bleibt im Lager erhalten
   S.placed = S.placed.filter(q => q !== p); S.storage[p.id] = stored(p.id) + 1;
   selected = null; save(); render(); renderCtx(); showHover(null); sfx.remove();
   toast(tt`${byId[p.id].name} liegt jetzt im Lager`);
@@ -3713,6 +4002,7 @@ $('ctxBtns').onclick = e => {
   if (a === 'back') { placing = null; setMode(quickMove ? 'idle' : 'edit'); quickMove = false; showHover(null); }
   if (a === 'move') { quickMove = false; placing = itemOf(selected); placeRot = selected.rot || 0; setMode('move'); }
   if (a === 'store') storeSelected();
+  if (a === 'upgrade' && selected) { upgTarget = selected; openSheet('upgrade'); }
 };
 $('editBtn').onclick = () => { selected = null; setMode('edit'); };
 $('list').addEventListener('change', e => { if (e.target.id === 'importFile' && e.target.files[0]) readImport(e.target.files[0]); });
@@ -3754,6 +4044,7 @@ $('list').onclick = e => {
   const sb = e.target.closest('[data-sell],[data-sell-n]');
   if (sb) { const id = sb.dataset.sell || sb.dataset.sellN; sellCrops([[id, sb.dataset.sell ? 1 : S.pantry[id] || 0]]); return; }
   if (e.target.closest('[data-sell-all]')) { sellCrops(Object.entries(S.pantry)); return; }
+  if (e.target.closest('[data-upgrade]')) { doUpgrade(); return; }
   const ag = e.target.closest('[data-again]');
   if (ag) { const q = S.placed.find(x => x.uid === +ag.dataset.again); closeSheet(); if (q && !q.job) startJob(q); return; }
   const wb = e.target.closest('[data-wish]'); if (wb) { fulfillWish(+wb.dataset.wish); return; }
@@ -3807,6 +4098,12 @@ function onTap(cx, cy){
     sfx.place(); toast(tt`${name} verschoben`);
     return;
   }
+  if (mode === 'idle' && tap.wild) {
+    const w = tap.wild.w, now = Date.now(), first = !S.album.animals[w.id];
+    if (!wildSeen[w.id] || now - wildSeen[w.id] > 30000) { wildSeen[w.id] = now; S.album.animals[w.id] = (S.album.animals[w.id] || 0) + 1; save(); renderAlbumBox(); }
+    floatHeart(tap.wild.mesh.position);
+    toast(`${t(w.name)}: ${t(w.fact)}${first ? ' ' + t('Neu im Album!') : ''}`, 5000); return;
+  }
   if (mode === 'idle' && tap.npc) {
     const n = tap.npc, line = n.r.lines[Math.floor(Math.random() * n.r.lines.length)];
     S.stats.visits++; if (n.kind === 'person') S.stats.talks++; const msg = checkCompletions(); save(); renderTasks();
@@ -3814,10 +4111,16 @@ function onTap(cx, cy){
     if (n.home.id === 'school') { openSheet('school'); if (msg) toast(msg); return; }
     const ow = n.kind === 'person' && todaysWishes().find(w => !w.done && w.name === n.r.name);
     if (ow) { openSheet('wishes'); toast(msg || `${n.r.name}: ${Q1}${wishText(ow)}${Q2}`, 4000); return; }
+    if (n.r.pet) {
+      floatHeart(n.mesh.position); sfx.grow();
+      S.petDay = S.petDay || {}; let bonus = '';
+      if (S.petDay[n.r.name] !== S.day) { S.petDay[n.r.name] = S.day; S.res.herbs += 3; bonus = ' ' + t('+3 Kräuter fürs Streicheln'); save(); render(); }
+      toast(msg || `${n.r.name} ${n.r.lines[Math.floor(Math.random() * n.r.lines.length)]}${bonus}`); return;
+    }
     toast(msg || (n.kind === 'person' ? `${n.r.name}, ${n.r.role}: ${Q1}${line}${Q2}` : `${n.r.name} (${n.r.role}) ${n.kind === 'cat' ? line : Q1 + line + Q2}`));
     return;
   }
-  if (mode === 'edit' || mode === 'move' || mode === 'place') { if (tap.npc) return; }
+  if (mode === 'edit' || mode === 'move' || mode === 'place') { if (tap.npc || tap.wild) return; }
   if (mode === 'idle') {
     const p = tap.ref || at(tap.x, tap.y), d = decorAt(tap.x, tap.y);
     if (!tileOpen(tap.x, tap.y) && !p) { toast(tt`${regionAt(tap.x, tap.y).name}: noch nicht erschlossen`); return; }
@@ -3832,6 +4135,7 @@ function onTap(cx, cy){
     if (p.id === 'farmstand') { openSheet('farmshop'); if (msg) toast(msg); return; }
     if (byId[p.id]?.landmark) { toast(msg || `${byId[p.id].name}: ${lmText(p.id)}`, 4000); return; }
     if (JOBS[p.id]) { tapJob(p, msg); return; }
+    if (UPGRADABLE.includes(p.id)) { upgTarget = p; openSheet('upgrade'); if (msg) toast(msg); return; }
     toast(msg || nameOf(p));
     return;
   }
@@ -3847,7 +4151,8 @@ function tryPlace(tap, quiet){
   if (err) { if (!quiet) toast(err); return false; }
   const item = placing;
   if (placeSrc === 'storage') {
-    S.placed.push({id:item.id, x:o.x, y:o.y, rot:placeRot, uid:nextUid++, _new:true});
+    const lv = S.lvlStore && S.lvlStore[item.id]; if (lv) delete S.lvlStore[item.id];
+    S.placed.push({id:item.id, x:o.x, y:o.y, rot:placeRot, uid:nextUid++, _new:true, ...(lv ? {lvl:lv} : {})});
     S.storage[item.id] = stored(item.id) - 1; if (S.storage[item.id] <= 0) delete S.storage[item.id];
     if (!(item.multi && stored(item.id) > 0)) setMode('idle');
     save(); render(); sfx.place(); if (!quiet) toast(tt`${item.name} aus dem Lager platziert`);
@@ -3894,6 +4199,7 @@ $('viewTasks').onclick = e => {
     S.claimed.push(tm.id); give(tm.reward); checkCompletions(); save(); render(); sfx.coin(); toast(tt`${rewardText(tm.reward)} für ${tm.title}`); return;
   }
   const wc = e.target.closest('[data-wclaim]'); if (wc) { claimWeek(wc.dataset.wclaim); return; }
+  const fc = e.target.closest('[data-fclaim]'); if (fc) { claimFest(fc.dataset.fclaim); return; }
   if (e.target.closest('#openChest') && allClaimed() && !S.chest) { S.chest = true; give(CHEST); checkCompletions(); save(); render(); sfx.grow(); toast(tt`Truhe geöffnet: ${rewardText(CHEST)}`); }
 };
 function showTab(name){
@@ -3914,7 +4220,7 @@ if (LANG === 'en') {
   if (EN[document.title]) document.title = EN[document.title];
 }
 checkCompletions(); save();
-updateEnv(); render(); resize();
+updateEnv(); render(); resize(); announceFest();
 if (migrated) setTimeout(() => toast(t('Dein Dorf wurde neu vermessen. Alle Gebäude liegen im Lager und warten auf einen neuen Platz.'), 6000), 600);
 cam.zoom = cam.zoomT; cam.target.copy(cam.targetT);
 requestAnimationFrame(frame);
