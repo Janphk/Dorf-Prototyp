@@ -1,6 +1,6 @@
 # Spieldesign: Cozy-Dorf-App (Arbeitstitel)
 
-Stand: 22.11.2026 · Version 0.3
+Stand: 22.11.2026 · Version 0.4
 
 ## Kernidee
 Ein gemütliches Dorfaufbau-Spiel im Indie-Stil. Die Ressourcen zum Bauen kommen aus echter Bewegung, ausgelesen aus Apple Health (HealthKit, nur lesend). Das Spiel belohnt Bewegung und bestraft nie Inaktivität: Das Dorf verfällt nicht.
@@ -99,7 +99,7 @@ Bauphasen des Palasts: Fundament → Mauern → Tor → Turm 1 → Turm 2 → Da
 **Offenes Problem:** Zwischen Monat 2,5 und 7,5 fehlt ein Ziel, für das man Münzen ausgibt. Mögliche Lösungen dafür sind ein Deko-Shop mit Jahreszeiten-Sets, Wünsche der Bewohner (kleine Aufträge), Upgrades für bestehende Gebäude in 2–3 Stufen und Erweiterungen des Dorfgebiets. Die täglichen Aufgaben bringen zusätzliche Münzen ins Spiel. Dadurch wird diese Lücke etwas früher erreicht, und das sollte man bei der Balance berücksichtigen.
 
 ## Wachsende Dorffläche (im Web-Prototyp umgesetzt, 3D)
-Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 24 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
+Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (Endgröße 32 × 32 Felder). Man startet auf der Lichtung (16 × 16 Felder). Neue Gebiete schließen sich an und haben eine eigene Gestaltung und eigene Gebäude. Noch nicht erschlossene Gebiete sind als dunkle Fläche zu sehen. Ein Gebiet kommt hinzu, sobald **eine** von zwei Bedingungen erfüllt ist: genug Gebäude oder genug ausgegebene Münzen. Deko zählt dabei nicht als Gebäude. Die Gebäude aus Stufe 1 und 2 kann man überall bauen, die Gebietsgebäude nur in ihrem eigenen Gebiet.
 
 | Gebiet | Lage und Größe | Kommt hinzu bei | Gestaltung | Eigene Gebäude (Münzen) |
 |---|---|---|---|---|
@@ -107,19 +107,20 @@ Das Dorf ist **eine zusammenhängende Fläche**, die an den Rändern wächst (En
 | Seeufer | Osten, 8 × 16 | 6 Gebäude oder 20.000 ausgegeben | Sand, See am Rand | Schilf (400, Deko), Ruderboot (3.000), Bootssteg (6.000), Muschelstand (9.000), Fischerhütte (14.000) |
 | Waldrand | Norden, 24 × 8 | 11 Gebäude oder 60.000 ausgegeben | Moosgrün, alte Tannen | Tanne (700, Deko), Pilzkreis (2.500), Holzfällerhütte (18.000), Baumhaus (24.000), Försterhaus (30.000) |
 | Bergwiese | Westen, 8 × 24 | 16 Gebäude oder 150.000 ausgegeben | Helle Almwiese, Felsen | Lavendel (900, Deko), Aussichtsbank (4.000), Ziegenstall (20.000), Steinbruch (28.000), Bergkapelle (40.000) |
+| Sonnenfelder | Süden, 32 × 8 | 21 Gebäude oder 300.000 ausgegeben | Goldgrüne Felder, Weizen und Apfelbäume am Rand | Sonnenblumen (800, 3 Kräuter, Deko), Bienenstöcke (5.000, 12 Holz, 8 Kräuter), Hofladen (9.000, 30 Holz, 5 Stein), Bauernhof (22.000, 70 Holz, 25 Stein, 5 Kräuter), Windmühle (36.000, 60 Holz, 60 Stein, 10 Kräuter) |
 
 **Grundflächen:**
 
 | Größe | Gebäude |
 |---|---|
-| 1 × 1 | Pfad, Zaun, Laterne, Schilf, Tanne, Lavendel |
-| 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank |
-| 3 × 3 | Gemüsegarten, Hütte, Teich, Gästehaus, Fischerhütte, Holzfällerhütte, Baumhaus, Försterhaus, Ziegenstall, Steinbruch, Bergkapelle |
+| 1 × 1 | Pfad, Zaun, Laterne, Schilf, Tanne, Lavendel, Sonnenblumen |
+| 2 × 2 | Lagerfeuer, Holzbank, Blumenbeet, Brunnen, Pilzkreis, Ruderboot, Bootssteg, Muschelstand, Aussichtsbank, Bienenstöcke, Hofladen |
+| 3 × 3 | Gemüsegarten, Hütte, Teich, Gästehaus, Fischerhütte, Holzfällerhütte, Baumhaus, Försterhaus, Ziegenstall, Steinbruch, Bergkapelle, Bauernhof, Windmühle |
 | 4 × 4 | Dein Zuhause |
 
-Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erscheinen erst, wenn man mit der Maus darüberfährt oder es antippt. Einmal erschlossene Gebiete bleiben offen, auch wenn später Gebäude ins Lager wandern.
+Die Flügel der Windmühle drehen sich, um die Bienenstöcke schwirren Bienen. Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erscheinen erst, wenn man mit der Maus darüberfährt oder es antippt. Einmal erschlossene Gebiete bleiben offen, auch wenn später Gebäude ins Lager wandern.
 
-**Dein Zuhause (4 × 4 Felder):** Es ist von Anfang an da und wird mit jedem neuen Gebiet gemütlicher: Zelt → Blockhütte (mit Seeufer) → Fachwerkhaus (mit Waldrand) → Landhaus (mit Bergwiese). Man kann es verschieben, aber nicht ins Lager legen.
+**Dein Zuhause (4 × 4 Felder):** Es ist von Anfang an da und wird mit jedem neuen Gebiet gemütlicher: Zelt → Blockhütte (mit Seeufer) → Fachwerkhaus (mit Waldrand) → Landhaus (mit Bergwiese) → Gutshof (mit Sonnenfeldern). Die Stufe richtet sich nach der Zahl der erschlossenen Gebiete. Man kann es verschieben, aber nicht ins Lager legen.
 
 **Bearbeiten-Modus und Lager:** Über den Stift-Knopf neben „Bauen“ wählt man ein Gebäude aus. Dann kann man es **verschieben** oder **ins Lager** legen. Aus dem Lager lassen sich Gebäude kostenlos wieder platzieren (im Bau-Menü ganz oben). Gelagerte Gebäude zählen weiter für Freischaltungen. Einmal-Gebäude kann man nicht doppelt kaufen. Platzieren aus dem Lager zählt nicht für Bau-Aufgaben.
 
@@ -140,6 +141,9 @@ Gesperrte Gebiete zeigen nur ein kleines Schloss-Symbol. Die Bedingungen erschei
 | Försterhaus | Hanne, Försterin |
 | Baumhaus | Mo, Baumhaus-Kind |
 | Ziegenstall | Rosa, Ziegenhirtin, mit den Ziegen Flocke und Kiesel |
+| Hofladen | Lene, Hofladen-Verkäuferin |
+| Bauernhof | Frieda, Bäuerin, mit den Hühnern Henni und Pünktchen |
+| Windmühle | Anton, Müller |
 
 **Darstellung:** Low-Poly-3D mit Three.js. Die Kamera lässt sich verschieben, drehen und zoomen, damit kein Gebäude dauerhaft verdeckt wird. Steuerung: Ziehen verschiebt die Karte, die rechte Maustaste (oder Shift + Ziehen) dreht, das Mausrad zoomt zum Mauszeiger hin. Auf dem Handy: ein Finger verschiebt, zwei Finger zoomen und drehen. Ein Knopf setzt die Ansicht zurück. Gebäude lassen sich beim Platzieren, beim Verschieben und im Bearbeiten-Modus in 90°-Schritten drehen (Knopf oder Taste R). Bewohner treten immer an der Vorderseite aus ihrem Haus. Beim Platzieren zeigt eine halbtransparente Vorschau, wo das Gebäude landet.
 
@@ -176,6 +180,7 @@ Jeden Tag lädt das Spiel an bis zu drei Orten im Dorf zu einer kurzen Übung ei
 | Bootssteg | Wellen-Atmung (5 ein, 5 aus) |
 | Bergkapelle | Eine stille Minute |
 | Baumhaus | Körperreise |
+| Bienenstöcke | Summende Atmung (4 ein, 6 summend aus) |
 
 ## Erzählhaus (im Web-Prototyp umgesetzt)
 Das Erzählhaus ist ein Stufe-2-Gebäude (3 × 3 Felder, 10.000 Münzen, 30 Holz, 15 Stein, 5 Kräuter). Dort wohnt die Geschichtenerzählerin **Wilma**. Jeden Tag trägt sie ein Gedicht vor. Ein Buch-Symbol über dem Haus zeigt, dass das heutige Gedicht noch ungelesen ist. Antippen von Haus, Wilma oder Symbol öffnet das Gedicht, und auf Wunsch liest das Gerät es vor (Sprachausgabe des Browsers bzw. später von iOS). Beim ersten Lesen am Tag gibt es 100 Münzen und 2 Kräuter.
